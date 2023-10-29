@@ -20,6 +20,24 @@ export function useAppMode() {
   return navbarContextApp.darkMode;
 }
 
+export function useAppWallet() {
+  const walletContextApp = useContext(AppContext);
+  if (walletContextApp === undefined) {
+    throw new Error("useAppWallet context must be used within a Provider")
+  }
+
+  return walletContextApp.wallet;
+}
+
+export function useAppConstants() {
+  const walletContextApp = useContext(AppContext);
+  if (walletContextApp === undefined) {
+    throw new Error("useAppConstants context must be used within a Provider")
+  }
+
+  return walletContextApp.constants;
+}
+
 export function useAppDispatch() {
   const appDispatch = useContext(AppDispatchContext);
   if (appDispatch === undefined) {

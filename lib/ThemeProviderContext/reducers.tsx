@@ -34,6 +34,16 @@ export function appReducer(app: any, action: any) {
         navbar: updateNavbar
       }
     }
+    case "change_salary": {
+      return {
+        ...app,
+        wallet: {
+          ...app.wallet,
+          sumSalary: action.salary,
+          restSalary: action.salary - app.wallet.sumBills,
+        }
+      }
+    }
     default: {
       throw Error("Unknown action: " + action.type);
     }
