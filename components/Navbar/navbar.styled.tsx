@@ -1,3 +1,4 @@
+import { BORDER_RADIUS, WEIGHT } from "@/styles/constants";
 import Link from "next/link"
 import styled from "styled-components"
 
@@ -21,7 +22,7 @@ export const Navbar = styled.div`
 `;
 
 export const NavbarLogotype = styled(Link)`
-
+  font-weight: ${WEIGHT.medium};
 `;
 
 export const NavbarMenu = styled.div`
@@ -46,16 +47,17 @@ export const NavbarDropdownMenuButton = styled.button`
   justify-content: center;
   align-items: center;
   gap: 6px;
+  color: ${props => props.theme.color};
   cursor: pointer;
 `;
 
 export const NavbarMenuDropdown = styled.div<{ $show?: boolean; }>`
-  min-width: calc(200px - 62px);
-  width: calc(100vw - 122px);
+  min-width: calc(200px);
+  width: calc(100vw);
   padding: 18px 30px;
-  background-color: ${props => props.theme.dropdownMenu};
-  border: 1px solid ${props => props.theme.dropdownMenuBorder};
-  border-radius: 5px;
+  background-color: ${props => props.theme.colorElement};
+  border: 1px solid ${props => props.theme.colorBorder};
+  border-radius: ${BORDER_RADIUS};
   display: ${(props) => (props.$show ? "block" : "none")};
   position: absolute;
   top: calc(100% + 5px);
@@ -117,5 +119,6 @@ export const NavbarMenuThemeToggle = styled.button`
   padding: 6px 16px;
   margin: 10px auto 0;
   border: 1px solid ${props => props.theme.colorLink};
-  border-radius: 5px;
+  border-radius: ${BORDER_RADIUS};
+  color: ${props => props.theme.color};
 `;
