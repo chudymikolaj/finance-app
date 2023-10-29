@@ -22,10 +22,6 @@ const SVG = styled(ReactSVG) <SVGProps>`
     fill: ${props => props.theme.colorIcon};
   }
 
-  &:hover {
-    opacity: .5;
-  }
-
   cursor: pointer;
 `;
 
