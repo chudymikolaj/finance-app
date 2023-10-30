@@ -31,7 +31,7 @@ export default function Wallet() {
   const restSalary = walletAppWallet.restSalary;
 
   const [showWalletSettings, setShowWalletSettings] = useState(false);
-  const [newSalary, setNewSalary] = useState(0);
+  const [newSalary, setNewSalary] = useState("");
 
   const openWalletSetting = () => {
     setShowWalletSettings(prevState => !prevState);
@@ -42,14 +42,14 @@ export default function Wallet() {
   }
 
   const getInputSalaryValue = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const getTargetValue = Number(event.target.value);
+    const getTargetValue = event.target.value;
     setNewSalary(getTargetValue);
   }
 
   const changeAndCloseSalarySetting = (event: React.FormEvent<HTMLFormElement>, maxValue: number) => {
     event.preventDefault();
 
-    if (newSalary !== 0 && newSalary <= maxValue) {
+    if (newSalary !== '' && Number(newSalary) <= maxValue) {
       dispatch(
         {
           type: 'change_salary',
@@ -58,7 +58,7 @@ export default function Wallet() {
         null
       )
 
-      setNewSalary(0);
+      setNewSalary('');
       closeWalletSetting();
     }
   }
