@@ -1,5 +1,3 @@
-import { useRef } from "react"
-
 import {
   EditorWallet,
   EditorWalletForm,

@@ -13,6 +13,7 @@ import {
 export const WalletContainer = styled.div`
   ${FlexColumn};
 
+  width: 100%;
   max-width: 500px;
   margin: 80px auto 0;
 `;
