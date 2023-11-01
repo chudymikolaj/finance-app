@@ -13,7 +13,7 @@ export const EditorWallet = styled.div <{ $animate?: boolean; }>`
   top: 0;
   left: 0;
   transform: ${props => props.$animate ? "translateY(calc(86px + 10px))" : "translateY(0)"};
-  transition: transform cubic-bezier(0.77,0,0.18,1) 250ms, visibility cubic-bezier(0.77,0,0.18,1) 250ms;
+  transition: transform cubic-bezier(0.25,0.46,0.45,0.94) 250ms, visibility cubic-bezier(0.25,0.46,0.45,0.94) 250ms;
   z-index: 1;
 `;
 
