@@ -1,6 +1,7 @@
 "use client"
 
 import { createGlobalStyle } from "styled-components";
+import { devices } from "./breakpoints";
 
 export const GlobalStyle = createGlobalStyle`
   /* http://meyerweb.com/eric/tools/css/reset/
@@ -43,8 +44,8 @@ export const GlobalStyle = createGlobalStyle`
     padding: 0 15px;
     margin: 90px auto 30px;
 
-    @media (min-width: 768px) {
-      width: calc(100% - 10vh);
+    @media ${devices.md} {
+      width: 100%;
       padding: 0 5vh;
     }
 
