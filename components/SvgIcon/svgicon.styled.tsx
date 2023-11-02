@@ -5,17 +5,28 @@ import { ReactSVG } from "react-svg"
 import styled from "styled-components"
 
 interface SVGProps {
-  $filled?: boolean
+  $small?: boolean,
+  $medium?: boolean,
 }
 
 const SVG = styled(ReactSVG) <SVGProps>`
-  height: 20px;
-  width: 20px;
+  ${props => props.$small ? `
+    height: 15px;
+    width: 15px;
 
-  & div, svg {
+    & div, svg {
+      height: 15px;
+      width: 15px;
+    }
+  ` : `
     height: 20px;
     width: 20px;
-  }
+
+    & div, svg {
+      height: 20px;
+      width: 20px;
+    }
+  `}
 
   & svg path {
     color: ${props => props.theme.colorIcon};
