@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { SIZES, WEIGHT, BORDER_RADIUS } from "@/styles/constants"
+import { SIZES, WEIGHT, CUBICS, BORDER_RADIUS } from "@/styles/constants"
 import { FlexRowSpaceBetweenCenter } from "@/styles/mixins.styled"
 
 export const EditorWallet = styled.div <{ $animate?: boolean; }>`
@@ -13,7 +13,7 @@ export const EditorWallet = styled.div <{ $animate?: boolean; }>`
   top: 0;
   left: 0;
   transform: ${props => props.$animate ? "translateY(calc(86px + 10px))" : "translateY(0)"};
-  transition: transform cubic-bezier(0.25,0.46,0.45,0.94) 250ms, visibility cubic-bezier(0.25,0.46,0.45,0.94) 250ms;
+  transition: transform ${CUBICS.easyOut} 250ms, visibility ${CUBICS.easyOut} 250ms;
   z-index: 1;
 `;
 
@@ -60,7 +60,7 @@ export const EditorWalletButton = styled.button`
   border-radius: ${BORDER_RADIUS};
   color: ${props => props.theme.color};
   font-size: ${SIZES.smallText};
-  transition: background-color cubic-bezier(0.45,0.05,0.55,0.95) 250ms;
+  transition: background-color ${CUBICS.easyOut} 250ms;
 
   &:hover {
     background-color: ${props => props.theme.colorElement};

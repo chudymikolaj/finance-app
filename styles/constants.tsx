@@ -44,4 +44,8 @@ export const WEIGHT = {
 }
 
 
+export const CUBICS = {
+  easyOut: "cubic-bezier(0.25,0.46,0.45,0.94)",
+}
+
 export const BORDER_RADIUS = "5px";
