@@ -1,8 +1,10 @@
+import { type ReactNode } from "react";
+
 type SalaryElementType = {
   valueOfSalary: string,
   valueOfBills: string,
   valueOfRest: string,
-  children: React.ReactNode
+  children: ReactNode
 }
 
 export default SalaryElementType;

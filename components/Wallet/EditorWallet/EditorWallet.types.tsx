@@ -1,9 +1,11 @@
-type EditorWallet = {
+import { type ChangeEvent, type FormEvent, type KeyboardEvent } from 'react'
+
+export type EditorWalletProps = {
   show: boolean;
-  onChangeInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  submitForm: (event: React.FormEvent<HTMLFormElement>) => void;
-  resetValue: number | string;
+  onChangeInput: (event: ChangeEvent<HTMLInputElement>) => void;
+  submitForm: (event: FormEvent<HTMLFormElement>) => void;
+  resetValue: string;
   maxValue: number;
 }
 
-export default EditorWallet;
+export type blockKeysEvent = KeyboardEvent<HTMLInputElement>;

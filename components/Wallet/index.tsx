@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { type ChangeEvent, type FormEvent, useState } from "react"
 
 import {
   useAppConstants,
@@ -41,12 +41,12 @@ export default function Wallet() {
     setShowWalletSettings(false);
   }
 
-  const getInputSalaryValue = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const getInputSalaryValue = (event: ChangeEvent<HTMLInputElement>) => {
     const getTargetValue = event.target.value;
     setNewSalary(getTargetValue);
   }
 
-  const changeAndCloseSalarySetting = (event: React.FormEvent<HTMLFormElement>, maxValue: number) => {
+  const changeAndCloseSalarySetting = (event: FormEvent, maxValue: number) => {
     event.preventDefault();
 
     if (newSalary !== '' && Number(newSalary) <= maxValue) {

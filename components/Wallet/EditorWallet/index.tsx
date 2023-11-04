@@ -8,10 +8,16 @@ import {
   EditorWalletButton
 } from "./EditorWallet.styled"
 
-import EditorWalletWallet from "./EditorWallet.types"
+import { EditorWalletProps, blockKeysEvent } from "./EditorWallet.types"
 
-const EditorWalletWallet = ({ show, onChangeInput, submitForm, resetValue, maxValue }: EditorWalletWallet) => {
-  const blockKeysInsideInput = (event: any) => ["e", "E", "+", "-"].includes(event.key) && event.preventDefault();
+const EditorWalletComponent = ({
+  show,
+  onChangeInput,
+  submitForm,
+  resetValue,
+  maxValue
+}: EditorWalletProps) => {
+  const blockKeysInsideInput = (event: blockKeysEvent) => ["e", "E", "+", "-"].includes(event.key) && event.preventDefault();
   const placeholderValue = "0";
 
   return (
@@ -36,4 +42,4 @@ const EditorWalletWallet = ({ show, onChangeInput, submitForm, resetValue, maxVa
   )
 }
 
-export default EditorWalletWallet;
+export default EditorWalletComponent;
