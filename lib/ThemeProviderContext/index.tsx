@@ -1,11 +1,11 @@
 "use client"
 
-import { useReducer } from "react"
+import { type PropsWithChildren, useReducer } from "react"
 import { initialAppState, AppContext } from "./state";
 import { appReducer, AppDispatchContext } from "./reducers";
 import StyleThemeProvider from "@/styles/StyleThemeProvider"
 
-export default function ThemeProviderContext({ children }: any) {
+export default function ThemeProviderContext({ children }: PropsWithChildren) {
   const [app, dispatch] = useReducer(
     appReducer,
     initialAppState
