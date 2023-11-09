@@ -1,6 +1,6 @@
 import { BORDER_RADIUS, WEIGHT } from "@/styles/constants";
-import Link from "next/link"
-import styled from "styled-components"
+import Link from "next/link";
+import styled from "styled-components";
 
 export const Navbar = styled.div`
   width: calc(100% - 30px);

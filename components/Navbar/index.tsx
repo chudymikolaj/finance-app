@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from "react"
-import { useAppNavbar, useAppDispatch } from "@/lib/ThemeProviderContext/actions"
-import SVGimage from "@/components/SvgIcon"
+import { useState } from "react";
+import { useAppContext } from "@/lib/ThemeProviderContext/actions";
+import SVGimage from "@/components/SvgIcon";
 
 import {
   Navbar,
@@ -21,8 +21,7 @@ import {
 } from "./navbar.styled";
 
 export default function NavbarComponent() {
-  const UseAppNavbar = useAppNavbar();
-  const dispatch = useAppDispatch();
+  const { navbar, toggleMode } = useAppContext();
 
   const [showDropdown, setShowDropdown] = useState(false);
 
@@ -35,7 +34,7 @@ export default function NavbarComponent() {
       <NavbarLogotype href="/"><span>Twój finansowy planer</span></NavbarLogotype>
       <NavbarMenu>
         {
-          UseAppNavbar && UseAppNavbar.map(link => {
+          navbar && navbar.map(link => {
             if (link.name == "notifications") {
               return (
                 <NavbarMenuNotification key={link.id} href={{
@@ -73,12 +72,7 @@ export default function NavbarComponent() {
                       ))}
                     </NavbarMenuListRest>
 
-                    <NavbarMenuThemeToggle
-                      onClick={() => dispatch(
-                        { type: 'toggle_mode' },
-                        null
-                      )}
-                    >
+                    <NavbarMenuThemeToggle onClick={toggleMode}>
                       <span>Toggle mode</span>
                     </NavbarMenuThemeToggle>
 
