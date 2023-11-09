@@ -1,4 +1,4 @@
-import SVG from "./svgicon.styled"
+import SVG from "./svgicon.styled";
 
 const SVGimage = ({ src, ...rest }: { src: any | undefined, [x: string]: any; }) => {
   return (

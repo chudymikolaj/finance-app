@@ -1,8 +1,8 @@
 
 "use client"
 
-import { ReactSVG } from "react-svg"
-import styled from "styled-components"
+import { ReactSVG } from "react-svg";
+import styled from "styled-components";
 
 interface SVGProps {
   $small?: boolean,

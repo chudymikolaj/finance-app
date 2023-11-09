@@ -1,6 +1,6 @@
-import styled from "styled-components"
-import { Button } from "@/styles/mixins.styled"
-import { FlexColumnStart } from "@/styles/mixins.styled"
+import styled from "styled-components";
+import { Button } from "@/styles/mixins.styled";
+import { FlexColumnStart } from "@/styles/mixins.styled";
 
 export const PopupContainer = styled.div`
   width: 100%;
