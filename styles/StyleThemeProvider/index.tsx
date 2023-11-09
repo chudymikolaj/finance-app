@@ -1,15 +1,16 @@
 "use client"
 
-import { useAppMode } from "@/lib/ThemeProviderContext/actions"
+import { ReactNode } from "react";
+import { useAppContext } from "@/lib/ThemeProviderContext/actions";
 import { ThemeProvider } from "styled-components";
-import { STYLE_DARK_MODE, STYLE_LIGHT_MODE } from "@/styles/constants"
+import { STYLE_DARK_MODE, STYLE_LIGHT_MODE } from "@/styles/constants";
 
-export default function StyleThemeProvider({ children }: any) {
-  const isUseAppNavbar = useAppMode();
+export default function StyleThemeProvider({ children }: { children: ReactNode }) {
+  const { darkMode } = useAppContext();
 
   return (
     <ThemeProvider theme={
-      isUseAppNavbar ? STYLE_DARK_MODE : STYLE_LIGHT_MODE
+      darkMode ? STYLE_DARK_MODE : STYLE_LIGHT_MODE
     }>
       {children}
     </ThemeProvider>

@@ -1,6 +1,6 @@
-import { createContext } from "react"
+import { type initialAppState as AppState } from "./ThemeProviderContext.types";
 
-export const initialAppState = {
+export const initialAppState: AppState = {
   darkMode: true,
   constants: {
     maxValue: 1000000,
@@ -40,5 +40,3 @@ export const initialAppState = {
     },
   ]
 };
-
-export const AppContext = createContext(initialAppState);
