@@ -1,16 +1,12 @@
 "use client"
 
-import { type ChangeEvent, type FormEvent, useState } from "react"
+import { type ChangeEvent, type FormEvent, useState } from "react";
 
-import {
-  useAppConstants,
-  useAppWallet,
-  useAppDispatch
-} from "@/lib/ThemeProviderContext/actions"
+import { useAppContext } from "@/lib/ThemeProviderContext/actions";
 
-import SalaryElement from "./SalaryElement"
-import EditorWallet from "./EditorWallet"
-import setMaximumValue from "@/utils/setMaximumValue"
+import SalaryElement from "./SalaryElement";
+import EditorWallet from "./EditorWallet";
+import setMaximumValue from "@/utils/setMaximumValue";
 
 import {
   WalletContainer,
@@ -21,17 +17,15 @@ import {
 } from "./wallet.styled"
 
 export default function Wallet() {
-  const walletAppWallet = useAppWallet();
-  const walletAppConstants = useAppConstants();
-  const dispatch = useAppDispatch();
+  const { constants, wallet, changeSalary } = useAppContext();
 
-  const maxValue = walletAppConstants.maxValue;
-  const sumSalary = walletAppWallet.sumSalary;
-  const sumBills = walletAppWallet.sumBills;
-  const restSalary = walletAppWallet.restSalary;
+  const maxValue = constants?.maxValue;
+  const sumSalary = wallet?.sumSalary;
+  const sumBills = wallet?.sumBills;
+  const restSalary = wallet?.restSalary;
 
-  const [showWalletSettings, setShowWalletSettings] = useState(false);
-  const [newSalary, setNewSalary] = useState("");
+  const [showWalletSettings, setShowWalletSettings] = useState<boolean>(false);
+  const [newSalary, setNewSalary] = useState<string>("");
 
   const openWalletSetting = () => {
     setShowWalletSettings(prevState => !prevState);
@@ -49,15 +43,10 @@ export default function Wallet() {
   const changeAndCloseSalarySetting = (event: FormEvent, maxValue: number) => {
     event.preventDefault();
 
-    if (newSalary !== '' && Number(newSalary) <= maxValue) {
-      dispatch(
-        {
-          type: 'change_salary',
-          salary: newSalary
-        },
-        null
-      )
+    const changedSalary = Number(newSalary);
 
+    if (newSalary !== '' && changedSalary <= maxValue) {
+      changeSalary(changedSalary);
       setNewSalary('');
       closeWalletSetting();
     }

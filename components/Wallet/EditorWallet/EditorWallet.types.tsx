@@ -1,4 +1,4 @@
-import { type ChangeEvent, type FormEvent, type KeyboardEvent } from 'react'
+import { type ChangeEvent, type FormEvent, type KeyboardEvent } from 'react';
 
 export type EditorWalletProps = {
   show: boolean;

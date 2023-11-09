@@ -1,14 +1,11 @@
 "use client"
 
-import styled from "styled-components"
+import styled from "styled-components";
 
-import SVGimage from "@/components/SvgIcon"
+import SVGimage from "@/components/SvgIcon";
 
-import { SIZES, WEIGHT } from "@/styles/constants"
-import {
-  FlexColumn,
-  FlexRowSpaceBetweenCenter
-} from "@/styles/mixins.styled";
+import { SIZES, WEIGHT } from "@/styles/constants";
+import { FlexColumn, FlexRowSpaceBetweenCenter } from "@/styles/mixins.styled";
 
 export const WalletContainer = styled.div`
   ${FlexColumn};

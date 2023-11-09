@@ -1,6 +1,6 @@
-import styled from "styled-components"
-import { SIZES, WEIGHT, CUBICS, BORDER_RADIUS } from "@/styles/constants"
-import { FlexRowSpaceBetweenCenter } from "@/styles/mixins.styled"
+import styled from "styled-components";
+import { SIZES, WEIGHT, CUBICS, BORDER_RADIUS } from "@/styles/constants";
+import { FlexRowSpaceBetweenCenter } from "@/styles/mixins.styled";
 
 export const EditorWallet = styled.div <{ $animate?: boolean; }>`
   width: 100%;

@@ -1,4 +1,4 @@
-import SalaryElementType from "./SalaryElement.types"
+import type SalaryElementType from "./SalaryElement.types";
 
 import {
   SalaryContainer,
@@ -7,7 +7,7 @@ import {
   SalaryCalculationColumnLine,
   SalaryCalculationColumnHeader,
   SalaryCalculationColumnValue,
-} from "./SalaryElement.styled"
+} from "./SalaryElement.styled";
 
 const SalaryElement = ({ valueOfSalary, valueOfBills, valueOfRest, children }: SalaryElementType) => {
   return (

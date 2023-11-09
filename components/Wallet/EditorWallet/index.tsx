@@ -6,9 +6,9 @@ import {
   EditorWalletInputWrapper,
   EditorWalletInput,
   EditorWalletButton
-} from "./EditorWallet.styled"
+} from "./EditorWallet.styled";
 
-import { EditorWalletProps, blockKeysEvent } from "./EditorWallet.types"
+import { type EditorWalletProps, type blockKeysEvent } from "./EditorWallet.types";
 
 const EditorWalletComponent = ({
   show,

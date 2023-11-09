@@ -1,10 +1,10 @@
-import styled from "styled-components"
+import styled from "styled-components";
 
 import {
   SIZES,
   WEIGHT,
   BORDER_RADIUS
-} from "@/styles/constants"
+} from "@/styles/constants";
 
 import {
   FlexColumn,
