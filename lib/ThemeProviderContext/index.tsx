@@ -1,45 +1,52 @@
-"use client"
+"use client";
 
-import { type PropsWithChildren, useReducer } from "react";
+import { useReducer } from "react";
 
-import { type AppStateValue } from "./ThemeProviderContext.types";
+import {
+	type AppStateValue,
+	type ContextProviderProps,
+} from "./ThemeProviderContext.types";
 import { AppContext } from "./context";
 import { initialAppState } from "./state";
 import { appReducer } from "./reducers";
 
-import StyleThemeProvider from "@/styles/StyleThemeProvider"
+import StyleThemeProvider from "@/styles/StyleThemeProvider";
 
-export default function ThemeProviderContext({ children }: PropsWithChildren) {
-  const [app, dispatch] = useReducer(
-    appReducer,
-    initialAppState
-  );
+export default function ThemeProviderContext({
+	children,
+}: ContextProviderProps) {
+	const [app, dispatch] = useReducer(appReducer, initialAppState);
 
-  const ctx: AppStateValue = {
-    darkMode: app.darkMode,
-    constants: {
-      maxValue: app.constants.maxValue,
-    },
-    navbar: app.navbar,
-    wallet: {
-      sumSalary: app.wallet.sumSalary,
-      sumBills: app.wallet.sumBills,
-      restSalary: app.wallet.restSalary,
-    },
-    bills: app.bills,
-    changeSalary(salary) {
-      dispatch({ type: 'CHANGE_SALARY', salary: salary });
-    },
-    toggleMode() {
-      dispatch({ type: 'TOGGLE_MODE' });
-    }
-  };
+	const ctx: AppStateValue = {
+		darkMode: app.darkMode,
+		constants: {
+			maxValue: app.constants.maxValue,
+		},
+		navbar: app.navbar,
+		wallet: {
+			sumSalary: app.wallet.sumSalary,
+			sumBills: app.wallet.sumBills,
+			restSalary: app.wallet.restSalary,
+		},
+		expenses: app.expenses,
+		revenues: app.revenues,
+		addExpense(id, name, value, tags, isPaid) {
+			dispatch({ type: "ADD_EXPENSE", id, name, value, tags, isPaid });
+		},
+		updateExpenses(value) {
+			dispatch({ type: "UPDATE_EXPENSES", value });
+		},
+		changeSalary(value) {
+			dispatch({ type: "CHANGE_SALARY", value });
+		},
+		toggleMode() {
+			dispatch({ type: "TOGGLE_MODE" });
+		},
+	};
 
-  return (
-    <AppContext.Provider value={ctx}>
-      <StyleThemeProvider>
-        {children}
-      </StyleThemeProvider>
-    </AppContext.Provider >
-  )
+	return (
+		<AppContext.Provider value={ctx}>
+			<StyleThemeProvider>{children}</StyleThemeProvider>
+		</AppContext.Provider>
+	);
 }

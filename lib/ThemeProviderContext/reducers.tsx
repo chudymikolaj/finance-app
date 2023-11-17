@@ -1,68 +1,80 @@
-import { createContext } from "react";
-import { type AppState, type LinkWithIcon } from "./ThemeProviderContext.types";
+import { type AppState } from "./ThemeProviderContext.types";
 
 type ToggleMode = {
-  type: 'TOGGLE_MODE';
+	type: "TOGGLE_MODE";
 };
 
-type AddBill = {
-  type: 'ADD_BILL';
-} & LinkWithIcon;
+type AddExpense = {
+	type: "ADD_EXPENSE";
+	id: number;
+	name: string;
+	value: number;
+	tags: { type: string; name: string }[];
+	isPaid: boolean;
+};
 
 type ChangeSalary = {
-  type: 'CHANGE_SALARY';
-  salary: number;
+	type: "CHANGE_SALARY";
+	value: number;
 };
 
-type Action = ToggleMode | AddBill | ChangeSalary | {
-  type: 'string';
+type UpdateExpenses = {
+	type: "UPDATE_EXPENSES";
+	value: number;
 };
 
-export function appReducer(state: AppState, action: Action) {
-  if (action.type === "TOGGLE_MODE") {
-    return {
-      ...state,
-      darkMode: !state.darkMode
-    }
-  }
-  if (action.type === "ADD_BILL") {
-    const links = {
-      id: action.id,
-      name: action.name,
-      link: action.link,
-      icon: action.icon
-    };
+type Action =
+	| ToggleMode
+	| AddExpense
+	| ChangeSalary
+	| UpdateExpenses
+	| {
+			type: "string";
+	  };
 
-    const updateNavbar = state.navbar.map((row: any, index: any) => {
-      if (row.name === "menu") {
-        return {
-          ...row,
-          profiles: [
-            ...row.profiles, links
-          ]
-        }
-      }
+export function appReducer(state: AppState, action: Action): AppState {
+	if (action.type === "TOGGLE_MODE") {
+		return {
+			...state,
+			darkMode: !state.darkMode,
+		};
+	}
 
-      return row;
-    })
+	if (action.type === "ADD_EXPENSE") {
+		const newExpense = {
+			id: action.id,
+			name: action.name,
+			value: action.value,
+			tags: [...action.tags],
+			isPaid: action.isPaid,
+		};
 
-    return {
-      ...state,
-      navbar: updateNavbar
-    }
-  }
-  if (action.type === "CHANGE_SALARY") {
-    return {
-      ...state,
-      wallet: {
-        ...state.wallet,
-        sumSalary: action.salary,
-        restSalary: action.salary - state.wallet.sumBills,
-      }
-    }
-  }
+		return {
+			...state,
+			expenses: [...state.expenses, newExpense],
+		};
+	}
 
-  return state;
+	if (action.type === "UPDATE_EXPENSES") {
+		return {
+			...state,
+			wallet: {
+				...state.wallet,
+				sumBills: action.value,
+			},
+		};
+	}
+
+	if (action.type === "CHANGE_SALARY") {
+		return {
+			...state,
+			wallet: {
+				...state.wallet,
+				sumSalary: action.value,
+				restSalary: action.value - state.wallet.sumBills,
+			},
+		};
+	}
+
+	return state;
 }
-
-export const AppDispatchContext = createContext(appReducer);
