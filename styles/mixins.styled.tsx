@@ -13,11 +13,15 @@ export const FlexColumnStart = `
   justify-content: flex-start;
 `;
 
+export const FlexRowStart = `
+  ${FlexRow};
+  justify-content: flex-start;
+`;
+
 export const FlexRowSpaceBetween = `
   ${FlexRow};
   justify-content: space-between;
 `;
-
 
 export const FlexRowSpaceBetweenCenter = `
   ${FlexRowSpaceBetween};
@@ -27,6 +31,18 @@ export const FlexRowSpaceBetweenCenter = `
 export const FlexRowSpaceBetweenStretch = `
   ${FlexRowSpaceBetween};
   align-items: stretch;
+`;
+
+export const FlexCenter = `
+  ${FlexRow};
+  justify-content: center;
+  align-items: center;
+`;
+
+export const FlexRowAlignCenter = `
+  ${FlexRow};
+  justify-content: center;
+  align-items: center;
 `;
 
 export const Button = `
