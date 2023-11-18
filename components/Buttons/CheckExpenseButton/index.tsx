@@ -1,22 +1,23 @@
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 	className?: string;
-	dispatch?: () => void;
+	status: boolean;
+	action: () => void;
 };
 
-export default function AddExpenseButton({
+export default function CheckExpenseButtonStyled({
 	className,
-	dispatch,
+	status,
+	action,
+
 	...props
 }: ButtonProps) {
 	return (
 		<button
 			className={className}
-			onClick={dispatch}
+			onClick={action}
 			{...props}
 		>
-			Nie zapłacono
+			{status ? "Zapłacono" : "Nie zapłacono"}
 		</button>
 	);
 }
-
-let nextId = Math.random() * 10;
