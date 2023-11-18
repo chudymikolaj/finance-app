@@ -8,6 +8,7 @@ import { devices } from "@/styles/breakpoints";
 const BUTTON_CASHFLOW_ITEM = "#EEEEEE";
 const BUTTON_CASHFLOW_ITEM_ACTIVE = "#1F2126";
 const COLOR_BUTTON_CASHFLOW_ITEM_ACTIVE = "#5d8c71";
+const COLOR_BUTTON_CASHFLOW_ITEM_UNACTIVE = "#1F2126";
 const COLOR_EXPENSE_VALUE_CASHFLOW_ITEM = "#FF6969";
 const COLOR_INCOME_VALUE_CASHFLOW_ITEM = "#5d8c71";
 
@@ -26,7 +27,7 @@ export const CashFlowItemStyledName = styled.span`
 	flex: 1 0 100%;
 
 	@media ${devices.md} {
-		flex: 1 0 calc(100% - 208px);
+		flex: 1 0 calc(100% - 215px);
 	}
 `;
 
@@ -42,19 +43,22 @@ export const CashFlowItemStyledValue = styled.span<{
 
 export const CashFlowItemStyledWrapperValueAndOptions = styled.div`
 	${FlexRowSpaceBetweenCenter}
-	flex: 0 0 98px;
-	gap: 5px;
+	flex: 0 0 105px;
+	gap: 10px;
 `;
 
 export const CashFlowItemStyledChecker = styled(CheckExpenseButtonStyled)<{
 	$isPaid?: boolean;
 }>`
 	width: 100%;
-	padding: 5px;
+	padding: 5px 6px;
 	background-color: ${(props) =>
 		props.$isPaid ? BUTTON_CASHFLOW_ITEM_ACTIVE : BUTTON_CASHFLOW_ITEM};
 	border-radius: ${BORDER_RADIUS};
 	font-size: ${FONT_SIZE_BUTTONS};
 	opacity: ${(props) => (props.$isPaid ? 0.5 : 1)};
-	color: ${(props) => (props.$isPaid ? COLOR_BUTTON_CASHFLOW_ITEM_ACTIVE : 1)};
+	color: ${(props) =>
+		props.$isPaid
+			? COLOR_BUTTON_CASHFLOW_ITEM_ACTIVE
+			: COLOR_BUTTON_CASHFLOW_ITEM_UNACTIVE};
 `;
