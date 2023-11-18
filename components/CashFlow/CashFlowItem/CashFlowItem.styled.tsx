@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import ButtonExpenseStyled from "@/components/Buttons/AddExpenseButton";
+import CheckExpenseButtonStyled from "@/components/Buttons/CheckExpenseButton";
 import { BORDER_RADIUS, FONT_SIZE_BUTTONS } from "@/styles/constants";
 import { FlexColumn, FlexRowSpaceBetweenCenter } from "@/styles/mixins.styled";
 import { devices } from "@/styles/breakpoints";
@@ -46,9 +46,10 @@ export const CashFlowItemStyledWrapperValueAndOptions = styled.div`
 	gap: 5px;
 `;
 
-export const CashFlowItemStyledChecker = styled(ButtonExpenseStyled)<{
+export const CashFlowItemStyledChecker = styled(CheckExpenseButtonStyled)<{
 	$isPaid?: boolean;
 }>`
+	width: 100%;
 	padding: 5px;
 	background-color: ${(props) =>
 		props.$isPaid ? BUTTON_CASHFLOW_ITEM_ACTIVE : BUTTON_CASHFLOW_ITEM};

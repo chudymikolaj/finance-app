@@ -81,6 +81,7 @@ export type AppStateValue = Mode &
 			isPaid: boolean
 		) => void;
 		updateExpenses: (value: number) => void;
+		checkExpenses: (id: number) => void;
 		changeSalary: (salary: number) => void;
 		toggleMode: () => void;
 	};

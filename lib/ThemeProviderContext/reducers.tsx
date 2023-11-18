@@ -13,6 +13,11 @@ type AddExpense = {
 	isPaid: boolean;
 };
 
+type CheckExpense = {
+	type: "CHECK_EXPENSE";
+	id: number;
+};
+
 type ChangeSalary = {
 	type: "CHANGE_SALARY";
 	value: number;
@@ -26,6 +31,7 @@ type UpdateExpenses = {
 type Action =
 	| ToggleMode
 	| AddExpense
+	| CheckExpense
 	| ChangeSalary
 	| UpdateExpenses
 	| {
@@ -52,6 +58,15 @@ export function appReducer(state: AppState, action: Action): AppState {
 		return {
 			...state,
 			expenses: [...state.expenses, newExpense],
+		};
+	}
+
+	if (action.type === "CHECK_EXPENSE") {
+		return {
+			...state,
+			expenses: state.expenses.map((item) =>
+				item.id === action.id ? { ...item, isPaid: !item.isPaid } : item
+			),
 		};
 	}
 

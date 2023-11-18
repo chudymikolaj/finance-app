@@ -1,6 +1,7 @@
 import { type CashFlowItemType } from "../CashFlow.types";
 
 import CashFlowItemStyledTags from "../CashFlowTags";
+import { useAppContext } from "@/lib/ThemeProviderContext/actions";
 
 import {
 	CashFlowItemStyled,
@@ -20,6 +21,8 @@ const CashFlowItem = ({
 	isPaid,
 	type,
 }: CashFlowItemType) => {
+	const { checkExpenses } = useAppContext();
+
 	return (
 		<CashFlowItemStyled>
 			<CashFlowItemStyledWrapper>
@@ -28,7 +31,11 @@ const CashFlowItem = ({
 					{type ? `-${value} PLN` : `${value} PLN`}
 				</CashFlowItemStyledValue>
 				<CashFlowItemStyledWrapperValueAndOptions>
-					<CashFlowItemStyledChecker $isPaid={isPaid} />
+					<CashFlowItemStyledChecker
+						$isPaid={isPaid}
+						status={isPaid}
+						action={() => checkExpenses(id)}
+					/>
 					<CashFlowButton svgUrl="/more_vert.svg" />
 				</CashFlowItemStyledWrapperValueAndOptions>
 			</CashFlowItemStyledWrapper>
