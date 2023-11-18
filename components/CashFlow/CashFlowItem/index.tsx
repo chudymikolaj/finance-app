@@ -21,7 +21,7 @@ const CashFlowItem = ({
 	isPaid,
 	type,
 }: CashFlowItemType) => {
-	const { checkExpenses } = useAppContext();
+	const { checkExpenses, removeExpenses } = useAppContext();
 
 	return (
 		<CashFlowItemStyled>
@@ -36,7 +36,10 @@ const CashFlowItem = ({
 						status={isPaid}
 						action={() => checkExpenses(id)}
 					/>
-					<CashFlowButton svgUrl="/more_vert.svg" />
+					<CashFlowButton
+						action={() => removeExpenses(id)}
+						svgUrl="/remove.svg"
+					/>
 				</CashFlowItemStyledWrapperValueAndOptions>
 			</CashFlowItemStyledWrapper>
 

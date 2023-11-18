@@ -18,6 +18,11 @@ type CheckExpense = {
 	id: number;
 };
 
+type RemoveExpense = {
+	type: "REMOVE_EXPENSE";
+	id: number;
+};
+
 type ChangeSalary = {
 	type: "CHANGE_SALARY";
 	value: number;
@@ -32,6 +37,7 @@ type Action =
 	| ToggleMode
 	| AddExpense
 	| CheckExpense
+	| RemoveExpense
 	| ChangeSalary
 	| UpdateExpenses
 	| {
@@ -67,6 +73,13 @@ export function appReducer(state: AppState, action: Action): AppState {
 			expenses: state.expenses.map((item) =>
 				item.id === action.id ? { ...item, isPaid: !item.isPaid } : item
 			),
+		};
+	}
+
+	if (action.type === "REMOVE_EXPENSE") {
+		return {
+			...state,
+			expenses: state.expenses.filter((item) => item.id !== action.id),
 		};
 	}
 
