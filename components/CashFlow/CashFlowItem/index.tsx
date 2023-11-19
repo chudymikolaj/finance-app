@@ -6,7 +6,8 @@ import { useAppContext } from "@/lib/ThemeProviderContext/actions";
 import {
 	CashFlowItemStyled,
 	CashFlowItemStyledWrapper,
-	CashFlowItemStyledWrapperValueAndOptions,
+	CashFlowItemStyledWrapperExpenseOptions,
+	CashFlowItemStyledWrapperRevenueOptions,
 	CashFlowItemStyledName,
 	CashFlowItemStyledValue,
 	CashFlowItemStyledChecker,
@@ -21,26 +22,36 @@ const CashFlowItem = ({
 	isPaid,
 	type,
 }: CashFlowItemType) => {
-	const { checkExpenses, removeExpenses } = useAppContext();
+	const { checkExpenses, removeExpenses, removeRevenue } = useAppContext();
+	const isType = type === "expense";
 
 	return (
 		<CashFlowItemStyled>
 			<CashFlowItemStyledWrapper>
 				<CashFlowItemStyledName>{name}</CashFlowItemStyledName>
 				<CashFlowItemStyledValue $type={type}>
-					{type ? `-${value} PLN` : `${value} PLN`}
+					{isType ? `-${value} PLN` : `${value} PLN`}
 				</CashFlowItemStyledValue>
-				<CashFlowItemStyledWrapperValueAndOptions>
-					<CashFlowItemStyledChecker
-						$isPaid={isPaid}
-						status={isPaid}
-						action={() => checkExpenses(id)}
-					/>
-					<CashFlowButton
-						action={() => removeExpenses(id)}
-						svgUrl="/remove.svg"
-					/>
-				</CashFlowItemStyledWrapperValueAndOptions>
+				{isType ? (
+					<CashFlowItemStyledWrapperExpenseOptions>
+						<CashFlowItemStyledChecker
+							$isPaid={isPaid}
+							status={isPaid}
+							action={() => checkExpenses(id)}
+						/>
+						<CashFlowButton
+							action={() => removeExpenses(id)}
+							svgUrl="/remove.svg"
+						/>
+					</CashFlowItemStyledWrapperExpenseOptions>
+				) : (
+					<CashFlowItemStyledWrapperRevenueOptions>
+						<CashFlowButton
+							action={() => removeRevenue(id)}
+							svgUrl="/remove.svg"
+						/>
+					</CashFlowItemStyledWrapperRevenueOptions>
+				)}
 			</CashFlowItemStyledWrapper>
 
 			{tags && <CashFlowItemStyledTags tags={tags} />}

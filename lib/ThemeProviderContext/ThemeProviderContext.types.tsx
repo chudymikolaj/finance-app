@@ -89,6 +89,7 @@ export type AppStateValue = Mode &
 		updateExpenses: (value: number) => void;
 		checkExpenses: (id: number) => void;
 		removeExpenses: (id: number) => void;
+		removeRevenue: (id: number) => void;
 		changeSalary: (salary: number) => void;
 		toggleMode: () => void;
 	};

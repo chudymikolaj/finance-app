@@ -45,6 +45,9 @@ export default function ThemeProviderContext({
 		removeExpenses(id) {
 			dispatch({ type: "REMOVE_EXPENSE", id });
 		},
+		removeRevenue(id) {
+			dispatch({ type: "REMOVE_REVENUE", id });
+		},
 		changeSalary(value) {
 			dispatch({ type: "CHANGE_SALARY", value });
 		},

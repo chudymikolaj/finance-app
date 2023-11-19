@@ -30,6 +30,10 @@ type RemoveExpense = {
 	type: "REMOVE_EXPENSE";
 	id: number;
 };
+type RemoveRevenue = {
+	type: "REMOVE_REVENUE";
+	id: number;
+};
 
 type ChangeSalary = {
 	type: "CHANGE_SALARY";
@@ -47,6 +51,7 @@ type Action =
 	| AddRevenue
 	| CheckExpense
 	| RemoveExpense
+	| RemoveRevenue
 	| ChangeSalary
 	| UpdateExpenses
 	| {
@@ -103,6 +108,13 @@ export function appReducer(state: AppState, action: Action): AppState {
 		return {
 			...state,
 			expenses: state.expenses.filter((item) => item.id !== action.id),
+		};
+	}
+
+	if (action.type === "REMOVE_REVENUE") {
+		return {
+			...state,
+			revenues: state.revenues.filter((item) => item.id !== action.id),
 		};
 	}
 

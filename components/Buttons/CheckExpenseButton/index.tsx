@@ -1,6 +1,6 @@
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 	className?: string;
-	status: boolean;
+	status?: boolean;
 	action: () => void;
 };
 

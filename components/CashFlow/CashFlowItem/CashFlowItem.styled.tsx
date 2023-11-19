@@ -41,9 +41,15 @@ export const CashFlowItemStyledValue = styled.span<{
 			: COLOR_INCOME_VALUE_CASHFLOW_ITEM};
 `;
 
-export const CashFlowItemStyledWrapperValueAndOptions = styled.div`
+export const CashFlowItemStyledWrapperExpenseOptions = styled.div`
 	${FlexRowSpaceBetweenCenter}
-	flex: 0 0 105px;
+	flex: 0 0 auto;
+	gap: 10px;
+`;
+
+export const CashFlowItemStyledWrapperRevenueOptions = styled.div`
+	${FlexRowSpaceBetweenCenter}
+	flex: 0 0 auto;
 	gap: 10px;
 `;
 
