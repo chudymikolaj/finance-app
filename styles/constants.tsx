@@ -11,12 +11,14 @@ export const STYLE_DARK_MODE = {
 	colorLink: "#fffffe",
 	colorHeadline: "#fffffe",
 	colorSubHeadline: "#94a1b2",
+	colorBackgroundActiveButton: "#ff8906",
+	colorTextActiveButton: "#fffffe",
 };
 
 export const STYLE_LIGHT_MODE = {
 	backgroundColor: "#fffffe",
 	colorElement: "#e3f6f5",
-	colorElement_5: "rgba(238, 238, 238, .55)",
+	colorElement_5: "#fffffe",
 	colorBorder: "#e1eeed",
 	colorButton: "#272343",
 	colorButtonFont: "#fffffe",
@@ -26,6 +28,8 @@ export const STYLE_LIGHT_MODE = {
 	colorLink: "#2d334a",
 	colorHeadline: "#272343",
 	colorSubHeadline: "#2d334a",
+	colorBackgroundActiveButton: "#ffd803",
+	colorTextActiveButton: "#2d334a",
 };
 
 export const SIZES = {
