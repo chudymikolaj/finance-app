@@ -1,9 +1,9 @@
 function setMaximumValue(number: number, maxValue: number): string {
-  if (number >= maxValue) {
-    number = maxValue;
-  }
+	if (number >= maxValue) {
+		number = maxValue;
+	}
 
-  return number + " PLN";
+	return String(number);
 }
 
 export default setMaximumValue;

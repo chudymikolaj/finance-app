@@ -33,6 +33,16 @@ export const FlexRowSpaceBetweenStretch = `
   align-items: stretch;
 `;
 
+export const FlexColumnSpaceBetween = `
+  ${FlexColumn};
+  justify-content: space-between;
+`;
+
+export const FlexColumnSpaceBetweenStretch = `
+  ${FlexColumnSpaceBetween};
+  align-items: stretch;
+`;
+
 export const FlexCenter = `
   ${FlexRow};
   justify-content: center;

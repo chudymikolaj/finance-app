@@ -31,7 +31,7 @@ export const STYLE_LIGHT_MODE = {
 export const SIZES = {
 	smallText: "14px",
 	normalText: "16px",
-	bigText: "19px",
+	bigText: "18px",
 	subText: "24px",
 	headerText: "32px",
 };

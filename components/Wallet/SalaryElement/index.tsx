@@ -1,37 +1,47 @@
 import type SalaryElementType from "./SalaryElement.types";
 
 import {
-  SalaryContainer,
-  SalaryCalculation,
-  SalaryCalculationColumn,
-  SalaryCalculationColumnLine,
-  SalaryCalculationColumnHeader,
-  SalaryCalculationColumnValue,
+	SalaryContainer,
+	SalaryCalculation,
+	SalaryCalculationColumn,
+	SalaryCalculationColumnHeader,
+	SalaryCalculationColumnValue,
 } from "./SalaryElement.styled";
 
-const SalaryElement = ({ valueOfSalary, valueOfBills, valueOfRest, children }: SalaryElementType) => {
-  return (
-    <SalaryContainer>
-      <SalaryCalculation>
-        <SalaryCalculationColumn>
-          <SalaryCalculationColumnHeader>Przychód</SalaryCalculationColumnHeader>
-          <SalaryCalculationColumnValue>{valueOfSalary}</SalaryCalculationColumnValue>
-        </SalaryCalculationColumn>
-        <SalaryCalculationColumnLine />
-        <SalaryCalculationColumn>
-          <SalaryCalculationColumnHeader>Wydatki</SalaryCalculationColumnHeader>
-          <SalaryCalculationColumnValue $red>{valueOfBills}</SalaryCalculationColumnValue>
-        </SalaryCalculationColumn>
-        <SalaryCalculationColumnLine />
-        <SalaryCalculationColumn>
-          <SalaryCalculationColumnHeader>Reszta</SalaryCalculationColumnHeader>
-          <SalaryCalculationColumnValue>{valueOfRest}</SalaryCalculationColumnValue>
-        </SalaryCalculationColumn>
-      </SalaryCalculation>
+const SalaryElement = ({
+	valueOfSalary,
+	valueOfBills,
+	valueOfRest,
+	children,
+}: SalaryElementType) => {
+	return (
+		<SalaryContainer>
+			<SalaryCalculation>
+				<SalaryCalculationColumn>
+					<SalaryCalculationColumnHeader>
+						Przychód
+					</SalaryCalculationColumnHeader>
+					<SalaryCalculationColumnValue>
+						{valueOfSalary} <sub>PLN</sub>
+					</SalaryCalculationColumnValue>
+				</SalaryCalculationColumn>
+				<SalaryCalculationColumn>
+					<SalaryCalculationColumnHeader>Wydatki</SalaryCalculationColumnHeader>
+					<SalaryCalculationColumnValue $red>
+						{valueOfBills} <sub>PLN</sub>
+					</SalaryCalculationColumnValue>
+				</SalaryCalculationColumn>
+				<SalaryCalculationColumn>
+					<SalaryCalculationColumnHeader>Reszta</SalaryCalculationColumnHeader>
+					<SalaryCalculationColumnValue>
+						{valueOfRest} <sub>PLN</sub>
+					</SalaryCalculationColumnValue>
+				</SalaryCalculationColumn>
+			</SalaryCalculation>
 
-      {children}
-    </SalaryContainer>
-  )
-}
+			{children}
+		</SalaryContainer>
+	);
+};
 
-export default SalaryElement
+export default SalaryElement;

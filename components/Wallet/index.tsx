@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { type ChangeEvent, type FormEvent, useState } from "react";
 
@@ -9,71 +9,71 @@ import EditorWallet from "./EditorWallet";
 import setMaximumValue from "@/utils/setMaximumValue";
 
 import {
-  WalletContainer,
-  WalletHeader,
-  WalletHeaderTitle,
-  WalletHeaderButton,
-  WalletHeaderSvg
-} from "./wallet.styled"
+	WalletContainer,
+	WalletHeader,
+	WalletHeaderTitle,
+	WalletHeaderButton,
+	WalletHeaderSvg,
+} from "./wallet.styled";
 
 export default function Wallet() {
-  const { constants, wallet, changeSalary } = useAppContext();
+	const { constants, wallet, changeSalary } = useAppContext();
 
-  const maxValue = constants?.maxValue;
-  const sumSalary = wallet?.sumSalary;
-  const sumBills = wallet?.sumBills;
-  const restSalary = wallet?.restSalary;
+	const maxValue = constants?.maxValue;
+	const sumSalary = wallet?.sumSalary;
+	const sumBills = wallet?.sumBills;
+	const restSalary = wallet?.restSalary;
 
-  const [showWalletSettings, setShowWalletSettings] = useState<boolean>(false);
-  const [newSalary, setNewSalary] = useState<string>("");
+	const [showWalletSettings, setShowWalletSettings] = useState<boolean>(false);
+	const [newSalary, setNewSalary] = useState<string>("");
 
-  const openWalletSetting = () => {
-    setShowWalletSettings(prevState => !prevState);
-  }
+	const openWalletSetting = () => {
+		setShowWalletSettings((prevState) => !prevState);
+	};
 
-  const closeWalletSetting = () => {
-    setShowWalletSettings(false);
-  }
+	const closeWalletSetting = () => {
+		setShowWalletSettings(false);
+	};
 
-  const getInputSalaryValue = (event: ChangeEvent<HTMLInputElement>) => {
-    const getTargetValue = event.target.value;
-    setNewSalary(getTargetValue);
-  }
+	const getInputSalaryValue = (event: ChangeEvent<HTMLInputElement>) => {
+		const getTargetValue = event.target.value;
+		setNewSalary(getTargetValue);
+	};
 
-  const changeAndCloseSalarySetting = (event: FormEvent, maxValue: number) => {
-    event.preventDefault();
+	const changeAndCloseSalarySetting = (event: FormEvent, maxValue: number) => {
+		event.preventDefault();
 
-    const changedSalary = Number(newSalary);
+		const changedSalary = Number(newSalary);
 
-    if (newSalary !== '' && changedSalary <= maxValue) {
-      changeSalary(changedSalary);
-      setNewSalary('');
-      closeWalletSetting();
-    }
-  }
+		if (newSalary !== "" && changedSalary <= maxValue) {
+			changeSalary(changedSalary);
+			setNewSalary("");
+			closeWalletSetting();
+		}
+	};
 
-  return (
-    <WalletContainer>
-      <WalletHeader>
-        <WalletHeaderTitle>Mój przychód</WalletHeaderTitle>
-        <WalletHeaderButton onClick={openWalletSetting}>
-          <WalletHeaderSvg src="/settings.svg" />
-        </WalletHeaderButton>
-      </WalletHeader>
+	return (
+		<WalletContainer>
+			<WalletHeader>
+				<WalletHeaderTitle>Miesięczne saldo</WalletHeaderTitle>
+				<WalletHeaderButton onClick={openWalletSetting}>
+					<WalletHeaderSvg src="/add.svg" />
+				</WalletHeaderButton>
+			</WalletHeader>
 
-      <SalaryElement
-        valueOfSalary={setMaximumValue(sumSalary, maxValue)}
-        valueOfBills={setMaximumValue(sumBills, maxValue)}
-        valueOfRest={setMaximumValue(restSalary, maxValue)}
-      >
-        <EditorWallet
-          show={showWalletSettings}
-          submitForm={(event) => changeAndCloseSalarySetting(event, maxValue)}
-          onChangeInput={getInputSalaryValue}
-          resetValue={newSalary}
-          maxValue={maxValue}
-        />
-      </SalaryElement>
-    </WalletContainer>
-  )
+			<SalaryElement
+				valueOfSalary={setMaximumValue(sumSalary, maxValue)}
+				valueOfBills={setMaximumValue(sumBills, maxValue)}
+				valueOfRest={setMaximumValue(restSalary, maxValue)}
+			>
+				<EditorWallet
+					show={showWalletSettings}
+					submitForm={(event) => changeAndCloseSalarySetting(event, maxValue)}
+					onChangeInput={getInputSalaryValue}
+					resetValue={newSalary}
+					maxValue={maxValue}
+				/>
+			</SalaryElement>
+		</WalletContainer>
+	);
 }
