@@ -2,6 +2,7 @@
 
 import { type ChangeEvent, type FormEvent, useState } from "react";
 
+import { type ActionType } from "./wallet.types";
 import { useAppContext } from "@/lib/ThemeProviderContext/actions";
 
 import SalaryElement from "./SalaryElement";
@@ -17,7 +18,7 @@ import {
 } from "./wallet.styled";
 
 export default function Wallet() {
-	const { constants, wallet, changeSalary } = useAppContext();
+	const { constants, wallet, addExpense, addRevenue } = useAppContext();
 
 	const maxValue = constants?.maxValue;
 	const sumSalary = wallet?.sumSalary;
@@ -25,7 +26,9 @@ export default function Wallet() {
 	const restSalary = wallet?.restSalary;
 
 	const [showWalletSettings, setShowWalletSettings] = useState<boolean>(false);
-	const [newSalary, setNewSalary] = useState<string>("");
+	const [choiceAction, setChoiceAction] = useState("expense");
+	const [addValue, setAddValue] = useState<string>("");
+	const [addText, setAddText] = useState<string>("");
 
 	const openWalletSetting = () => {
 		setShowWalletSettings((prevState) => !prevState);
@@ -35,19 +38,40 @@ export default function Wallet() {
 		setShowWalletSettings(false);
 	};
 
-	const getInputSalaryValue = (event: ChangeEvent<HTMLInputElement>) => {
-		const getTargetValue = event.target.value;
-		setNewSalary(getTargetValue);
+	const resetForm = () => {
+		setChoiceAction("expense");
+		setAddValue("");
+		setAddText("");
 	};
 
-	const changeAndCloseSalarySetting = (event: FormEvent, maxValue: number) => {
+	const getInputCashFlowListItemValue = (
+		event: ChangeEvent<HTMLInputElement>
+	) => {
+		const getTargetValue = event.target.value;
+		setAddValue(getTargetValue);
+	};
+
+	const getInputCashFlowListItemText = (
+		event: ChangeEvent<HTMLInputElement>
+	) => {
+		const getTargetValue = event.target.value;
+		setAddText(getTargetValue);
+	};
+
+	const addToListElement = (event: FormEvent, maxValue: number) => {
 		event.preventDefault();
+		let typeAction: ActionType = (id, name, value, tags) =>
+			addExpense(6, name, value, tags, false);
 
-		const changedSalary = Number(newSalary);
+		if (choiceAction === "revenue") {
+			typeAction = (id, name, value, tags) => addRevenue(1, name, value, tags);
+		}
 
-		if (newSalary !== "" && changedSalary <= maxValue) {
-			changeSalary(changedSalary);
-			setNewSalary("");
+		const changedSalary = Number(addValue);
+
+		if (addValue !== "" && addText !== "" && changedSalary <= maxValue) {
+			typeAction(1, addText, Number(addValue), []);
+			resetForm();
 			closeWalletSetting();
 		}
 	};
@@ -68,9 +92,13 @@ export default function Wallet() {
 			>
 				<EditorWallet
 					show={showWalletSettings}
-					submitForm={(event) => changeAndCloseSalarySetting(event, maxValue)}
-					onChangeInput={getInputSalaryValue}
-					resetValue={newSalary}
+					submitForm={(event) => addToListElement(event, maxValue)}
+					choiceAction={setChoiceAction}
+					checkedAction={choiceAction}
+					onChangeValueInput={getInputCashFlowListItemValue}
+					onChangeTextInput={getInputCashFlowListItemText}
+					resetValue={addValue}
+					resetText={addText}
 					maxValue={maxValue}
 				/>
 			</SalaryElement>

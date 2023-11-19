@@ -48,7 +48,7 @@ export type TabsOfExpensesAndRevenues = {
 	name: string;
 	value: number;
 	tags?: { type: string; name: string }[];
-	isPaid: boolean;
+	isPaid?: boolean;
 };
 
 export type ExpensesAndRevenues = {
@@ -79,6 +79,12 @@ export type AppStateValue = Mode &
 			value: number,
 			tags: { type: string; name: string }[],
 			isPaid: boolean
+		) => void;
+		addRevenue: (
+			id: number,
+			name: string,
+			value: number,
+			tags: { type: string; name: string }[]
 		) => void;
 		updateExpenses: (value: number) => void;
 		checkExpenses: (id: number) => void;

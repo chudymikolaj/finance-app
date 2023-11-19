@@ -9,8 +9,16 @@ type AddExpense = {
 	id: number;
 	name: string;
 	value: number;
-	tags: { type: string; name: string }[];
+	tags?: { type: string; name: string }[];
 	isPaid: boolean;
+};
+
+type AddRevenue = {
+	type: "ADD_REVENUE";
+	id: number;
+	name: string;
+	value: number;
+	tags?: { type: string; name: string }[];
 };
 
 type CheckExpense = {
@@ -36,6 +44,7 @@ type UpdateExpenses = {
 type Action =
 	| ToggleMode
 	| AddExpense
+	| AddRevenue
 	| CheckExpense
 	| RemoveExpense
 	| ChangeSalary
@@ -57,13 +66,27 @@ export function appReducer(state: AppState, action: Action): AppState {
 			id: action.id,
 			name: action.name,
 			value: action.value,
-			tags: [...action.tags],
+			tags: action.tags,
 			isPaid: action.isPaid,
 		};
 
 		return {
 			...state,
 			expenses: [...state.expenses, newExpense],
+		};
+	}
+
+	if (action.type === "ADD_REVENUE") {
+		const newRevenue = {
+			id: action.id,
+			name: action.name,
+			value: action.value,
+			tags: action.tags,
+		};
+
+		return {
+			...state,
+			revenues: [...state.revenues, newRevenue],
 		};
 	}
 

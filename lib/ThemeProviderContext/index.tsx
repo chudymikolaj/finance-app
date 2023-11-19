@@ -33,6 +33,9 @@ export default function ThemeProviderContext({
 		addExpense(id, name, value, tags, isPaid) {
 			dispatch({ type: "ADD_EXPENSE", id, name, value, tags, isPaid });
 		},
+		addRevenue(id, name, value, tags) {
+			dispatch({ type: "ADD_REVENUE", id, name, value, tags });
+		},
 		updateExpenses(value) {
 			dispatch({ type: "UPDATE_EXPENSES", value });
 		},
