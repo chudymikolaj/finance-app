@@ -7,8 +7,8 @@ export type CashFlowItemType = {
 	id: number;
 	name: string;
 	value: number;
-	isPaid: boolean;
 	type?: string;
+	isPaid?: boolean;
 } & CashFlowItemTagsType;
 
 export type CashFlowListType = {
