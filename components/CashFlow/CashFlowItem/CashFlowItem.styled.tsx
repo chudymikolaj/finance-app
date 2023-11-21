@@ -27,7 +27,7 @@ export const CashFlowItemStyledName = styled.span`
 	flex: 1 0 100%;
 
 	@media ${devices.md} {
-		flex: 1 0 calc(100% - 215px);
+		flex: 1 0 calc(100% - 225px);
 	}
 `;
 
