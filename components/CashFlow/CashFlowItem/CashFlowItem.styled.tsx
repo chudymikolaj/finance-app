@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import CheckExpenseButtonStyled from "@/components/Buttons/CheckExpenseButton";
-import { BORDER_RADIUS, FONT_SIZE_BUTTONS } from "@/styles/constants";
+import { BORDER_RADIUS, FONT_SIZE_BUTTONS, SIZES } from "@/styles/constants";
 import { FlexColumn, FlexRowSpaceBetweenCenter } from "@/styles/mixins.styled";
 import { devices } from "@/styles/breakpoints";
 
@@ -20,7 +20,7 @@ export const CashFlowItemStyled = styled.li`
 export const CashFlowItemStyledWrapper = styled.div`
 	${FlexRowSpaceBetweenCenter}
 	flex-wrap: wrap;
-	gap: 5px;
+	gap: 10px;
 `;
 
 export const CashFlowItemStyledName = styled.span`
@@ -34,7 +34,9 @@ export const CashFlowItemStyledName = styled.span`
 export const CashFlowItemStyledValue = styled.span<{
 	$type?: string;
 }>`
-	flex: 0 0 100px;
+	flex: 0 0 auto;
+	max-width: 100px;
+	font-size: ${SIZES.smallText};
 	color: ${(props) =>
 		props.$type === "expense"
 			? COLOR_EXPENSE_VALUE_CASHFLOW_ITEM
