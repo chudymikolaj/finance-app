@@ -4,7 +4,7 @@ export type CashFlowItemTagsType = {
 };
 
 export type CashFlowItemType = {
-	id: number;
+	id: string;
 	name: string;
 	value: number;
 	type?: string;

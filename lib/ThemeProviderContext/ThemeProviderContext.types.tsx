@@ -37,14 +37,14 @@ export type initialNavbar = {
 
 export type Wallet = {
 	wallet: {
-		sumSalary: number;
+		sumRevenues: number;
 		sumBills: number;
-		restSalary: number;
+		restRevenues: number;
 	};
 };
 
 export type TabsOfExpensesAndRevenues = {
-	id: number;
+	id: string;
 	name: string;
 	value: number;
 	tags?: { type: string; name: string }[];
@@ -87,6 +87,7 @@ export type AppStateValue = Mode &
 			tags: { type: string; name: string }[]
 		) => void;
 		updateExpenses: (value: number) => void;
+		updateRevenues: (value: number) => void;
 		checkExpenses: (id: number) => void;
 		removeExpenses: (id: number) => void;
 		removeRevenue: (id: number) => void;

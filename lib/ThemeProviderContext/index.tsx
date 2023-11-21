@@ -24,9 +24,9 @@ export default function ThemeProviderContext({
 		},
 		navbar: app.navbar,
 		wallet: {
-			sumSalary: app.wallet.sumSalary,
+			sumRevenues: app.wallet.sumRevenues,
 			sumBills: app.wallet.sumBills,
-			restSalary: app.wallet.restSalary,
+			restRevenues: app.wallet.restRevenues,
 		},
 		expenses: app.expenses,
 		revenues: app.revenues,
@@ -38,6 +38,9 @@ export default function ThemeProviderContext({
 		},
 		updateExpenses(value) {
 			dispatch({ type: "UPDATE_EXPENSES", value });
+		},
+		updateRevenues(value) {
+			dispatch({ type: "UPDATE_REVENUES", value });
 		},
 		checkExpenses(id) {
 			dispatch({ type: "CHECK_EXPENSE", id });

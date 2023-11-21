@@ -22,9 +22,9 @@ export default function Wallet() {
 	const { constants, wallet, addExpense, addRevenue } = useAppContext();
 
 	const maxValue = constants?.maxValue;
-	const sumSalary = wallet?.sumSalary;
+	const sumRevenues = wallet?.sumRevenues;
 	const sumBills = wallet?.sumBills;
-	const restSalary = wallet?.restSalary;
+	const restRevenues = wallet?.restRevenues;
 
 	const [showWalletSettings, setShowWalletSettings] = useState<boolean>(false);
 	const [choiceAction, setChoiceAction] = useState("expense");
@@ -87,9 +87,9 @@ export default function Wallet() {
 			</WalletHeader>
 
 			<SalaryElement
-				valueOfSalary={setMaximumValue(sumSalary, maxValue)}
+				valueOfSalary={setMaximumValue(sumRevenues, maxValue)}
 				valueOfBills={setMaximumValue(sumBills, maxValue)}
-				valueOfRest={setMaximumValue(restSalary, maxValue)}
+				valueOfRest={setMaximumValue(restRevenues, maxValue)}
 			>
 				<EditorWallet
 					show={showWalletSettings}

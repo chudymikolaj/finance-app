@@ -20,17 +20,23 @@ import { useAppContext } from "@/lib/ThemeProviderContext/actions";
 
 const CashFlowComponent = () => {
 	const [useTab, setuseTab] = useState("expenses");
-	const { expenses, revenues, updateExpenses } = useAppContext();
+	const { expenses, revenues, updateExpenses, updateRevenues } =
+		useAppContext();
 	const isExpenses = useTab === "expenses";
 	const isRevenues = useTab === "revenues";
 
 	useEffect(() => {
+		const sumRevenues = revenues.reduce((val, currentValue) => {
+			return val + currentValue.value;
+		}, 0);
+
 		const sumExpenses = expenses.reduce((val, currentValue) => {
 			return val + currentValue.value;
 		}, 0);
 
 		updateExpenses(sumExpenses);
-	}, [expenses]);
+		updateRevenues(sumRevenues);
+	}, [revenues, expenses]);
 
 	return (
 		<FlowCashContainer>

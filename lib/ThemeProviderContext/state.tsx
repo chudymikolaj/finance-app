@@ -39,27 +39,27 @@ export const initialAppState: AppState = {
 		},
 	],
 	wallet: {
-		sumSalary: 0,
+		sumRevenues: 0,
 		sumBills: 0,
-		restSalary: 0,
+		restRevenues: 0,
 	},
 	expenses: [
 		{
-			id: 0,
+			id: "0",
 			name: "Rachunek za prąd",
 			value: 1400,
 			tags: undefined,
 			isPaid: false,
 		},
 		{
-			id: 1,
+			id: "1",
 			name: "Rachunek za ubezpieczenie",
 			value: 500,
 			tags: undefined,
 			isPaid: false,
 		},
 		{
-			id: 2,
+			id: "2",
 			name: "Rachunek za telefon",
 			value: 125,
 			tags: undefined,

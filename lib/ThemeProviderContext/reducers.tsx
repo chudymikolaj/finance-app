@@ -6,7 +6,7 @@ type ToggleMode = {
 
 type AddExpense = {
 	type: "ADD_EXPENSE";
-	id: number;
+	id: string;
 	name: string;
 	value: number;
 	tags?: { type: string; name: string }[];
@@ -15,7 +15,7 @@ type AddExpense = {
 
 type AddRevenue = {
 	type: "ADD_REVENUE";
-	id: number;
+	id: string;
 	name: string;
 	value: number;
 	tags?: { type: string; name: string }[];
@@ -45,6 +45,11 @@ type UpdateExpenses = {
 	value: number;
 };
 
+type UpdateRevenue = {
+	type: "UPDATE_REVENUES";
+	value: number;
+};
+
 type Action =
 	| ToggleMode
 	| AddExpense
@@ -54,6 +59,7 @@ type Action =
 	| RemoveRevenue
 	| ChangeSalary
 	| UpdateExpenses
+	| UpdateRevenue
 	| {
 			type: "string";
 	  };
@@ -99,7 +105,9 @@ export function appReducer(state: AppState, action: Action): AppState {
 		return {
 			...state,
 			expenses: state.expenses.map((item) =>
-				item.id === action.id ? { ...item, isPaid: !item.isPaid } : item
+				String(item.id) === String(action.id)
+					? { ...item, isPaid: !item.isPaid }
+					: item
 			),
 		};
 	}
@@ -107,14 +115,18 @@ export function appReducer(state: AppState, action: Action): AppState {
 	if (action.type === "REMOVE_EXPENSE") {
 		return {
 			...state,
-			expenses: state.expenses.filter((item) => item.id !== action.id),
+			expenses: state.expenses.filter(
+				(item) => String(item.id) !== String(action.id)
+			),
 		};
 	}
 
 	if (action.type === "REMOVE_REVENUE") {
 		return {
 			...state,
-			revenues: state.revenues.filter((item) => item.id !== action.id),
+			revenues: state.revenues.filter(
+				(item) => String(item.id) !== String(action.id)
+			),
 		};
 	}
 
@@ -128,13 +140,23 @@ export function appReducer(state: AppState, action: Action): AppState {
 		};
 	}
 
+	if (action.type === "UPDATE_REVENUES") {
+		return {
+			...state,
+			wallet: {
+				...state.wallet,
+				sumRevenues: action.value,
+			},
+		};
+	}
+
 	if (action.type === "CHANGE_SALARY") {
 		return {
 			...state,
 			wallet: {
 				...state.wallet,
-				sumSalary: action.value,
-				restSalary: action.value - state.wallet.sumBills,
+				sumRevenues: action.value,
+				restRevenues: action.value - state.wallet.sumBills,
 			},
 		};
 	}
