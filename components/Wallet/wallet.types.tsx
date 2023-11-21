@@ -1,5 +1,5 @@
 export type ActionType = (
-	id: number,
+	id: string,
 	name: string,
 	value: number,
 	tags: { type: string; name: string }[],

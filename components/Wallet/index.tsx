@@ -1,6 +1,7 @@
 "use client";
 
 import { type ChangeEvent, type FormEvent, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 import { type ActionType } from "./wallet.types";
 import { useAppContext } from "@/lib/ThemeProviderContext/actions";
@@ -61,16 +62,16 @@ export default function Wallet() {
 	const addToListElement = (event: FormEvent, maxValue: number) => {
 		event.preventDefault();
 		let typeAction: ActionType = (id, name, value, tags) =>
-			addExpense(6, name, value, tags, false);
+			addExpense(id, name, value, tags, false);
 
 		if (choiceAction === "revenue") {
-			typeAction = (id, name, value, tags) => addRevenue(1, name, value, tags);
+			typeAction = (id, name, value, tags) => addRevenue(id, name, value, tags);
 		}
 
 		const changedSalary = Number(addValue);
 
 		if (addValue !== "" && addText !== "" && changedSalary <= maxValue) {
-			typeAction(1, addText, Number(addValue), []);
+			typeAction(uuidv4(), addText, Number(addValue), []);
 			resetForm();
 			closeWalletSetting();
 		}

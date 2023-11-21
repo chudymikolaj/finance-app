@@ -74,14 +74,14 @@ export type AppStateValue = Mode &
 	Wallet &
 	ExpensesAndRevenues & {
 		addExpense: (
-			id: number,
+			id: string,
 			name: string,
 			value: number,
 			tags: { type: string; name: string }[],
 			isPaid: boolean
 		) => void;
 		addRevenue: (
-			id: number,
+			id: string,
 			name: string,
 			value: number,
 			tags: { type: string; name: string }[]
