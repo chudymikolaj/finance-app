@@ -56,7 +56,7 @@ export const CashFlowItemStyledWrapperRevenueOptions = styled.div`
 export const CashFlowItemStyledChecker = styled(CheckExpenseButtonStyled)<{
 	$isPaid?: boolean;
 }>`
-	width: 100%;
+	width: 80px;
 	padding: 5px 6px;
 	background-color: ${(props) =>
 		props.$isPaid ? BUTTON_CASHFLOW_ITEM_ACTIVE : BUTTON_CASHFLOW_ITEM};
