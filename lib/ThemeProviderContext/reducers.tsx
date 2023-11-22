@@ -50,6 +50,12 @@ type UpdateRevenue = {
 	value: number;
 };
 
+type UpdateRestRevenues = {
+	type: "UPDATE_REST_REVENUES";
+	expenses: number;
+	revenues: number;
+};
+
 type Action =
 	| ToggleMode
 	| AddExpense
@@ -60,6 +66,7 @@ type Action =
 	| ChangeSalary
 	| UpdateExpenses
 	| UpdateRevenue
+	| UpdateRestRevenues
 	| {
 			type: "string";
 	  };
@@ -146,6 +153,16 @@ export function appReducer(state: AppState, action: Action): AppState {
 			wallet: {
 				...state.wallet,
 				sumRevenues: action.value,
+			},
+		};
+	}
+
+	if (action.type === "UPDATE_REST_REVENUES") {
+		return {
+			...state,
+			wallet: {
+				...state.wallet,
+				restRevenues: action.revenues - action.expenses,
 			},
 		};
 	}

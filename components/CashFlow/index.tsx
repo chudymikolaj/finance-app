@@ -20,8 +20,13 @@ import { useAppContext } from "@/lib/ThemeProviderContext/actions";
 
 const CashFlowComponent = () => {
 	const [useTab, setuseTab] = useState("expenses");
-	const { expenses, revenues, updateExpenses, updateRevenues } =
-		useAppContext();
+	const {
+		expenses,
+		revenues,
+		updateExpenses,
+		updateRevenues,
+		updateRestRevenues,
+	} = useAppContext();
 	const isExpenses = useTab === "expenses";
 	const isRevenues = useTab === "revenues";
 
@@ -36,6 +41,7 @@ const CashFlowComponent = () => {
 
 		updateExpenses(sumExpenses);
 		updateRevenues(sumRevenues);
+		updateRestRevenues(sumRevenues, sumExpenses);
 	}, [revenues, expenses]);
 
 	return (

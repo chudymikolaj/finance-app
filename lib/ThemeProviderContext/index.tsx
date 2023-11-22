@@ -42,6 +42,9 @@ export default function ThemeProviderContext({
 		updateRevenues(value) {
 			dispatch({ type: "UPDATE_REVENUES", value });
 		},
+		updateRestRevenues(revenues, expenses) {
+			dispatch({ type: "UPDATE_REST_REVENUES", revenues, expenses });
+		},
 		checkExpenses(id) {
 			dispatch({ type: "CHECK_EXPENSE", id });
 		},
