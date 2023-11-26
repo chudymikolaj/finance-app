@@ -1,9 +1,14 @@
 "use client";
 
-import { type ChangeEvent, type FormEvent, useState } from "react";
+import { type FormEvent, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-import { type ActionType } from "./wallet.types";
+import {
+	type ActionType,
+	type FormActionType,
+	type ShowWalletEditorType,
+	type InputCashFlowType,
+} from "./wallet.types";
 import { useAppContext } from "@/lib/ThemeProviderContext/actions";
 
 import SalaryElement from "./SalaryElement";
@@ -26,52 +31,84 @@ export default function Wallet() {
 	const sumBills = wallet?.sumBills;
 	const restRevenues = wallet?.restRevenues;
 
-	const [showWalletSettings, setShowWalletSettings] = useState<boolean>(false);
-	const [choiceAction, setChoiceAction] = useState("expense");
-	const [addValue, setAddValue] = useState<string>("");
-	const [addText, setAddText] = useState<string>("");
+	const [showWalletEditor, setShowWalletEditor] =
+		useState<ShowWalletEditorType>(false);
+
+	const [formAction, setFormAction] = useState<FormActionType>({
+		type: "expense",
+		value: "",
+		text: "",
+	});
+
+	const choiceTypes = [
+		{
+			name: "Wydatki",
+			slug: "expense",
+		},
+		{
+			name: "Przychody",
+			slug: "revenue",
+		},
+	];
 
 	const openWalletSetting = () => {
-		setShowWalletSettings((prevState) => !prevState);
+		setShowWalletEditor((prevState) => !prevState);
 	};
 
 	const closeWalletSetting = () => {
-		setShowWalletSettings(false);
+		setShowWalletEditor(false);
 	};
 
 	const resetForm = () => {
-		setChoiceAction("expense");
-		setAddValue("");
-		setAddText("");
+		setFormAction({
+			type: "expense",
+			value: "",
+			text: "",
+		});
 	};
 
-	const getInputCashFlowListItemValue = (
-		event: ChangeEvent<HTMLInputElement>
-	) => {
+	const getInputCashFlowListItemType = (event: InputCashFlowType) => {
 		const getTargetValue = event.target.value;
-		setAddValue(getTargetValue);
+		setFormAction((prevState) => ({
+			...prevState,
+			type: getTargetValue,
+		}));
 	};
 
-	const getInputCashFlowListItemText = (
-		event: ChangeEvent<HTMLInputElement>
-	) => {
+	const getInputCashFlowListItemValue = (event: InputCashFlowType) => {
 		const getTargetValue = event.target.value;
-		setAddText(getTargetValue);
+		setFormAction((prevState) => ({
+			...prevState,
+			value: getTargetValue,
+		}));
+	};
+
+	const getInputCashFlowListItemText = (event: InputCashFlowType) => {
+		const getTargetValue = event.target.value;
+		setFormAction((prevState) => ({
+			...prevState,
+			text: getTargetValue,
+		}));
 	};
 
 	const addToListElement = (event: FormEvent, maxValue: number) => {
 		event.preventDefault();
+
 		let typeAction: ActionType = (id, name, value, tags) =>
 			addExpense(id, name, value, tags, false);
 
-		if (choiceAction === "revenue") {
+		if (formAction.type === "revenue") {
 			typeAction = (id, name, value, tags) => addRevenue(id, name, value, tags);
 		}
 
-		const changedSalary = Number(addValue);
+		const changedSalary = Number(formAction.value);
 
-		if (addValue !== "" && addText !== "" && changedSalary <= maxValue) {
-			typeAction(uuidv4(), addText, Number(addValue), []);
+		if (
+			formAction.value !== "" &&
+			formAction.text !== "" &&
+			changedSalary <= maxValue
+		) {
+			typeAction(uuidv4(), formAction.text, Number(formAction.value), []);
 			resetForm();
 			closeWalletSetting();
 		}
@@ -92,15 +129,16 @@ export default function Wallet() {
 				valueOfRest={setMaximumValue(restRevenues, maxValue)}
 			>
 				<EditorWallet
-					show={showWalletSettings}
+					show={showWalletEditor}
 					submitForm={(event) => addToListElement(event, maxValue)}
-					choiceAction={setChoiceAction}
-					checkedAction={choiceAction}
+					maxValue={maxValue}
+					choiceTypes={choiceTypes}
+					checkedAction={formAction.type}
+					resetValue={formAction.value}
+					resetText={formAction.text}
+					onChangeType={getInputCashFlowListItemType}
 					onChangeValueInput={getInputCashFlowListItemValue}
 					onChangeTextInput={getInputCashFlowListItemText}
-					resetValue={addValue}
-					resetText={addText}
-					maxValue={maxValue}
 				/>
 			</SalaryElement>
 		</WalletContainer>
