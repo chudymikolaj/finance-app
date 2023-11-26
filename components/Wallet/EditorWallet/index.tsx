@@ -17,36 +17,22 @@ import {
 
 import {
 	type EditorWalletProps,
-	type blockKeysEvent,
+	type BlockFormKeysEvent,
 } from "./EditorWallet.types";
 
 const EditorWalletComponent = ({
 	show,
+	choiceTypes,
+	onChangeType,
 	onChangeValueInput,
 	onChangeTextInput,
-	choiceAction,
 	submitForm,
 	checkedAction,
 	resetValue,
 	resetText,
 	maxValue,
 }: EditorWalletProps) => {
-	const [tab, setTab] = useState([
-		{
-			name: "Wydatki",
-			slug: "expense",
-		},
-		{
-			name: "Przychody",
-			slug: "revenue",
-		},
-	]);
-
-	const handleChoiceChange = (choice: string) => {
-		choiceAction(choice);
-	};
-
-	const blockKeysInsideInput = (event: blockKeysEvent) =>
+	const blockFormKeysInput = (event: BlockFormKeysEvent) =>
 		["e", "E", "+", "-"].includes(event.key) && event.preventDefault();
 
 	return (
@@ -57,7 +43,7 @@ const EditorWalletComponent = ({
 						Dodaj do listy:
 					</EditorWalletFormChoiceName>
 					<EditorWalletFormChoiceLabels>
-						{tab.map(({ name, slug }) => (
+						{choiceTypes.map(({ name, slug }) => (
 							<EditorWalletFormChoiceButton key={slug}>
 								<EditorWalletFormChoiceInputRadio
 									type="radio"
@@ -65,7 +51,7 @@ const EditorWalletComponent = ({
 									id={slug}
 									value={slug}
 									checked={slug === checkedAction}
-									onChange={(e) => handleChoiceChange(e.target.value)}
+									onChange={onChangeType}
 								/>
 								<EditorWalletFormChoiceLabel htmlFor={slug}>
 									<span>{name}</span>
@@ -81,7 +67,7 @@ const EditorWalletComponent = ({
 						<EditorWalletInput
 							type="number"
 							onInput={onChangeValueInput}
-							onKeyDown={blockKeysInsideInput}
+							onKeyDown={blockFormKeysInput}
 							placeholder="Podaj kwotę"
 							value={resetValue}
 							max={maxValue}

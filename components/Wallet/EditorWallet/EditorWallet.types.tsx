@@ -2,7 +2,8 @@ import { type ChangeEvent, type FormEvent, type KeyboardEvent } from "react";
 
 export type EditorWalletProps = {
 	show: boolean;
-	choiceAction: (event: string) => void;
+	choiceTypes: { name: string; slug: string }[];
+	onChangeType: (event: ChangeEvent<HTMLInputElement>) => void;
 	onChangeValueInput: (event: ChangeEvent<HTMLInputElement>) => void;
 	onChangeTextInput: (event: ChangeEvent<HTMLInputElement>) => void;
 	submitForm: (event: FormEvent<HTMLFormElement>) => void;
@@ -12,4 +13,4 @@ export type EditorWalletProps = {
 	maxValue: number;
 };
 
-export type blockKeysEvent = KeyboardEvent<HTMLInputElement>;
+export type BlockFormKeysEvent = KeyboardEvent<HTMLInputElement>;
