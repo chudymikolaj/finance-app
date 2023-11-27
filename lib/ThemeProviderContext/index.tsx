@@ -30,11 +30,11 @@ export default function ThemeProviderContext({
 		},
 		expenses: app.expenses,
 		revenues: app.revenues,
-		addExpense(id, name, value, tags, isPaid) {
-			dispatch({ type: "ADD_EXPENSE", id, name, value, tags, isPaid });
+		addExpense(id, name, value, tags, isPaid, date) {
+			dispatch({ type: "ADD_EXPENSE", id, name, value, tags, isPaid, date });
 		},
-		addRevenue(id, name, value, tags) {
-			dispatch({ type: "ADD_REVENUE", id, name, value, tags });
+		addRevenue(id, name, value, tags, date) {
+			dispatch({ type: "ADD_REVENUE", id, name, value, tags, date });
 		},
 		updateExpenses(value) {
 			dispatch({ type: "UPDATE_EXPENSES", value });

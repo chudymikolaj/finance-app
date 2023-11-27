@@ -93,12 +93,14 @@ export default function Wallet() {
 
 	const addToListElement = (event: FormEvent, maxValue: number) => {
 		event.preventDefault();
+		const currentDate = new Date().toJSON().slice(0, 10);
 
 		let typeAction: ActionType = (id, name, value, tags) =>
-			addExpense(id, name, value, tags, false);
+			addExpense(id, name, value, tags, false, currentDate);
 
 		if (formAction.type === "revenue") {
-			typeAction = (id, name, value, tags) => addRevenue(id, name, value, tags);
+			typeAction = (id, name, value, tags) =>
+				addRevenue(id, name, value, tags, currentDate);
 		}
 
 		const changedSalary = Number(formAction.value);

@@ -50,6 +50,7 @@ export const initialAppState: AppState = {
 			value: 1400,
 			tags: undefined,
 			isPaid: false,
+			date: "2023-11-09",
 		},
 		{
 			id: "1",
@@ -57,6 +58,7 @@ export const initialAppState: AppState = {
 			value: 500,
 			tags: undefined,
 			isPaid: false,
+			date: "2023-11-10",
 		},
 		{
 			id: "2",
@@ -64,6 +66,7 @@ export const initialAppState: AppState = {
 			value: 125,
 			tags: undefined,
 			isPaid: false,
+			date: "2023-11-11",
 		},
 	],
 	revenues: [],

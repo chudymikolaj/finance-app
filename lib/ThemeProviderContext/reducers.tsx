@@ -11,6 +11,7 @@ type AddExpense = {
 	value: number;
 	tags?: { type: string; name: string }[];
 	isPaid: boolean;
+	date: string;
 };
 
 type AddRevenue = {
@@ -19,6 +20,7 @@ type AddRevenue = {
 	name: string;
 	value: number;
 	tags?: { type: string; name: string }[];
+	date: string;
 };
 
 type CheckExpense = {
@@ -86,6 +88,7 @@ export function appReducer(state: AppState, action: Action): AppState {
 			value: action.value,
 			tags: action.tags,
 			isPaid: action.isPaid,
+			date: action.date,
 		};
 
 		return {
@@ -100,6 +103,7 @@ export function appReducer(state: AppState, action: Action): AppState {
 			name: action.name,
 			value: action.value,
 			tags: action.tags,
+			date: action.date,
 		};
 
 		return {
