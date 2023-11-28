@@ -4,17 +4,12 @@ import { Suspense, useEffect, useState } from "react";
 
 import CashFlowSummary from "./CashFlowSummary";
 import CashFlowList from "./CashFlowList";
+import CashFlowHeader from "./CashFlowHeader";
 
 import {
-	FlowCashContainer,
-	FlowCashHeader,
-	FlowCashHeaderTitle,
-	FlowCashHeaderOptions,
-	FlowCashHeaderMonth,
-	FlowCashHeaderButtons,
-	FlowCashTabs,
-	FlowCashTab,
-	CashFlowButton,
+	CashFlowContainer,
+	CashFlowTabs,
+	CashFlowTab,
 } from "./CashFlow.styled";
 
 import { useAppContext } from "@/lib/ThemeProviderContext/actions";
@@ -63,32 +58,23 @@ const CashFlowComponent = () => {
 	}, [revenues, expenses]);
 
 	return (
-		<FlowCashContainer>
-			<FlowCashTabs>
-				<FlowCashTab
+		<CashFlowContainer>
+			<CashFlowTabs>
+				<CashFlowTab
 					onClick={() => setuseTab("expenses")}
 					$isActive={useTab === "expenses"}
 				>
 					Wydatki
-				</FlowCashTab>
-				<FlowCashTab
+				</CashFlowTab>
+				<CashFlowTab
 					onClick={() => setuseTab("revenues")}
 					$isActive={useTab === "revenues"}
 				>
 					Przychód
-				</FlowCashTab>
-			</FlowCashTabs>
+				</CashFlowTab>
+			</CashFlowTabs>
 
-			<FlowCashHeader>
-				<FlowCashHeaderTitle>Wydatki na miesiąc</FlowCashHeaderTitle>
-				<FlowCashHeaderOptions>
-					<FlowCashHeaderMonth>09.2023</FlowCashHeaderMonth>
-					<FlowCashHeaderButtons>
-						<CashFlowButton svgUrl="/add.svg" />
-						<CashFlowButton svgUrl="/more_vert.svg" />
-					</FlowCashHeaderButtons>
-				</FlowCashHeaderOptions>
-			</FlowCashHeader>
+			<CashFlowHeader />
 
 			<Suspense fallback={<Loader />}>
 				{isExpenses && (
@@ -117,7 +103,7 @@ const CashFlowComponent = () => {
 					</CashFlowSummary>
 				)}
 			</Suspense>
-		</FlowCashContainer>
+		</CashFlowContainer>
 	);
 };
 
