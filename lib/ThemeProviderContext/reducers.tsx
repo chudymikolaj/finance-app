@@ -25,16 +25,16 @@ type AddRevenue = {
 
 type CheckExpense = {
 	type: "CHECK_EXPENSE";
-	id: number;
+	id: string;
 };
 
 type RemoveExpense = {
 	type: "REMOVE_EXPENSE";
-	id: number;
+	id: string;
 };
 type RemoveRevenue = {
 	type: "REMOVE_REVENUE";
-	id: number;
+	id: string;
 };
 
 type ChangeSalary = {
