@@ -104,8 +104,6 @@ export const EditorWalletInputWrapper = styled.div`
 	width: 100%;
 	${FlexRowSpaceBetweenCenter};
 	flex: 1 0 100%;
-	background-color: ${(props) => props.theme.colorElement_5};
-	border-radius: ${BORDER_RADIUS};
 `;
 
 export const EditorWalletFormChoiceButton = styled.div`
@@ -116,8 +114,9 @@ export const EditorWalletInput = styled.input`
 	width: 100%;
 	max-width: calc(100%);
 	padding: 10px 16px;
-	background-color: transparent;
+	background-color: ${(props) => props.theme.colorElement_5};
 	border: unset;
+	border-radius: ${BORDER_RADIUS};
 	font-size: ${SIZES.smallText};
 	color: ${(props) => props.theme.color};
 `;
