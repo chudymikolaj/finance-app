@@ -1,4 +1,5 @@
 import { type initialAppState as AppState } from "./ThemeProviderContext.types";
+import moment from "moment";
 
 export const initialAppState: AppState = {
 	darkMode: true,
@@ -43,31 +44,10 @@ export const initialAppState: AppState = {
 		sumBills: 0,
 		restRevenues: 0,
 	},
-	expenses: [
-		{
-			id: "0",
-			name: "Rachunek za prąd",
-			value: 1400,
-			tags: undefined,
-			isPaid: false,
-			date: "2023-11-09",
-		},
-		{
-			id: "1",
-			name: "Rachunek za ubezpieczenie",
-			value: 500,
-			tags: undefined,
-			isPaid: false,
-			date: "2023-11-10",
-		},
-		{
-			id: "2",
-			name: "Rachunek za telefon",
-			value: 125,
-			tags: undefined,
-			isPaid: false,
-			date: "2023-11-11",
-		},
-	],
+	filterDateCashFlowList: {
+		fromDate: moment().startOf("month").format("YYYY-MM-DD"),
+		toDate: moment().endOf("month").format("YYYY-MM-DD"),
+	},
+	expenses: [],
 	revenues: [],
 };

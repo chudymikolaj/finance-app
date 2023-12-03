@@ -28,6 +28,7 @@ export default function ThemeProviderContext({
 			sumBills: app.wallet.sumBills,
 			restRevenues: app.wallet.restRevenues,
 		},
+		filterDateCashFlowList: app.filterDateCashFlowList,
 		expenses: app.expenses,
 		revenues: app.revenues,
 		addExpense(id, name, value, tags, isPaid, date) {
@@ -35,6 +36,12 @@ export default function ThemeProviderContext({
 		},
 		addRevenue(id, name, value, tags, date) {
 			dispatch({ type: "ADD_REVENUE", id, name, value, tags, date });
+		},
+		updateExpensesList(value) {
+			dispatch({ type: "UPDATE_EXPENSES_LIST", value });
+		},
+		updateRevenuesList(value) {
+			dispatch({ type: "UPDATE_REVENUES_LIST", value });
 		},
 		updateExpenses(value) {
 			dispatch({ type: "UPDATE_EXPENSES", value });
@@ -44,6 +51,9 @@ export default function ThemeProviderContext({
 		},
 		updateRestRevenues(revenues, expenses) {
 			dispatch({ type: "UPDATE_REST_REVENUES", revenues, expenses });
+		},
+		filterCashFlowList(value) {
+			dispatch({ type: "FILTER_CASHFLOW_LIST", value });
 		},
 		checkExpenses(id) {
 			dispatch({ type: "CHECK_EXPENSE", id });

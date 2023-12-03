@@ -43,6 +43,13 @@ export type Wallet = {
 	};
 };
 
+export type FilterCashFlowList = {
+	filterDateCashFlowList: {
+		fromDate: string;
+		toDate: string;
+	};
+};
+
 export type TabsOfExpensesAndRevenues = {
 	id: string;
 	name: string;
@@ -61,18 +68,21 @@ export type AppState = Mode &
 	Constants &
 	initialNavbar &
 	Wallet &
+	FilterCashFlowList &
 	ExpensesAndRevenues;
 
 export type initialAppState = Mode &
 	Constants &
 	initialNavbar &
 	Wallet &
+	FilterCashFlowList &
 	ExpensesAndRevenues;
 
 export type AppStateValue = Mode &
 	Constants &
 	initialNavbar &
 	Wallet &
+	FilterCashFlowList &
 	ExpensesAndRevenues & {
 		addExpense: (
 			id: string,
@@ -89,12 +99,15 @@ export type AppStateValue = Mode &
 			tags: { type: string; name: string }[],
 			date: string
 		) => void;
+		updateExpensesList: (value: TabsOfExpensesAndRevenues[]) => void;
+		updateRevenuesList: (value: TabsOfExpensesAndRevenues[]) => void;
 		updateExpenses: (value: number) => void;
 		updateRevenues: (value: number) => void;
 		updateRestRevenues: (revenues: number, expenses: number) => void;
 		checkExpenses: (id: string) => void;
 		removeExpenses: (id: string) => void;
 		removeRevenue: (id: string) => void;
+		filterCashFlowList: (value: { fromDate: string; toDate: string }) => void;
 		changeSalary: (salary: number) => void;
 		toggleMode: () => void;
 	};

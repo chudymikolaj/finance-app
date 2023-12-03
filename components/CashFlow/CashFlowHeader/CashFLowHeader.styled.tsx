@@ -22,7 +22,7 @@ export const CashFlowHeader = styled.div`
 	${FlexRowSpaceBetween}
 
 	padding: 10px 0;
-	margin: 0 auto 10px;
+	margin: 0 auto 20px;
 	gap: 15px;
 	position: relative;
 

@@ -1,4 +1,7 @@
-import { type AppState } from "./ThemeProviderContext.types";
+import {
+	type TabsOfExpensesAndRevenues,
+	type AppState,
+} from "./ThemeProviderContext.types";
 
 type ToggleMode = {
 	type: "TOGGLE_MODE";
@@ -42,6 +45,16 @@ type ChangeSalary = {
 	value: number;
 };
 
+type UpdateExpensesList = {
+	type: "UPDATE_EXPENSES_LIST";
+	value: TabsOfExpensesAndRevenues[];
+};
+
+type UpdateRevenueList = {
+	type: "UPDATE_REVENUES_LIST";
+	value: TabsOfExpensesAndRevenues[];
+};
+
 type UpdateExpenses = {
 	type: "UPDATE_EXPENSES";
 	value: number;
@@ -58,6 +71,11 @@ type UpdateRestRevenues = {
 	revenues: number;
 };
 
+type FilterCashFlowList = {
+	type: "FILTER_CASHFLOW_LIST";
+	value: { fromDate: string; toDate: string };
+};
+
 type Action =
 	| ToggleMode
 	| AddExpense
@@ -66,9 +84,12 @@ type Action =
 	| RemoveExpense
 	| RemoveRevenue
 	| ChangeSalary
+	| UpdateExpensesList
+	| UpdateRevenueList
 	| UpdateExpenses
 	| UpdateRevenue
 	| UpdateRestRevenues
+	| FilterCashFlowList
 	| {
 			type: "string";
 	  };
@@ -141,6 +162,20 @@ export function appReducer(state: AppState, action: Action): AppState {
 		};
 	}
 
+	if (action.type === "UPDATE_EXPENSES_LIST") {
+		return {
+			...state,
+			expenses: [...action.value],
+		};
+	}
+
+	if (action.type === "UPDATE_REVENUES_LIST") {
+		return {
+			...state,
+			revenues: [...action.value],
+		};
+	}
+
 	if (action.type === "UPDATE_EXPENSES") {
 		return {
 			...state,
@@ -167,6 +202,16 @@ export function appReducer(state: AppState, action: Action): AppState {
 			wallet: {
 				...state.wallet,
 				restRevenues: action.revenues - action.expenses,
+			},
+		};
+	}
+
+	if (action.type === "FILTER_CASHFLOW_LIST") {
+		return {
+			...state,
+			filterDateCashFlowList: {
+				fromDate: action.value.fromDate,
+				toDate: action.value.toDate,
 			},
 		};
 	}

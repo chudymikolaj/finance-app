@@ -1,5 +1,7 @@
 import { useState, type ChangeEvent, type FormEvent } from "react";
 
+import { useAppContext } from "@/lib/ThemeProviderContext/actions";
+
 import {
 	CashFlowHeader,
 	CashFlowHeaderTitle,
@@ -15,6 +17,8 @@ import {
 } from "./CashFlowHeader.styled";
 
 const CashFlowHeaderComponent = () => {
+	const { filterCashFlowList } = useAppContext();
+
 	const currentDate = new Date();
 	const FIRST_DAY_OF_MONTH = new Date(
 		currentDate.getFullYear(),
@@ -48,8 +52,13 @@ const CashFlowHeaderComponent = () => {
 
 	const onSubmit = (event: FormEvent) => {
 		event.preventDefault();
-		console.log("dateFromFilter: " + dateFromFilter);
-		console.log("dateToFilter: " + dateToFilter);
+
+		const filterDate = {
+			fromDate: dateFromFilter,
+			toDate: dateToFilter,
+		};
+
+		filterCashFlowList(filterDate);
 		resetCalendarDate();
 	};
 
@@ -82,8 +91,8 @@ const CashFlowHeaderComponent = () => {
 					<CashFlowSortByDateInput
 						id="sort-by-date"
 						type="date"
-						max={GET_TODAY_DATE_FORMAT}
 						value={dateFromFilter}
+						max={dateToFilter}
 						onChange={onChangeDateFrom}
 					/>
 					<CashFlowSortByDateLabel htmlFor="sort-by-date">
@@ -92,8 +101,9 @@ const CashFlowHeaderComponent = () => {
 					<CashFlowSortByDateInput
 						id="sort-by-date"
 						type="date"
-						max={GET_TODAY_DATE_FORMAT}
 						value={dateToFilter}
+						min={dateFromFilter}
+						max={GET_TODAY_DATE_FORMAT}
 						onChange={onChangeDateTo}
 					/>
 					<CashFlowSortByDataSort>Sortuj</CashFlowSortByDataSort>
