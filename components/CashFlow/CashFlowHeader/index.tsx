@@ -1,4 +1,11 @@
-import { useState, type ChangeEvent, type FormEvent } from "react";
+import {
+	useState,
+	useRef,
+	useEffect,
+	type ChangeEvent,
+	type FormEvent,
+} from "react";
+import moment from "moment";
 
 import { useAppContext } from "@/lib/ThemeProviderContext/actions";
 
@@ -19,28 +26,12 @@ import {
 const CashFlowHeaderComponent = () => {
 	const { filterCashFlowList } = useAppContext();
 
-	const currentDate = new Date();
-	const FIRST_DAY_OF_MONTH = new Date(
-		currentDate.getFullYear(),
-		currentDate.getMonth(),
-		1
-	);
-
-	const GET_FIRST_DAY_MONTH = `${FIRST_DAY_OF_MONTH.getFullYear()}-${(
-		FIRST_DAY_OF_MONTH.getMonth() + 1
-	)
-		.toString()
-		.padStart(2, "0")}-${FIRST_DAY_OF_MONTH.getDate()
-		.toString()
-		.padStart(2, "0")}`;
-
-	const GET_TODAY_DATE_FORMAT = `${currentDate.getFullYear()}-${(
-		currentDate.getMonth() + 1
-	)
-		.toString()
-		.padStart(2, "0")}-${currentDate.getDate().toString().padStart(2, "0")}`;
-
+	const refHandleDateSorting = useRef<HTMLDivElement>(null);
 	const [showDateSorting, setShowDateSorting] = useState(false);
+
+	const GET_FIRST_DAY_MONTH = moment().startOf("month").format("YYYY-MM-DD");
+	const GET_TODAY_DATE_FORMAT = moment().format("YYYY-MM-DD");
+
 	const [dateFromFilter, setDateFromFilter] = useState(GET_FIRST_DAY_MONTH);
 	const [dateToFilter, setDateToFilter] = useState(GET_TODAY_DATE_FORMAT);
 
@@ -48,6 +39,14 @@ const CashFlowHeaderComponent = () => {
 		setShowDateSorting(false);
 		setDateFromFilter(GET_FIRST_DAY_MONTH);
 		setDateToFilter(GET_TODAY_DATE_FORMAT);
+	};
+
+	const onChangeDateFrom = (event: ChangeEvent<HTMLInputElement>) => {
+		setDateFromFilter(event.target.value);
+	};
+
+	const onChangeDateTo = (event: ChangeEvent<HTMLInputElement>) => {
+		setDateToFilter(event.target.value);
 	};
 
 	const onSubmit = (event: FormEvent) => {
@@ -62,13 +61,33 @@ const CashFlowHeaderComponent = () => {
 		resetCalendarDate();
 	};
 
-	const onChangeDateFrom = (event: ChangeEvent<HTMLInputElement>) => {
-		setDateFromFilter(event.target.value);
+	const onMouseEnter = () => {
+		setShowDateSorting(true);
 	};
 
-	const onChangeDateTo = (event: ChangeEvent<HTMLInputElement>) => {
-		setDateToFilter(event.target.value);
+	const onMouseLeave = () => {
+		setShowDateSorting(false);
 	};
+
+	useEffect(() => {
+		const handler = (event: MouseEvent | TouchEvent) => {
+			if (
+				showDateSorting &&
+				refHandleDateSorting.current &&
+				!refHandleDateSorting.current.contains(event.target as Node)
+			) {
+				setShowDateSorting(false);
+			}
+		};
+
+		document.addEventListener("mousedown", handler);
+		document.addEventListener("touchstart", handler);
+
+		return () => {
+			document.removeEventListener("mousedown", handler);
+			document.removeEventListener("touchstart", handler);
+		};
+	}, [showDateSorting]);
 
 	return (
 		<CashFlowHeader>
@@ -78,28 +97,32 @@ const CashFlowHeaderComponent = () => {
 				<CashFlowHeaderButtons>
 					<CashFlowButton
 						svgUrl="/more_vert.svg"
-						action={() => setShowDateSorting((prevState) => !prevState)}
+						onMouseDown={onMouseEnter}
 					/>
 				</CashFlowHeaderButtons>
 			</CashFlowHeaderOptions>
 
-			<CashFlowSortByDate $animate={showDateSorting}>
+			<CashFlowSortByDate
+				$animate={showDateSorting}
+				ref={refHandleDateSorting}
+				onMouseLeave={onMouseLeave}
+			>
 				<CashFlowSortByDateForm onSubmit={onSubmit}>
-					<CashFlowSortByDateLabel htmlFor="sort-by-date">
+					<CashFlowSortByDateLabel htmlFor="sort-by-date-from">
 						Od:
 					</CashFlowSortByDateLabel>
 					<CashFlowSortByDateInput
-						id="sort-by-date"
+						id="sort-by-date-from"
 						type="date"
 						value={dateFromFilter}
 						max={dateToFilter}
 						onChange={onChangeDateFrom}
 					/>
-					<CashFlowSortByDateLabel htmlFor="sort-by-date">
+					<CashFlowSortByDateLabel htmlFor="sort-by-date-to">
 						Do:
 					</CashFlowSortByDateLabel>
 					<CashFlowSortByDateInput
-						id="sort-by-date"
+						id="sort-by-date-to"
 						type="date"
 						value={dateToFilter}
 						min={dateFromFilter}
