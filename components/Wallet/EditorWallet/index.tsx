@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
 	EditorWallet,
 	EditorWalletForm,
@@ -31,12 +30,18 @@ const EditorWalletComponent = ({
 	resetValue,
 	resetText,
 	maxValue,
+	getRef,
+	getMouseLeave,
 }: EditorWalletProps) => {
 	const blockFormKeysInput = (event: BlockFormKeysEvent) =>
 		["e", "E", "+", "-"].includes(event.key) && event.preventDefault();
 
 	return (
-		<EditorWallet $animate={show}>
+		<EditorWallet
+			$animate={show}
+			ref={getRef}
+			onMouseLeave={getMouseLeave}
+		>
 			<EditorWalletForm onSubmit={submitForm}>
 				<EditorWalletFormChoice>
 					<EditorWalletFormChoiceName>

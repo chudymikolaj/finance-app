@@ -1,6 +1,6 @@
 "use client";
 
-import { type FormEvent, useState } from "react";
+import { useState, useRef, useEffect, type FormEvent } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 import {
@@ -31,9 +31,10 @@ export default function Wallet() {
 	const sumBills = wallet?.sumBills;
 	const restRevenues = wallet?.restRevenues;
 
+	const refShowWalletEditor = useRef<HTMLDivElement>(null);
+
 	const [showWalletEditor, setShowWalletEditor] =
 		useState<ShowWalletEditorType>(false);
-
 	const [formAction, setFormAction] = useState<FormActionType>({
 		type: "expense",
 		value: "",
@@ -50,14 +51,6 @@ export default function Wallet() {
 			slug: "revenue",
 		},
 	];
-
-	const openWalletSetting = () => {
-		setShowWalletEditor((prevState) => !prevState);
-	};
-
-	const closeWalletSetting = () => {
-		setShowWalletEditor(false);
-	};
 
 	const resetForm = () => {
 		setFormAction({
@@ -112,15 +105,43 @@ export default function Wallet() {
 		) {
 			typeAction(uuidv4(), formAction.text, Number(formAction.value), []);
 			resetForm();
-			closeWalletSetting();
+			setShowWalletEditor(false);
 		}
 	};
+
+	const onMouseDown = () => {
+		setShowWalletEditor(true);
+	};
+
+	const onMouseLeave = () => {
+		setShowWalletEditor(false);
+	};
+
+	useEffect(() => {
+		const handler = (event: MouseEvent | TouchEvent) => {
+			if (
+				showWalletEditor &&
+				refShowWalletEditor.current &&
+				!refShowWalletEditor.current.contains(event.target as Node)
+			) {
+				setShowWalletEditor(false);
+			}
+		};
+
+		document.addEventListener("mousedown", handler);
+		document.addEventListener("touchstart", handler);
+
+		return () => {
+			document.removeEventListener("mousedown", handler);
+			document.removeEventListener("touchstart", handler);
+		};
+	}, [showWalletEditor]);
 
 	return (
 		<WalletContainer>
 			<WalletHeader>
 				<WalletHeaderTitle>Miesięczne saldo</WalletHeaderTitle>
-				<WalletHeaderButton onClick={openWalletSetting}>
+				<WalletHeaderButton onMouseDown={onMouseDown}>
 					<WalletHeaderSvg src="/add.svg" />
 				</WalletHeaderButton>
 			</WalletHeader>
@@ -141,6 +162,8 @@ export default function Wallet() {
 					onChangeType={getInputCashFlowListItemType}
 					onChangeValueInput={getInputCashFlowListItemValue}
 					onChangeTextInput={getInputCashFlowListItemText}
+					getRef={refShowWalletEditor}
+					getMouseLeave={onMouseLeave}
 				/>
 			</SalaryElement>
 		</WalletContainer>
