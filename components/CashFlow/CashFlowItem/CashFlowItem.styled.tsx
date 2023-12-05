@@ -21,6 +21,7 @@ export const CashFlowItemStyledWrapper = styled.div`
 	${FlexRowSpaceBetweenCenter}
 	flex-wrap: wrap;
 	gap: 10px;
+	min-height: 20px;
 `;
 
 export const CashFlowItemStyledName = styled.span`
@@ -36,6 +37,7 @@ export const CashFlowItemStyledValue = styled.span<{
 }>`
 	flex: 0 0 auto;
 	max-width: 100px;
+	line-height: 15px;
 	font-size: ${SIZES.smallText};
 	color: ${(props) =>
 		props.$type === "expense"

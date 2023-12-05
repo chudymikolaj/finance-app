@@ -2,7 +2,7 @@
 
 import { Suspense, useEffect, useState } from "react";
 
-import { type TabsOfExpensesAndRevenues } from "@/lib/ThemeProviderContext/ThemeProviderContext.types";
+import { type TabsOfExpensesAndRevenues as ObjectListType } from "@/lib/ThemeProviderContext/ThemeProviderContext.types";
 
 import {
 	useAppContext,
@@ -21,7 +21,7 @@ import {
 	CashFlowTab,
 } from "./CashFlow.styled";
 
-const expensesList: TabsOfExpensesAndRevenues[] = [
+const expensesList: ObjectListType[] = [
 	{
 		id: "test",
 		name: "test",
@@ -29,7 +29,7 @@ const expensesList: TabsOfExpensesAndRevenues[] = [
 		date: "2023-12-03",
 	},
 ];
-const revenuesList: TabsOfExpensesAndRevenues[] = [
+const revenuesList: ObjectListType[] = [
 	{
 		id: "test",
 		name: "test",
@@ -53,10 +53,16 @@ const CashFlowComponent = () => {
 	const { fromDate, toDate } = useAppContextDateList();
 
 	const [useTab, setuseTab] = useState("expenses");
+	const [filtredExpenses, setFiltredExpenses] = useState<ObjectListType[]>([]);
 	const [sumExpenses, setSumExpenses] = useState("0");
+
 	const [lenghtExpenses, setLenghtExpenses] = useState(0);
+	const [filtredRevenuses, setFiltredRevenuses] = useState<ObjectListType[]>(
+		[]
+	);
 	const [sumRevenuses, setSumRevenuses] = useState("0");
 	const [lenghtRevenuses, setLenghtRevenuses] = useState(0);
+
 	const [paidExpenses, setPaidExpenses] = useState(0);
 
 	const isExpenses = useTab === "expenses";
@@ -68,34 +74,45 @@ const CashFlowComponent = () => {
 	}, []);
 
 	useEffect(() => {
+		const filtredExpenses = expenses.filter(({ date }) =>
+			filterDate(String(date), fromDate, toDate)
+		);
+
+		const filtredRevenues = revenues.filter(({ date }) =>
+			filterDate(String(date), fromDate, toDate)
+		);
+
 		const countRevenues = revenues
-			.filter((item) => filterDate(item.date, fromDate, toDate))
+			.filter(({ date }) => filterDate(date, fromDate, toDate))
 			.reduce((val, currentValue) => {
 				return val + currentValue.value;
 			}, 0);
 
 		const countExpenses = expenses
-			.filter((item) => filterDate(item.date, fromDate, toDate))
+			.filter(({ date }) => filterDate(date, fromDate, toDate))
 			.reduce((val, currentValue) => {
 				return val + currentValue.value;
 			}, 0);
 
-		const lenghtRevenues = revenues.filter((item) =>
-			filterDate(item.date, fromDate, toDate)
+		const lenghtRevenues = revenues.filter(({ date }) =>
+			filterDate(date, fromDate, toDate)
 		).length;
 
-		const lenghtExpenses = expenses.filter((item) =>
-			filterDate(item.date, fromDate, toDate)
+		const lenghtExpenses = expenses.filter(({ date }) =>
+			filterDate(date, fromDate, toDate)
 		).length;
 
 		const countUnPaidExpenses = expenses.filter(
-			(item) => filterDate(item.date, fromDate, toDate) && item.isPaid === true
+			({ date, isPaid }) =>
+				filterDate(date, fromDate, toDate) && isPaid === true
 		).length;
 
+		setFiltredExpenses(filtredExpenses);
 		setSumExpenses(`${String(countExpenses)} PLN`);
 		setPaidExpenses(countUnPaidExpenses);
 		setLenghtExpenses(lenghtExpenses);
 
+		setFiltredRevenuses(filtredRevenues);
 		setSumRevenuses(`${String(countRevenues)} PLN`);
 		setLenghtRevenuses(lenghtRevenues);
 
@@ -133,7 +150,7 @@ const CashFlowComponent = () => {
 					>
 						<CashFlowList
 							type="expense"
-							items={expenses}
+							items={filtredExpenses}
 						/>
 					</CashFlowSummary>
 				)}
@@ -145,7 +162,7 @@ const CashFlowComponent = () => {
 					>
 						<CashFlowList
 							type="revenues"
-							items={revenues}
+							items={filtredRevenuses}
 						/>
 					</CashFlowSummary>
 				)}
