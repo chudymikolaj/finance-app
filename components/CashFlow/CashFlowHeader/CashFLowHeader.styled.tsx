@@ -21,6 +21,7 @@ export const CashFlowContainer = styled.div`
 export const CashFlowHeader = styled.div`
 	${FlexRowSpaceBetween}
 
+	width: 100%;
 	padding: 10px 0;
 	margin: 0 auto 20px;
 	gap: 15px;

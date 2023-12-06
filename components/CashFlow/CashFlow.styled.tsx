@@ -2,11 +2,21 @@ import styled from "styled-components";
 
 import Button from "@/components/Buttons/Button";
 
-import { FlexRow, FlexRowStart, FlexCenter } from "@/styles/mixins.styled";
+import {
+	FlexRow,
+	FlexRowStart,
+	FlexCenter,
+	FlexColumnStart,
+	FlexColumnSpaceBetween,
+} from "@/styles/mixins.styled";
 
 import { CUBICS, FONT_SIZE_BUTTONS } from "@/styles/constants";
 
 export const CashFlowContainer = styled.div`
+	${FlexColumnStart}
+
+	width: 100%;
+	height: 100%;
 	margin: auto;
 `;
 
@@ -22,6 +32,13 @@ export const CashFlowTab = styled.div<{ $isActive: boolean }>`
 	transition: opacity ${CUBICS};
 	font-size: 12px;
 	cursor: pointer;
+`;
+
+export const CashFlowLists = styled.div`
+	${FlexColumnSpaceBetween}
+
+	width: 100%;
+	height: 100%;
 `;
 
 export const CashFlowButton = styled(Button)`

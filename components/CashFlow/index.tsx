@@ -19,6 +19,7 @@ import {
 	CashFlowContainer,
 	CashFlowTabs,
 	CashFlowTab,
+	CashFlowLists,
 } from "./CashFlow.styled";
 
 const expensesList: ObjectListType[] = [
@@ -138,35 +139,37 @@ const CashFlowComponent = () => {
 				</CashFlowTab>
 			</CashFlowTabs>
 
-			<CashFlowHeader />
+			<CashFlowLists>
+				<CashFlowHeader />
 
-			<Suspense fallback={<Loader />}>
-				{isExpenses && (
-					<CashFlowSummary
-						sumList={sumExpenses}
-						paidBoolean={paidExpenses}
-						countLenght={lenghtExpenses}
-						tabActive={useTab}
-					>
-						<CashFlowList
-							type="expense"
-							items={filtredExpenses}
-						/>
-					</CashFlowSummary>
-				)}
-				{isRevenues && (
-					<CashFlowSummary
-						sumList={sumRevenuses}
-						countLenght={lenghtRevenuses}
-						tabActive={useTab}
-					>
-						<CashFlowList
-							type="revenues"
-							items={filtredRevenuses}
-						/>
-					</CashFlowSummary>
-				)}
-			</Suspense>
+				<Suspense fallback={<Loader />}>
+					{isExpenses && (
+						<CashFlowSummary
+							sumList={sumExpenses}
+							paidBoolean={paidExpenses}
+							countLenght={lenghtExpenses}
+							tabActive={useTab}
+						>
+							<CashFlowList
+								type="expense"
+								items={filtredExpenses}
+							/>
+						</CashFlowSummary>
+					)}
+					{isRevenues && (
+						<CashFlowSummary
+							sumList={sumRevenuses}
+							countLenght={lenghtRevenuses}
+							tabActive={useTab}
+						>
+							<CashFlowList
+								type="revenues"
+								items={filtredRevenuses}
+							/>
+						</CashFlowSummary>
+					)}
+				</Suspense>
+			</CashFlowLists>
 		</CashFlowContainer>
 	);
 };

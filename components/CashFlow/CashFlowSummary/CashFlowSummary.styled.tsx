@@ -4,7 +4,6 @@ import {
 	FlexCenter,
 	FlexColumnStart,
 	FlexRowSpaceBetweenCenter,
-	FlexRowStart,
 } from "@/styles/mixins.styled";
 import { devices } from "@/styles/breakpoints";
 
@@ -18,6 +17,7 @@ export const CashFlowSummaryStyled = styled.div`
 		gap: 20px;
 	}
 
+	width: 100%;
 	padding: 18px 20px;
 	margin: 20px auto 0;
 

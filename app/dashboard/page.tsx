@@ -1,5 +1,19 @@
+import Wallet from "@/components/Wallet";
+import CashFlow from "@/components/CashFlow";
+import {
+	DashboardContainer,
+	DashboardLeftColumn,
+	DashboardRightColumn,
+} from "./dashboard.styled";
+
 export default function Dashboard() {
-  return (
-    <h1>Dashboard</h1>
-  )
+	return (
+		<DashboardContainer>
+			<DashboardLeftColumn>
+				<Wallet />
+				<CashFlow />
+			</DashboardLeftColumn>
+			<DashboardRightColumn>Example</DashboardRightColumn>
+		</DashboardContainer>
+	);
 }
