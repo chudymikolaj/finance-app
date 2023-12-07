@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { createGlobalStyle } from "styled-components";
 import { devices } from "./breakpoints";
@@ -49,15 +49,15 @@ export const GlobalStyle = createGlobalStyle`
       padding: 0 5vh;
     }
 
-    background-color: ${props => props.theme.backgroundColor};
-    color: ${props => props.theme.color};
+    background-color: ${(props) => props.theme.backgroundColor};
+    color: ${(props) => props.theme.color};
     line-height: 1;
     overflow-x: hidden;
   }
 
   a {
     text-decoration: none;
-    color: ${props => props.theme.colorLink};
+    color: ${(props) => props.theme.colorLink};
   }
 
   button {
@@ -83,4 +83,4 @@ export const GlobalStyle = createGlobalStyle`
     border-collapse: collapse;
     border-spacing: 0;
   }
-`
+`;

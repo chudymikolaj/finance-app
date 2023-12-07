@@ -1,7 +1,12 @@
 import styled from "styled-components";
 
 import CheckExpenseButtonStyled from "@/components/Buttons/CheckExpenseButton";
-import { BORDER_RADIUS, FONT_SIZE_BUTTONS, SIZES } from "@/styles/constants";
+import {
+	BORDER_RADIUS,
+	CUBICS,
+	FONT_SIZE_BUTTONS,
+	SIZES,
+} from "@/styles/constants";
 import { FlexColumn, FlexRowSpaceBetweenCenter } from "@/styles/mixins.styled";
 import { devices } from "@/styles/breakpoints";
 
@@ -71,4 +76,10 @@ export const CashFlowItemStyledChecker = styled(CheckExpenseButtonStyled)<{
 		props.$isPaid
 			? COLOR_BUTTON_CASHFLOW_ITEM_ACTIVE
 			: COLOR_BUTTON_CASHFLOW_ITEM_UNACTIVE};
+
+	transition: opacity ${CUBICS.easyOut} 250ms;
+
+	&:hover {
+		opacity: 0.5;
+	}
 `;

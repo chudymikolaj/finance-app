@@ -114,6 +114,17 @@ export const CashFlowSortByDataSort = styled.button`
 `;
 
 export const CashFlowButton = styled(Button)`
+	transition: opacity ${CUBICS.easyOut} 250ms, transform ${CUBICS.easyOut} 250ms;
+
+	&:hover {
+		opacity: 0.8;
+	}
+
+	&:active {
+		transform: scale(0.75);
+		opacity: 0.25;
+	}
+
 	font-size: ${FONT_SIZE_BUTTONS};
 
 	div {

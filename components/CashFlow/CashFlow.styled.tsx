@@ -29,7 +29,12 @@ export const CashFlowTab = styled.div<{ $isActive: boolean }>`
 	${FlexRow}
 
 	opacity: ${(props) => (props.$isActive ? 0.4 : 1)};
-	transition: opacity ${CUBICS};
+	transition: opacity ${CUBICS.easyOut} 250ms;
+
+	&:hover {
+		opacity: 0.4;
+	}
+
 	font-size: 12px;
 	cursor: pointer;
 `;
@@ -42,7 +47,17 @@ export const CashFlowLists = styled.div`
 `;
 
 export const CashFlowButton = styled(Button)`
+	transition: opacity ${CUBICS.easyOut} 250ms, transform ${CUBICS.easyOut} 250ms;
 	font-size: ${FONT_SIZE_BUTTONS};
+
+	&:hover {
+		opacity: 0.8;
+	}
+
+	&:active {
+		transform: scale(0.75);
+		opacity: 0.25;
+	}
 
 	div {
 		height: 15px;
