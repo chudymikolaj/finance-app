@@ -40,13 +40,16 @@ export const GlobalStyle = createGlobalStyle`
 
   body {
     width: 100%;
-    height: calc(100vh - 120px);
     padding: 0 15px;
     margin: 90px auto 30px;
 
     @media ${devices.md} {
       width: 100%;
       padding: 0 5vh;
+    }
+
+    @media ${devices.md} {
+        height: calc(100vh - 120px);
     }
 
     background-color: ${(props) => props.theme.backgroundColor};
