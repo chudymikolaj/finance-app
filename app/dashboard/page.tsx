@@ -1,5 +1,7 @@
 import Wallet from "@/components/Wallet";
 import CashFlow from "@/components/CashFlow";
+import BudgetManagmentComponent from "@/components/BudgetManagement";
+
 import {
 	DashboardContainer,
 	DashboardLeftColumn,
@@ -13,7 +15,9 @@ export default function Dashboard() {
 				<Wallet />
 				<CashFlow />
 			</DashboardLeftColumn>
-			<DashboardRightColumn>Example</DashboardRightColumn>
+			<DashboardRightColumn>
+				<BudgetManagmentComponent />
+			</DashboardRightColumn>
 		</DashboardContainer>
 	);
 }
