@@ -12,7 +12,7 @@ export const WalletContainer = styled.div`
 
 	width: 100%;
 	max-width: 500px;
-	margin: 80px auto 50px;
+	margin: 0 auto 50px;
 `;
 
 export const WalletHeader = styled.div`
