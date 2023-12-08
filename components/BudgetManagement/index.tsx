@@ -1,19 +1,12 @@
-import {
-	BudgetContainer,
-	BudgetHeader,
-	BudgetHeaderTitle,
-	ButtonOptions,
-} from "./BudgetManagment.styled";
+import BudgetHeader from "./BudgetManagementHeader";
+import { BudgetContainer } from "./BudgetManagementComponent.styled";
 
-const BudgetManagmentComponent = () => {
+const BudgetManagementComponent = () => {
 	return (
 		<BudgetContainer>
-			<BudgetHeader>
-				<BudgetHeaderTitle>Zarządzanie budżetem</BudgetHeaderTitle>
-				<ButtonOptions svgUrl="./settings.svg" />
-			</BudgetHeader>
+			<BudgetHeader />
 		</BudgetContainer>
 	);
 };
 
-export default BudgetManagmentComponent;
+export default BudgetManagementComponent;

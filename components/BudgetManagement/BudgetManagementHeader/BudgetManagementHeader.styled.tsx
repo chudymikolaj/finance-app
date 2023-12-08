@@ -1,14 +1,11 @@
 "use client";
 
 import styled from "styled-components";
+
 import Button from "@/components/Buttons/Button";
 import { CUBICS, SIZES, WEIGHT } from "@/styles/constants";
 import { FlexRowSpaceBetweenCenter } from "@/styles/mixins.styled";
 import { devices } from "@/styles/breakpoints";
-
-export const BudgetContainer = styled.div`
-	width: 100%;
-`;
 
 export const BudgetHeader = styled.div`
 	${FlexRowSpaceBetweenCenter}
