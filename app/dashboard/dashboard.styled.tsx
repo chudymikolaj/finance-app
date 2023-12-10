@@ -9,14 +9,13 @@ import { FlexColumnStart } from "@/styles/mixins.styled";
 export const DashboardContainer = styled.div`
 	width: 100%;
 	height: 100%;
-	padding: 80px 0 0;
+	padding: 40px 0 0;
 	display: grid;
 	grid-template-columns: 1fr;
 	gap: 20px;
 
 	@media ${devices.lg} {
 		grid-template-columns: 1fr 1fr;
-		gap: 5vh;
 	}
 
 	@media ${devices.xl} {
@@ -24,6 +23,7 @@ export const DashboardContainer = styled.div`
 	}
 
 	@media ${devices["2xl"]} {
+		padding: 80px 0 0;
 		grid-template-columns: 500px 1fr;
 		gap: 100px;
 	}
@@ -43,7 +43,7 @@ export const DashboardRightColumn = styled.div`
 	height: 100%;
 	padding: 18px 20px;
 
-	@media ${devices.lg} {
+	@media ${devices.xl} {
 		padding: 30px;
 	}
 
