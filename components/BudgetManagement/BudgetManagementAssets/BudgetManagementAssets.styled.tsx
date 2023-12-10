@@ -11,8 +11,7 @@ export const BudgetManagementAssetsContainer = styled.div`
 	}
 
 	gap: 10px;
-
-	margin: 30px auto 0;
+	width: 100%;
 `;
 
 export const BudgetManagementAssetsWrapper = styled.div`
@@ -47,6 +46,7 @@ const maxSizeChart = "298px";
 
 export const ChartWrapper = styled.div`
 	width: 100%;
+	max-height: ${maxSizeChart};
 	padding: 15px;
 	background-color: ${({ theme }) => theme.colorElement_6};
 	border-radius: ${BORDER_RADIUS};
