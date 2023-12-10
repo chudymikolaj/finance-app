@@ -13,6 +13,7 @@
     "next": "^14.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-minimal-pie-chart": "^8.4.0",
     "react-svg": "^16.1.28",
     "styled-components": "^6.0.8",
     "uuid": "^9.0.1"

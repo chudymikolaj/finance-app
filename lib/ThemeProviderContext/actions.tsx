@@ -15,8 +15,22 @@ export function useAppContextDateList() {
 	const contextApp = useContext(AppContext);
 
 	if (contextApp === null) {
-		throw new Error("contextApp context must be used within a Provider");
+		throw new Error(
+			"useAppContextDateList context must be used within a Provider"
+		);
 	}
 
 	return contextApp.filterDateCashFlowList;
+}
+
+export function useAppContextAssets() {
+	const contextApp = useContext(AppContext);
+
+	if (contextApp === null) {
+		throw new Error(
+			"useAppContextAssets context must be used within a Provider"
+		);
+	}
+
+	return contextApp.assets;
 }

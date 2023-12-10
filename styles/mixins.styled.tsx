@@ -13,6 +13,12 @@ export const FlexColumnStart = `
   justify-content: flex-start;
 `;
 
+export const FlexColumnCenter = `
+  ${FlexColumn};
+  justify-content: center;
+  aligin-context: center;
+`;
+
 export const FlexRowStart = `
   ${FlexRow};
   justify-content: flex-start;

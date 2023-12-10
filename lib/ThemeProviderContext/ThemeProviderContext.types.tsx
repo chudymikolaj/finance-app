@@ -64,26 +64,46 @@ export type ExpensesAndRevenues = {
 	revenues: TabsOfExpensesAndRevenues[];
 };
 
+export type AssetList = {
+	title: string;
+	value: number;
+};
+
+export type Asset = {
+	title: string;
+	share: number;
+	value: number;
+	color: string;
+	lists: AssetList[];
+};
+
+export type Assets = {
+	assets: Asset[];
+};
+
 export type AppState = Mode &
 	Constants &
 	initialNavbar &
 	Wallet &
 	FilterCashFlowList &
-	ExpensesAndRevenues;
+	ExpensesAndRevenues &
+	Assets;
 
 export type initialAppState = Mode &
 	Constants &
 	initialNavbar &
 	Wallet &
 	FilterCashFlowList &
-	ExpensesAndRevenues;
+	ExpensesAndRevenues &
+	Assets;
 
 export type AppStateValue = Mode &
 	Constants &
 	initialNavbar &
 	Wallet &
 	FilterCashFlowList &
-	ExpensesAndRevenues & {
+	ExpensesAndRevenues &
+	Assets & {
 		addExpense: (
 			id: string,
 			name: string,
@@ -104,6 +124,7 @@ export type AppStateValue = Mode &
 		updateExpenses: (value: number) => void;
 		updateRevenues: (value: number) => void;
 		updateRestRevenues: (revenues: number, expenses: number) => void;
+		updateAssets: (assets: Asset[]) => void;
 		checkExpenses: (id: string) => void;
 		removeExpenses: (id: string) => void;
 		removeRevenue: (id: string) => void;

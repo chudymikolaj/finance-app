@@ -1,6 +1,7 @@
 import {
 	type TabsOfExpensesAndRevenues,
 	type AppState,
+	Asset,
 } from "./ThemeProviderContext.types";
 
 type ToggleMode = {
@@ -76,6 +77,11 @@ type FilterCashFlowList = {
 	value: { fromDate: string; toDate: string };
 };
 
+type UpdateAssets = {
+	type: "UPDATE_ASSETS";
+	assets: Asset[];
+};
+
 type Action =
 	| ToggleMode
 	| AddExpense
@@ -90,6 +96,7 @@ type Action =
 	| UpdateRevenue
 	| UpdateRestRevenues
 	| FilterCashFlowList
+	| UpdateAssets
 	| {
 			type: "string";
 	  };
@@ -224,6 +231,13 @@ export function appReducer(state: AppState, action: Action): AppState {
 				sumRevenues: action.value,
 				restRevenues: action.value - state.wallet.sumBills,
 			},
+		};
+	}
+
+	if (action.type === "UPDATE_ASSETS") {
+		return {
+			...state,
+			assets: [...action.assets],
 		};
 	}
 
