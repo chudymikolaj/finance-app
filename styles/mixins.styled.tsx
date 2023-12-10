@@ -11,12 +11,13 @@ export const FlexColumn = `
 export const FlexColumnStart = `
   ${FlexColumn};
   justify-content: flex-start;
+  align-items: flex-start;
 `;
 
 export const FlexColumnCenter = `
   ${FlexColumn};
   justify-content: center;
-  aligin-context: center;
+  align-items: flex-start;
 `;
 
 export const FlexRowStart = `
