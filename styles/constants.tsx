@@ -41,7 +41,7 @@ export const SIZES = {
 	normalText: "16px",
 	bigText: "18px",
 	subText: "24px",
-	headerText: "32px",
+	headerText: "clamp(1.5rem, 0.9286rem + 1.1905vw, 2rem)",
 };
 export const WEIGHT = {
 	light: "300",
