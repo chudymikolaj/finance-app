@@ -1,5 +1,6 @@
 import BudgetHeader from "./BudgetManagementHeader";
 import BudgetAssets from "./BudgetManagementAssets";
+import BudgetCategories from "./BudgetManagementCategories";
 
 import { BudgetContainer } from "./BudgetManagementComponent.styled";
 
@@ -8,6 +9,7 @@ const BudgetManagementComponent = () => {
 		<BudgetContainer>
 			<BudgetHeader />
 			<BudgetAssets />
+			<BudgetCategories />
 		</BudgetContainer>
 	);
 };
