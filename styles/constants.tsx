@@ -42,6 +42,7 @@ export const SIZES = {
 	bigText: "18px",
 	subText: "24px",
 	headerText: "clamp(1.5rem, 0.9286rem + 1.1905vw, 2rem)",
+	tabName: "clamp(1.25rem, 0.9643rem + 0.5952vw, 1.5rem)",
 };
 export const WEIGHT = {
 	light: "300",
