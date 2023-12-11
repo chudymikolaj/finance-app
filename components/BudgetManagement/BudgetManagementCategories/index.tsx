@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import { useAppContextAssets } from "@/lib/ThemeProviderContext/actions";
 
+import BudgetManagementTabs from "../BudgetManagementTabs";
+
 import {
 	BudgetCategoriesContainer,
 	BudgetCategoriesCategories,
@@ -39,6 +41,11 @@ const BudgetCategoriesComponent = () => {
 					</BudgetCategoriesCategory>
 				)}
 			</BudgetCategoriesCategories>
+
+			<BudgetManagementTabs
+				activeTab={activeCategory}
+				assets={assets}
+			/>
 		</BudgetCategoriesContainer>
 	);
 };
