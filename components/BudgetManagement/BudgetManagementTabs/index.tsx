@@ -36,7 +36,7 @@ const BudgetManagementTabsComponent = ({
 													{title}
 												</BudgetManagementTabsTabListItemName>
 												<BudgetManagementTabsTabListItemValue>
-													{value}
+													{value} PLN
 												</BudgetManagementTabsTabListItemValue>
 												<BudgetManagementTabsTabListItemButtons>
 													<BudgetManagementTabsButton svgUrl="./add.svg"></BudgetManagementTabsButton>

@@ -16,8 +16,8 @@ export const BudgetCategoriesCategories = styled.div`
 	}
 
 	padding: 20px 0;
-	border-top: 1px solid ${(props) => props.theme.colorElement_5};
-	border-bottom: 1px solid ${(props) => props.theme.colorElement_5};
+	border-top: 1px solid ${({ theme }) => theme.colorElement_5};
+	border-bottom: 1px solid ${({ theme }) => theme.colorElement_5};
 `;
 
 export const BudgetCategoriesCategory = styled.div``;
