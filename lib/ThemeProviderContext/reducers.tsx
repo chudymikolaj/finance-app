@@ -1,7 +1,8 @@
 import {
 	type TabsOfExpensesAndRevenues,
 	type AppState,
-	Asset,
+	type BudgetAllocation,
+	type BudgetTabList,
 } from "./ThemeProviderContext.types";
 
 type ToggleMode = {
@@ -77,9 +78,14 @@ type FilterCashFlowList = {
 	value: { fromDate: string; toDate: string };
 };
 
-type UpdateAssets = {
-	type: "UPDATE_ASSETS";
-	assets: Asset[];
+type UpdateBudgetAllocations = {
+	type: "UPDATE_BUDGET_ALLOCATIONS";
+	budgetAllocations: BudgetAllocation[];
+};
+
+type UpdateBudgetTabLists = {
+	type: "UPDATE_BUDGET_TAB_LISTS";
+	budgetTabLists: BudgetTabList[];
 };
 
 type Action =
@@ -96,7 +102,8 @@ type Action =
 	| UpdateRevenue
 	| UpdateRestRevenues
 	| FilterCashFlowList
-	| UpdateAssets
+	| UpdateBudgetAllocations
+	| UpdateBudgetTabLists
 	| {
 			type: "string";
 	  };
@@ -234,10 +241,17 @@ export function appReducer(state: AppState, action: Action): AppState {
 		};
 	}
 
-	if (action.type === "UPDATE_ASSETS") {
+	if (action.type === "UPDATE_BUDGET_ALLOCATIONS") {
 		return {
 			...state,
-			assets: [...action.assets],
+			budgetAllocations: [...action.budgetAllocations],
+		};
+	}
+
+	if (action.type === "UPDATE_BUDGET_TAB_LISTS") {
+		return {
+			...state,
+			budgetTabLists: [...action.budgetTabLists],
 		};
 	}
 

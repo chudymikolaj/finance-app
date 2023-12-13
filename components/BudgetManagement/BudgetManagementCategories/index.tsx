@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import { useAppContextAssets } from "@/lib/ThemeProviderContext/actions";
+import React, { useEffect, useState } from "react";
+import { useAppContext } from "@/lib/ThemeProviderContext/actions";
 
 import BudgetManagementTabs from "../BudgetManagementTabs";
 
@@ -13,25 +13,89 @@ import {
 	BudgetCategoriesCategoryCircleColor,
 } from "./BudgetManagement.styled";
 
+const assetsTabsList = [
+	{
+		id: "zelazna-rezerwa",
+		title: "Żelazna rezerwa",
+		value: 4500,
+		color: "#5D8C71",
+		lists: [
+			{
+				id: "1",
+				title: "PLN",
+				value: 4500,
+			},
+		],
+	},
+	{
+		id: "inwestycje",
+		title: "Inwestycje",
+		value: 25000,
+		color: "#FF6969",
+		lists: [
+			{
+				id: "1",
+				title: "PLN",
+				value: 25000,
+			},
+		],
+	},
+	{
+		id: "oszczednosci",
+		title: "Oszczędności",
+		value: 15000,
+		color: "#9747FF",
+		lists: [
+			{
+				id: "1",
+				title: "PLN",
+				value: 15000,
+			},
+		],
+	},
+	{
+		id: "reszta",
+		title: "Reszta",
+		value: 5000,
+		color: "#67aded",
+		lists: [
+			{
+				id: "1",
+				title: "PLN",
+				value: 5000,
+			},
+		],
+	},
+];
+
 const BudgetCategoriesComponent = () => {
-	const assets = useAppContextAssets();
-	const isAssets = assets.length > 0;
-	const [activeCategory, setActiveCategory] = useState(0);
+	const { updateBudgetListTabs, budgetTabLists } = useAppContext();
+
+	const isAssets = budgetTabLists.length > 0;
+	const [activeCategory, setActiveCategory] = useState("");
+
+	useEffect(() => {
+		if (!isAssets) {
+			updateBudgetListTabs(assetsTabsList);
+		}
+
+		setActiveCategory(assetsTabsList[0]?.id);
+	}, []);
 
 	return (
 		<BudgetCategoriesContainer>
 			<BudgetCategoriesCategories>
 				{isAssets ? (
-					assets.map((cat, id) => (
+					budgetTabLists.map(({ id, title, color }) => (
 						<BudgetCategoriesCategory key={id}>
 							<BudgetCategoriesCategoryButton
 								onClick={() => setActiveCategory(id)}
 								$active={id === activeCategory}
 							>
 								<BudgetCategoriesCategoryCircleColor
-									$color={cat.color}
+									$color={color}
 								></BudgetCategoriesCategoryCircleColor>
-								<span>{cat.title}</span>
+								<span>{title}</span>
 							</BudgetCategoriesCategoryButton>
 						</BudgetCategoriesCategory>
 					))
@@ -44,7 +108,7 @@ const BudgetCategoriesComponent = () => {
 
 			<BudgetManagementTabs
 				activeTab={activeCategory}
-				assets={assets}
+				budgetTabLists={budgetTabLists}
 			/>
 		</BudgetCategoriesContainer>
 	);

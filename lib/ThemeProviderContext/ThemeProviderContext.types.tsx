@@ -64,21 +64,34 @@ export type ExpensesAndRevenues = {
 	revenues: TabsOfExpensesAndRevenues[];
 };
 
-export type AssetList = {
+export type TabList = {
+	id: string;
 	title: string;
 	value: number;
 };
 
-export type Asset = {
+export type BudgetTabList = {
+	id: string;
+	title: string;
+	value: number;
+	color: string;
+	lists: TabList[];
+};
+
+export type BudgetTabLists = {
+	budgetTabLists: BudgetTabList[];
+};
+
+export type BudgetAllocation = {
+	id: string;
 	title: string;
 	share: number;
 	value: number;
 	color: string;
-	lists: AssetList[];
 };
 
-export type Assets = {
-	assets: Asset[];
+export type BudgetAllocations = {
+	budgetAllocations: BudgetAllocation[];
 };
 
 export type AppState = Mode &
@@ -87,7 +100,8 @@ export type AppState = Mode &
 	Wallet &
 	FilterCashFlowList &
 	ExpensesAndRevenues &
-	Assets;
+	BudgetTabLists &
+	BudgetAllocations;
 
 export type initialAppState = Mode &
 	Constants &
@@ -95,7 +109,8 @@ export type initialAppState = Mode &
 	Wallet &
 	FilterCashFlowList &
 	ExpensesAndRevenues &
-	Assets;
+	BudgetTabLists &
+	BudgetAllocations;
 
 export type AppStateValue = Mode &
 	Constants &
@@ -103,7 +118,8 @@ export type AppStateValue = Mode &
 	Wallet &
 	FilterCashFlowList &
 	ExpensesAndRevenues &
-	Assets & {
+	BudgetTabLists &
+	BudgetAllocations & {
 		addExpense: (
 			id: string,
 			name: string,
@@ -124,7 +140,8 @@ export type AppStateValue = Mode &
 		updateExpenses: (value: number) => void;
 		updateRevenues: (value: number) => void;
 		updateRestRevenues: (revenues: number, expenses: number) => void;
-		updateAssets: (assets: Asset[]) => void;
+		updateBudgetAllocations: (allocations: BudgetAllocation[]) => void;
+		updateBudgetListTabs: (lists: BudgetTabList[]) => void;
 		checkExpenses: (id: string) => void;
 		removeExpenses: (id: string) => void;
 		removeRevenue: (id: string) => void;

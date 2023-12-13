@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { PieChart, type PieChartProps } from "react-minimal-pie-chart";
 
 import { useAppContext } from "@/lib/ThemeProviderContext/actions";
-import { type Asset } from "@/lib/ThemeProviderContext/ThemeProviderContext.types";
+import { type BudgetAllocation } from "@/lib/ThemeProviderContext/ThemeProviderContext.types";
 
 import {
 	BudgetManagementAssetsContainer,
@@ -14,54 +14,34 @@ import {
 	ChartWrapper,
 } from "./BudgetManagementAssets.styled";
 
-const assetsValue = [
+const budgetAlocationOptions = [
 	{
+		id: "zelazna-rezerwa",
 		title: "Żelazna rezerwa",
 		share: 0.3,
-		value: 4500,
+		value: 0,
 		color: "#5D8C71",
-		lists: [
-			{
-				title: "PLN",
-				value: 5000,
-			},
-		],
 	},
 	{
+		id: "inwestycje",
 		title: "Inwestycje",
 		share: 0.2,
-		value: 25000,
+		value: 0,
 		color: "#FF6969",
-		lists: [
-			{
-				title: "PLN",
-				value: 5000,
-			},
-		],
 	},
 	{
+		id: "oszczednosci",
 		title: "Oszczędności",
 		share: 0.1,
-		value: 15000,
+		value: 0,
 		color: "#9747FF",
-		lists: [
-			{
-				title: "PLN",
-				value: 5000,
-			},
-		],
 	},
 	{
+		id: "reszta",
 		title: "Reszta",
 		share: 0.4,
-		value: 5000,
+		value: 0,
 		color: "#67aded",
-		lists: [
-			{
-				title: "PLN",
-				value: 5000,
-			},
-		],
 	},
 ];
 
@@ -69,8 +49,10 @@ const BudgetManagementAssets = () => {
 	const MIN_VALUE_OF_COUNT = 10;
 	const LINE_WIDTH_CHART = 50;
 
-	const { updateAssets, assets, wallet } = useAppContext();
+	const { updateBudgetAllocations, budgetAllocations, wallet } =
+		useAppContext();
 
+	const isBudgetAllocations = budgetAllocations.length > 0;
 	const [hovered, setHovered] = useState<number | undefined>(undefined);
 	const [chartPie, setChartPie] = useState([
 		{
@@ -81,7 +63,7 @@ const BudgetManagementAssets = () => {
 		},
 	]);
 
-	const mapBudget = (arr: Asset[], value: number) => {
+	const mapBudget = (arr: BudgetAllocation[], value: number) => {
 		let valueTest = value;
 
 		const result = arr.map((item) => {
@@ -127,9 +109,9 @@ const BudgetManagementAssets = () => {
 	};
 
 	useEffect(() => {
-		const calcedBudget = mapBudget(assetsValue, wallet.restRevenues);
+		const calcedBudget = mapBudget(budgetAlocationOptions, wallet.restRevenues);
 
-		updateAssets(calcedBudget);
+		updateBudgetAllocations(calcedBudget);
 
 		if (wallet.restRevenues > MIN_VALUE_OF_COUNT) {
 			setChartPie(calcedBudget);
@@ -140,12 +122,16 @@ const BudgetManagementAssets = () => {
 		<BudgetManagementAssetsContainer>
 			<BudgetManagementAssetsWrapper>
 				<BudgetManagementAssetsList>
-					{assets.map((asset) => (
-						<BudgetManagementAssetsListItem key={asset.title}>
-							<span>{asset.title}</span>
-							<span>{asset.value.toFixed(2)} PLN</span>
-						</BudgetManagementAssetsListItem>
-					))}
+					{isBudgetAllocations ? (
+						budgetAllocations.map((asset) => (
+							<BudgetManagementAssetsListItem key={asset.title}>
+								<span>{asset.title}</span>
+								<span>{asset.value.toFixed(2)} PLN</span>
+							</BudgetManagementAssetsListItem>
+						))
+					) : (
+						<div>Ładowanie alokacji budżetu</div>
+					)}
 				</BudgetManagementAssetsList>
 			</BudgetManagementAssetsWrapper>
 			<ChartWrapper>

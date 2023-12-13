@@ -14,24 +14,24 @@ import { BudgetManagementTabsType } from "./BudgetManagementTabs.types";
 
 const BudgetManagementTabsComponent = ({
 	activeTab,
-	assets,
+	budgetTabLists,
 }: BudgetManagementTabsType) => {
-	const isAssets = assets.length > 0;
+	const isAssets = budgetTabLists.length > 0;
 
 	return (
 		<BudgetManagementTabsContainer>
 			<BudgetManagementTabsWrapper>
 				{isAssets ? (
-					assets.map(
-						({ title, color, lists }, idTab) =>
-							idTab === activeTab && (
-								<BudgetManagementTabsTab key={idTab}>
+					budgetTabLists.map(
+						({ id, title, color, lists }) =>
+							id === activeTab && (
+								<BudgetManagementTabsTab key={id}>
 									<BudgetManagementTabsTabName $color={color}>
 										{title}
 									</BudgetManagementTabsTabName>
 									<BudgetManagementTabsTabList>
-										{lists.map(({ title, value }) => (
-											<BudgetManagementTabsTabListItem>
+										{lists.map(({ id, title, value }) => (
+											<BudgetManagementTabsTabListItem key={id}>
 												<BudgetManagementTabsTabListItemName>
 													{title}
 												</BudgetManagementTabsTabListItemName>

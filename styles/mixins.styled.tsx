@@ -17,7 +17,7 @@ export const FlexColumnStart = `
 export const FlexColumnCenter = `
   ${FlexColumn};
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
 `;
 
 export const FlexRowStart = `

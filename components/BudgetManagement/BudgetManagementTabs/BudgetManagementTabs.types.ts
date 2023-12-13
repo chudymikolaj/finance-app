@@ -1,6 +1,6 @@
-import { Asset } from "@/lib/ThemeProviderContext/ThemeProviderContext.types";
+import { type BudgetTabList } from "@/lib/ThemeProviderContext/ThemeProviderContext.types";
 
 export type BudgetManagementTabsType = {
-  activeTab: number;
-  assets: Asset[];
+  activeTab: string;
+  budgetTabLists: BudgetTabList[];
 }

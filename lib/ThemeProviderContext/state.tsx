@@ -50,5 +50,6 @@ export const initialAppState: AppState = {
 	},
 	expenses: [],
 	revenues: [],
-	assets: [],
+	budgetAllocations: [],
+	budgetTabLists: [],
 };

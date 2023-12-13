@@ -6,6 +6,7 @@ import {
 	FlexRowSpaceBetweenCenter,
 	FlexColumnStart,
 	FlexCenter,
+	FlexColumnCenter,
 } from "@/styles/mixins.styled";
 import styled from "styled-components";
 
@@ -35,8 +36,10 @@ export const BudgetManagementAssetsWrapper = styled.div`
 `;
 
 export const BudgetManagementAssetsList = styled.ul`
-	${FlexColumn}
+	${FlexColumnCenter}
 	gap: 10px;
+
+	height: 100%;
 	list-style: none;
 	font-weight: ${WEIGHT.medium};
 `;
@@ -55,6 +58,7 @@ export const BudgetManagementAssetsListItem = styled.li`
 	gap: 5px;
 	flex: 1 1 50%;
 
+	width: 100%;
 	height: 250px;
 	padding: 15px;
 	background-color: ${({ theme }) => theme.colorElement_6};
