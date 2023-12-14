@@ -1,3 +1,4 @@
+import BudgetManagementSummaryTabsComponent from "../BudgetManagementSummaryTabs";
 import {
 	BudgetManagementTabsButton,
 	BudgetManagementTabsContainer,
@@ -23,7 +24,7 @@ const BudgetManagementTabsComponent = ({
 			<BudgetManagementTabsWrapper>
 				{isAssets ? (
 					budgetTabLists.map(
-						({ id, title, color, lists }) =>
+						({ id, title, value, color, lists }) =>
 							id === activeTab && (
 								<BudgetManagementTabsTab key={id}>
 									<BudgetManagementTabsTabName $color={color}>
@@ -45,6 +46,7 @@ const BudgetManagementTabsComponent = ({
 											</BudgetManagementTabsTabListItem>
 										))}
 									</BudgetManagementTabsTabList>
+									<BudgetManagementSummaryTabsComponent value={value} />
 								</BudgetManagementTabsTab>
 							)
 					)
