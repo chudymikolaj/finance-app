@@ -26,7 +26,6 @@ export const SalaryCalculation = styled.div`
 
 	position: relative;
 	gap: 5px;
-	z-index: 2;
 	color: ${(props) => props.theme.color};
 `;
 
