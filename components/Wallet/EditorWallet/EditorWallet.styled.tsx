@@ -1,10 +1,6 @@
 import styled from "styled-components";
 import { SIZES, WEIGHT, CUBICS, BORDER_RADIUS } from "@/styles/constants";
 import { FlexRowSpaceBetweenCenter } from "@/styles/mixins.styled";
-import { devices } from "@/styles/breakpoints";
-
-const StartRenderElementByTopMobile = "271px";
-const StartRenderElementByTopDesktop = "87px";
 
 export const EditorWallet = styled.div<{ $animate?: boolean }>`
 	width: 100%;
@@ -15,15 +11,10 @@ export const EditorWallet = styled.div<{ $animate?: boolean }>`
 	visibility: ${(props) => (props.$animate ? "visible" : "hidden")};
 	opacity: ${(props) => (props.$animate ? "1" : "0")};
 	position: absolute;
-	top: ${StartRenderElementByTopMobile};
-
-	@media ${devices.md} {
-		top: ${StartRenderElementByTopDesktop};
-	}
-
+	top: 0;
 	left: 0;
 	transform: ${(props) =>
-		props.$animate ? "translateY(5px)" : "translateY(0)"};
+		props.$animate ? "translateY(0)" : "translateY(10px)"};
 	transition: transform ${CUBICS.easyOut} 200ms, opacity ${CUBICS.easyOut} 200ms,
 		visibility ${CUBICS.easyOut} 200ms;
 	z-index: 1;
