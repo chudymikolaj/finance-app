@@ -1,3 +1,4 @@
+import BudgetManagementActionButton from "../BudgetManagementActionButton";
 import BudgetManagementSummaryTabsComponent from "../BudgetManagementSummaryTabs";
 import {
 	BudgetManagementTabsButton,
@@ -46,6 +47,7 @@ const BudgetManagementTabsComponent = ({
 											</BudgetManagementTabsTabListItem>
 										))}
 									</BudgetManagementTabsTabList>
+									<BudgetManagementActionButton action={() => alert(title)} />
 									<BudgetManagementSummaryTabsComponent value={value} />
 								</BudgetManagementTabsTab>
 							)

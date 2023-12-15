@@ -63,7 +63,8 @@ export const FlexRowAlignCenter = `
 `;
 
 export const Button = `
-  padding: 8px 20px;
+  width: 100%;
+  padding: 15px 20px;
   border-radius: 5px;
 `;
 
