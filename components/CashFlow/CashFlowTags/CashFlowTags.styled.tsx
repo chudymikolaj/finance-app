@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import Button from "@/components/Buttons/Button";
+import ButtonSVG from "@/components/Buttons/ButtonSVG";
 
 import { BORDER_RADIUS_10 } from "@/styles/constants";
 import { FlexRow } from "@/styles/mixins.styled";
@@ -14,7 +14,7 @@ export const CashFlowItemStyledTags = styled.div`
 	gap: 5px;
 `;
 
-export const CashFlowItemStyledTag = styled(Button)<{ $type?: string }>`
+export const CashFlowItemStyledTag = styled(ButtonSVG)<{ $type?: string }>`
 	padding: 2px 5px;
 	border-radius: ${BORDER_RADIUS_10};
 	background-color: ${(props) =>

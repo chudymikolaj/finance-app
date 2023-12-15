@@ -2,7 +2,7 @@
 
 import styled from "styled-components";
 
-import Button from "@/components/Buttons/Button";
+import ButtonSVG from "@/components/Buttons/ButtonSVG";
 import {
 	BORDER_RADIUS,
 	CUBICS,
@@ -99,7 +99,7 @@ export const BudgetManagementTabsTabListItemButtons = styled.div`
 	width: 40px;
 `;
 
-export const BudgetManagementTabsButton = styled(Button)`
+export const BudgetManagementTabsButton = styled(ButtonSVG)`
 	transition: opacity ${CUBICS.easyOut} 250ms, transform ${CUBICS.easyOut} 250ms;
 	font-size: ${FONT_SIZE_BUTTONS};
 

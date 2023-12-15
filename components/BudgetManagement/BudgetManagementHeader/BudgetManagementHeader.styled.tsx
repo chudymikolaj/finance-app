@@ -2,7 +2,7 @@
 
 import styled from "styled-components";
 
-import Button from "@/components/Buttons/Button";
+import ButtonSVG from "@/components/Buttons/ButtonSVG";
 import { CUBICS, SIZES, WEIGHT } from "@/styles/constants";
 import { FlexRowSpaceBetweenCenter } from "@/styles/mixins.styled";
 import { devices } from "@/styles/breakpoints";
@@ -21,7 +21,7 @@ export const BudgetHeaderTitle = styled.div`
 	}
 `;
 
-export const ButtonOptions = styled(Button)`
+export const ButtonOptions = styled(ButtonSVG)`
 	transition: opacity ${CUBICS.easyOut} 250ms, transform ${CUBICS.easyOut} 250ms;
 
 	&:hover {

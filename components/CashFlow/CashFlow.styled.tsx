@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import Button from "@/components/Buttons/Button";
+import ButtonSVG from "@/components/Buttons/ButtonSVG";
 
 import {
 	FlexRow,
@@ -46,7 +46,7 @@ export const CashFlowLists = styled.div`
 	height: 100%;
 `;
 
-export const CashFlowButton = styled(Button)`
+export const CashFlowButton = styled(ButtonSVG)`
 	transition: opacity ${CUBICS.easyOut} 250ms, transform ${CUBICS.easyOut} 250ms;
 	font-size: ${FONT_SIZE_BUTTONS};
 
