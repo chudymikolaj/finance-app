@@ -63,6 +63,11 @@ export const FlexRowAlignCenter = `
 `;
 
 export const Button = `
-  padding: 8px 22px;
+  padding: 8px 20px;
+  border-radius: 5px;
+`;
+
+export const ButtonPopUp = `
+  padding: 8px 20px;
   border-radius: 5px;
 `;
