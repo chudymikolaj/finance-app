@@ -64,7 +64,7 @@ export type ExpensesAndRevenues = {
 	revenues: TabsOfExpensesAndRevenues[];
 };
 
-export type TabList = {
+export type TabListItem = {
 	id: string;
 	title: string;
 	value: number;
@@ -75,7 +75,7 @@ export type BudgetTabList = {
 	title: string;
 	value: number;
 	color: string;
-	lists: TabList[];
+	lists: TabListItem[];
 };
 
 export type BudgetTabLists = {
@@ -142,6 +142,10 @@ export type AppStateValue = Mode &
 		updateRestRevenues: (revenues: number, expenses: number) => void;
 		updateBudgetAllocations: (allocations: BudgetAllocation[]) => void;
 		updateBudgetListTabs: (lists: BudgetTabList[]) => void;
+		addBudgetListTabItem: (
+			budgetListTabItemId: string,
+			newBudgetListTabItem: TabListItem
+		) => void;
 		checkExpenses: (id: string) => void;
 		removeExpenses: (id: string) => void;
 		removeRevenue: (id: string) => void;

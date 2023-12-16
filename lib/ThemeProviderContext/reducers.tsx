@@ -3,6 +3,7 @@ import {
 	type AppState,
 	type BudgetAllocation,
 	type BudgetTabList,
+	type TabListItem,
 } from "./ThemeProviderContext.types";
 
 type ToggleMode = {
@@ -88,6 +89,12 @@ type UpdateBudgetTabLists = {
 	budgetTabLists: BudgetTabList[];
 };
 
+type AddBudgetTabItem = {
+	type: "ADD_BUDGET_TAB_ITEM";
+	budgetListTabItemId: string;
+	newBudgetListTabItem: TabListItem;
+};
+
 type Action =
 	| ToggleMode
 	| AddExpense
@@ -104,6 +111,7 @@ type Action =
 	| FilterCashFlowList
 	| UpdateBudgetAllocations
 	| UpdateBudgetTabLists
+	| AddBudgetTabItem
 	| {
 			type: "string";
 	  };
@@ -252,6 +260,27 @@ export function appReducer(state: AppState, action: Action): AppState {
 		return {
 			...state,
 			budgetTabLists: [...action.budgetTabLists],
+		};
+	}
+
+	if (action.type === "ADD_BUDGET_TAB_ITEM") {
+		const updatedBudgetTabLists = state.budgetTabLists.map((item) => {
+			if (item.id === action.budgetListTabItemId) {
+				const updatedLists = [...item.lists, action.newBudgetListTabItem];
+				const totalValue = updatedLists.reduce(
+					(total, currentItem) => total + currentItem.value,
+					0
+				);
+
+				return { ...item, lists: updatedLists, value: totalValue };
+			}
+
+			return item;
+		});
+
+		return {
+			...state,
+			budgetTabLists: updatedBudgetTabLists,
 		};
 	}
 

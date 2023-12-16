@@ -23,7 +23,7 @@ export function useAppContextDateList() {
 	return contextApp.filterDateCashFlowList;
 }
 
-export function useAppContextAssets() {
+export function useAppContextBudgetTabLists() {
 	const contextApp = useContext(AppContext);
 
 	if (contextApp === null) {
@@ -32,5 +32,5 @@ export function useAppContextAssets() {
 		);
 	}
 
-	return contextApp.assets;
+	return contextApp.budgetTabLists;
 }

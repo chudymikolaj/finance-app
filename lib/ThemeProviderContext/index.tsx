@@ -61,6 +61,13 @@ export default function ThemeProviderContext({
 		updateBudgetListTabs(budgetTabLists) {
 			dispatch({ type: "UPDATE_BUDGET_TAB_LISTS", budgetTabLists });
 		},
+		addBudgetListTabItem(budgetListTabItemId, newBudgetListTabItem) {
+			dispatch({
+				type: "ADD_BUDGET_TAB_ITEM",
+				budgetListTabItemId,
+				newBudgetListTabItem,
+			});
+		},
 		filterCashFlowList(value) {
 			dispatch({ type: "FILTER_CASHFLOW_LIST", value });
 		},
