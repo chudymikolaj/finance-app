@@ -50,4 +50,6 @@ export const DashboardRightColumn = styled.div`
 	background-color: ${({ theme }) => theme.colorElement};
 	border: 1px solid ${({ theme }) => theme.colorBorder};
 	border-radius: ${BORDER_RADIUS};
+	position: relative;
+	overflow: hidden;
 `;
