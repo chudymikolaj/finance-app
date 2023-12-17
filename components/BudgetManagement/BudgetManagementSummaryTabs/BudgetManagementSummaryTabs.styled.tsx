@@ -10,7 +10,7 @@ export const BudgetManagementSummaryTabsContainer = styled.div`
 	gap: 4px;
 
 	width: 100%;
-	padding: 18px 0;
+	padding: 18px 0 0;
 
 	@media ${devices.xl} {
 		${FlexRowAlignCenter}

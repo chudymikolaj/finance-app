@@ -1,5 +1,10 @@
-import BudgetManagementActionButton from "../BudgetManagementActionButton";
-import BudgetManagementSummaryTabsComponent from "../BudgetManagementSummaryTabs";
+import BudgetManagementActionButton from "@/components/BudgetManagement/BudgetManagementActionButton";
+import BudgetManagementTabsPopup from "@/components/BudgetManagement/BudgetManagementPopup";
+import BudgetManagementSummaryTabsComponent from "@/components/BudgetManagement/BudgetManagementSummaryTabs";
+import { useAppContext } from "@/lib/ThemeProviderContext/actions";
+import { useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+
 import {
 	BudgetManagementTabsButton,
 	BudgetManagementTabsContainer,
@@ -12,13 +17,77 @@ import {
 	BudgetManagementTabsTabName,
 	BudgetManagementTabsWrapper,
 } from "./BudgetManagementTabs.styled";
-import { BudgetManagementTabsType } from "./BudgetManagementTabs.types";
+
+import {
+	type BudgetManagementTabsType,
+	type HandlePopupAssetTitleType,
+	type HandlePopupAssetValueType,
+	type NewAssetStateType,
+	type OnSubmitPopupAssetEventType,
+	type OnSubmitPopupAssetTabCategoryIdType,
+} from "./BudgetManagementTabs.types";
 
 const BudgetManagementTabsComponent = ({
 	activeTab,
 	budgetTabLists,
 }: BudgetManagementTabsType) => {
+	const { addBudgetListTabItem } = useAppContext();
+	const [showPopupAsset, setPopupAsset] = useState(false);
+	const [newAsset, setNewAsset] = useState<NewAssetStateType>({
+		title: "",
+		value: "",
+	});
+
 	const isAssets = budgetTabLists.length > 0;
+
+	const togglePopupAsset = () => {
+		setPopupAsset((prevState) => !prevState);
+	};
+
+	const resetPopupAddAsset = () => {
+		setNewAsset({ title: "", value: "" });
+	};
+
+	const closePopupAsset = () => {
+		setPopupAsset(false);
+	};
+
+	const handlePopupAssetTitle = (event: HandlePopupAssetTitleType) => {
+		const getTitle = event.target.value;
+		setNewAsset((prevState) => ({ ...prevState, title: getTitle }));
+	};
+
+	const handlePopupAssetValue = (event: HandlePopupAssetValueType) => {
+		const getValue = event.target.value;
+		setNewAsset((prevState) => ({ ...prevState, value: getValue }));
+	};
+
+	const onSubmitPopupAsset = (
+		event: OnSubmitPopupAssetEventType,
+		tabCategoryId: OnSubmitPopupAssetTabCategoryIdType
+	) => {
+		event.preventDefault();
+
+		if (newAsset.title !== "" && newAsset.value !== "") {
+			const addAsset: { id: string; title: string; value: number } = {
+				id: uuidv4(),
+				title: newAsset.title,
+				value: Number(newAsset.value),
+			};
+
+			addBudgetListTabItem(tabCategoryId, addAsset);
+			resetPopupAddAsset();
+			closePopupAsset();
+		}
+	};
+
+	useEffect(() => {
+		if (showPopupAsset === true) {
+			setPopupAsset(false);
+			resetPopupAddAsset();
+			closePopupAsset();
+		}
+	}, [activeTab]);
 
 	return (
 		<BudgetManagementTabsContainer>
@@ -47,8 +116,19 @@ const BudgetManagementTabsComponent = ({
 											</BudgetManagementTabsTabListItem>
 										))}
 									</BudgetManagementTabsTabList>
-									<BudgetManagementActionButton action={() => alert(title)} />
+
+									<BudgetManagementActionButton action={togglePopupAsset} />
 									<BudgetManagementSummaryTabsComponent value={value} />
+
+									<BudgetManagementTabsPopup
+										showPopup={showPopupAsset}
+										onSubmit={(event) => onSubmitPopupAsset(event, id)}
+										handleTitle={(event) => handlePopupAssetTitle(event)}
+										handleValue={(event) => handlePopupAssetValue(event)}
+										closePopup={closePopupAsset}
+										inputTitleValue={newAsset.title} // Replace with actual state or prop
+										inputValue={newAsset.value}
+									/>
 								</BudgetManagementTabsTab>
 							)
 					)

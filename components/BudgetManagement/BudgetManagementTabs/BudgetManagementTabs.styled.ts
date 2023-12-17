@@ -3,6 +3,7 @@
 import styled from "styled-components";
 
 import ButtonSVG from "@/components/Buttons/ButtonSVG";
+import { devices } from "@/styles/breakpoints";
 import {
 	BORDER_RADIUS,
 	CUBICS,
@@ -17,13 +18,12 @@ import {
 	FlexRowAlignCenter,
 	FlexRowSpaceBetweenCenter,
 } from "@/styles/mixins.styled";
-import { devices } from "@/styles/breakpoints";
 
 export const BudgetManagementTabsContainer = styled.div`
-	padding: 18px 0;
+	padding: 18px 0 0;
 
 	@media ${devices.lg} {
-		padding: 30px 0;
+		padding: 30px 0 0;
 	}
 `;
 
@@ -123,3 +123,4 @@ export const BudgetManagementTabsButton = styled(ButtonSVG)`
 		width: 15px;
 	}
 `;
+
