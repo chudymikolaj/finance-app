@@ -68,6 +68,12 @@ export const Button = `
   border-radius: 5px;
 `;
 
+export const ButtonSubmit = `
+  width: 100%;
+  padding: 10px 16px;
+  border-radius: 5px;
+`;
+
 export const ButtonPopUp = `
   padding: 8px 20px;
   border-radius: 5px;
