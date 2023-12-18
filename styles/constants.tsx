@@ -42,8 +42,10 @@ export const SIZES = {
 	bigText: "18px",
 	subText: "24px",
 	headerText: "clamp(1.5rem, 0.9286rem + 1.1905vw, 2rem)",
-	tabName: "clamp(1.25rem, 0.9643rem + 0.5952vw, 1.5rem)",
-	tabSummary: "clamp(1rem, 0.7778rem + 0.463vw, 1.125rem)",
+	tabName: "clamp(1rem, 0.6923rem + 0.4808vw, 1.125rem)",
+	tabSummary: "clamp(0.875rem, 0.5673rem + 0.4808vw, 1rem)",
+	tabAssetsText: "clamp(0.75rem, 0.1346rem + 0.9615vw, 1rem)",
+	buttonFontSize: "clamp(0.875rem, 0.5673rem + 0.4808vw, 1rem)",
 };
 export const WEIGHT = {
 	light: "300",

@@ -1,3 +1,6 @@
+import { devices } from "./breakpoints";
+import { SIZES } from "./constants";
+
 export const FlexRow = `
   display: flex;
   flex-direction: row;
@@ -64,17 +67,29 @@ export const FlexRowAlignCenter = `
 
 export const Button = `
   width: 100%;
-  padding: 15px 20px;
+  padding: 10px 16px;
   border-radius: 5px;
+  font-size: ${SIZES.buttonFontSize};
+
+  @media ${devices.xl} {
+    padding: 15px 20px;
+  }
 `;
 
 export const ButtonSubmit = `
   width: 100%;
   padding: 10px 16px;
   border-radius: 5px;
+  font-size: ${SIZES.buttonFontSize};
 `;
 
 export const ButtonPopUp = `
-  padding: 8px 20px;
+  padding: 8px 16px;
+
+  @media ${devices.xl} {
+    padding: 8px 20px;
+  }
+
   border-radius: 5px;
+  font-size: ${SIZES.buttonFontSize};
 `;
