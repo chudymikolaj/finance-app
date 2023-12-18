@@ -41,15 +41,15 @@ export const DashboardRightColumn = styled.div`
 
 	width: 100%;
 	height: 100%;
-	padding: 18px 20px;
+	padding: 16px 20px;
 
 	@media ${devices.xl} {
 		padding: 30px;
+		overflow: hidden;
 	}
 
 	background-color: ${({ theme }) => theme.colorElement};
 	border: 1px solid ${({ theme }) => theme.colorBorder};
 	border-radius: ${BORDER_RADIUS};
 	position: relative;
-	overflow: hidden;
 `;
