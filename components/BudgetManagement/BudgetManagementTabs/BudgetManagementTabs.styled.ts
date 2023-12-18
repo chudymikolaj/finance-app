@@ -13,6 +13,7 @@ import {
 } from "@/styles/constants";
 import {
 	FlexCenter,
+	FlexColumn,
 	FlexColumnStart,
 	FlexRow,
 	FlexRowAlignCenter,
@@ -20,22 +21,28 @@ import {
 } from "@/styles/mixins.styled";
 
 export const BudgetManagementTabsContainer = styled.div`
-	padding: 18px 0 0;
+	padding: 16px 0 0;
 
-	@media ${devices.lg} {
+	@media ${devices.xl} {
 		padding: 30px 0 0;
 	}
+
+	height: 100%;
+	display: block;
 `;
 
 export const BudgetManagementTabsWrapper = styled.div`
 	${FlexCenter}
 
 	width: 100%;
+	height: 100%;
 	margin: auto;
 `;
 
 export const BudgetManagementTabsTab = styled.div`
+	${FlexColumn}
 	width: 100%;
+	height: 100%;
 `;
 
 export const BudgetManagementTabsTabName = styled.h3<{ $color: string }>`
@@ -57,10 +64,19 @@ export const BudgetManagementTabsTabName = styled.h3<{ $color: string }>`
 
 export const BudgetManagementTabsTabList = styled.ul`
 	${FlexColumnStart}
-	gap: 10px;
+	gap: 6px;
 
 	width: 100%;
-	margin: 30px auto;
+	height: 100%;
+	padding: 16px 0 6px;
+
+	@media ${devices.xl} {
+		padding: 18px 0 6px;
+	}
+
+	font-size: ${SIZES.tabAssetsText};
+	font-weight: ${WEIGHT.medium};
+	overflow-y: auto;
 `;
 
 export const BudgetManagementTabsTabListItem = styled.li`
@@ -68,10 +84,14 @@ export const BudgetManagementTabsTabListItem = styled.li`
 	gap: 10px;
 
 	width: 100%;
-	padding: 15px;
+	padding: 10px;
+
+	@media ${devices.xl} {
+		padding: 15px;
+	}
+
 	background-color: ${({ theme }) => theme.colorElement_6};
 	border-radius: ${BORDER_RADIUS};
-	font-weight: ${WEIGHT.medium};
 `;
 
 export const BudgetManagementTabsTabListItemName = styled.div`

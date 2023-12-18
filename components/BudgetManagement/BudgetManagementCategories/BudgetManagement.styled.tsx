@@ -1,26 +1,32 @@
-import { CUBICS } from "@/styles/constants";
 import { devices } from "@/styles/breakpoints";
-import { FlexRowAlignCenter } from "@/styles/mixins.styled";
+import { CUBICS, SIZES } from "@/styles/constants";
+import { FlexColumn, FlexRowAlignCenter } from "@/styles/mixins.styled";
 import styled from "styled-components";
 
-export const BudgetCategoriesContainer = styled.div``;
+export const BudgetCategoriesContainer = styled.div`
+	${FlexColumn}
+	height: 100%;
+`;
 
 export const BudgetCategoriesCategories = styled.div`
 	${FlexRowAlignCenter};
 	flex-wrap: wrap;
 
 	gap: 8px;
+	padding: 16px 0;
 
 	@media ${devices.xl} {
 		gap: 20px;
+		padding: 20px 0;
 	}
 
-	padding: 20px 0;
 	border-top: 1px solid ${({ theme }) => theme.colorElement_5};
 	border-bottom: 1px solid ${({ theme }) => theme.colorElement_5};
 `;
 
-export const BudgetCategoriesCategory = styled.div``;
+export const BudgetCategoriesCategory = styled.div`
+	font-size: ${SIZES.tabAssetsText};
+`;
 
 export const BudgetCategoriesCategoryButton = styled.button<{
 	$active: boolean;

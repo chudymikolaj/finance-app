@@ -1,12 +1,12 @@
 import { devices } from "@/styles/breakpoints";
-import { BORDER_RADIUS, WEIGHT } from "@/styles/constants";
+import { BORDER_RADIUS, SIZES, WEIGHT } from "@/styles/constants";
 import {
-	FlexRow,
-	FlexColumn,
-	FlexRowSpaceBetweenCenter,
-	FlexColumnStart,
 	FlexCenter,
+	FlexColumn,
 	FlexColumnCenter,
+	FlexColumnStart,
+	FlexRow,
+	FlexRowSpaceBetweenCenter,
 } from "@/styles/mixins.styled";
 import styled from "styled-components";
 
@@ -41,11 +41,13 @@ export const BudgetManagementAssetsList = styled.ul`
 
 	height: 100%;
 	list-style: none;
+	font-size: ${SIZES.tabAssetsText};
 	font-weight: ${WEIGHT.medium};
 `;
 
 export const BudgetManagementAssetsListItem = styled.li`
 	${FlexRowSpaceBetweenCenter}
+	padding: 10px 16px;
 
 	@media ${devices.lg} {
 		${FlexColumnStart}
@@ -53,6 +55,7 @@ export const BudgetManagementAssetsListItem = styled.li`
 
 	@media ${devices.xl} {
 		${FlexRowSpaceBetweenCenter}
+		padding: 16px;
 	}
 
 	gap: 5px;
@@ -60,7 +63,6 @@ export const BudgetManagementAssetsListItem = styled.li`
 
 	width: 100%;
 	height: 250px;
-	padding: 15px;
 	background-color: ${({ theme }) => theme.colorElement_6};
 	border-radius: ${BORDER_RADIUS};
 `;

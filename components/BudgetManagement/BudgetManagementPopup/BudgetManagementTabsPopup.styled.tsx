@@ -26,7 +26,7 @@ export const BudgetManagementTabsPopupPosition = styled.div`
 	height: 100%;
 	padding: 15px;
 	background-color: ${({ theme }) => theme.colorElement_6};
-
+	border-radius: ${BORDER_RADIUS};
 	position: fixed;
 
 	@media ${devices.md} {
@@ -109,7 +109,7 @@ export const BudgetManagementTabsPopupInput = styled.input`
 	padding: 10px 16px;
 	background-color: ${({ theme }) => theme.colorElement_5};
 	border: unset;
-	border-radius: 5px;
+	border-radius: ${BORDER_RADIUS};
 	font-size: 14px;
 	color: ${({ theme }) => theme.color};
 `;
