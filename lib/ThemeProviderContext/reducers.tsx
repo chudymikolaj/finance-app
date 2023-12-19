@@ -95,6 +95,12 @@ type AddBudgetTabItem = {
 	newBudgetListTabItem: TabListItem;
 };
 
+type AddBudgetTabItemRemove = {
+	type: "BUDGET_TAB_ITEM_REMOVE";
+	budgetListTabItemCategory: string;
+	budgetListTabItemId: string;
+};
+
 type Action =
 	| ToggleMode
 	| AddExpense
@@ -112,6 +118,7 @@ type Action =
 	| UpdateBudgetAllocations
 	| UpdateBudgetTabLists
 	| AddBudgetTabItem
+	| AddBudgetTabItemRemove
 	| {
 			type: "string";
 	  };
@@ -265,13 +272,38 @@ export function appReducer(state: AppState, action: Action): AppState {
 
 	if (action.type === "ADD_BUDGET_TAB_ITEM") {
 		const updatedBudgetTabLists = state.budgetTabLists.map((item) => {
-			if (item.id === action.budgetListTabItemId) {
+			if (item.categoryId === action.budgetListTabItemId) {
 				const updatedLists = [...item.lists, action.newBudgetListTabItem];
 				const totalValue = updatedLists.reduce(
 					(total, currentItem) => total + currentItem.value,
 					0
 				);
 
+				return { ...item, lists: updatedLists, value: totalValue };
+			}
+
+			return item;
+		});
+
+		return {
+			...state,
+			budgetTabLists: updatedBudgetTabLists,
+		};
+	}
+
+	if (action.type === "BUDGET_TAB_ITEM_REMOVE") {
+		const updatedBudgetTabLists = state.budgetTabLists.map((item) => {
+			if (item.categoryId === action.budgetListTabItemCategory) {
+				const updatedLists = item.lists.filter(
+					(item) => item.id !== action.budgetListTabItemId
+				);
+
+				const totalValue = updatedLists.reduce(
+					(total, currentItem) => total + currentItem.value,
+					0
+				);
+
+				console.log(action.budgetListTabItemId, updatedLists);
 				return { ...item, lists: updatedLists, value: totalValue };
 			}
 

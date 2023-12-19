@@ -15,7 +15,7 @@ import {
 
 const assetsTabsList = [
 	{
-		id: "zelazna-rezerwa",
+		categoryId: "zelazna-rezerwa",
 		title: "Żelazna rezerwa",
 		value: 4500,
 		color: "#5D8C71",
@@ -28,7 +28,7 @@ const assetsTabsList = [
 		],
 	},
 	{
-		id: "inwestycje",
+		categoryId: "inwestycje",
 		title: "Inwestycje",
 		value: 25000,
 		color: "#FF6969",
@@ -41,7 +41,7 @@ const assetsTabsList = [
 		],
 	},
 	{
-		id: "oszczednosci",
+		categoryId: "oszczednosci",
 		title: "Oszczędności",
 		value: 15000,
 		color: "#9747FF",
@@ -54,7 +54,7 @@ const assetsTabsList = [
 		],
 	},
 	{
-		id: "reszta",
+		categoryId: "reszta",
 		title: "Reszta",
 		value: 5000,
 		color: "#67aded",
@@ -79,18 +79,18 @@ const BudgetCategoriesComponent = () => {
 			updateBudgetListTabs(assetsTabsList);
 		}
 
-		setActiveCategory(assetsTabsList[0]?.id);
+		setActiveCategory(assetsTabsList[0]?.categoryId);
 	}, []);
 
 	return (
 		<BudgetCategoriesContainer>
 			<BudgetCategoriesCategories>
 				{isAssets ? (
-					budgetTabLists.map(({ id, title, color }) => (
-						<BudgetCategoriesCategory key={id}>
+					budgetTabLists.map(({ categoryId, title, color }) => (
+						<BudgetCategoriesCategory key={categoryId}>
 							<BudgetCategoriesCategoryButton
-								onClick={() => setActiveCategory(id)}
-								$active={id === activeCategory}
+								onClick={() => setActiveCategory(categoryId)}
+								$active={categoryId === activeCategory}
 							>
 								<BudgetCategoriesCategoryCircleColor
 									$color={color}

@@ -68,6 +68,13 @@ export default function ThemeProviderContext({
 				newBudgetListTabItem,
 			});
 		},
+		budgetListTabItemRemove(budgetListTabItemCategory, budgetListTabItemId) {
+			dispatch({
+				type: "BUDGET_TAB_ITEM_REMOVE",
+				budgetListTabItemCategory,
+				budgetListTabItemId,
+			});
+		},
 		filterCashFlowList(value) {
 			dispatch({ type: "FILTER_CASHFLOW_LIST", value });
 		},

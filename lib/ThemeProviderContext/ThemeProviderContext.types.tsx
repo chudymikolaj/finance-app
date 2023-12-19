@@ -71,7 +71,7 @@ export type TabListItem = {
 };
 
 export type BudgetTabList = {
-	id: string;
+	categoryId: string;
 	title: string;
 	value: number;
 	color: string;
@@ -145,6 +145,10 @@ export type AppStateValue = Mode &
 		addBudgetListTabItem: (
 			budgetListTabItemId: string,
 			newBudgetListTabItem: TabListItem
+		) => void;
+		budgetListTabItemRemove: (
+			budgetListTabItemCategory: string,
+			budgetListTabItemId: string
 		) => void;
 		checkExpenses: (id: string) => void;
 		removeExpenses: (id: string) => void;

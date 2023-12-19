@@ -25,13 +25,14 @@ import {
 	type NewAssetStateType,
 	type OnSubmitPopupAssetEventType,
 	type OnSubmitPopupAssetTabCategoryIdType,
+	type HandleTabListItemRemoveType,
 } from "./BudgetManagementTabs.types";
 
 const BudgetManagementTabsComponent = ({
 	activeTab,
 	budgetTabLists,
 }: BudgetManagementTabsType) => {
-	const { addBudgetListTabItem } = useAppContext();
+	const { addBudgetListTabItem, budgetListTabItemRemove } = useAppContext();
 	const [showPopupAsset, setPopupAsset] = useState(false);
 	const [newAsset, setNewAsset] = useState<NewAssetStateType>({
 		title: "",
@@ -81,6 +82,13 @@ const BudgetManagementTabsComponent = ({
 		}
 	};
 
+	const handleTabListItemRemove = (
+		categoryId: HandleTabListItemRemoveType,
+		id: HandleTabListItemRemoveType
+	) => {
+		budgetListTabItemRemove(categoryId, id);
+	};
+
 	useEffect(() => {
 		if (showPopupAsset === true) {
 			setPopupAsset(false);
@@ -94,9 +102,9 @@ const BudgetManagementTabsComponent = ({
 			<BudgetManagementTabsWrapper>
 				{isAssets ? (
 					budgetTabLists.map(
-						({ id, title, value, color, lists }) =>
-							id === activeTab && (
-								<BudgetManagementTabsTab key={id}>
+						({ categoryId, title, value, color, lists }) =>
+							categoryId === activeTab && (
+								<BudgetManagementTabsTab key={categoryId}>
 									<BudgetManagementTabsTabName $color={color}>
 										{title}
 									</BudgetManagementTabsTabName>
@@ -111,7 +119,12 @@ const BudgetManagementTabsComponent = ({
 												</BudgetManagementTabsTabListItemValue>
 												<BudgetManagementTabsTabListItemButtons>
 													<BudgetManagementTabsButton svgUrl="./add.svg"></BudgetManagementTabsButton>
-													<BudgetManagementTabsButton svgUrl="./more_vert.svg"></BudgetManagementTabsButton>
+													<BudgetManagementTabsButton
+														onClick={() =>
+															handleTabListItemRemove(categoryId, id)
+														}
+														svgUrl="./remove.svg"
+													></BudgetManagementTabsButton>
 												</BudgetManagementTabsTabListItemButtons>
 											</BudgetManagementTabsTabListItem>
 										))}
@@ -122,7 +135,7 @@ const BudgetManagementTabsComponent = ({
 
 									<BudgetManagementTabsPopup
 										showPopup={showPopupAsset}
-										onSubmit={(event) => onSubmitPopupAsset(event, id)}
+										onSubmit={(event) => onSubmitPopupAsset(event, categoryId)}
 										handleTitle={(event) => handlePopupAssetTitle(event)}
 										handleValue={(event) => handlePopupAssetValue(event)}
 										closePopup={closePopupAsset}

@@ -18,3 +18,5 @@ export type HandlePopupAssetValueType = ChangeEvent<HTMLInputElement>;
 export type OnSubmitPopupAssetEventType = SyntheticEvent<HTMLFormElement, SubmitEvent>
 
 export type OnSubmitPopupAssetTabCategoryIdType = string;
+
+export type HandleTabListItemRemoveType = string;
