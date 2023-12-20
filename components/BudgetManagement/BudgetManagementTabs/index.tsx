@@ -19,10 +19,12 @@ import {
 } from "./BudgetManagementTabs.styled";
 
 import {
+	type HandleTabListItemEditType,
 	type BudgetManagementTabsType,
 	type HandlePopupAssetTitleType,
 	type HandlePopupAssetValueType,
 	type NewAssetStateType,
+	type ModifyAssetStateType,
 	type OnSubmitPopupAssetEventType,
 	type OnSubmitPopupAssetTabCategoryIdType,
 	type HandleTabListItemRemoveType,
@@ -32,9 +34,21 @@ const BudgetManagementTabsComponent = ({
 	activeTab,
 	budgetTabLists,
 }: BudgetManagementTabsType) => {
-	const { addBudgetListTabItem, budgetListTabItemRemove } = useAppContext();
+	const {
+		addBudgetListTabItem,
+		modifyBudgetListTabItem,
+		budgetListTabItemRemove,
+	} = useAppContext();
 	const [showPopupAsset, setPopupAsset] = useState(false);
+	const [showPopupIsEdit, setShowPopupIsEdit] = useState(false);
+
 	const [newAsset, setNewAsset] = useState<NewAssetStateType>({
+		title: "",
+		value: "",
+	});
+
+	const [modifyAsset, setModifyAsset] = useState<ModifyAssetStateType>({
+		id: "",
 		title: "",
 		value: "",
 	});
@@ -51,16 +65,26 @@ const BudgetManagementTabsComponent = ({
 
 	const closePopupAsset = () => {
 		setPopupAsset(false);
+		setShowPopupIsEdit(false);
 	};
 
 	const handlePopupAssetTitle = (event: HandlePopupAssetTitleType) => {
 		const getTitle = event.target.value;
-		setNewAsset((prevState) => ({ ...prevState, title: getTitle }));
+
+		if (showPopupIsEdit === true) {
+			setModifyAsset((prevState) => ({ ...prevState, title: getTitle }));
+		} else {
+			setNewAsset((prevState) => ({ ...prevState, title: getTitle }));
+		}
 	};
 
 	const handlePopupAssetValue = (event: HandlePopupAssetValueType) => {
 		const getValue = event.target.value;
-		setNewAsset((prevState) => ({ ...prevState, value: getValue }));
+		if (showPopupIsEdit === true) {
+			setModifyAsset((prevState) => ({ ...prevState, value: getValue }));
+		} else {
+			setNewAsset((prevState) => ({ ...prevState, value: getValue }));
+		}
 	};
 
 	const onSubmitPopupAsset = (
@@ -69,7 +93,11 @@ const BudgetManagementTabsComponent = ({
 	) => {
 		event.preventDefault();
 
-		if (newAsset.title !== "" && newAsset.value !== "") {
+		if (
+			showPopupIsEdit === false &&
+			newAsset.title !== "" &&
+			newAsset.value !== ""
+		) {
 			const addAsset: { id: string; title: string; value: number } = {
 				id: uuidv4(),
 				title: newAsset.title,
@@ -78,8 +106,42 @@ const BudgetManagementTabsComponent = ({
 
 			addBudgetListTabItem(tabCategoryId, addAsset);
 			resetPopupAddAsset();
-			closePopupAsset();
 		}
+
+		if (
+			showPopupIsEdit === true &&
+			modifyAsset.id !== "" &&
+			modifyAsset.title !== "" &&
+			modifyAsset.value !== ""
+		) {
+			const modifyItemAsset = {
+				id: modifyAsset.id,
+				title: modifyAsset.title,
+				value: Number(modifyAsset.value),
+			};
+
+			modifyBudgetListTabItem(
+				tabCategoryId,
+				modifyItemAsset.id,
+				modifyItemAsset
+			);
+		}
+
+		closePopupAsset();
+	};
+
+	const handleTabListItemEdit = (
+		itemId: HandleTabListItemEditType,
+		title: HandleTabListItemEditType,
+		value: HandleTabListItemEditType
+	) => {
+		setModifyAsset({
+			id: itemId,
+			title: title,
+			value: value,
+		});
+		setShowPopupIsEdit(true);
+		setPopupAsset(true);
 	};
 
 	const handleTabListItemRemove = (
@@ -118,7 +180,12 @@ const BudgetManagementTabsComponent = ({
 													{value} PLN
 												</BudgetManagementTabsTabListItemValue>
 												<BudgetManagementTabsTabListItemButtons>
-													<BudgetManagementTabsButton svgUrl="./add.svg"></BudgetManagementTabsButton>
+													<BudgetManagementTabsButton
+														onClick={() =>
+															handleTabListItemEdit(id, title, String(value))
+														}
+														svgUrl="./add.svg"
+													></BudgetManagementTabsButton>
 													<BudgetManagementTabsButton
 														onClick={() =>
 															handleTabListItemRemove(categoryId, id)
@@ -139,8 +206,12 @@ const BudgetManagementTabsComponent = ({
 										handleTitle={(event) => handlePopupAssetTitle(event)}
 										handleValue={(event) => handlePopupAssetValue(event)}
 										closePopup={closePopupAsset}
-										inputTitleValue={newAsset.title} // Replace with actual state or prop
-										inputValue={newAsset.value}
+										inputTitleValue={
+											showPopupIsEdit ? modifyAsset.title : newAsset.title
+										} // Replace with actual state or prop
+										inputValue={
+											showPopupIsEdit ? modifyAsset.value : newAsset.value
+										}
 									/>
 								</BudgetManagementTabsTab>
 							)

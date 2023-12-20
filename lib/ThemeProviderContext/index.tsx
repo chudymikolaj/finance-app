@@ -61,18 +61,33 @@ export default function ThemeProviderContext({
 		updateBudgetListTabs(budgetTabLists) {
 			dispatch({ type: "UPDATE_BUDGET_TAB_LISTS", budgetTabLists });
 		},
-		addBudgetListTabItem(budgetListTabItemId, newBudgetListTabItem) {
+		addBudgetListTabItem(budgetListTabItemCategoryId, newBudgetListTabItem) {
 			dispatch({
 				type: "ADD_BUDGET_TAB_ITEM",
-				budgetListTabItemId,
+				budgetListTabItemCategoryId,
 				newBudgetListTabItem,
 			});
 		},
-		budgetListTabItemRemove(budgetListTabItemCategory, budgetListTabItemId) {
+		modifyBudgetListTabItem(
+			budgetListTabItemCategoryId,
+			budgetListTabItemId,
+			budgetListTabItemModified
+		) {
+			dispatch({
+				type: "MODIFY_BUDGET_TAB_ITEM",
+				budgetListTabItemCategoryId,
+				budgetListTabItemId,
+				budgetListTabItemModified,
+			});
+		},
+		budgetListTabItemRemove(
+			budgetListTabItemCategory,
+			budgetListTabItemCategoryId
+		) {
 			dispatch({
 				type: "BUDGET_TAB_ITEM_REMOVE",
 				budgetListTabItemCategory,
-				budgetListTabItemId,
+				budgetListTabItemCategoryId,
 			});
 		},
 		filterCashFlowList(value) {

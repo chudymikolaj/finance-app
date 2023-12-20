@@ -91,14 +91,21 @@ type UpdateBudgetTabLists = {
 
 type AddBudgetTabItem = {
 	type: "ADD_BUDGET_TAB_ITEM";
-	budgetListTabItemId: string;
+	budgetListTabItemCategoryId: string;
 	newBudgetListTabItem: TabListItem;
 };
 
 type AddBudgetTabItemRemove = {
 	type: "BUDGET_TAB_ITEM_REMOVE";
 	budgetListTabItemCategory: string;
+	budgetListTabItemCategoryId: string;
+};
+
+type ModifyBudgetTabItem = {
+	type: "MODIFY_BUDGET_TAB_ITEM";
+	budgetListTabItemCategoryId: string;
 	budgetListTabItemId: string;
+	budgetListTabItemModified: TabListItem;
 };
 
 type Action =
@@ -118,6 +125,7 @@ type Action =
 	| UpdateBudgetAllocations
 	| UpdateBudgetTabLists
 	| AddBudgetTabItem
+	| ModifyBudgetTabItem
 	| AddBudgetTabItemRemove
 	| {
 			type: "string";
@@ -272,8 +280,44 @@ export function appReducer(state: AppState, action: Action): AppState {
 
 	if (action.type === "ADD_BUDGET_TAB_ITEM") {
 		const updatedBudgetTabLists = state.budgetTabLists.map((item) => {
-			if (item.categoryId === action.budgetListTabItemId) {
+			if (item.categoryId === action.budgetListTabItemCategoryId) {
 				const updatedLists = [...item.lists, action.newBudgetListTabItem];
+				const totalValue = updatedLists.reduce(
+					(total, currentItem) => total + currentItem.value,
+					0
+				);
+
+				return { ...item, lists: updatedLists, value: totalValue };
+			}
+
+			return item;
+		});
+
+		return {
+			...state,
+			budgetTabLists: updatedBudgetTabLists,
+		};
+	}
+
+	if (action.type === "MODIFY_BUDGET_TAB_ITEM") {
+		const updatedBudgetTabLists = state.budgetTabLists.map((item) => {
+			if (item.categoryId === action.budgetListTabItemCategoryId) {
+				// const updatedLists = [...item.lists, action.newBudgetListTabItem];
+
+				const updatedLists = item.lists.map((tabItem) => {
+					if (tabItem.id === action.budgetListTabItemId) {
+						const modyfied = {
+							...tabItem,
+							title: action.budgetListTabItemModified.title,
+							value: action.budgetListTabItemModified.value,
+						};
+
+						return modyfied;
+					}
+
+					return tabItem;
+				});
+
 				const totalValue = updatedLists.reduce(
 					(total, currentItem) => total + currentItem.value,
 					0
@@ -295,7 +339,7 @@ export function appReducer(state: AppState, action: Action): AppState {
 		const updatedBudgetTabLists = state.budgetTabLists.map((item) => {
 			if (item.categoryId === action.budgetListTabItemCategory) {
 				const updatedLists = item.lists.filter(
-					(item) => item.id !== action.budgetListTabItemId
+					(item) => item.id !== action.budgetListTabItemCategoryId
 				);
 
 				const totalValue = updatedLists.reduce(
@@ -303,7 +347,7 @@ export function appReducer(state: AppState, action: Action): AppState {
 					0
 				);
 
-				console.log(action.budgetListTabItemId, updatedLists);
+				console.log(action.budgetListTabItemCategoryId, updatedLists);
 				return { ...item, lists: updatedLists, value: totalValue };
 			}
 

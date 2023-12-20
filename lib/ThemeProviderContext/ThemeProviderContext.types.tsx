@@ -146,6 +146,11 @@ export type AppStateValue = Mode &
 			budgetListTabItemId: string,
 			newBudgetListTabItem: TabListItem
 		) => void;
+		modifyBudgetListTabItem: (
+			budgetListTabItemCategoryId: string,
+			budgetListTabItemId: string,
+			budgetListTabItemModified: TabListItem
+		) => void;
 		budgetListTabItemRemove: (
 			budgetListTabItemCategory: string,
 			budgetListTabItemId: string
