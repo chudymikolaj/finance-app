@@ -347,7 +347,6 @@ export function appReducer(state: AppState, action: Action): AppState {
 					0
 				);
 
-				console.log(action.budgetListTabItemCategoryId, updatedLists);
 				return { ...item, lists: updatedLists, value: totalValue };
 			}
 
