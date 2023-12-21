@@ -208,7 +208,7 @@ const BudgetManagementTabsComponent = ({
 										closePopup={closePopupAsset}
 										inputTitleValue={
 											showPopupIsEdit ? modifyAsset.title : newAsset.title
-										} // Replace with actual state or prop
+										}
 										inputValue={
 											showPopupIsEdit ? modifyAsset.value : newAsset.value
 										}
