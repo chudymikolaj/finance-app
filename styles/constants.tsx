@@ -37,6 +37,7 @@ export const STYLE_LIGHT_MODE = {
 };
 
 export const SIZES = {
+	navbarSize: "clamp(0.875rem, 0.5673rem + 0.4808vw, 1rem)",
 	smallText: "14px",
 	normalText: "16px",
 	bigText: "18px",

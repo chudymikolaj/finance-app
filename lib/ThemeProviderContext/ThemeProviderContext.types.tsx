@@ -17,19 +17,15 @@ export type LinkWithIcon = {
 	icon: string;
 };
 
-export type NavbarLink =
-	| LinkWithIcon
-	| {
-			active?: string;
-			profiles?: LinkWithIcon[];
-			others?: LinkWithIcon[];
-	  };
-
-export type NavbarLinkState = LinkWithIcon & {
-	active?: string;
+export type LinkExternal = {
+	id: number;
+	name: string;
+	active: string;
 	profiles?: LinkWithIcon[];
 	others?: LinkWithIcon[];
 };
+
+export type NavbarLink = LinkWithIcon | LinkExternal;
 
 export type initialNavbar = {
 	navbar: NavbarLink[];

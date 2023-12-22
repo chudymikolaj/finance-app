@@ -1,88 +1,133 @@
-'use client';
+"use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAppContext } from "@/lib/ThemeProviderContext/actions";
 import SVGimage from "@/components/SvgIcon";
 
 import {
-  Navbar,
-  NavbarLogotype,
-  NavbarMenu,
-  NavbarMenuNotification,
-  NavbarDropdownMenu,
-  NavbarDropdownMenuButton,
-  NavbarMenuDropdown,
-  NavbarMenuList,
-  NavbarMenuListLink,
-  NavbarMenuListActiveProfile,
-  NavbarMenuListProfiles,
-  NavbarMenuListRest,
-  NavbarMenuThemeToggle,
+	Navbar,
+	NavbarLogotype,
+	NavbarMenu,
+	NavbarMenuNotification,
+	NavbarDropdownMenu,
+	NavbarMenuDropdown,
+	NavbarMenuList,
+	NavbarMenuListLink,
+	NavbarMenuListActiveProfile,
+	NavbarMenuListProfiles,
+	NavbarMenuListRest,
+	NavbarMenuThemeToggle,
+	NavbarDropdownMenuButton,
 } from "./navbar.styled";
 
 export default function NavbarComponent() {
-  const { navbar, toggleMode } = useAppContext();
+	const { darkMode, navbar, toggleMode } = useAppContext();
 
-  const [showDropdown, setShowDropdown] = useState(false);
+	const dropdownMenuRef = useRef<HTMLDivElement>(null);
+	const [showDropdownMenu, setShowDropdownMenu] = useState<boolean>(false);
 
-  const handleDropdown = () => {
-    setShowDropdown(prevState => !prevState);
-  }
+	useEffect(() => {
+		const handler = (event: MouseEvent | TouchEvent) => {
+			if (
+				showDropdownMenu &&
+				dropdownMenuRef.current &&
+				!dropdownMenuRef.current.contains(event.target as Node)
+			) {
+				setShowDropdownMenu(false);
+			}
+		};
 
-  return (
-    <Navbar>
-      <NavbarLogotype href="/"><span>Twój finansowy planer</span></NavbarLogotype>
-      <NavbarMenu>
-        {
-          navbar && navbar.map(link => {
-            if (link.name == "notifications") {
-              return (
-                <NavbarMenuNotification key={link.id} href={{
-                  pathname: link.link,
-                }}>
-                  <SVGimage src="/notifications.svg" />
-                </NavbarMenuNotification>
-              )
-            }
+		document.addEventListener("mousedown", handler);
+		document.addEventListener("touchstart", handler);
 
-            return (
-              <NavbarDropdownMenu key={link.id}>
-                <NavbarDropdownMenuButton onClick={handleDropdown} >
-                  <span>{link.active}</span>
-                  <SVGimage src="/expand_more.svg" />
-                </NavbarDropdownMenuButton>
+		return () => {
+			document.removeEventListener("mousedown", handler);
+			document.removeEventListener("touchstart", handler);
+		};
+	}, [showDropdownMenu]);
 
-                <NavbarMenuDropdown $show={showDropdown}>
-                  <NavbarMenuList>
-                    <NavbarMenuListActiveProfile>{link.active}</NavbarMenuListActiveProfile>
+	const handleDropdown = () => {
+		setShowDropdownMenu((prevState) => !prevState);
+	};
 
-                    <NavbarMenuListProfiles>
-                      {link.profiles?.map(profile => (
-                        <NavbarMenuListLink key={profile.id} href={profile.link}>
-                          <SVGimage src={profile.icon} /><span>{profile.name}</span>
-                        </NavbarMenuListLink>
-                      ))}
-                    </NavbarMenuListProfiles>
+	const isMode = darkMode ? (
+		<SVGimage src="/dark_mode.svg" />
+	) : (
+		<SVGimage src="/light_mode.svg" />
+	);
 
-                    <NavbarMenuListRest>
-                      {link.others?.map(other => (
-                        <NavbarMenuListLink key={other.id} href={other.link}>
-                          <SVGimage src={other.icon} /><span>{other.name}</span>
-                        </NavbarMenuListLink>
-                      ))}
-                    </NavbarMenuListRest>
+	return (
+		<Navbar>
+			<NavbarLogotype href="/">
+				<span>Planer Finansowy</span>
+			</NavbarLogotype>
+			<NavbarMenu>
+				{navbar &&
+					navbar.map((link) => {
+						if ("link" in link) {
+							if (link.name == "notifications") {
+								return (
+									<NavbarMenuNotification
+										key={link.id}
+										href={{
+											pathname: link.link,
+										}}
+									>
+										<SVGimage src="/notifications.svg" />
+									</NavbarMenuNotification>
+								);
+							}
+						} else {
+							return (
+								<NavbarDropdownMenu key={link.id}>
+									<NavbarDropdownMenuButton onMouseDown={handleDropdown}>
+										<SVGimage src="/more_vert.svg" />
+									</NavbarDropdownMenuButton>
 
-                    <NavbarMenuThemeToggle onClick={toggleMode}>
-                      <span>Toggle mode</span>
-                    </NavbarMenuThemeToggle>
+									<NavbarMenuDropdown
+										ref={dropdownMenuRef}
+										onMouseLeave={handleDropdown}
+										$show={showDropdownMenu}
+									>
+										<NavbarMenuList>
+											<NavbarMenuListActiveProfile>
+												{link.active}
+											</NavbarMenuListActiveProfile>
 
-                  </NavbarMenuList>
-                </NavbarMenuDropdown>
-              </NavbarDropdownMenu>
-            )
-          })
-        }
-      </NavbarMenu>
-    </Navbar >
-  )
+											<NavbarMenuListProfiles>
+												{link.profiles?.map((profile) => (
+													<NavbarMenuListLink
+														key={profile.id}
+														href={profile.link}
+													>
+														<SVGimage src={profile.icon} />
+														<span>{profile.name}</span>
+													</NavbarMenuListLink>
+												))}
+											</NavbarMenuListProfiles>
+
+											<NavbarMenuListRest>
+												{link.others?.map((other) => (
+													<NavbarMenuListLink
+														key={other.id}
+														href={other.link}
+													>
+														<SVGimage src={other.icon} />
+														<span>{other.name}</span>
+													</NavbarMenuListLink>
+												))}
+											</NavbarMenuListRest>
+
+											<NavbarMenuThemeToggle onClick={toggleMode}>
+												{isMode}
+											</NavbarMenuThemeToggle>
+										</NavbarMenuList>
+									</NavbarMenuDropdown>
+								</NavbarDropdownMenu>
+							);
+						}
+					})}
+			</NavbarMenu>
+		</Navbar>
+	);
 }
