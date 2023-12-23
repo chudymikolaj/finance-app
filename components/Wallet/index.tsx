@@ -31,7 +31,8 @@ export default function Wallet() {
 	const sumBills = wallet?.sumBills;
 	const restRevenues = wallet?.restRevenues;
 
-	const refShowWalletEditor = useRef<HTMLDivElement>(null);
+	const showWalletEditorRef = useRef<HTMLDivElement | null>(null);
+	const showWalletButtonEditorRef = useRef<HTMLButtonElement | null>(null);
 
 	const [showWalletEditor, setShowWalletEditor] =
 		useState<ShowWalletEditorType>(false);
@@ -110,30 +111,35 @@ export default function Wallet() {
 	};
 
 	const onMouseDown = () => {
-		setShowWalletEditor(true);
+		setShowWalletEditor((prevState) => !prevState);
 	};
 
 	const onMouseLeave = () => {
 		setShowWalletEditor(false);
 	};
 
-	useEffect(() => {
-		const handler = (event: MouseEvent | TouchEvent) => {
-			if (
-				showWalletEditor &&
-				refShowWalletEditor.current &&
-				!refShowWalletEditor.current.contains(event.target as Node)
-			) {
-				setShowWalletEditor(false);
-			}
-		};
+	const handleOutsideClick = (event: MouseEvent | TouchEvent) => {
+		const target = event.target as Node; // Typecast the event target
 
-		document.addEventListener("mousedown", handler);
-		document.addEventListener("touchstart", handler);
+		if (
+			showWalletEditorRef.current &&
+			!showWalletEditorRef.current.contains(target) &&
+			showWalletButtonEditorRef.current &&
+			!showWalletButtonEditorRef.current.contains(target)
+		) {
+			setShowWalletEditor(false);
+		}
+	};
+
+	useEffect(() => {
+		if (showWalletEditor) {
+			document.addEventListener("mousedown", handleOutsideClick);
+			document.addEventListener("touchstart", handleOutsideClick);
+		}
 
 		return () => {
-			document.removeEventListener("mousedown", handler);
-			document.removeEventListener("touchstart", handler);
+			document.removeEventListener("mousedown", handleOutsideClick);
+			document.removeEventListener("touchstart", handleOutsideClick);
 		};
 	}, [showWalletEditor]);
 
@@ -141,7 +147,10 @@ export default function Wallet() {
 		<WalletContainer>
 			<WalletHeader>
 				<WalletHeaderTitle>Miesięczne saldo</WalletHeaderTitle>
-				<WalletHeaderButton onMouseDown={onMouseDown}>
+				<WalletHeaderButton
+					ref={showWalletButtonEditorRef}
+					onMouseDown={onMouseDown}
+				>
 					<WalletHeaderSvg src="/add.svg" />
 				</WalletHeaderButton>
 			</WalletHeader>
@@ -162,7 +171,7 @@ export default function Wallet() {
 					onChangeType={getInputCashFlowListItemType}
 					onChangeValueInput={getInputCashFlowListItemValue}
 					onChangeTextInput={getInputCashFlowListItemText}
-					getRef={refShowWalletEditor}
+					getRef={showWalletEditorRef}
 					getMouseLeave={onMouseLeave}
 				/>
 			</SalaryElement>
