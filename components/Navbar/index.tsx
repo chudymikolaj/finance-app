@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { ReactEventHandler, useEffect, useRef, useState } from "react";
 import { useAppContext } from "@/lib/ThemeProviderContext/actions";
 import SVGimage from "@/components/SvgIcon";
 
@@ -23,32 +23,40 @@ import {
 export default function NavbarComponent() {
 	const { darkMode, navbar, toggleMode } = useAppContext();
 
-	const dropdownMenuRef = useRef<HTMLDivElement>(null);
 	const [showDropdownMenu, setShowDropdownMenu] = useState<boolean>(false);
+	const dropdownMenuRef = useRef<HTMLDivElement | null>(null);
+	const toggleButtonRef = useRef<HTMLButtonElement | null>(null);
 
-	useEffect(() => {
-		const handler = (event: MouseEvent | TouchEvent) => {
-			if (
-				showDropdownMenu &&
-				dropdownMenuRef.current &&
-				!dropdownMenuRef.current.contains(event.target as Node)
-			) {
-				setShowDropdownMenu(false);
-			}
-		};
-
-		document.addEventListener("mousedown", handler);
-		document.addEventListener("touchstart", handler);
-
-		return () => {
-			document.removeEventListener("mousedown", handler);
-			document.removeEventListener("touchstart", handler);
-		};
-	}, [showDropdownMenu]);
-
-	const handleDropdown = () => {
+	const toggleDropdown = () => {
 		setShowDropdownMenu((prevState) => !prevState);
 	};
+
+	const handleOutsideClick = (event: MouseEvent | TouchEvent) => {
+		const target = event.target as Node;
+
+		if (
+			dropdownMenuRef.current &&
+			!dropdownMenuRef.current.contains(target) &&
+			toggleButtonRef.current &&
+			!toggleButtonRef.current.contains(target)
+		) {
+			setShowDropdownMenu(false);
+		}
+	};
+
+	useEffect(() => {
+		// Attach event listeners when the dropdown is open
+		if (showDropdownMenu) {
+			document.addEventListener("mousedown", handleOutsideClick);
+			document.addEventListener("touchstart", handleOutsideClick);
+		}
+
+		return () => {
+			// Remove event listeners on cleanup
+			document.removeEventListener("mousedown", handleOutsideClick);
+			document.removeEventListener("touchstart", handleOutsideClick);
+		};
+	}, [showDropdownMenu]);
 
 	const isMode = darkMode ? (
 		<SVGimage src="/dark_mode.svg" />
@@ -80,13 +88,15 @@ export default function NavbarComponent() {
 						} else {
 							return (
 								<NavbarDropdownMenu key={link.id}>
-									<NavbarDropdownMenuButton onMouseDown={handleDropdown}>
+									<NavbarDropdownMenuButton
+										ref={toggleButtonRef}
+										onClick={toggleDropdown}
+									>
 										<SVGimage src="/more_vert.svg" />
 									</NavbarDropdownMenuButton>
 
 									<NavbarMenuDropdown
 										ref={dropdownMenuRef}
-										onMouseLeave={handleDropdown}
 										$show={showDropdownMenu}
 									>
 										<NavbarMenuList>
