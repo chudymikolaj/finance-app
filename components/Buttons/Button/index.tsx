@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 	children?: ReactNode;
-	action?: any;
+	action?: () => void;
 };
 
 export default function ButtonComponent({
@@ -19,4 +19,3 @@ export default function ButtonComponent({
 		</button>
 	);
 }
-1;

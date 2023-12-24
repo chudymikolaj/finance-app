@@ -8,7 +8,6 @@ export default function CheckExpenseButtonStyled({
 	className,
 	status,
 	action,
-
 	...props
 }: ButtonProps) {
 	return (

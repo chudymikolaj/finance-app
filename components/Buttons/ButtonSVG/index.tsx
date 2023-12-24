@@ -3,8 +3,8 @@ import SVGimage from "@/components/SvgIcon";
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 	className?: string;
 	name?: string;
-	action?: any;
 	svgUrl?: string;
+	action?: () => void;
 };
 
 export default function Button({
@@ -24,4 +24,3 @@ export default function Button({
 		</button>
 	);
 }
-1;
