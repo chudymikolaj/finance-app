@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import ButtonSVG from "@/components/Buttons/ButtonSVG";
+import ButtonRefSVG from "@/components/Buttons/ButtonRefSVG";
 
 import { BORDER_RADIUS, SIZES, CUBICS } from "@/styles/constants";
 
@@ -113,7 +113,7 @@ export const CashFlowSortByDataSort = styled.button`
 	}
 `;
 
-export const CashFlowButton = styled(ButtonSVG)`
+export const CashFlowButton = styled(ButtonRefSVG)`
 	transition: opacity ${CUBICS.easyOut} 250ms, transform ${CUBICS.easyOut} 250ms;
 
 	&:hover {

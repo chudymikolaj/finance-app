@@ -1,4 +1,4 @@
-import {
+import React, {
 	useState,
 	useRef,
 	useEffect,
@@ -26,7 +26,8 @@ import {
 const CashFlowHeaderComponent = () => {
 	const { filterCashFlowList } = useAppContext();
 
-	const refHandleDateSorting = useRef<HTMLDivElement>(null);
+	const refHandleDateSorting = useRef<HTMLDivElement | null>(null);
+	const refHandleButtonDateSorting = useRef<HTMLButtonElement | null>(null);
 	const [showDateSorting, setShowDateSorting] = useState(false);
 
 	const GET_FIRST_DAY_MONTH = moment().startOf("month").format("YYYY-MM-DD");
@@ -62,30 +63,30 @@ const CashFlowHeaderComponent = () => {
 	};
 
 	const onMouseEnter = () => {
-		setShowDateSorting(true);
+		setShowDateSorting((prevState) => !prevState);
 	};
 
-	const onMouseLeave = () => {
-		setShowDateSorting(false);
+	const handleOutsideClick = (event: MouseEvent | TouchEvent) => {
+		const target = event.target as Node;
+
+		if (
+			refHandleDateSorting.current &&
+			!refHandleDateSorting.current.contains(target) &&
+			refHandleButtonDateSorting.current &&
+			!refHandleButtonDateSorting.current.contains(target)
+		)
+			setShowDateSorting(false);
 	};
 
 	useEffect(() => {
-		const handler = (event: MouseEvent | TouchEvent) => {
-			if (
-				showDateSorting &&
-				refHandleDateSorting.current &&
-				!refHandleDateSorting.current.contains(event.target as Node)
-			) {
-				setShowDateSorting(false);
-			}
-		};
-
-		document.addEventListener("mousedown", handler);
-		document.addEventListener("touchstart", handler);
+		if (showDateSorting) {
+			document.addEventListener("mousedown", handleOutsideClick);
+			document.addEventListener("touchstart", handleOutsideClick);
+		}
 
 		return () => {
-			document.removeEventListener("mousedown", handler);
-			document.removeEventListener("touchstart", handler);
+			document.removeEventListener("mousedown", handleOutsideClick);
+			document.removeEventListener("touchstart", handleOutsideClick);
 		};
 	}, [showDateSorting]);
 
@@ -96,8 +97,9 @@ const CashFlowHeaderComponent = () => {
 				<CashFlowHeaderMonth>09.2023</CashFlowHeaderMonth>
 				<CashFlowHeaderButtons>
 					<CashFlowButton
+						ref={refHandleButtonDateSorting}
+						action={onMouseEnter}
 						svgUrl="/more_vert.svg"
-						onMouseDown={onMouseEnter}
 					/>
 				</CashFlowHeaderButtons>
 			</CashFlowHeaderOptions>
@@ -105,7 +107,6 @@ const CashFlowHeaderComponent = () => {
 			<CashFlowSortByDate
 				$animate={showDateSorting}
 				ref={refHandleDateSorting}
-				onMouseLeave={onMouseLeave}
 			>
 				<CashFlowSortByDateForm onSubmit={onSubmit}>
 					<CashFlowSortByDateLabel htmlFor="sort-by-date-from">
