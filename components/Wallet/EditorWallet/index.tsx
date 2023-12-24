@@ -31,7 +31,6 @@ const EditorWalletComponent = ({
 	resetText,
 	maxValue,
 	getRef,
-	getMouseLeave,
 }: EditorWalletProps) => {
 	const blockFormKeysInput = (event: BlockFormKeysEvent) =>
 		["e", "E", "+", "-"].includes(event.key) && event.preventDefault();
@@ -40,7 +39,6 @@ const EditorWalletComponent = ({
 		<EditorWallet
 			$animate={show}
 			ref={getRef}
-			onMouseLeave={getMouseLeave}
 		>
 			<EditorWalletForm onSubmit={submitForm}>
 				<EditorWalletFormChoice>

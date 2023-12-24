@@ -114,10 +114,6 @@ export default function Wallet() {
 		setShowWalletEditor((prevState) => !prevState);
 	};
 
-	const onMouseLeave = () => {
-		setShowWalletEditor(false);
-	};
-
 	const handleOutsideClick = (event: MouseEvent | TouchEvent) => {
 		const target = event.target as Node; // Typecast the event target
 
@@ -162,6 +158,7 @@ export default function Wallet() {
 			>
 				<EditorWallet
 					show={showWalletEditor}
+					getRef={showWalletEditorRef}
 					submitForm={(event) => addToListElement(event, maxValue)}
 					maxValue={maxValue}
 					choiceTypes={choiceTypes}
@@ -171,8 +168,6 @@ export default function Wallet() {
 					onChangeType={getInputCashFlowListItemType}
 					onChangeValueInput={getInputCashFlowListItemValue}
 					onChangeTextInput={getInputCashFlowListItemText}
-					getRef={showWalletEditorRef}
-					getMouseLeave={onMouseLeave}
 				/>
 			</SalaryElement>
 		</WalletContainer>
