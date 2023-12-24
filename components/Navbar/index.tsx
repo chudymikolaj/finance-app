@@ -1,27 +1,29 @@
 "use client";
 
-import { ReactEventHandler, useEffect, useRef, useState } from "react";
-import { useAppContext } from "@/lib/ThemeProviderContext/actions";
 import SVGimage from "@/components/SvgIcon";
+import { useAppContext } from "@/lib/ThemeProviderContext/actions";
+import { usePathname, useSearchParams } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 
 import {
 	Navbar,
+	NavbarDropdownMenu,
+	NavbarDropdownMenuButton,
 	NavbarLogotype,
 	NavbarMenu,
-	NavbarMenuNotification,
-	NavbarDropdownMenu,
 	NavbarMenuDropdown,
 	NavbarMenuList,
-	NavbarMenuListLink,
 	NavbarMenuListActiveProfile,
+	NavbarMenuListLink,
 	NavbarMenuListProfiles,
 	NavbarMenuListRest,
+	NavbarMenuNotification,
 	NavbarMenuThemeToggle,
-	NavbarDropdownMenuButton,
 } from "./navbar.styled";
 
 export default function NavbarComponent() {
 	const { darkMode, navbar, toggleMode } = useAppContext();
+	const pathname = usePathname();
 
 	const [showDropdownMenu, setShowDropdownMenu] = useState<boolean>(false);
 	const dropdownMenuRef = useRef<HTMLDivElement | null>(null);
@@ -44,6 +46,14 @@ export default function NavbarComponent() {
 		}
 	};
 
+	const handleRouteChange = () => {
+		setShowDropdownMenu(false);
+	};
+
+	useEffect(() => {
+		handleRouteChange();
+	}, [pathname]);
+
 	useEffect(() => {
 		// Attach event listeners when the dropdown is open
 		if (showDropdownMenu) {
@@ -56,7 +66,7 @@ export default function NavbarComponent() {
 			document.removeEventListener("mousedown", handleOutsideClick);
 			document.removeEventListener("touchstart", handleOutsideClick);
 		};
-	}, [showDropdownMenu]);
+	}, [usePathname, showDropdownMenu]);
 
 	const isMode = darkMode ? (
 		<SVGimage src="/dark_mode.svg" />
