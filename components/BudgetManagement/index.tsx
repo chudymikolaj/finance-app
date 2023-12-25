@@ -1,6 +1,6 @@
-import BudgetHeader from "./BudgetManagementHeader";
 import BudgetAssets from "./BudgetManagementAssets";
 import BudgetCategories from "./BudgetManagementCategories";
+import BudgetHeader from "./BudgetManagementHeader";
 
 import { BudgetContainer } from "./BudgetManagementComponent.styled";
 
