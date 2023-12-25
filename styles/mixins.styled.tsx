@@ -67,6 +67,7 @@ export const FlexRowAlignCenter = `
 
 export const Button = `
   width: 100%;
+  height: auto;
   padding: 10px 16px;
   border-radius: 5px;
   font-size: ${SIZES.buttonFontSize};
@@ -78,12 +79,14 @@ export const Button = `
 
 export const ButtonSubmit = `
   width: 100%;
+  height: auto;
   padding: 10px 16px;
   border-radius: 5px;
   font-size: ${SIZES.buttonFontSize};
 `;
 
 export const ButtonPopUp = `
+  height: auto;
   padding: 8px 16px;
 
   @media ${devices.xl} {
