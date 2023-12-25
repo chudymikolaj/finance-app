@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import ButtonSVG from "@/components/Buttons/ButtonSVG";
+import ButtonSVG from "@/components/Buttons/ButtonSvg";
 
 import { BORDER_RADIUS_10 } from "@/styles/constants";
 import { FlexRow } from "@/styles/mixins.styled";

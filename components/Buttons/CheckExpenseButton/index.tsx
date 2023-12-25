@@ -1,3 +1,5 @@
+import { Button } from "../button.styled";
+
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 	className?: string;
 	status?: boolean;
@@ -11,12 +13,12 @@ export default function CheckExpenseButtonStyled({
 	...props
 }: ButtonProps) {
 	return (
-		<button
+		<Button
 			className={className}
 			onClick={action}
 			{...props}
 		>
 			{status ? "Zapłacono" : "Nie zapłacono"}
-		</button>
+		</Button>
 	);
 }

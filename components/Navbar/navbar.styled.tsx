@@ -8,6 +8,8 @@ import {
 } from "@/styles/mixins.styled";
 import Link from "next/link";
 import styled from "styled-components";
+import ButtonRefSvg from "../Buttons/ButtonRefSvg";
+import ButtonSVG from "../Buttons/ButtonSvg";
 
 export const Navbar = styled.div`
 	width: calc(100% - 30px);
@@ -46,7 +48,7 @@ export const NavbarDropdownMenu = styled.div`
 	position: relative;
 `;
 
-export const NavbarDropdownMenuButton = styled.button`
+export const NavbarDropdownMenuButton = styled(ButtonRefSvg)`
 	${FlexCenter}
 
 	width: 30px;
@@ -103,6 +105,12 @@ export const NavbarMenuListLink = styled(Link)`
 	&:hover {
 		opacity: 0.5;
 	}
+
+	div,
+	svg {
+		width: 15px;
+		height: 15px;
+	}
 `;
 
 const groupOfLinksBorder = `
@@ -126,13 +134,17 @@ export const NavbarMenuListRest = styled.ul`
 	${groupOfLinks};
 `;
 
-export const NavbarMenuThemeToggle = styled.button`
-	${FlexCenter}
-
+export const NavbarMenuThemeToggle = styled(ButtonSVG)`
 	width: 100%;
 	padding: 6px 16px;
+	height: auto;
 	margin: 10px auto 0;
 	border: 1px solid ${(props) => props.theme.colorLink};
 	border-radius: ${BORDER_RADIUS};
-	color: ${(props) => props.theme.color};
+
+	div,
+	svg {
+		width: 15px;
+		height: 15px;
+	}
 `;

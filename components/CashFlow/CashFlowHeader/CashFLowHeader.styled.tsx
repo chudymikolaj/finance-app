@@ -1,18 +1,14 @@
 import styled from "styled-components";
 
-import ButtonRefSVG from "@/components/Buttons/ButtonRefSVG";
-
 import { BORDER_RADIUS, SIZES, CUBICS } from "@/styles/constants";
 
 import {
 	FlexRow,
 	FlexRowSpaceBetween,
 	FlexRowAlignCenter,
-	FlexCenter,
 	FlexColumn,
 } from "@/styles/mixins.styled";
-
-import { FONT_SIZE_BUTTONS } from "@/styles/constants";
+import ButtonComponent from "@/components/Buttons/Button";
 
 export const CashFlowContainer = styled.div`
 	margin: auto;
@@ -99,8 +95,9 @@ export const CashFlowSortByDateInput = styled.input`
 	}
 `;
 
-export const CashFlowSortByDataSort = styled.button`
+export const CashFlowSortByDataSort = styled(ButtonComponent)`
 	width: 100%;
+	height: auto;
 	padding: 10px 16px;
 	background-color: ${(props) => props.theme.colorBackgroundActiveButton};
 	border-radius: ${BORDER_RADIUS};
@@ -110,31 +107,5 @@ export const CashFlowSortByDataSort = styled.button`
 
 	&:hover {
 		background-color: ${(props) => props.theme.colorElement_5};
-	}
-`;
-
-export const CashFlowButton = styled(ButtonRefSVG)`
-	transition: opacity ${CUBICS.easyOut} 250ms, transform ${CUBICS.easyOut} 250ms;
-
-	&:hover {
-		opacity: 0.8;
-	}
-
-	&:active {
-		transform: scale(0.75);
-		opacity: 0.25;
-	}
-
-	font-size: ${FONT_SIZE_BUTTONS};
-
-	div {
-		height: 15px;
-		width: 15px;
-		${FlexCenter}
-	}
-
-	svg {
-		height: 15px;
-		width: 15px;
 	}
 `;

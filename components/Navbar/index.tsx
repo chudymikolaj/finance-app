@@ -2,7 +2,7 @@
 
 import SVGimage from "@/components/SvgIcon";
 import { useAppContext } from "@/lib/ThemeProviderContext/actions";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 import {
@@ -68,11 +68,7 @@ export default function NavbarComponent() {
 		};
 	}, [usePathname, showDropdownMenu]);
 
-	const isMode = darkMode ? (
-		<SVGimage src="/dark_mode.svg" />
-	) : (
-		<SVGimage src="/light_mode.svg" />
-	);
+	const isMode = darkMode ? "/dark_mode.svg" : "/light_mode.svg";
 
 	return (
 		<Navbar>
@@ -100,10 +96,9 @@ export default function NavbarComponent() {
 								<NavbarDropdownMenu key={link.id}>
 									<NavbarDropdownMenuButton
 										ref={toggleButtonRef}
-										onClick={toggleDropdown}
-									>
-										<SVGimage src="/more_vert.svg" />
-									</NavbarDropdownMenuButton>
+										action={toggleDropdown}
+										svgUrl="/more_vert.svg"
+									/>
 
 									<NavbarMenuDropdown
 										ref={dropdownMenuRef}
@@ -138,9 +133,10 @@ export default function NavbarComponent() {
 												))}
 											</NavbarMenuListRest>
 
-											<NavbarMenuThemeToggle onClick={toggleMode}>
-												{isMode}
-											</NavbarMenuThemeToggle>
+											<NavbarMenuThemeToggle
+												onClick={toggleMode}
+												svgUrl={isMode}
+											/>
 										</NavbarMenuList>
 									</NavbarMenuDropdown>
 								</NavbarDropdownMenu>

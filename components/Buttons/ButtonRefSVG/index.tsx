@@ -1,26 +1,31 @@
 import SVGimage from "@/components/SvgIcon";
-import { forwardRef } from "react";
+import { forwardRef, ReactNode } from "react";
 
-type ButtonProps = {
+// base button, with ref forwarding
+type Props = {
 	className?: string;
 	name?: string;
 	svgUrl?: string;
 	action?: () => void;
+	$big?: boolean;
 };
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-	({ className, action, name, svgUrl, ...props }, ref) => {
+export type Ref = HTMLButtonElement;
+
+import { Button } from "../button.styled";
+
+const ButtonRefSvg = forwardRef<Ref, Props>(
+	({ action, name, svgUrl, ...props }, ref) => {
 		return (
-			<button
+			<Button
 				ref={ref}
-				className={className}
 				onClick={action}
 				{...props}
 			>
 				{svgUrl ? <SVGimage src={svgUrl} /> : name}
-			</button>
+			</Button>
 		);
 	}
 );
 
-export default Button;
+export default ButtonRefSvg;

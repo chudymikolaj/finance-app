@@ -2,12 +2,9 @@
 
 import styled from "styled-components";
 
-import ButtonSVG from "@/components/Buttons/ButtonSVG";
 import { devices } from "@/styles/breakpoints";
 import {
 	BORDER_RADIUS,
-	CUBICS,
-	FONT_SIZE_BUTTONS,
 	SIZES,
 	WEIGHT,
 } from "@/styles/constants";
@@ -118,29 +115,3 @@ export const BudgetManagementTabsTabListItemButtons = styled.div`
 
 	width: 40px;
 `;
-
-export const BudgetManagementTabsButton = styled(ButtonSVG)`
-	transition: opacity ${CUBICS.easyOut} 250ms, transform ${CUBICS.easyOut} 250ms;
-	font-size: ${FONT_SIZE_BUTTONS};
-
-	&:hover {
-		opacity: 0.8;
-	}
-
-	&:active {
-		transform: scale(0.75);
-		opacity: 0.25;
-	}
-
-	div {
-		height: 15px;
-		width: 15px;
-		${FlexCenter}
-	}
-
-	svg {
-		height: 15px;
-		width: 15px;
-	}
-`;
-

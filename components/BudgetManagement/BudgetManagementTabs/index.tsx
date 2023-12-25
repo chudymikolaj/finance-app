@@ -1,12 +1,13 @@
-import BudgetManagementActionButton from "@/components/BudgetManagement/BudgetManagementActionButton";
-import BudgetManagementTabsPopup from "@/components/BudgetManagement/BudgetManagementPopup";
-import BudgetManagementSummaryTabsComponent from "@/components/BudgetManagement/BudgetManagementSummaryTabs";
 import { useAppContext } from "@/lib/ThemeProviderContext/actions";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
+import BudgetManagementActionButton from "@/components/BudgetManagement/BudgetManagementActionButton";
+import BudgetManagementTabsPopup from "@/components/BudgetManagement/BudgetManagementPopup";
+import BudgetManagementSummaryTabsComponent from "@/components/BudgetManagement/BudgetManagementSummaryTabs";
+import ButtonSVG from "@/components/Buttons/ButtonSvg";
+
 import {
-	BudgetManagementTabsButton,
 	BudgetManagementTabsContainer,
 	BudgetManagementTabsTab,
 	BudgetManagementTabsTabList,
@@ -19,15 +20,15 @@ import {
 } from "./BudgetManagementTabs.styled";
 
 import {
-	type HandleTabListItemEditType,
 	type BudgetManagementTabsType,
 	type HandlePopupAssetTitleType,
 	type HandlePopupAssetValueType,
-	type NewAssetStateType,
+	type HandleTabListItemEditType,
+	type HandleTabListItemRemoveType,
 	type ModifyAssetStateType,
+	type NewAssetStateType,
 	type OnSubmitPopupAssetEventType,
 	type OnSubmitPopupAssetTabCategoryIdType,
-	type HandleTabListItemRemoveType,
 } from "./BudgetManagementTabs.types";
 
 const BudgetManagementTabsComponent = ({
@@ -106,6 +107,7 @@ const BudgetManagementTabsComponent = ({
 
 			addBudgetListTabItem(tabCategoryId, addAsset);
 			resetPopupAddAsset();
+			closePopupAsset();
 		}
 
 		if (
@@ -125,9 +127,8 @@ const BudgetManagementTabsComponent = ({
 				modifyItemAsset.id,
 				modifyItemAsset
 			);
+			closePopupAsset();
 		}
-
-		closePopupAsset();
 	};
 
 	const handleTabListItemEdit = (
@@ -180,18 +181,18 @@ const BudgetManagementTabsComponent = ({
 													{value} PLN
 												</BudgetManagementTabsTabListItemValue>
 												<BudgetManagementTabsTabListItemButtons>
-													<BudgetManagementTabsButton
+													<ButtonSVG
 														onClick={() =>
 															handleTabListItemEdit(id, title, String(value))
 														}
 														svgUrl="./add.svg"
-													></BudgetManagementTabsButton>
-													<BudgetManagementTabsButton
+													></ButtonSVG>
+													<ButtonSVG
 														onClick={() =>
 															handleTabListItemRemove(categoryId, id)
 														}
 														svgUrl="./remove.svg"
-													></BudgetManagementTabsButton>
+													></ButtonSVG>
 												</BudgetManagementTabsTabListItemButtons>
 											</BudgetManagementTabsTabListItem>
 										))}

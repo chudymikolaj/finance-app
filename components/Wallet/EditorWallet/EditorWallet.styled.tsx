@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { SIZES, WEIGHT, CUBICS, BORDER_RADIUS } from "@/styles/constants";
 import { FlexRowSpaceBetweenCenter } from "@/styles/mixins.styled";
+import ButtonComponent from "@/components/Buttons/Button";
 
 export const EditorWallet = styled.div<{ $animate?: boolean }>`
 	width: 100%;
@@ -112,8 +113,9 @@ export const EditorWalletInput = styled.input`
 	color: ${(props) => props.theme.color};
 `;
 
-export const EditorWalletButton = styled.button`
+export const EditorWalletButton = styled(ButtonComponent)`
 	width: 100%;
+	height: auto;
 	padding: 10px 16px;
 	background-color: ${(props) => props.theme.colorBackgroundActiveButton};
 	border-radius: ${BORDER_RADIUS};

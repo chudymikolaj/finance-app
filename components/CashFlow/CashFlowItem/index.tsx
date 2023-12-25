@@ -1,18 +1,18 @@
 import { type CashFlowItemType } from "../CashFlow.types";
 
-import CashFlowItemStyledTags from "../CashFlowTags";
 import { useAppContext } from "@/lib/ThemeProviderContext/actions";
+import CashFlowItemStyledTags from "../CashFlowTags";
+import ButtonSVG from "@/components/Buttons/ButtonSvg";
 
 import {
 	CashFlowItemStyled,
+	CashFlowItemStyledChecker,
+	CashFlowItemStyledName,
+	CashFlowItemStyledValue,
 	CashFlowItemStyledWrapper,
 	CashFlowItemStyledWrapperExpenseOptions,
 	CashFlowItemStyledWrapperRevenueOptions,
-	CashFlowItemStyledName,
-	CashFlowItemStyledValue,
-	CashFlowItemStyledChecker,
 } from "./CashFlowItem.styled";
-import { CashFlowButton } from "../CashFlow.styled";
 
 const CashFlowItem = ({
 	id,
@@ -39,14 +39,14 @@ const CashFlowItem = ({
 							status={isPaid}
 							action={() => checkExpenses(id)}
 						/>
-						<CashFlowButton
+						<ButtonSVG
 							action={() => removeExpenses(id)}
 							svgUrl="/remove.svg"
 						/>
 					</CashFlowItemStyledWrapperExpenseOptions>
 				) : (
 					<CashFlowItemStyledWrapperRevenueOptions>
-						<CashFlowButton
+						<ButtonSVG
 							action={() => removeRevenue(id)}
 							svgUrl="/remove.svg"
 						/>

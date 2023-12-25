@@ -1,16 +1,18 @@
+import ButtonSVG from "@/components/Buttons/ButtonSvg";
+
 import { type BlockFormKeysEvent } from "@/components/Wallet/EditorWallet/EditorWallet.types";
+import { type BudgetPopupType } from "./BudgetManagementTabsPopup.types";
+
 import {
-	BudgetManagementTabsPopupPosition,
 	BudgetManagementTabsPopupContainer,
 	BudgetManagementTabsPopupForm,
-	BudgetManagementTabsPopupLabel,
-	BudgetManagementTabsPopupInput,
 	BudgetManagementTabsPopupHeader,
-	BudgetManagementTabsPopupClose,
-	BudgetManagementTabsPopupTitle,
+	BudgetManagementTabsPopupInput,
+	BudgetManagementTabsPopupLabel,
+	BudgetManagementTabsPopupPosition,
 	BudgetManagementTabsPopupSubmit,
+	BudgetManagementTabsPopupTitle,
 } from "./BudgetManagementTabsPopup.styled";
-import { type BudgetPopupType } from "./BudgetManagementTabsPopup.types";
 
 const BudgetManagementTabsPopupComponent = ({
 	showPopup,
@@ -32,7 +34,7 @@ const BudgetManagementTabsPopupComponent = ({
 						<BudgetManagementTabsPopupTitle>
 							Dodaj nowe aktywo
 						</BudgetManagementTabsPopupTitle>
-						<BudgetManagementTabsPopupClose
+						<ButtonSVG
 							svgUrl="remove.svg"
 							onClick={closePopup}
 						/>

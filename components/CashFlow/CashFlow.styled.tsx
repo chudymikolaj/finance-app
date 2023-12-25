@@ -1,16 +1,13 @@
 import styled from "styled-components";
 
-import ButtonSVG from "@/components/Buttons/ButtonSVG";
-
 import {
 	FlexRow,
 	FlexRowStart,
-	FlexCenter,
 	FlexColumnStart,
 	FlexColumnSpaceBetween,
 } from "@/styles/mixins.styled";
 
-import { CUBICS, FONT_SIZE_BUTTONS } from "@/styles/constants";
+import { CUBICS } from "@/styles/constants";
 
 export const CashFlowContainer = styled.div`
 	${FlexColumnStart}
@@ -44,29 +41,4 @@ export const CashFlowLists = styled.div`
 
 	width: 100%;
 	height: 100%;
-`;
-
-export const CashFlowButton = styled(ButtonSVG)`
-	transition: opacity ${CUBICS.easyOut} 250ms, transform ${CUBICS.easyOut} 250ms;
-	font-size: ${FONT_SIZE_BUTTONS};
-
-	&:hover {
-		opacity: 0.8;
-	}
-
-	&:active {
-		transform: scale(0.75);
-		opacity: 0.25;
-	}
-
-	div {
-		height: 15px;
-		width: 15px;
-		${FlexCenter}
-	}
-
-	svg {
-		height: 15px;
-		width: 15px;
-	}
 `;

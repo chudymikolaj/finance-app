@@ -1,13 +1,7 @@
-import ButtonSVG from "@/components/Buttons/ButtonSVG";
+import ButtonComponent from "@/components/Buttons/Button";
 import { devices } from "@/styles/breakpoints";
 
-import {
-	BORDER_RADIUS,
-	CUBICS,
-	FONT_SIZE_BUTTONS,
-	SIZES,
-	WEIGHT,
-} from "@/styles/constants";
+import { BORDER_RADIUS, CUBICS, SIZES, WEIGHT } from "@/styles/constants";
 
 import {
 	ButtonSubmit,
@@ -74,31 +68,6 @@ export const BudgetManagementTabsPopupTitle = styled.h3`
 	font-size: ${SIZES.tabName};
 `;
 
-export const BudgetManagementTabsPopupClose = styled(ButtonSVG)`
-	transition: opacity ${CUBICS.easyOut} 250ms, transform ${CUBICS.easyOut} 250ms;
-	font-size: ${FONT_SIZE_BUTTONS};
-
-	&:hover {
-		opacity: 0.8;
-	}
-
-	&:active {
-		transform: scale(0.75);
-		opacity: 0.25;
-	}
-
-	div {
-		${FlexCenter}
-		height: 20px;
-		width: 20px;
-	}
-
-	svg {
-		height: 20px;
-		width: 20px;
-	}
-`;
-
 export const BudgetManagementTabsPopupLabel = styled.label`
 	width: 100%;
 `;
@@ -114,7 +83,7 @@ export const BudgetManagementTabsPopupInput = styled.input`
 	color: ${({ theme }) => theme.color};
 `;
 
-export const BudgetManagementTabsPopupSubmit = styled.button`
+export const BudgetManagementTabsPopupSubmit = styled(ButtonComponent)`
 	${ButtonSubmit}
 
 	background-color: ${({ theme }) => theme.colorButton};

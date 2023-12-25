@@ -8,6 +8,7 @@ import React, {
 import moment from "moment";
 
 import { useAppContext } from "@/lib/ThemeProviderContext/actions";
+import ButtonRefSVG from "@/components/Buttons/ButtonRefSvg";
 
 import {
 	CashFlowHeader,
@@ -16,7 +17,6 @@ import {
 	CashFlowHeaderMonth,
 	CashFlowHeaderButtons,
 	CashFlowSortByDate,
-	CashFlowButton,
 	CashFlowSortByDateForm,
 	CashFlowSortByDateLabel,
 	CashFlowSortByDateInput,
@@ -96,7 +96,7 @@ const CashFlowHeaderComponent = () => {
 			<CashFlowHeaderOptions>
 				<CashFlowHeaderMonth>09.2023</CashFlowHeaderMonth>
 				<CashFlowHeaderButtons>
-					<CashFlowButton
+					<ButtonRefSVG
 						ref={refHandleButtonDateSorting}
 						action={onMouseEnter}
 						svgUrl="/more_vert.svg"

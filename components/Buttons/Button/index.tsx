@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { Button } from "../button.styled";
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 	children?: ReactNode;
@@ -11,11 +12,11 @@ export default function ButtonComponent({
 	...props
 }: ButtonProps) {
 	return (
-		<button
+		<Button
 			onClick={action}
 			{...props}
 		>
 			{children}
-		</button>
+		</Button>
 	);
 }

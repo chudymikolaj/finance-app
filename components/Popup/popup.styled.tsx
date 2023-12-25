@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { ButtonPopUp } from "@/styles/mixins.styled";
 import { FlexColumnStart } from "@/styles/mixins.styled";
+import ButtonComponent from "@/components/Buttons/Button";
 
 export const PopupContainer = styled.div`
 	width: 100%;
@@ -34,7 +35,7 @@ export const PopupFooter = styled.div`
 	gap: 15px;
 `;
 
-export const PopupButton = styled.button`
+export const PopupButton = styled(ButtonComponent)`
 	${ButtonPopUp};
 
 	background-color: ${(props) => props.theme.colorButton};

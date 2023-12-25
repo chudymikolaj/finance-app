@@ -1,7 +1,9 @@
+import styled from "styled-components";
+
+import ButtonComponent from "@/components/Buttons/Button";
 import { devices } from "@/styles/breakpoints";
 import { CUBICS, SIZES } from "@/styles/constants";
 import { FlexColumn, FlexRowAlignCenter } from "@/styles/mixins.styled";
-import styled from "styled-components";
 
 export const BudgetCategoriesContainer = styled.div`
 	${FlexColumn}
@@ -28,12 +30,14 @@ export const BudgetCategoriesCategory = styled.div`
 	font-size: ${SIZES.tabAssetsText};
 `;
 
-export const BudgetCategoriesCategoryButton = styled.button<{
+export const BudgetCategoriesCategoryButton = styled(ButtonComponent)<{
 	$active: boolean;
 }>`
 	${FlexRowAlignCenter}
 	gap: 8px;
 
+	width: auto;
+	height: auto;
 	color: #fffffe;
 	opacity: ${({ $active }) => ($active ? 0.5 : 1)};
 	transition: opacity 250ms ${CUBICS.easyOut};

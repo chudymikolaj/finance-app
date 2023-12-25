@@ -1,26 +1,25 @@
 "use client";
 
-import { useState, useRef, useEffect, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { v4 as uuidv4 } from "uuid";
 
+import { useAppContext } from "@/lib/ThemeProviderContext/actions";
 import {
 	type ActionType,
 	type FormActionType,
-	type ShowWalletEditorType,
 	type InputCashFlowType,
+	type ShowWalletEditorType,
 } from "./wallet.types";
-import { useAppContext } from "@/lib/ThemeProviderContext/actions";
 
-import SalaryElement from "./SalaryElement";
-import EditorWallet from "./EditorWallet";
+import ButtonRefSvg from "@/components/Buttons/ButtonRefSvg";
 import setMaximumValue from "@/utils/setMaximumValue";
+import EditorWallet from "./EditorWallet";
+import SalaryElement from "./SalaryElement";
 
 import {
 	WalletContainer,
 	WalletHeader,
 	WalletHeaderTitle,
-	WalletHeaderButton,
-	WalletHeaderSvg,
 } from "./wallet.styled";
 
 export default function Wallet() {
@@ -110,7 +109,7 @@ export default function Wallet() {
 		}
 	};
 
-	const onMouseDown = () => {
+	const handleOpenEditor = () => {
 		setShowWalletEditor((prevState) => !prevState);
 	};
 
@@ -143,12 +142,12 @@ export default function Wallet() {
 		<WalletContainer>
 			<WalletHeader>
 				<WalletHeaderTitle>Miesięczne saldo</WalletHeaderTitle>
-				<WalletHeaderButton
+				<ButtonRefSvg
 					ref={showWalletButtonEditorRef}
-					onMouseDown={onMouseDown}
-				>
-					<WalletHeaderSvg src="/add.svg" />
-				</WalletHeaderButton>
+					svgUrl="/add.svg"
+					action={handleOpenEditor}
+					$big
+				/>
 			</WalletHeader>
 
 			<SalaryElement

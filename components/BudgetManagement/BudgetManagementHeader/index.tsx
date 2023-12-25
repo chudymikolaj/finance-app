@@ -1,15 +1,18 @@
-import React from "react";
 import {
 	BudgetHeader,
 	BudgetHeaderTitle,
-	ButtonOptions,
 } from "./BudgetManagementHeader.styled";
+
+import ButtonSVG from "@/components/Buttons/ButtonSvg";
 
 const BudgetManagementHeader = () => {
 	return (
 		<BudgetHeader>
 			<BudgetHeaderTitle>Zarządzanie budżetem</BudgetHeaderTitle>
-			<ButtonOptions svgUrl="./settings.svg" />
+			<ButtonSVG
+				svgUrl="./settings.svg"
+				$big
+			/>
 		</BudgetHeader>
 	);
 };
