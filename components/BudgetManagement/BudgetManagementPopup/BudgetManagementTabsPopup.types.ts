@@ -9,3 +9,5 @@ export type BudgetPopupType = {
 	handleValue: (event: ChangeEvent<HTMLInputElement>) => void;
 	closePopup: () => void;
 }
+
+export type Ref = HTMLDivElement;

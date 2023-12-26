@@ -1,7 +1,8 @@
 import { useAppContext } from "@/lib/ThemeProviderContext/actions";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
+import useOutsideClick from "@/utils/useOutsideClick";
 import BudgetManagementActionButton from "@/components/BudgetManagement/BudgetManagementActionButton";
 import BudgetManagementTabsPopup from "@/components/BudgetManagement/BudgetManagementPopup";
 import BudgetManagementSummaryTabsComponent from "@/components/BudgetManagement/BudgetManagementSummaryTabs";
@@ -42,6 +43,14 @@ const BudgetManagementTabsComponent = ({
 	} = useAppContext();
 	const [showPopupAsset, setPopupAsset] = useState(false);
 	const [showPopupIsEdit, setShowPopupIsEdit] = useState(false);
+
+	const popupEditRef = useRef(null);
+
+	useOutsideClick({
+		isVisible: showPopupAsset,
+		setIsVisible: setPopupAsset,
+		refs: [popupEditRef],
+	});
 
 	const [newAsset, setNewAsset] = useState<NewAssetStateType>({
 		title: "",
@@ -202,6 +211,7 @@ const BudgetManagementTabsComponent = ({
 									<BudgetManagementSummaryTabsComponent value={value} />
 
 									<BudgetManagementTabsPopup
+										ref={popupEditRef}
 										showPopup={showPopupAsset}
 										onSubmit={(event) => onSubmitPopupAsset(event, categoryId)}
 										handleTitle={(event) => handlePopupAssetTitle(event)}
