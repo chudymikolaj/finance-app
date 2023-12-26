@@ -1,10 +1,11 @@
 "use client";
 
-import SVGimage from "@/components/SvgIcon";
-import { useAppContext } from "@/lib/ThemeProviderContext/actions";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
+import SVGimage from "@/components/SvgIcon";
+import { useAppContext } from "@/lib/ThemeProviderContext/actions";
+import useOutsideClick from "@/utils/useOutsideClick";
 import {
 	Navbar,
 	NavbarDropdownMenu,
@@ -33,19 +34,6 @@ export default function NavbarComponent() {
 		setShowDropdownMenu((prevState) => !prevState);
 	};
 
-	const handleOutsideClick = (event: MouseEvent | TouchEvent) => {
-		const target = event.target as Node;
-
-		if (
-			dropdownMenuRef.current &&
-			!dropdownMenuRef.current.contains(target) &&
-			toggleButtonRef.current &&
-			!toggleButtonRef.current.contains(target)
-		) {
-			setShowDropdownMenu(false);
-		}
-	};
-
 	const handleRouteChange = () => {
 		setShowDropdownMenu(false);
 	};
@@ -54,21 +42,13 @@ export default function NavbarComponent() {
 		handleRouteChange();
 	}, [pathname]);
 
-	useEffect(() => {
-		// Attach event listeners when the dropdown is open
-		if (showDropdownMenu) {
-			document.addEventListener("mousedown", handleOutsideClick);
-			document.addEventListener("touchstart", handleOutsideClick);
-		}
-
-		return () => {
-			// Remove event listeners on cleanup
-			document.removeEventListener("mousedown", handleOutsideClick);
-			document.removeEventListener("touchstart", handleOutsideClick);
-		};
-	}, [usePathname, showDropdownMenu]);
-
 	const isMode = darkMode ? "/dark_mode.svg" : "/light_mode.svg";
+
+	useOutsideClick({
+		isVisible: showDropdownMenu,
+		setIsVisible: setShowDropdownMenu,
+		refs: [dropdownMenuRef, toggleButtonRef],
+	});
 
 	return (
 		<Navbar>
