@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type FormEvent } from "react";
+import { useRef, useState, type FormEvent } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 import { useAppContext } from "@/lib/ThemeProviderContext/actions";
@@ -16,6 +16,7 @@ import setMaximumValue from "@/utils/setMaximumValue";
 import EditorWallet from "./EditorWallet";
 import SalaryElement from "./SalaryElement";
 
+import useOutsideClick from "@/utils/useOutsideClick";
 import {
 	WalletContainer,
 	WalletHeader,
@@ -113,30 +114,11 @@ export default function Wallet() {
 		setShowWalletEditor((prevState) => !prevState);
 	};
 
-	const handleOutsideClick = (event: MouseEvent | TouchEvent) => {
-		const target = event.target as Node; // Typecast the event target
-
-		if (
-			showWalletEditorRef.current &&
-			!showWalletEditorRef.current.contains(target) &&
-			showWalletButtonEditorRef.current &&
-			!showWalletButtonEditorRef.current.contains(target)
-		) {
-			setShowWalletEditor(false);
-		}
-	};
-
-	useEffect(() => {
-		if (showWalletEditor) {
-			document.addEventListener("mousedown", handleOutsideClick);
-			document.addEventListener("touchstart", handleOutsideClick);
-		}
-
-		return () => {
-			document.removeEventListener("mousedown", handleOutsideClick);
-			document.removeEventListener("touchstart", handleOutsideClick);
-		};
-	}, [showWalletEditor]);
+	useOutsideClick({
+		isVisible: showWalletEditor,
+		setIsVisible: setShowWalletEditor,
+		refs: [showWalletEditorRef, showWalletButtonEditorRef],
+	});
 
 	return (
 		<WalletContainer>
