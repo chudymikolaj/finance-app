@@ -1,26 +1,21 @@
-import React, {
-	useState,
-	useRef,
-	useEffect,
-	type ChangeEvent,
-	type FormEvent,
-} from "react";
 import moment from "moment";
+import { useRef, useState, type ChangeEvent, type FormEvent } from "react";
 
-import { useAppContext } from "@/lib/ThemeProviderContext/actions";
 import ButtonRefSVG from "@/components/Buttons/ButtonRefSvg";
+import { useAppContext } from "@/lib/ThemeProviderContext/actions";
 
+import useOutsideClick from "@/utils/useOutsideClick";
 import {
 	CashFlowHeader,
-	CashFlowHeaderTitle,
-	CashFlowHeaderOptions,
-	CashFlowHeaderMonth,
 	CashFlowHeaderButtons,
+	CashFlowHeaderMonth,
+	CashFlowHeaderOptions,
+	CashFlowHeaderTitle,
+	CashFlowSortByDataSort,
 	CashFlowSortByDate,
 	CashFlowSortByDateForm,
-	CashFlowSortByDateLabel,
 	CashFlowSortByDateInput,
-	CashFlowSortByDataSort,
+	CashFlowSortByDateLabel,
 } from "./CashFlowHeader.styled";
 
 const CashFlowHeaderComponent = () => {
@@ -62,33 +57,15 @@ const CashFlowHeaderComponent = () => {
 		resetCalendarDate();
 	};
 
-	const onMouseEnter = () => {
+	const handleOpenSortByDate = () => {
 		setShowDateSorting((prevState) => !prevState);
 	};
 
-	const handleOutsideClick = (event: MouseEvent | TouchEvent) => {
-		const target = event.target as Node;
-
-		if (
-			refHandleDateSorting.current &&
-			!refHandleDateSorting.current.contains(target) &&
-			refHandleButtonDateSorting.current &&
-			!refHandleButtonDateSorting.current.contains(target)
-		)
-			setShowDateSorting(false);
-	};
-
-	useEffect(() => {
-		if (showDateSorting) {
-			document.addEventListener("mousedown", handleOutsideClick);
-			document.addEventListener("touchstart", handleOutsideClick);
-		}
-
-		return () => {
-			document.removeEventListener("mousedown", handleOutsideClick);
-			document.removeEventListener("touchstart", handleOutsideClick);
-		};
-	}, [showDateSorting]);
+	useOutsideClick({
+		isVisible: showDateSorting,
+		setIsVisible: setShowDateSorting,
+		refs: [refHandleButtonDateSorting, refHandleDateSorting],
+	});
 
 	return (
 		<CashFlowHeader>
@@ -98,7 +75,7 @@ const CashFlowHeaderComponent = () => {
 				<CashFlowHeaderButtons>
 					<ButtonRefSVG
 						ref={refHandleButtonDateSorting}
-						action={onMouseEnter}
+						action={handleOpenSortByDate}
 						svgUrl="/more_vert.svg"
 					/>
 				</CashFlowHeaderButtons>
