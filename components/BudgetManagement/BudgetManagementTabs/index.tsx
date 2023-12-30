@@ -1,10 +1,8 @@
 import { useAppContext } from "@/lib/ThemeProviderContext/actions";
-import { useEffect, useRef, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
+import { useRef, useState } from "react";
 
 import useOutsideClick from "@/utils/useOutsideClick";
 import BudgetManagementActionButton from "@/components/BudgetManagement/BudgetManagementActionButton";
-import BudgetManagementTabsPopup from "@/components/BudgetManagement/BudgetManagementPopup";
 import BudgetManagementSummaryTabsComponent from "@/components/BudgetManagement/BudgetManagementSummaryTabs";
 import ButtonSVG from "@/components/Buttons/ButtonSvg";
 
@@ -22,122 +20,39 @@ import {
 
 import {
 	type BudgetManagementTabsType,
-	type HandlePopupAssetTitleType,
-	type HandlePopupAssetValueType,
 	type HandleTabListItemEditType,
 	type HandleTabListItemRemoveType,
 	type ModifyAssetStateType,
-	type NewAssetStateType,
-	type OnSubmitPopupAssetEventType,
-	type OnSubmitPopupAssetTabCategoryIdType,
 } from "./BudgetManagementTabs.types";
+import {
+	FormAddBudgetListTabItem,
+	FormEditBudgetListTabItem,
+} from "@/components/Forms";
+import PopupInsideElementComponent from "@/components/PopupInsideComponent";
 
 const BudgetManagementTabsComponent = ({
 	activeTab,
 	budgetTabLists,
 }: BudgetManagementTabsType) => {
-	const {
-		addBudgetListTabItem,
-		modifyBudgetListTabItem,
-		budgetListTabItemRemove,
-	} = useAppContext();
+	const { budgetListTabItemRemove } = useAppContext();
 	const [showPopupAsset, setPopupAsset] = useState(false);
 	const [showPopupIsEdit, setShowPopupIsEdit] = useState(false);
-
-	const popupEditRef = useRef(null);
-
-	useOutsideClick({
-		isVisible: showPopupAsset,
-		setIsVisible: setPopupAsset,
-		refs: [popupEditRef],
-	});
-
-	const [newAsset, setNewAsset] = useState<NewAssetStateType>({
-		title: "",
-		value: "",
-	});
-
 	const [modifyAsset, setModifyAsset] = useState<ModifyAssetStateType>({
 		id: "",
 		title: "",
 		value: "",
 	});
 
+	const popupFormsRef = useRef(null);
 	const isAssets = budgetTabLists.length > 0;
 
 	const togglePopupAsset = () => {
 		setPopupAsset((prevState) => !prevState);
 	};
 
-	const resetPopupAddAsset = () => {
-		setNewAsset({ title: "", value: "" });
-	};
-
 	const closePopupAsset = () => {
 		setPopupAsset(false);
 		setShowPopupIsEdit(false);
-	};
-
-	const handlePopupAssetTitle = (event: HandlePopupAssetTitleType) => {
-		const getTitle = event.target.value;
-
-		if (showPopupIsEdit === true) {
-			setModifyAsset((prevState) => ({ ...prevState, title: getTitle }));
-		} else {
-			setNewAsset((prevState) => ({ ...prevState, title: getTitle }));
-		}
-	};
-
-	const handlePopupAssetValue = (event: HandlePopupAssetValueType) => {
-		const getValue = event.target.value;
-		if (showPopupIsEdit === true) {
-			setModifyAsset((prevState) => ({ ...prevState, value: getValue }));
-		} else {
-			setNewAsset((prevState) => ({ ...prevState, value: getValue }));
-		}
-	};
-
-	const onSubmitPopupAsset = (
-		event: OnSubmitPopupAssetEventType,
-		tabCategoryId: OnSubmitPopupAssetTabCategoryIdType
-	) => {
-		event.preventDefault();
-
-		if (
-			showPopupIsEdit === false &&
-			newAsset.title !== "" &&
-			newAsset.value !== ""
-		) {
-			const addAsset: { id: string; title: string; value: number } = {
-				id: uuidv4(),
-				title: newAsset.title,
-				value: Number(newAsset.value),
-			};
-
-			addBudgetListTabItem(tabCategoryId, addAsset);
-			resetPopupAddAsset();
-			closePopupAsset();
-		}
-
-		if (
-			showPopupIsEdit === true &&
-			modifyAsset.id !== "" &&
-			modifyAsset.title !== "" &&
-			modifyAsset.value !== ""
-		) {
-			const modifyItemAsset = {
-				id: modifyAsset.id,
-				title: modifyAsset.title,
-				value: Number(modifyAsset.value),
-			};
-
-			modifyBudgetListTabItem(
-				tabCategoryId,
-				modifyItemAsset.id,
-				modifyItemAsset
-			);
-			closePopupAsset();
-		}
 	};
 
 	const handleTabListItemEdit = (
@@ -161,13 +76,12 @@ const BudgetManagementTabsComponent = ({
 		budgetListTabItemRemove(categoryId, id);
 	};
 
-	useEffect(() => {
-		if (showPopupAsset === true) {
-			setPopupAsset(false);
-			resetPopupAddAsset();
-			closePopupAsset();
-		}
-	}, [activeTab]);
+	useOutsideClick({
+		isVisible: showPopupAsset,
+		setIsVisible: setPopupAsset,
+		closeFunction: closePopupAsset,
+		refs: [popupFormsRef],
+	});
 
 	return (
 		<BudgetManagementTabsContainer>
@@ -210,20 +124,23 @@ const BudgetManagementTabsComponent = ({
 									<BudgetManagementActionButton action={togglePopupAsset} />
 									<BudgetManagementSummaryTabsComponent value={value} />
 
-									<BudgetManagementTabsPopup
-										ref={popupEditRef}
+									<PopupInsideElementComponent
+										ref={popupFormsRef}
 										showPopup={showPopupAsset}
-										onSubmit={(event) => onSubmitPopupAsset(event, categoryId)}
-										handleTitle={(event) => handlePopupAssetTitle(event)}
-										handleValue={(event) => handlePopupAssetValue(event)}
-										closePopup={closePopupAsset}
-										inputTitleValue={
-											showPopupIsEdit ? modifyAsset.title : newAsset.title
-										}
-										inputValue={
-											showPopupIsEdit ? modifyAsset.value : newAsset.value
-										}
-									/>
+									>
+										{showPopupIsEdit ? (
+											<FormEditBudgetListTabItem
+												data={modifyAsset}
+												categoryId={categoryId}
+												closePopup={closePopupAsset}
+											/>
+										) : (
+											<FormAddBudgetListTabItem
+												categoryId={categoryId}
+												closePopup={closePopupAsset}
+											/>
+										)}
+									</PopupInsideElementComponent>
 								</BudgetManagementTabsTab>
 							)
 					)
