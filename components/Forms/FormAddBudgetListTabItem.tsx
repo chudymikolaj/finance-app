@@ -1,21 +1,26 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 
-import { type IFormValues, type FormPropsType } from "./Form.types";
+import { useAppContext } from "@/lib/ThemeProviderContext/actions";
 import ButtonSVG from "../Buttons/ButtonSvg";
 import Input from "./Input";
+
+import {
+	type FormAddBudgetListTabItemPropsType,
+	type IFormValues,
+} from "./Form.types";
+
 import {
 	FormElement,
 	FormElementHeader,
-	FormElementTitle,
 	FormElementSubmit,
+	FormElementTitle,
 } from "./Form.styled";
-import { useAppContext } from "@/lib/ThemeProviderContext/actions";
 
 const FormAddBudgetListTabItem = ({
 	categoryId,
 	closePopup,
-}: FormPropsType) => {
+}: FormAddBudgetListTabItemPropsType) => {
 	const { register, handleSubmit } = useForm<IFormValues>();
 	const { addBudgetListTabItem } = useAppContext();
 
@@ -27,6 +32,7 @@ const FormAddBudgetListTabItem = ({
 		};
 
 		addBudgetListTabItem(categoryId, addAsset);
+		closePopup();
 	};
 
 	return (
