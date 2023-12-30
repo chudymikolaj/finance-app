@@ -4,6 +4,7 @@ import { type UseOutsideClickProps } from "./useOutsideClick.types";
 const useOutsideClick = ({
 	isVisible,
 	setIsVisible,
+	closeFunction,
 	refs,
 }: UseOutsideClickProps) => {
 	useEffect(() => {
@@ -17,6 +18,8 @@ const useOutsideClick = ({
 			if (isVisible && isClickOutside) {
 				setIsVisible(false);
 			}
+
+			if (isVisible && isClickOutside && closeFunction) closeFunction();
 		};
 
 		if (isVisible) {
