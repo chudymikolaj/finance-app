@@ -137,6 +137,7 @@ export type AppStateValue = Mode &
 		updateRevenues: (value: number) => void;
 		updateRestRevenues: (revenues: number, expenses: number) => void;
 		updateBudgetAllocations: (allocations: BudgetAllocation[]) => void;
+		changeBudgetAllocations: (data: { [key: string]: string }) => void;
 		updateBudgetListTabs: (lists: BudgetTabList[]) => void;
 		addBudgetListTabItem: (
 			budgetListTabItemId: string,

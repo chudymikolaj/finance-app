@@ -33,7 +33,6 @@ export default function ThemeProviderContext({
 		revenues: app.revenues,
 		budgetAllocations: app.budgetAllocations,
 		budgetTabLists: app.budgetTabLists,
-
 		addExpense(id, name, value, tags, isPaid, date) {
 			dispatch({ type: "ADD_EXPENSE", id, name, value, tags, isPaid, date });
 		},
@@ -57,6 +56,9 @@ export default function ThemeProviderContext({
 		},
 		updateBudgetAllocations(budgetAllocations) {
 			dispatch({ type: "UPDATE_BUDGET_ALLOCATIONS", budgetAllocations });
+		},
+		changeBudgetAllocations(data) {
+			dispatch({ type: "CHANGE_BUDGET_ALLOCATIONS", data });
 		},
 		updateBudgetListTabs(budgetTabLists) {
 			dispatch({ type: "UPDATE_BUDGET_TAB_LISTS", budgetTabLists });

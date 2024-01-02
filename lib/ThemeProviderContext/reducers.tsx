@@ -84,6 +84,11 @@ type UpdateBudgetAllocations = {
 	budgetAllocations: BudgetAllocation[];
 };
 
+type ChangeBudgetAllocations = {
+	type: "CHANGE_BUDGET_ALLOCATIONS";
+	data: { [key: string]: string };
+};
+
 type UpdateBudgetTabLists = {
 	type: "UPDATE_BUDGET_TAB_LISTS";
 	budgetTabLists: BudgetTabList[];
@@ -123,6 +128,7 @@ type Action =
 	| UpdateRestRevenues
 	| FilterCashFlowList
 	| UpdateBudgetAllocations
+	| ChangeBudgetAllocations
 	| UpdateBudgetTabLists
 	| AddBudgetTabItem
 	| ModifyBudgetTabItem
@@ -268,6 +274,28 @@ export function appReducer(state: AppState, action: Action): AppState {
 		return {
 			...state,
 			budgetAllocations: [...action.budgetAllocations],
+		};
+	}
+
+	if (action.type === "CHANGE_BUDGET_ALLOCATIONS") {
+		const convertObjectToArray = Object.entries(action.data);
+
+		const changeBudgetAllocation = state.budgetAllocations.map(
+			(budgetAllocation, index) => {
+				if (convertObjectToArray[index][0] === budgetAllocation.id) {
+					return {
+						...budgetAllocation,
+						share: Number(convertObjectToArray[index][1]) / 100,
+					};
+				}
+
+				return budgetAllocation;
+			}
+		);
+
+		return {
+			...state,
+			budgetAllocations: [...changeBudgetAllocation],
 		};
 	}
 
