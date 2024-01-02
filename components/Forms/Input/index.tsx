@@ -1,19 +1,29 @@
-import { type Path, type UseFormRegister } from "react-hook-form";
+import { type UseFormRegister } from "react-hook-form";
 import {
 	type InputTypeValues,
 	type IFormValues,
 	type BlockFormKeysEvent,
 } from "../Form.types";
 
-import { InputElement, InputLabel } from "./input.styled";
+import {
+	InputElement,
+	InputElementWithSymbol,
+	InputElementWrapper,
+	InputLabel,
+	PercentageSymbol,
+} from "./input.styled";
 
 type InputProps = {
-	label: Path<IFormValues>;
-	labelRegister: Path<IFormValues>;
-	placeholder: Path<IFormValues>;
+	label: string;
+	labelRegister: string;
+	placeholder: string;
 	type: InputTypeValues;
 	register: UseFormRegister<IFormValues>;
 	required: boolean;
+	min?: number;
+	max?: number;
+	step?: number;
+	percentage?: boolean;
 };
 
 // The following component is an example of your existing Input Component
@@ -24,6 +34,10 @@ const Input = ({
 	type,
 	register,
 	required,
+	min,
+	max,
+	step,
+	percentage,
 }: InputProps) => {
 	if (type === "number") {
 		const blockFormKeysInput = (event: BlockFormKeysEvent) =>
@@ -32,13 +46,32 @@ const Input = ({
 		return (
 			<>
 				<InputLabel htmlFor={labelRegister}>{label}</InputLabel>
-				<InputElement
-					id={labelRegister}
-					placeholder={placeholder}
-					type={type}
-					onKeyDown={blockFormKeysInput}
-					{...register(labelRegister, { required })}
-				/>
+				{percentage ? (
+					<InputElementWrapper>
+						<InputElementWithSymbol
+							id={labelRegister}
+							placeholder={placeholder}
+							type={type}
+							onKeyDown={blockFormKeysInput}
+							min={min}
+							max={max}
+							step={step}
+							{...register(labelRegister, { required })}
+						/>
+						<PercentageSymbol>%</PercentageSymbol>
+					</InputElementWrapper>
+				) : (
+					<InputElement
+						id={labelRegister}
+						placeholder={placeholder}
+						type={type}
+						onKeyDown={blockFormKeysInput}
+						min={min}
+						max={max}
+						step={step}
+						{...register(labelRegister, { required })}
+					/>
+				)}
 			</>
 		);
 	}

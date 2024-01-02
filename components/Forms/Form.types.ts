@@ -1,6 +1,6 @@
 "use client"
 
-import { type KeyboardEvent } from "react";
+import { type KeyboardEvent, type ReactNode } from "react";
 
 export type FormAddBudgetListTabItemPropsType = {
 	categoryId: string;
@@ -17,16 +17,15 @@ export type FormEditBudgetListTabItemPropsType = {
 	closePopup: () => void;
 };
 
+export type FormChangeWalletProportionsPropsType = {
+	closePopup: () => void;
+};
+
 export interface IFormValues {
-	"Podaj nazwę": string;
-	"Zmień nazwę": string;
-	"Wpisz nazwę aktywa": string;
-	"Podaj wartość": string;
-	"Zmień wartość": string;
-	"Wpisz wartość aktywa": string;
-	"name": string;
-	"value": string;
-}
+	 [key: string]: string;
+};
+
+export type ReactNodeType = ReactNode;
 
 export type InputTypeValues = "text" | "number";
 

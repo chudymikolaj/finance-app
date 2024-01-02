@@ -1,9 +1,13 @@
-"use client"
+"use client";
 
 import styled from "styled-components";
 import ButtonComponent from "@/components/Buttons/Button";
-import { CUBICS, SIZES, WEIGHT } from "@/styles/constants";
-import { ButtonSubmit, FlexColumnStart, FlexRowSpaceBetween } from "@/styles/mixins.styled";
+import { BORDER_RADIUS, CUBICS, SIZES, WEIGHT } from "@/styles/constants";
+import {
+	ButtonSubmit,
+	FlexColumnStart,
+	FlexRowSpaceBetween,
+} from "@/styles/mixins.styled";
 
 export const FormElement = styled.form`
 	${FlexColumnStart}
@@ -34,4 +38,14 @@ export const FormElementSubmit = styled(ButtonComponent)`
 	&:hover {
 		background-color: ${({ theme }) => theme.colorElement_5};
 	}
+`;
+
+export const ErrorMessage = styled.div`
+	width: 100%;
+	padding: 9px;
+	border: 1px solid ${({ theme }) => theme.colorRed};
+	border-radius: ${BORDER_RADIUS};
+	display: block;
+	text-align: center;
+	color: ${({ theme }) => theme.colorRed};
 `;
