@@ -1,32 +1,20 @@
 import { createPortal } from "react-dom";
-import {
-  PopupContainer,
-  PopupHeader,
-  PopupBody,
-  PopupFooter,
-  PopupButton
-} from "./popup.styled";
+import { forwardRef } from "react";
 
-import { PopupTypes } from "./popup.types";
+import { PopupBackdrop, PopupContainer } from "./popup.styled";
 
-const Popup = ({ children, show, title, onChange, onClose }: PopupTypes) => {
-  return (
-    show && createPortal(
-      <PopupContainer>
-        <PopupHeader>
-          {title}
-        </PopupHeader>
-        <PopupBody>
-          {children}
-        </PopupBody>
-        <PopupFooter>
-          <PopupButton onClick={onChange}>Zmień</PopupButton>
-          <PopupButton onClick={onClose}>Anuluj</PopupButton>
-        </PopupFooter>
-      </PopupContainer>,
-      document.body
-    )
-  )
-}
+import { PopupTypes, Ref } from "./popup.types";
+
+const Popup = forwardRef<Ref, PopupTypes>(({ children, show }, ref) => {
+	return (
+		show &&
+		createPortal(
+			<PopupBackdrop>
+				<PopupContainer ref={ref}>{children}</PopupContainer>
+			</PopupBackdrop>,
+			document.body
+		)
+	);
+});
 
 export default Popup;
