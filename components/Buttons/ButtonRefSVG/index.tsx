@@ -1,5 +1,5 @@
 import SVGimage from "@/components/SvgIcon";
-import { forwardRef, ReactNode } from "react";
+import { forwardRef } from "react";
 
 // base button, with ref forwarding
 type Props = {
@@ -12,10 +12,23 @@ type Props = {
 
 export type Ref = HTMLButtonElement;
 
-import { Button } from "../button.styled";
+import { Button, ButtonName } from "../button.styled";
 
 const ButtonRefSvg = forwardRef<Ref, Props>(
 	({ action, name, svgUrl, ...props }, ref) => {
+		if (svgUrl && name) {
+			return (
+				<Button
+					ref={ref}
+					onClick={action}
+					{...props}
+				>
+					<ButtonName>{name}</ButtonName>
+					<SVGimage src={svgUrl} />
+				</Button>
+			);
+		}
+
 		return (
 			<Button
 				ref={ref}
