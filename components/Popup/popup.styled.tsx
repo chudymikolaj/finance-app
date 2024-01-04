@@ -7,7 +7,7 @@ export const PopupBackdrop = styled.div`
 	position: fixed;
 	left: 0;
 	top: 0;
-	background-color: ${(props) => props.theme.backgroundElement_5};
+	background-color: ${(props) => props.theme.backgroundPopup_5};
 	z-index: ${Z_INDEX_99999};
 `;
 
@@ -15,9 +15,9 @@ export const PopupContainer = styled.div`
 	width: 100%;
 	max-width: 500px;
 	padding: 30px;
-	background-color: ${(props) => props.theme.backgroundElement_5};
+	background-color: ${(props) => props.theme.backgroundElement};
 	backdrop-filter: blur(10px);
-	border: 1px solid ${(props) => props.theme.colorBorder};
+	border: 1px solid ${(props) => props.theme.borderColor};
 	border-radius: 5px;
 	position: absolute;
 	top: 50%;
