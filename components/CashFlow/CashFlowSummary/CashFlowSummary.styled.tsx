@@ -21,8 +21,8 @@ export const CashFlowSummaryStyled = styled.div`
 	padding: 18px 20px;
 	margin: 20px auto 0;
 
-	background-color: ${(props) => props.theme.colorElement};
-	border: 1px solid ${(props) => props.theme.colorBorder};
+	background-color: ${(props) => props.theme.backgroundElement};
+	border: 1px solid ${(props) => props.theme.borderColor};
 	border-radius: ${BORDER_RADIUS};
 `;
 
@@ -48,12 +48,12 @@ export const CashFlowSummaryNameStyled = styled.span`
 
 export const CashFlowSummaryValueExpensiveStyled = styled.span`
 	font-weight: ${FontWeightBold};
-	color: ${(props) => props.theme.colorRed};
+	color: ${(props) => props.theme.redColor};
 `;
 
 export const CashFlowSummaryValueRevenueStyled = styled.span`
 	font-weight: ${FontWeightBold};
-	color: ${(props) => props.theme.colorGreen};
+	color: ${(props) => props.theme.greenColor};
 `;
 
 export const CashFlowSummaryStatsStyled = styled.span`

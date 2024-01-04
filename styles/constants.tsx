@@ -1,11 +1,14 @@
 export const STYLE_DARK_MODE = {
 	backgroundColor: "#0F0F0F",
-	backgroundColor_5: "rgba(15, 15, 15, .5)",
+	backgroundColor_5: "hsla(0, 0%, 5.88235294117647%, 0.5)",
 	backgroundElement: "#1A1A1B",
 	borderColor: "#2F2F2F",
-	buttonColor: "#3D3D3D",
+	buttonColor: "#1A1A1B",
 	buttonColorBorder: "#fafafa",
 	buttonColorFont: "#fafafa",
+	buttonPopupColorFont: "#fafafa",
+	activeButtonColor: "#ff8906",
+	activeButtonColorFont: "#8AA1B8",
 	color: "#fafafa",
 	redColor: "#FF6969",
 	greenColor: "#5D8C71",
@@ -13,8 +16,8 @@ export const STYLE_DARK_MODE = {
 	linkColor: "#fafafa",
 	headlineColor: "#fafafa",
 	subHeadlineColor: "#ABA6A6",
-	activeButtonColor: "#ff8906",
-	activeButtonColorFont: "#8AA1B8",
+	formLabelBackground: "rgba(15, 15, 15, .5)",
+	formOutlineColor: "#1A1A1B",
 };
 
 export const STYLE_LIGHT_MODE = {
@@ -22,9 +25,12 @@ export const STYLE_LIGHT_MODE = {
 	backgroundPopup_5: "rgba(18, 18, 18, .25)",
 	backgroundElement: "#ffffff",
 	borderColor: "#ececec",
-	buttonColor: "#477ed1",
+	buttonColor: "#ffffff",
 	buttonColorBorder: "#477ed1",
 	buttonColorFont: "#477ed1",
+	buttonPopupColorFont: "#fbfbfb",
+	activeButtonColor: "#477ed1",
+	activeButtonColorFont: "#121212",
 	color: "#121212",
 	redColor: "#FF6969",
 	greenColor: "#5D8C71",
@@ -32,8 +38,8 @@ export const STYLE_LIGHT_MODE = {
 	linkColor: "#121212",
 	headlineColor: "#121212",
 	subHeadlineColor: "#121212",
-	activeButtonColor: "#477ed1",
-	activeButtonColorFont: "#121212",
+	formLabelBackground: "#f5f5f5",
+	formOutlineColor: "#477ed1",
 };
 
 export const SIZES = {

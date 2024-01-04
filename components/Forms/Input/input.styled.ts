@@ -12,7 +12,7 @@ export const InputElement = styled.input`
 	width: 100%;
 	max-width: calc(100%);
 	padding: 10px 16px;
-	background-color: ${({ theme }) => theme.colorElement_5};
+	background-color: ${({ theme }) => theme.backgroundElement};
 	border: unset;
 	border-radius: ${BORDER_RADIUS};
 	font-size: 14px;
@@ -43,7 +43,7 @@ export const PercentageSymbol = styled.div`
 
 	width: 40px;
 	height: calc(100% - 2px);
-	background-color: ${({ theme }) => theme.colorElement_5};
+	background-color: ${({ theme }) => theme.backgroundElement};
 	border-radius-top-right: ${BORDER_RADIUS};
 	border-radius-bottom-right: ${BORDER_RADIUS};
 	position: absolute;

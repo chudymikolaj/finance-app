@@ -31,21 +31,21 @@ export const FormElementTitle = styled.h3`
 export const FormElementSubmit = styled(ButtonComponent)`
 	${ButtonSubmit}
 
-	background-color: ${({ theme }) => theme.colorButton};
-	color: ${({ theme }) => theme.colorButtonFont};
+	background-color: ${({ theme }) => theme.buttonColor};
+	color: ${({ theme }) => theme.buttonColorFont};
 	transition: background-color 250ms ${CUBICS.easyOut};
 
 	&:hover {
-		background-color: ${({ theme }) => theme.colorElement_5};
+		background-color: ${({ theme }) => theme.backgroundElement};
 	}
 `;
 
 export const ErrorMessage = styled.div`
 	width: 100%;
 	padding: 9px;
-	border: 1px solid ${({ theme }) => theme.colorRed};
+	border: 1px solid ${({ theme }) => theme.redColor};
 	border-radius: ${BORDER_RADIUS};
 	display: block;
 	text-align: center;
-	color: ${({ theme }) => theme.colorRed};
+	color: ${({ theme }) => theme.redColor};
 `;

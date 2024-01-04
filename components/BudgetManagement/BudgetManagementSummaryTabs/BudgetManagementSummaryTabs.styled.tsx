@@ -20,7 +20,7 @@ export const BudgetManagementSummaryTabsContainer = styled.div`
 		padding: 18px 0 0;
 	}
 
-	border-top: 1px solid ${({ theme }) => theme.colorElement_5};
+	border-top: 1px solid ${({ theme }) => theme.backgroundElement};
 	text-align: center;
 	font-size: ${SIZES.tabSummary};
 	font-weight: ${WEIGHT.medium};
@@ -29,5 +29,5 @@ export const BudgetManagementSummaryTabsContainer = styled.div`
 export const BudgetManagementSummaryTabsName = styled.span``;
 
 export const BudgetManagementSummaryTabsValue = styled.span`
-	color: ${({ theme }) => theme.colorGreen};
+	color: ${({ theme }) => theme.greenColor};
 `;

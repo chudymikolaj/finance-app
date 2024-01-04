@@ -3,11 +3,7 @@
 import styled from "styled-components";
 
 import { devices } from "@/styles/breakpoints";
-import {
-	BORDER_RADIUS,
-	SIZES,
-	WEIGHT,
-} from "@/styles/constants";
+import { BORDER_RADIUS, SIZES, WEIGHT } from "@/styles/constants";
 import {
 	FlexCenter,
 	FlexColumn,
@@ -87,7 +83,7 @@ export const BudgetManagementTabsTabListItem = styled.li`
 		padding: 15px;
 	}
 
-	background-color: ${({ theme }) => theme.colorElement_6};
+	background-color: ${({ theme }) => theme.backgroundElement};
 	border-radius: ${BORDER_RADIUS};
 `;
 

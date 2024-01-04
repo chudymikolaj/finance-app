@@ -68,8 +68,8 @@ export const NavbarMenuDropdown = styled.div<{ $show?: boolean }>`
 	min-width: 200px;
 	width: calc(100vw - 30px);
 	padding: 18px 30px;
-	background-color: ${(props) => props.theme.colorElement};
-	border: 1px solid ${(props) => props.theme.colorBorder};
+	background-color: ${(props) => props.theme.backgroundElement};
+	border: 1px solid ${(props) => props.theme.borderColor};
 	border-radius: ${BORDER_RADIUS};
 	display: ${(props) => (props.$show ? "block" : "none")};
 	position: absolute;
@@ -120,14 +120,14 @@ const groupOfLinksBorder = `
 
 export const NavbarMenuListActiveProfile = styled.span`
 	${groupOfLinksBorder};
-	border-bottom: 1px solid ${(props) => props.theme.colorLink};
-	color: ${(props) => props.theme.colorLink};
+	border-bottom: 1px solid ${(props) => props.theme.linkColor};
+	color: ${(props) => props.theme.linkColor};
 	cursor: default;
 `;
 
 export const NavbarMenuListProfiles = styled.ul`
 	${groupOfLinksBorder};
-	border-bottom: 1px solid ${(props) => props.theme.colorLink};
+	border-bottom: 1px solid ${(props) => props.theme.linkColor};
 `;
 
 export const NavbarMenuListRest = styled.ul`
@@ -139,7 +139,7 @@ export const NavbarMenuThemeToggle = styled(ButtonSVG)`
 	padding: 6px 16px;
 	height: auto;
 	margin: 10px auto 0;
-	border: 1px solid ${(props) => props.theme.colorLink};
+	border: 1px solid ${(props) => props.theme.linkColor};
 	border-radius: ${BORDER_RADIUS};
 
 	div,

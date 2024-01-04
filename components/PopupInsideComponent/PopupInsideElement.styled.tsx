@@ -12,7 +12,7 @@ export const PopupInsideElementWrapper = styled.div`
 	width: 100%;
 	height: 100%;
 	padding: 15px;
-	background-color: ${({ theme }) => theme.colorElement_6};
+	background-color: ${({ theme }) => theme.backgroundElement_5};
 	border-radius: ${BORDER_RADIUS};
 	position: fixed;
 
@@ -38,7 +38,7 @@ export const PopupInsideElementContainer = styled.div`
 	width: 100%;
 	max-width: 500px;
 	padding: 16px;
-	background-color: ${({ theme }) => theme.colorElement};
+	background-color: ${({ theme }) => theme.backgroundElement_5};
 	border: 1px solid ${({ theme }) => theme.colorBorder};
 	border-radius: ${BORDER_RADIUS};
 	position: relative;

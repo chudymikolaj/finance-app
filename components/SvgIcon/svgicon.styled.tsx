@@ -19,8 +19,8 @@ const SVG = styled(ReactSVG)<SVGProps>`
 	}
 
 	& svg path {
-		color: ${(props) => props.theme.colorIcon};
-		fill: ${(props) => props.theme.colorIcon};
+		color: ${(props) => props.theme.iconColor};
+		fill: ${(props) => props.theme.iconColor};
 	}
 
 	cursor: pointer;

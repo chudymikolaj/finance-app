@@ -63,7 +63,7 @@ export const GlobalStyle = createGlobalStyle`
 
   a {
     text-decoration: none;
-    color: ${(props) => props.theme.colorLink};
+    color: ${(props) => props.theme.linkColor};
   }
 
   button {

@@ -63,7 +63,7 @@ export const BudgetManagementAssetsListItem = styled.li`
 
 	width: 100%;
 	height: 250px;
-	background-color: ${({ theme }) => theme.colorElement_6};
+	background-color: ${({ theme }) => theme.backgroundElement};
 	border-radius: ${BORDER_RADIUS};
 `;
 
@@ -74,7 +74,7 @@ export const ChartWrapper = styled.div`
 
 	width: 100%;
 	padding: 15px;
-	background-color: ${({ theme }) => theme.colorElement_6};
+	background-color: ${({ theme }) => theme.backgroundElement};
 	border-radius: ${BORDER_RADIUS};
 	text-align: center;
 

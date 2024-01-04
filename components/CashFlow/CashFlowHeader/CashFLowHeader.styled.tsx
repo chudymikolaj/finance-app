@@ -27,7 +27,7 @@ export const CashFlowHeader = styled.div`
 		content: "";
 		width: 100%;
 		height: 1px;
-		border-bottom: 1px solid ${(props) => props.theme.colorElement_5};
+		border-bottom: 1px solid ${(props) => props.theme.backgroundElement};
 		position: absolute;
 		bottom: 0;
 		left: 0;
@@ -58,8 +58,8 @@ export const CashFlowSortByDate = styled.div<{ $animate?: boolean }>`
 	width: 100%;
 	margin: auto;
 	padding: 16px;
-	background-color: ${(props) => props.theme.colorElement};
-	border: 1px solid ${(props) => props.theme.colorBorder};
+	background-color: ${(props) => props.theme.backgroundElement};
+	border: 1px solid ${(props) => props.theme.borderColor};
 	border-radius: ${BORDER_RADIUS};
 	visibility: ${(props) => (props.$animate ? "visible" : "hidden")};
 	opacity: ${(props) => (props.$animate ? "1" : "0")};
@@ -83,7 +83,7 @@ export const CashFlowSortByDateLabel = styled.label`
 `;
 export const CashFlowSortByDateInput = styled.input`
 	padding: 10px 16px;
-	background-color: ${(props) => props.theme.colorElement_5};
+	background-color: ${(props) => props.theme.backgroundElement};
 	border: 0;
 	border-radius: ${BORDER_RADIUS};
 	font-family: inherit;
@@ -99,13 +99,13 @@ export const CashFlowSortByDataSort = styled(ButtonComponent)`
 	width: 100%;
 	height: auto;
 	padding: 10px 16px;
-	background-color: ${(props) => props.theme.colorBackgroundActiveButton};
+	background-color: ${(props) => props.theme.activeButtonColor};
 	border-radius: ${BORDER_RADIUS};
 	font-size: ${SIZES.smallText};
-	color: ${(props) => props.theme.colorTextActiveButton};
+	color: ${(props) => props.theme.activeButtonColorFont};
 	transition: background-color ${CUBICS.easyOut} 200ms;
 
 	&:hover {
-		background-color: ${(props) => props.theme.colorElement_5};
+		background-color: ${(props) => props.theme.backgroundElement};
 	}
 `;
