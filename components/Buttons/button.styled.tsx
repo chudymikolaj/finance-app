@@ -1,6 +1,6 @@
 "use client";
 
-import { BORDER_RADIUS, CUBICS, SIZES } from "@/styles/constants";
+import { BORDER_RADIUS, CUBICS, SIZES, WEIGHT } from "@/styles/constants";
 import { FlexRowAlignCenter } from "@/styles/mixins.styled";
 import styled from "styled-components";
 
@@ -9,7 +9,8 @@ export const Button = styled.button`
 	gap: 10px;
 
 	padding: 6px 10px;
-	border: 1px solid ${({ theme }) => theme.colorButtonBorder};
+	background-color: ${({ theme }) => theme.buttonColor};
+	border: 1px solid ${({ theme }) => theme.buttonColorBorder};
 	border-radius: ${BORDER_RADIUS};
 	transition: opacity ${CUBICS.easyOut} 250ms;
 
@@ -35,7 +36,26 @@ export const Button = styled.button`
 	}
 `;
 
+export const ButtonSubmit = styled.button`
+	width: 100%;
+	height: auto;
+	padding: 10px 16px;
+	background-color: ${(props) => props.theme.activeButtonColor};
+	border: unset;
+	border-radius: ${BORDER_RADIUS};
+	font-size: ${SIZES.buttonFontSize};
+	font-weight: ${WEIGHT.medium};
+	transition: background-color ${CUBICS.easyOut} 200ms;
+	color: ${({ theme }) => theme.buttonSubmitColorFont};
+
+	&:hover {
+		background-color: ${(props) => props.theme.formLabelBackground};
+		color: ${({ theme }) => theme.buttonActiveSubmitColorFont};
+	}
+`;
+
 export const ButtonName = styled.span`
 	font-size: ${SIZES.buttonFontSize};
-	color: ${({ theme }) => theme.colorButtonFont};
+	font-weight: ${WEIGHT.medium};
+	color: ${({ theme }) => theme.buttonColorFont};
 `;
