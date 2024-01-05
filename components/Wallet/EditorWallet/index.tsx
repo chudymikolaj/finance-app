@@ -1,5 +1,5 @@
+import Popup from "@/components/Popup";
 import {
-	EditorWallet,
 	EditorWalletForm,
 	EditorWalletFormChoice,
 	EditorWalletFormChoiceName,
@@ -36,8 +36,8 @@ const EditorWalletComponent = ({
 		["e", "E", "+", "-"].includes(event.key) && event.preventDefault();
 
 	return (
-		<EditorWallet
-			$animate={show}
+		<Popup
+			show={show}
 			ref={getRef}
 		>
 			<EditorWalletForm onSubmit={submitForm}>
@@ -90,7 +90,7 @@ const EditorWalletComponent = ({
 				</EditorWalletLabel>
 				<EditorWalletButton>Dodaj do listy</EditorWalletButton>
 			</EditorWalletForm>
-		</EditorWallet>
+		</Popup>
 	);
 };
 

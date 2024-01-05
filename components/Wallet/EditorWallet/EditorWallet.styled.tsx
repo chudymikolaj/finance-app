@@ -1,29 +1,9 @@
 import styled from "styled-components";
 import { SIZES, WEIGHT, CUBICS, BORDER_RADIUS } from "@/styles/constants";
 import { FlexRowSpaceBetweenCenter } from "@/styles/mixins.styled";
-import ButtonComponent from "@/components/Buttons/Button";
+import ButtonSubmit from "@/components/Buttons/ButtonSubmit";
 
-export const EditorWallet = styled.div<{ $animate?: boolean }>`
-	width: 100%;
-	margin: auto;
-	background-color: ${(props) => props.theme.colorElement};
-	border: 1px solid ${(props) => props.theme.colorBorder};
-	border-radius: ${BORDER_RADIUS};
-	visibility: ${(props) => (props.$animate ? "visible" : "hidden")};
-	opacity: ${(props) => (props.$animate ? "1" : "0")};
-	position: absolute;
-	top: 0;
-	left: 0;
-	transform: ${(props) =>
-		props.$animate ? "translateY(0)" : "translateY(10px)"};
-	transition: transform ${CUBICS.easyOut} 200ms, opacity ${CUBICS.easyOut} 200ms,
-		visibility ${CUBICS.easyOut} 200ms;
-	z-index: 1;
-`;
-
-export const EditorWalletForm = styled.form`
-	padding: 16px;
-`;
+export const EditorWalletForm = styled.form``;
 
 export const EditorWalletFormChoice = styled.div`
 	margin: 0 auto 20px;
@@ -48,11 +28,12 @@ export const EditorWalletFormChoiceLabel = styled.label`
 	${FlexRowSpaceBetweenCenter}
 
 	padding: 10px 16px;
-	background-color: ${(props) => props.theme.colorElement_5};
+	background-color: ${(props) => props.theme.formLabelBackground};
 	border-radius: ${BORDER_RADIUS};
 	flex: 1 0 auto;
 	text-align: center;
 	font-size: ${SIZES.smallText};
+	font-weight: ${WEIGHT.normal};
 	cursor: pointer;
 
 	span {
@@ -60,15 +41,12 @@ export const EditorWalletFormChoiceLabel = styled.label`
 		text-align: center;
 	}
 
-	color: ${(props) => props.theme.colorTextActiveButton};
+	color: ${(props) => props.theme.formLabelInputColor};
 	transition: background-color ${CUBICS.easyOut} 200ms;
 
-	${EditorWalletFormChoiceInputRadio}:checked + & {
-		background-color: ${(props) => props.theme.colorBackgroundActiveButton};
-	}
-
-	&:hover {
-		background-color: ${(props) => props.theme.colorBackgroundActiveButton};
+	${EditorWalletFormChoiceInputRadio}:checked + &, &:hover {
+		background-color: ${(props) => props.theme.activeButtonColor};
+		color: ${(props) => props.theme.formLabelInputFontColor};
 	}
 `;
 
@@ -93,9 +71,10 @@ export const EditorWalletName = styled.span`
 `;
 
 export const EditorWalletInputWrapper = styled.div`
-	width: 100%;
 	${FlexRowSpaceBetweenCenter};
 	flex: 1 0 100%;
+
+	width: 100%;
 `;
 
 export const EditorWalletFormChoiceButton = styled.div`
@@ -104,26 +83,13 @@ export const EditorWalletFormChoiceButton = styled.div`
 
 export const EditorWalletInput = styled.input`
 	width: 100%;
-	max-width: calc(100%);
 	padding: 10px 16px;
-	background-color: ${(props) => props.theme.colorElement_5};
+	background-color: ${(props) => props.theme.formLabelBackground};
 	border: unset;
 	border-radius: ${BORDER_RADIUS};
+	outline-color: ${(props) => props.theme.formOutlineColor};
 	font-size: ${SIZES.smallText};
 	color: ${(props) => props.theme.color};
 `;
 
-export const EditorWalletButton = styled(ButtonComponent)`
-	width: 100%;
-	height: auto;
-	padding: 10px 16px;
-	background-color: ${(props) => props.theme.colorBackgroundActiveButton};
-	border-radius: ${BORDER_RADIUS};
-	font-size: ${SIZES.smallText};
-	color: ${(props) => props.theme.colorTextActiveButton};
-	transition: background-color ${CUBICS.easyOut} 200ms;
-
-	&:hover {
-		background-color: ${(props) => props.theme.colorElement_5};
-	}
-`;
+export const EditorWalletButton = styled(ButtonSubmit)``;
