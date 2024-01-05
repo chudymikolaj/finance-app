@@ -48,8 +48,8 @@ export const DashboardRightColumn = styled.div`
 		overflow: hidden;
 	}
 
-	background-color: ${({ theme }) => theme.colorElement};
-	border: 1px solid ${({ theme }) => theme.colorBorder};
+	background-color: ${({ theme }) => theme.backgroundElement};
+	border: 1px solid ${({ theme }) => theme.borderColor};
 	border-radius: ${BORDER_RADIUS};
 	position: relative;
 `;
