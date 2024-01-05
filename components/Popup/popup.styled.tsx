@@ -1,3 +1,4 @@
+import { devices } from "@/styles/breakpoints";
 import { Z_INDEX_99999 } from "@/styles/constants";
 import styled from "styled-components";
 
@@ -12,7 +13,12 @@ export const PopupBackdrop = styled.div`
 `;
 
 export const PopupContainer = styled.div`
-	width: 100%;
+	width: calc(100% - 30px);
+
+	@media ${devices.md} {
+		width: 100%;
+	}
+
 	max-width: 500px;
 	padding: 30px;
 	background-color: ${(props) => props.theme.backgroundElement};
