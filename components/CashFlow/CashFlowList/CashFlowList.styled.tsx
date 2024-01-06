@@ -3,9 +3,11 @@ import { FlexColumn } from "@/styles/mixins.styled";
 
 const List = styled.ul`
 	${FlexColumn}
-	gap: 10px;
+	gap: 5px;
 
-	height: 100%;
+	height: 398px;
+	border-bottom: 1px solid ${({ theme }) => theme.borderColor};
+	overflow: hidden;
 `;
 
 export default List;
