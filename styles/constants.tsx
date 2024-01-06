@@ -3,6 +3,10 @@ export const STYLE_DARK_MODE = {
 	backgroundPopup_5: "rgba(15, 15, 15, .75)",
 	backgroundElement: "#1A1A1B",
 	borderColor: "#2F2F2F",
+	unactiveColor: "#fafafa",
+	unactiveBackgroundColor: "#1A1A1B",
+	activeColor: "#1A1A1B",
+	activeBackgroundColor: "#fafafa",
 	lineColor: "#2F2F2F",
 	buttonColor: "#1A1A1B",
 	buttonColorBorder: "#fafafa",
@@ -28,6 +32,10 @@ export const STYLE_LIGHT_MODE = {
 	backgroundPopup_5: "rgba(18, 18, 18, .75)",
 	backgroundElement: "#ffffff",
 	borderColor: "#ececec",
+	unactiveColor: "#477ed1",
+	unactiveBackgroundColor: "#fafafa",
+	activeColor: "#ececec",
+	activeBackgroundColor: "#477ed1",
 	lineColor: "#ececec",
 	buttonColor: "#ffffff",
 	buttonColorBorder: "#477ed1",
@@ -45,7 +53,7 @@ export const STYLE_LIGHT_MODE = {
 	subHeadlineColor: "#121212",
 	formLabelBackground: "#f5f5f5",
 	formLabelInputFontColor: "#f5f5f5",
-	formOutlineColor: "#477ed1",
+	formOutlineColor: "#69707c",
 };
 
 export const SIZES = {
@@ -58,8 +66,10 @@ export const SIZES = {
 	tabName: "clamp(1rem, 0.6923rem + 0.4808vw, 1.125rem)",
 	tabSummary: "clamp(0.875rem, 0.5673rem + 0.4808vw, 1rem)",
 	tabAssetsText: "clamp(0.75rem, 0.1346rem + 0.9615vw, 1rem)",
+	cashFlowHeader: "clamp(0.75rem, 0.1346rem + 0.9615vw, 1rem)",
 	buttonFontSize: "12px",
 	accordionHeader: "16px",
+	cashFlowItemValue: "14px",
 };
 export const WEIGHT = {
 	light: "300",

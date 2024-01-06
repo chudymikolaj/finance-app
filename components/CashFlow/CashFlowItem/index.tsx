@@ -1,20 +1,20 @@
 import { type CashFlowItemType } from "../CashFlow.types";
 
 import { useAppContext } from "@/lib/ThemeProviderContext/actions";
-import CashFlowItemStyledTags from "../CashFlowTags";
-import ButtonSVG from "@/components/Buttons/ButtonSvg";
+import CashFlowItemTags from "../CashFlowTags";
 
 import {
-	CashFlowItemStyled,
-	CashFlowItemStyledChecker,
-	CashFlowItemStyledName,
-	CashFlowItemStyledValue,
-	CashFlowItemStyledWrapper,
-	CashFlowItemStyledWrapperExpenseOptions,
-	CashFlowItemStyledWrapperRevenueOptions,
+	CashFlowItem,
+	CashFlowItemChecker,
+	CashFlowItemName,
+	CashFlowItemValue,
+	CashFlowItemWrapper,
+	CashFlowItemWrapperExpenseOptions,
+	CashFlowItemWrapperRevenueOptions,
+	CashFlowItemButton,
 } from "./CashFlowItem.styled";
 
-const CashFlowItem = ({
+const CashFlowItemComponent = ({
 	id,
 	name,
 	value,
@@ -26,37 +26,39 @@ const CashFlowItem = ({
 	const isType = type === "expense";
 
 	return (
-		<CashFlowItemStyled>
-			<CashFlowItemStyledWrapper>
-				<CashFlowItemStyledName>{name}</CashFlowItemStyledName>
-				<CashFlowItemStyledValue $type={type}>
+		<CashFlowItem>
+			<CashFlowItemWrapper>
+				<CashFlowItemName $type={type}>{name}</CashFlowItemName>
+
+				<CashFlowItemValue $type={type}>
 					{isType ? `-${value} PLN` : `${value} PLN`}
-				</CashFlowItemStyledValue>
+				</CashFlowItemValue>
+
 				{isType ? (
-					<CashFlowItemStyledWrapperExpenseOptions>
-						<CashFlowItemStyledChecker
+					<CashFlowItemWrapperExpenseOptions>
+						<CashFlowItemChecker
 							$isPaid={isPaid}
 							status={isPaid}
 							action={() => checkExpenses(id)}
 						/>
-						<ButtonSVG
+						<CashFlowItemButton
 							action={() => removeExpenses(id)}
 							svgUrl="/remove.svg"
 						/>
-					</CashFlowItemStyledWrapperExpenseOptions>
+					</CashFlowItemWrapperExpenseOptions>
 				) : (
-					<CashFlowItemStyledWrapperRevenueOptions>
-						<ButtonSVG
+					<CashFlowItemWrapperRevenueOptions>
+						<CashFlowItemButton
 							action={() => removeRevenue(id)}
 							svgUrl="/remove.svg"
 						/>
-					</CashFlowItemStyledWrapperRevenueOptions>
+					</CashFlowItemWrapperRevenueOptions>
 				)}
-			</CashFlowItemStyledWrapper>
+			</CashFlowItemWrapper>
 
-			{tags && <CashFlowItemStyledTags tags={tags} />}
-		</CashFlowItemStyled>
+			{tags && <CashFlowItemTags tags={tags} />}
+		</CashFlowItem>
 	);
 };
 
-export default CashFlowItem;
+export default CashFlowItemComponent;
