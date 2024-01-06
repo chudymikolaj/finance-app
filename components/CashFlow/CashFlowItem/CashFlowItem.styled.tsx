@@ -9,11 +9,7 @@ import {
 	FONT_SIZE_BUTTONS,
 	SIZES,
 } from "@/styles/constants";
-import {
-	FlexColumn,
-	FlexRowCenter,
-	FlexRowSpaceBetweenCenter,
-} from "@/styles/mixins.styled";
+import { FlexColumn, FlexRowSpaceBetweenCenter } from "@/styles/mixins.styled";
 import { devices } from "@/styles/breakpoints";
 
 // @ts-ignore
