@@ -21,7 +21,7 @@ export const WalletContainer = styled.div`
 	}
 
 	padding: 30px;
-	margin: 0 auto 50px;
+	margin: 0 auto 30px;
 	background-color: ${(props) => props.theme.backgroundElement};
 	border: 1px solid ${(props) => props.theme.borderColor};
 	border-radius: ${BORDER_RADIUS};
