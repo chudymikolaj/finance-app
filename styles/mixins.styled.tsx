@@ -28,6 +28,11 @@ export const FlexRowStart = `
   justify-content: flex-start;
 `;
 
+export const FlexRowCenter = `
+  ${FlexRow};
+  align-items: center;
+`;
+
 export const FlexRowSpaceBetween = `
   ${FlexRow};
   justify-content: space-between;
