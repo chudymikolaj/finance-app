@@ -14,13 +14,14 @@ import {
 import ButtonRefSvg from "@/components/Buttons/ButtonRefSvg";
 import setMaximumValue from "@/utils/setMaximumValue";
 import EditorWallet from "./EditorWallet";
-import SalaryElement from "./SalaryElement";
+import SummaryTransactions from "./SummaryTransactions";
 
 import useOutsideClick from "@/utils/useOutsideClick";
 import {
 	WalletContainer,
-	WalletHeader,
-	WalletHeaderTitle,
+	WalletSummary,
+	WalletSummaryHeader,
+	WalletSummaryTitle,
 } from "./wallet.styled";
 
 export default function Wallet() {
@@ -122,35 +123,38 @@ export default function Wallet() {
 
 	return (
 		<WalletContainer>
-			<WalletHeader>
-				<WalletHeaderTitle>Miesięczne saldo</WalletHeaderTitle>
-				<ButtonRefSvg
-					ref={showWalletButtonEditorRef}
-					svgUrl="/add.svg"
-					action={handleOpenEditor}
-					$big
-				/>
-			</WalletHeader>
+			<WalletSummary>
+				<WalletSummaryHeader>
+					<WalletSummaryTitle>Miesięczne saldo</WalletSummaryTitle>
+					<ButtonRefSvg
+						ref={showWalletButtonEditorRef}
+						name="Dodaj transakcje"
+						svgUrl="/add.svg"
+						action={handleOpenEditor}
+						$big
+					/>
+				</WalletSummaryHeader>
 
-			<SalaryElement
-				valueOfSalary={setMaximumValue(sumRevenues, maxValue)}
-				valueOfBills={setMaximumValue(sumBills, maxValue)}
-				valueOfRest={setMaximumValue(restRevenues, maxValue)}
-			>
-				<EditorWallet
-					show={showWalletEditor}
-					getRef={showWalletEditorRef}
-					submitForm={(event) => addToListElement(event, maxValue)}
-					maxValue={maxValue}
-					choiceTypes={choiceTypes}
-					checkedAction={formAction.type}
-					resetValue={formAction.value}
-					resetText={formAction.text}
-					onChangeType={getInputCashFlowListItemType}
-					onChangeValueInput={getInputCashFlowListItemValue}
-					onChangeTextInput={getInputCashFlowListItemText}
+				<SummaryTransactions
+					valueOfTranactions={setMaximumValue(sumRevenues, maxValue)}
+					valueOfBills={setMaximumValue(sumBills, maxValue)}
+					valueOfRest={setMaximumValue(restRevenues, maxValue)}
 				/>
-			</SalaryElement>
+			</WalletSummary>
+
+			<EditorWallet
+				show={showWalletEditor}
+				getRef={showWalletEditorRef}
+				submitForm={(event) => addToListElement(event, maxValue)}
+				maxValue={maxValue}
+				choiceTypes={choiceTypes}
+				checkedAction={formAction.type}
+				resetValue={formAction.value}
+				resetText={formAction.text}
+				onChangeType={getInputCashFlowListItemType}
+				onChangeValueInput={getInputCashFlowListItemValue}
+				onChangeTextInput={getInputCashFlowListItemText}
+			/>
 		</WalletContainer>
 	);
 }
