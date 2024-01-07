@@ -1,10 +1,13 @@
-import moment from "moment";
 import { useRef, useState, type ChangeEvent, type FormEvent } from "react";
+import moment from "moment";
 
 import ButtonRefSVG from "@/components/Buttons/ButtonRefSvg";
 import { useAppContext } from "@/lib/ThemeProviderContext/actions";
-
 import useOutsideClick from "@/utils/useOutsideClick";
+import Popup from "@/components/Popup";
+
+import { CashFlowHeaderPropsType } from "./CashFlowHeader.types";
+
 import {
 	CashFlowHeader,
 	CashFlowHeaderButtons,
@@ -12,29 +15,32 @@ import {
 	CashFlowHeaderOptions,
 	CashFlowHeaderTitle,
 	CashFlowSortByDataSort,
-	CashFlowSortByDate,
 	CashFlowSortByDateForm,
 	CashFlowSortByDateInput,
 	CashFlowSortByDateLabel,
 } from "./CashFlowHeader.styled";
 
-const CashFlowHeaderComponent = () => {
-	const { filterCashFlowList } = useAppContext();
+const CashFlowHeaderComponent = ({ title }: CashFlowHeaderPropsType) => {
+	const { filterCashFlowList, filterDateCashFlowList } = useAppContext();
 
 	const refHandleDateSorting = useRef<HTMLDivElement | null>(null);
 	const refHandleButtonDateSorting = useRef<HTMLButtonElement | null>(null);
+
 	const [showDateSorting, setShowDateSorting] = useState(false);
+	const [dateFromFilter, setDateFromFilter] = useState(
+		filterDateCashFlowList.fromDate
+	);
+	const [dateToFilter, setDateToFilter] = useState(
+		filterDateCashFlowList.toDate
+	);
 
-	const GET_FIRST_DAY_MONTH = moment().startOf("month").format("YYYY-MM-DD");
 	const GET_TODAY_DATE_FORMAT = moment().format("YYYY-MM-DD");
-
-	const [dateFromFilter, setDateFromFilter] = useState(GET_FIRST_DAY_MONTH);
-	const [dateToFilter, setDateToFilter] = useState(GET_TODAY_DATE_FORMAT);
+	const GET_FILTER_FROM_DATE = filterDateCashFlowList.fromDate;
+	const GET_FILTER_TO_DATE = filterDateCashFlowList.toDate;
+	const getCurrentDate = `${GET_FILTER_FROM_DATE} - ${GET_FILTER_TO_DATE}`;
 
 	const resetCalendarDate = () => {
 		setShowDateSorting(false);
-		setDateFromFilter(GET_FIRST_DAY_MONTH);
-		setDateToFilter(GET_TODAY_DATE_FORMAT);
 	};
 
 	const onChangeDateFrom = (event: ChangeEvent<HTMLInputElement>) => {
@@ -69,9 +75,9 @@ const CashFlowHeaderComponent = () => {
 
 	return (
 		<CashFlowHeader>
-			<CashFlowHeaderTitle>Wydatki na miesiąc</CashFlowHeaderTitle>
+			<CashFlowHeaderTitle>{title}</CashFlowHeaderTitle>
 			<CashFlowHeaderOptions>
-				<CashFlowHeaderMonth>09.2023</CashFlowHeaderMonth>
+				<CashFlowHeaderMonth>{getCurrentDate}</CashFlowHeaderMonth>
 				<CashFlowHeaderButtons>
 					<ButtonRefSVG
 						ref={refHandleButtonDateSorting}
@@ -81,8 +87,8 @@ const CashFlowHeaderComponent = () => {
 				</CashFlowHeaderButtons>
 			</CashFlowHeaderOptions>
 
-			<CashFlowSortByDate
-				$animate={showDateSorting}
+			<Popup
+				show={showDateSorting}
 				ref={refHandleDateSorting}
 			>
 				<CashFlowSortByDateForm onSubmit={onSubmit}>
@@ -109,7 +115,7 @@ const CashFlowHeaderComponent = () => {
 					/>
 					<CashFlowSortByDataSort>Sortuj</CashFlowSortByDataSort>
 				</CashFlowSortByDateForm>
-			</CashFlowSortByDate>
+			</Popup>
 		</CashFlowHeader>
 	);
 };

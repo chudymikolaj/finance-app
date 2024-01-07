@@ -1,26 +1,26 @@
 import styled from "styled-components";
 
-import { BORDER_RADIUS, SIZES, CUBICS } from "@/styles/constants";
+import { BORDER_RADIUS, SIZES, CUBICS, WEIGHT } from "@/styles/constants";
+import ButtonComponent from "@/components/Buttons/Button";
 
 import {
 	FlexRow,
-	FlexRowSpaceBetween,
 	FlexRowAlignCenter,
 	FlexColumn,
+	FlexRowSpaceBetweenCenter,
 } from "@/styles/mixins.styled";
-import ButtonComponent from "@/components/Buttons/Button";
 
 export const CashFlowContainer = styled.div`
 	margin: auto;
 `;
 
 export const CashFlowHeader = styled.div`
-	${FlexRowSpaceBetween}
+	${FlexRowSpaceBetweenCenter}
 
 	width: 100%;
-	padding: 10px 0;
-	margin: 0 auto 20px;
-	gap: 15px;
+	padding: 15px 0;
+	border-top: 1px solid ${({ theme }) => theme.lineColor};
+	border-bottom: 1px solid ${({ theme }) => theme.lineColor};
 	position: relative;
 
 	&:after {
@@ -35,8 +35,7 @@ export const CashFlowHeader = styled.div`
 `;
 
 export const CashFlowHeaderTitle = styled.div`
-	font-size: 22px;
-	font-weight: 800;
+	font-size: ${SIZES.cashFlowHeader};
 `;
 
 export const CashFlowHeaderOptions = styled.div`
@@ -45,32 +44,19 @@ export const CashFlowHeaderOptions = styled.div`
 `;
 
 export const CashFlowHeaderMonth = styled.div`
-	font-size: 22px;
-	font-weight: 800;
+	padding: 0 0 0 10px;
+	font-size: ${SIZES.cashFlowHeader};
 `;
 
 export const CashFlowHeaderButtons = styled.div`
 	${FlexRow}
-	gap: 5px;
-`;
 
-export const CashFlowSortByDate = styled.div<{ $animate?: boolean }>`
-	width: 100%;
-	margin: auto;
-	padding: 16px;
-	background-color: ${(props) => props.theme.backgroundElement};
-	border: 1px solid ${(props) => props.theme.borderColor};
-	border-radius: ${BORDER_RADIUS};
-	visibility: ${(props) => (props.$animate ? "visible" : "hidden")};
-	opacity: ${(props) => (props.$animate ? "1" : "0")};
-	position: absolute;
-	top: 36px;
-	left: 0;
-	transform: ${(props) =>
-		props.$animate ? "translateY(5px)" : "translateY(0)"};
-	transition: transform ${CUBICS.easyOut} 200ms, opacity ${CUBICS.easyOut} 200ms,
-		visibility ${CUBICS.easyOut} 200ms;
-	z-index: 1;
+	gap: 5px;
+
+	button {
+		width: 32px;
+		height: 30px;
+	}
 `;
 
 export const CashFlowSortByDateForm = styled.form`
@@ -80,14 +66,16 @@ export const CashFlowSortByDateForm = styled.form`
 
 export const CashFlowSortByDateLabel = styled.label`
 	display: block;
+	font-size: ${SIZES.smallText};
 `;
+
 export const CashFlowSortByDateInput = styled.input`
 	padding: 10px 16px;
-	background-color: ${(props) => props.theme.backgroundElement};
+	background-color: ${(props) => props.theme.formLabelBackground};
 	border: 0;
 	border-radius: ${BORDER_RADIUS};
 	font-family: inherit;
-	color: ${(props) => props.theme.color};
+	color: ${(props) => props.theme.formLabelInputFontColor};
 
 	&::-webkit-calendar-picker-indicator {
 		filter: invert(1);
@@ -100,8 +88,10 @@ export const CashFlowSortByDataSort = styled(ButtonComponent)`
 	height: auto;
 	padding: 10px 16px;
 	background-color: ${(props) => props.theme.activeButtonColor};
+	border: unset;
 	border-radius: ${BORDER_RADIUS};
 	font-size: ${SIZES.smallText};
+	font-weight: ${WEIGHT.medium};
 	color: ${(props) => props.theme.activeButtonColorFont};
 	transition: background-color ${CUBICS.easyOut} 200ms;
 
