@@ -1,6 +1,7 @@
 "use client";
 
 import styled from "styled-components";
+import { devices } from "@/styles/breakpoints";
 import { BORDER_RADIUS, CUBICS, SIZES } from "@/styles/constants";
 import { FlexColumn, FlexRow } from "@/styles/mixins.styled";
 
@@ -8,7 +9,12 @@ export const CashFlowTabAccordionHeader = styled.div`
 	${FlexRow}
 
 	width: 100%;
-	padding: 30px;
+	padding: 20px;
+
+	@media ${devices.md} {
+		padding: 30px;
+	}
+
 	transition: opacity ${CUBICS.easyOut} 250ms;
 
 	&:hover {
@@ -20,7 +26,11 @@ export const CashFlowTabAccordionHeader = styled.div`
 `;
 
 export const CashFlowTabAccordionContent = styled.div`
-	margin: 0 30px 30px;
+	margin: 0 15px 15px;
+
+	@media ${devices.md} {
+		margin: 0 30px 30px;
+	}
 
 	${FlexColumn}
 	gap: 15px;
