@@ -1,11 +1,11 @@
 "use client";
 
 import { BORDER_RADIUS, CUBICS, SIZES, WEIGHT } from "@/styles/constants";
-import { FlexRowAlignCenter } from "@/styles/mixins.styled";
+import { FlexRowSpaceBetweenCenter } from "@/styles/mixins.styled";
 import styled from "styled-components";
 
 export const Button = styled.button`
-	${FlexRowAlignCenter}
+	${FlexRowSpaceBetweenCenter}
 	gap: 10px;
 
 	padding: 6px 10px;
