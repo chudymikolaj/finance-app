@@ -2,7 +2,7 @@
 
 import styled from "styled-components";
 import { devices } from "@/styles/breakpoints";
-import { BORDER_RADIUS, CUBICS, SIZES } from "@/styles/constants";
+import { BORDER_RADIUS, CUBICS, SIZES, WEIGHT } from "@/styles/constants";
 import { FlexColumn, FlexRow } from "@/styles/mixins.styled";
 
 export const CashFlowTabAccordionHeader = styled.div`
@@ -22,6 +22,7 @@ export const CashFlowTabAccordionHeader = styled.div`
 	}
 
 	font-size: ${SIZES.accordionHeader};
+	font-weight: ${WEIGHT.medium};
 	cursor: pointer;
 `;
 
