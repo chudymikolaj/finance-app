@@ -105,6 +105,12 @@ export const CashFlowItemButton = styled(ButtonSVG)`
 	padding: 3px 3px;
 	border: unset;
 
+	transition: background-color ${CUBICS.easyOut} 250ms;
+
+	&:hover {
+		background-color: ${({ theme }) => theme.backgroundPopup_5};
+	}
+
 	div,
 	svg {
 		width: 14px;
