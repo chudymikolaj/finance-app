@@ -1,5 +1,5 @@
 import SVGimage from "@/components/SvgIcon";
-import { Button } from "../button.styled";
+import { Button, ButtonName } from "../button.styled";
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 	className?: string;
@@ -16,6 +16,19 @@ export default function ButtonSVG({
 	svgUrl,
 	...props
 }: ButtonProps) {
+	if (svgUrl && name) {
+		return (
+			<Button
+				className={className}
+				onClick={action}
+				{...props}
+			>
+				<ButtonName>{name}</ButtonName>
+				<SVGimage src={svgUrl} />
+			</Button>
+		);
+	}
+
 	return (
 		<Button
 			className={className}
