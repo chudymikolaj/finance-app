@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { BORDER_RADIUS, WEIGHT } from "@/styles/constants";
+import { WEIGHT } from "@/styles/constants";
 import {
 	FlexCenter,
 	FlexColumnStart,
@@ -18,19 +18,13 @@ export const CashFlowSummaryStyled = styled.div`
 	}
 
 	width: 100%;
-	padding: 18px 20px;
-	margin: 20px auto 0;
-
-	background-color: ${(props) => props.theme.backgroundElement};
-	border: 1px solid ${(props) => props.theme.borderColor};
-	border-radius: ${BORDER_RADIUS};
 `;
 
 export const CashFlowSummaryWrapperStyled = styled.div`
 	${FlexColumnStart}
 
 	gap: 10px;
-	flex: 1 0 50%;
+	flex: 1 1 50%;
 
 	@media ${devices.md} {
 		${FlexCenter}
@@ -39,7 +33,7 @@ export const CashFlowSummaryWrapperStyled = styled.div`
 		text-align: center;
 	}
 
-	font-size: 14px;
+	font-size: 12px;
 `;
 
 export const CashFlowSummaryNameStyled = styled.span`

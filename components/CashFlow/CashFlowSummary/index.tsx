@@ -29,7 +29,7 @@ const CashFlowSummaryComponent = ({
 								Suma wydatków:
 							</CashFlowSummaryNameStyled>
 							<CashFlowSummaryValueExpensiveStyled>
-								{sumList}
+								-{sumList}
 							</CashFlowSummaryValueExpensiveStyled>
 						</CashFlowSummaryWrapperStyled>
 						<CashFlowSummaryWrapperStyled>
