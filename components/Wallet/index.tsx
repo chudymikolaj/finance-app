@@ -11,7 +11,6 @@ import {
 	type ShowWalletEditorType,
 } from "./wallet.types";
 
-import ButtonRefSvg from "@/components/Buttons/ButtonRefSvg";
 import setMaximumValue from "@/utils/setMaximumValue";
 import EditorWallet from "./EditorWallet";
 import SummaryTransactions from "./SummaryTransactions";
@@ -22,6 +21,7 @@ import {
 	WalletSummary,
 	WalletSummaryHeader,
 	WalletSummaryTitle,
+	WalletSummaryButton,
 } from "./wallet.styled";
 
 export default function Wallet() {
@@ -126,7 +126,7 @@ export default function Wallet() {
 			<WalletSummary>
 				<WalletSummaryHeader>
 					<WalletSummaryTitle>Miesięczne saldo</WalletSummaryTitle>
-					<ButtonRefSvg
+					<WalletSummaryButton
 						ref={showWalletButtonEditorRef}
 						name="Dodaj transakcje"
 						svgUrl="/add.svg"

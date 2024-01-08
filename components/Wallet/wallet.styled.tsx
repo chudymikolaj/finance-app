@@ -1,6 +1,7 @@
 "use client";
 
 import styled from "styled-components";
+import ButtonRefSvg from "@/components/Buttons/ButtonRefSvg";
 
 import { BORDER_RADIUS, SIZES, WEIGHT } from "@/styles/constants";
 import { devices } from "@/styles/breakpoints";
@@ -46,7 +47,13 @@ export const WalletSummaryHeader = styled.div`
 		background-color: ${(props) => props.theme.borderColor};
 	}
 `;
+
 export const WalletSummaryTitle = styled.h1`
 	font-size: ${SIZES.headerText};
 	font-weight: ${WEIGHT.medium};
+`;
+
+export const WalletSummaryButton = styled(ButtonRefSvg)`
+	width: 140px;
+	height: 30px;
 `;
