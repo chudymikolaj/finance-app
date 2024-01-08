@@ -1,6 +1,5 @@
-
 export type CashFlowItemTagsType = {
-	tags?: {type: string, name: string}[];
+	tags?: { type: string; name: string }[];
 };
 
 export type CashFlowItemType = {
@@ -10,9 +9,11 @@ export type CashFlowItemType = {
 	type?: string;
 	isPaid?: boolean;
 	date?: string;
+	ref?: any;
 } & CashFlowItemTagsType;
 
 export type CashFlowListType = {
 	type: string;
 	items?: CashFlowItemType[];
+	href: string;
 };

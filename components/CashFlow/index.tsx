@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { type TabsOfExpensesAndRevenues as ObjectListType } from "@/lib/ThemeProviderContext/ThemeProviderContext.types";
 
@@ -15,19 +15,15 @@ import CashFlowSummary from "./CashFlowSummary";
 import CashFlowList from "./CashFlowList";
 import CashFlowHeader from "./CashFlowHeader";
 
-import {
-	CashFlowContainer,
-	CashFlowTabs,
-	CashFlowTab,
-	CashFlowLists,
-} from "./CashFlow.styled";
+import { CashFlowContainer, CashFlowWrapper } from "./CashFlow.styled";
+import CashFlowAccordion from "./CashFlowAccordion";
 
 const expensesList: ObjectListType[] = [
 	{
 		id: "test",
 		name: "test",
-		value: 5000,
-		date: "2023-12-03",
+		value: 2500,
+		date: "2024-01-01",
 	},
 ];
 const revenuesList: ObjectListType[] = [
@@ -35,7 +31,7 @@ const revenuesList: ObjectListType[] = [
 		id: "test",
 		name: "test",
 		value: 5000,
-		date: "2023-12-03",
+		date: "2024-01-02",
 	},
 ];
 
@@ -53,7 +49,6 @@ const CashFlowComponent = () => {
 
 	const { fromDate, toDate } = useAppContextDateList();
 
-	const [useTab, setuseTab] = useState("expenses");
 	const [filtredExpenses, setFiltredExpenses] = useState<ObjectListType[]>([]);
 	const [sumExpenses, setSumExpenses] = useState("0");
 
@@ -66,8 +61,7 @@ const CashFlowComponent = () => {
 
 	const [paidExpenses, setPaidExpenses] = useState(0);
 
-	const isExpenses = useTab === "expenses";
-	const isRevenues = useTab === "revenues";
+	const LIMIT_OF_LIST = 10;
 
 	useEffect(() => {
 		updateRevenuesList(revenuesList);
@@ -75,38 +69,42 @@ const CashFlowComponent = () => {
 	}, []);
 
 	useEffect(() => {
-		const filtredExpenses = expenses.filter(({ date }) =>
-			filterDate(String(date), fromDate, toDate)
-		);
+		const filtredExpenses = expenses
+			.slice(0, LIMIT_OF_LIST)
+			.filter(({ date }) => filterDate(String(date), fromDate, toDate));
 
-		const filtredRevenues = revenues.filter(({ date }) =>
-			filterDate(String(date), fromDate, toDate)
-		);
+		const filtredRevenues = revenues
+			.slice(0, LIMIT_OF_LIST)
+			.filter(({ date }) => filterDate(String(date), fromDate, toDate));
 
 		const countRevenues = revenues
+			.slice(0, LIMIT_OF_LIST)
 			.filter(({ date }) => filterDate(date, fromDate, toDate))
 			.reduce((val, currentValue) => {
 				return val + currentValue.value;
 			}, 0);
 
 		const countExpenses = expenses
+			.slice(0, LIMIT_OF_LIST)
 			.filter(({ date }) => filterDate(date, fromDate, toDate))
 			.reduce((val, currentValue) => {
 				return val + currentValue.value;
 			}, 0);
 
-		const lenghtRevenues = revenues.filter(({ date }) =>
-			filterDate(date, fromDate, toDate)
-		).length;
+		const lenghtRevenues = revenues
+			.slice(0, LIMIT_OF_LIST)
+			.filter(({ date }) => filterDate(date, fromDate, toDate)).length;
 
-		const lenghtExpenses = expenses.filter(({ date }) =>
-			filterDate(date, fromDate, toDate)
-		).length;
+		const lenghtExpenses = expenses
+			.slice(0, LIMIT_OF_LIST)
+			.filter(({ date }) => filterDate(date, fromDate, toDate)).length;
 
-		const countUnPaidExpenses = expenses.filter(
-			({ date, isPaid }) =>
-				filterDate(date, fromDate, toDate) && isPaid === true
-		).length;
+		const countUnPaidExpenses = expenses
+			.slice(0, LIMIT_OF_LIST)
+			.filter(
+				({ date, isPaid }) =>
+					filterDate(date, fromDate, toDate) && isPaid === true
+			).length;
 
 		setFiltredExpenses(filtredExpenses);
 		setSumExpenses(`${String(countExpenses)} PLN`);
@@ -124,58 +122,45 @@ const CashFlowComponent = () => {
 
 	return (
 		<CashFlowContainer>
-			<CashFlowTabs>
-				<CashFlowTab
-					onClick={() => setuseTab("expenses")}
-					$isActive={useTab === "expenses"}
+			<CashFlowWrapper>
+				<CashFlowAccordion
+					title="Przychód"
+					isOpenInitially
 				>
-					Wydatki
-				</CashFlowTab>
-				<CashFlowTab
-					onClick={() => setuseTab("revenues")}
-					$isActive={useTab === "revenues"}
-				>
-					Przychód
-				</CashFlowTab>
-			</CashFlowTabs>
+					<CashFlowHeader title="Sortuj:" />
 
-			<CashFlowLists>
-				<CashFlowHeader />
+					<CashFlowSummary
+						sumList={sumRevenuses}
+						countLenght={lenghtRevenuses}
+						tabActive="revenues"
+					>
+						<CashFlowList
+							type="revenues"
+							items={filtredRevenuses}
+							href="/historia-przychodow"
+						/>
+					</CashFlowSummary>
+				</CashFlowAccordion>
 
-				<Suspense fallback={<Loader />}>
-					{isExpenses && (
-						<CashFlowSummary
-							sumList={sumExpenses}
-							paidBoolean={paidExpenses}
-							countLenght={lenghtExpenses}
-							tabActive={useTab}
-						>
-							<CashFlowList
-								type="expense"
-								items={filtredExpenses}
-							/>
-						</CashFlowSummary>
-					)}
-					{isRevenues && (
-						<CashFlowSummary
-							sumList={sumRevenuses}
-							countLenght={lenghtRevenuses}
-							tabActive={useTab}
-						>
-							<CashFlowList
-								type="revenues"
-								items={filtredRevenuses}
-							/>
-						</CashFlowSummary>
-					)}
-				</Suspense>
-			</CashFlowLists>
+				<CashFlowAccordion title="Wydatki">
+					<CashFlowHeader title="Sortuj:" />
+
+					<CashFlowSummary
+						sumList={sumExpenses}
+						paidBoolean={paidExpenses}
+						countLenght={lenghtExpenses}
+						tabActive="expenses"
+					>
+						<CashFlowList
+							type="expense"
+							items={filtredExpenses}
+							href="/historia-wydatkow"
+						/>
+					</CashFlowSummary>
+				</CashFlowAccordion>
+			</CashFlowWrapper>
 		</CashFlowContainer>
 	);
 };
-
-function Loader() {
-	return <p>Ładowanie...</p>;
-}
 
 export default CashFlowComponent;
