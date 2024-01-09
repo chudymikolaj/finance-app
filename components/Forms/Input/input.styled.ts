@@ -12,7 +12,7 @@ export const InputElement = styled.input`
 	width: 100%;
 	max-width: calc(100%);
 	padding: 10px 16px;
-	background-color: ${({ theme }) => theme.backgroundElement};
+	background-color: ${({ theme }) => theme.formLabelBackground};
 	border: unset;
 	border-radius: ${BORDER_RADIUS};
 	font-size: 14px;
@@ -42,13 +42,13 @@ export const PercentageSymbol = styled.div`
 	${FlexCenter}
 
 	width: 40px;
-	height: calc(100% - 2px);
-	background-color: ${({ theme }) => theme.backgroundElement};
-	border-radius-top-right: ${BORDER_RADIUS};
-	border-radius-bottom-right: ${BORDER_RADIUS};
+	height: 100%;
+	background-color: ${({ theme }) => theme.formLabelBackground};
+	border-top-right-radius: ${BORDER_RADIUS};
+	border-bottom-right-radius: ${BORDER_RADIUS};
 	position: absolute;
-	top: 1px;
-	right: 1px;
-	bottom: 1px;
+	top: 0;
+	right: 0;
+	bottom: 0;
 	pointer-events: none;
 `;

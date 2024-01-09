@@ -31,12 +31,15 @@ export const FormElementTitle = styled.h3`
 export const FormElementSubmit = styled(ButtonComponent)`
 	${ButtonSubmit}
 
-	background-color: ${({ theme }) => theme.buttonColor};
+	background-color: ${({ theme }) => theme.activeButtonColor};
+	border: 0;
+	justify-content: center;
 	color: ${({ theme }) => theme.buttonColorFont};
+	text-align: center;
 	transition: background-color 250ms ${CUBICS.easyOut};
 
 	&:hover {
-		background-color: ${({ theme }) => theme.backgroundElement};
+		background-color: ${({ theme }) => theme.formLabelBackground};
 	}
 `;
 

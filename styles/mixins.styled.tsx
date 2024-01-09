@@ -1,5 +1,5 @@
 import { devices } from "./breakpoints";
-import { SIZES } from "./constants";
+import { BORDER_RADIUS, SIZES, WEIGHT } from "./constants";
 
 export const FlexRow = `
   display: flex;
@@ -86,8 +86,9 @@ export const ButtonSubmit = `
   width: 100%;
   height: auto;
   padding: 10px 16px;
-  border-radius: 5px;
+  border-radius: ${BORDER_RADIUS};
   font-size: ${SIZES.buttonFontSize};
+  font-weight: ${WEIGHT.medium};
 `;
 
 export const ButtonPopUp = `

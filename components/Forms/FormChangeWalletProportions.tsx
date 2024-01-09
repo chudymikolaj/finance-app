@@ -74,7 +74,7 @@ const FormChangeWalletProportions = ({
 						/>
 					))}
 
-				<FormElementSubmit type="submit">Dodaj aktywo</FormElementSubmit>
+				<FormElementSubmit type="submit">Zmień proporcje</FormElementSubmit>
 				{sumOfPercentage && (
 					<ErrorMessage>Zmniejsz sumę proporcji poniżej 100%</ErrorMessage>
 				)}
