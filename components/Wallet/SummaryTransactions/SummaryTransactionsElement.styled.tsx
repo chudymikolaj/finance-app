@@ -5,6 +5,8 @@ import { SIZES, WEIGHT } from "@/styles/constants";
 import {
 	FlexColumn,
 	FlexColumnSpaceBetweenStretch,
+	FlexColumnStart,
+	FlexRowSpaceBetweenCenter,
 	FlexRowSpaceBetweenStretch,
 } from "@/styles/mixins.styled";
 import { devices } from "@/styles/breakpoints";
@@ -25,19 +27,26 @@ export const SummaryTransactionsCalculation = styled.div`
 	}
 
 	position: relative;
-	gap: 30px;
+	gap: 15px;
 	color: ${(props) => props.theme.color};
 `;
 
 export const SummaryTransactionsCalculationColumn = styled.div`
-	${FlexColumn};
+	${FlexRowSpaceBetweenCenter};
+
+	@media ${devices.md} {
+		${FlexColumnStart};
+	}
 
 	width: 100%;
 	flex: 1 1 calc((100% - ${GAP_COLUMNS}) / ${COUNT_COLUMNS});
 `;
 
 export const SummaryTransactionsCalculationColumnHeader = styled.div`
-	margin: 0 0 10px;
+	@media ${devices.md} {
+		margin: 0 0 5px;
+	}
+
 	font-size: ${SIZES.smallText};
 	font-weight: ${WEIGHT.light};
 `;

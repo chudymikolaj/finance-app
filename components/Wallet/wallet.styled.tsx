@@ -16,12 +16,16 @@ export const WalletContainer = styled.div`
 	${FlexColumn};
 
 	width: 100%;
+	padding: 15px;
+
+	@media ${devices.md} {
+		padding: 30px;
+	}
 
 	@media ${devices.xl} {
 		max-width: 500px;
 	}
 
-	padding: 30px;
 	margin: 0 auto 30px;
 	background-color: ${(props) => props.theme.backgroundElement};
 	border: 1px solid ${(props) => props.theme.borderColor};
@@ -49,11 +53,15 @@ export const WalletSummaryHeader = styled.div`
 `;
 
 export const WalletSummaryTitle = styled.h1`
+	flex: 1;
 	font-size: ${SIZES.headerText};
 	font-weight: ${WEIGHT.medium};
 `;
 
 export const WalletSummaryButton = styled(ButtonRefSvg)`
+	min-width: 140px;
 	width: 140px;
+	max-width: 140px;
 	height: 30px;
+	flex: 1;
 `;
