@@ -1,16 +1,15 @@
 "use client";
 
 import { useRef, useState } from "react";
-
-import ButtonSVG from "@/components/Buttons/ButtonSvg";
-import PopupInsideElementComponent from "@/components/PopupInsideComponent";
 import useOutsideClick from "@/utils/useOutsideClick";
 
 import {
 	BudgetHeader,
 	BudgetHeaderTitle,
+	BudgetHeaderButton,
 } from "./BudgetManagementHeader.styled";
 import { FormChangeWalletProportions } from "@/components/Forms";
+import Popup from "@/components/Popup";
 
 const BudgetManagementHeader = () => {
 	const [openPopup, setOpenPopup] = useState(false);
@@ -29,18 +28,19 @@ const BudgetManagementHeader = () => {
 		<>
 			<BudgetHeader>
 				<BudgetHeaderTitle>Zarządzanie budżetem</BudgetHeaderTitle>
-				<ButtonSVG
+				<BudgetHeaderButton
 					action={handleOpenPopup}
+					name="Zmień opcje"
 					svgUrl="./settings.svg"
 					$big
 				/>
 			</BudgetHeader>
-			<PopupInsideElementComponent
+			<Popup
 				ref={BudgetManagementPopupRef}
-				showPopup={openPopup}
+				show={openPopup}
 			>
 				<FormChangeWalletProportions closePopup={handleClosePopup} />
-			</PopupInsideElementComponent>
+			</Popup>
 		</>
 	);
 };
