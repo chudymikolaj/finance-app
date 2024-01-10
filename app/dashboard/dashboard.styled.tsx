@@ -3,7 +3,6 @@
 import styled from "styled-components";
 
 import { devices } from "@/styles/breakpoints";
-import { BORDER_RADIUS } from "@/styles/constants";
 import { FlexColumnStart } from "@/styles/mixins.styled";
 
 export const DashboardContainer = styled.div`
@@ -11,7 +10,7 @@ export const DashboardContainer = styled.div`
 	height: 100%;
 	padding: 40px 0 0;
 	display: grid;
-	grid-template-columns: 1fr;
+	grid-template-columns: 100%;
 	gap: 20px;
 
 	@media ${devices.lg} {
@@ -31,25 +30,8 @@ export const DashboardContainer = styled.div`
 
 export const DashboardLeftColumn = styled.div`
 	${FlexColumnStart};
-
-	width: 100%;
-	height: 100%;
 `;
 
 export const DashboardRightColumn = styled.div`
 	${FlexColumnStart};
-
-	width: 100%;
-	height: 100%;
-	padding: 16px 20px;
-
-	@media ${devices.xl} {
-		padding: 30px;
-		overflow: hidden;
-	}
-
-	background-color: ${({ theme }) => theme.backgroundElement};
-	border: 1px solid ${({ theme }) => theme.borderColor};
-	border-radius: ${BORDER_RADIUS};
-	position: relative;
 `;
