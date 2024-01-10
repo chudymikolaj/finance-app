@@ -41,8 +41,8 @@ export const GlobalStyle = createGlobalStyle`
   body {
     width: 100%;
     height: calc(100vh - 106px);
-    padding: 0 16px;
-    margin: 90px auto 16px;
+    padding: 0 10px;
+    margin: 90px auto 10px;
     display: block;
 
     @media ${devices.md} {
