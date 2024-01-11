@@ -12,31 +12,31 @@ type Props = {
 
 export type Ref = HTMLButtonElement;
 
-import { Button, ButtonName } from "../button.styled";
+import { ButtonSvg, ButtonName } from "../button.styled";
 
 const ButtonRefSvg = forwardRef<Ref, Props>(
 	({ action, name, svgUrl, ...props }, ref) => {
 		if (svgUrl && name) {
 			return (
-				<Button
+				<ButtonSvg
 					ref={ref}
 					onClick={action}
 					{...props}
 				>
 					<ButtonName>{name}</ButtonName>
 					<SVGimage src={svgUrl} />
-				</Button>
+				</ButtonSvg>
 			);
 		}
 
 		return (
-			<Button
+			<ButtonSvg
 				ref={ref}
 				onClick={action}
 				{...props}
 			>
 				{svgUrl ? <SVGimage src={svgUrl} /> : name}
-			</Button>
+			</ButtonSvg>
 		);
 	}
 );

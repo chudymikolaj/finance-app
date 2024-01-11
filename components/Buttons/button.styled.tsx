@@ -1,11 +1,11 @@
 "use client";
 
 import { BORDER_RADIUS, CUBICS, SIZES, WEIGHT } from "@/styles/constants";
-import { FlexRowSpaceBetweenCenter } from "@/styles/mixins.styled";
+import { FlexCenter, FlexRowSpaceBetweenCenter } from "@/styles/mixins.styled";
 import styled from "styled-components";
 
 export const Button = styled.button`
-	${FlexRowSpaceBetweenCenter}
+	${FlexCenter}
 	gap: 10px;
 
 	padding: 6px 10px;
@@ -13,10 +13,10 @@ export const Button = styled.button`
 	border: 1px solid ${({ theme }) => theme.buttonColorBorder};
 	border-radius: ${BORDER_RADIUS};
 	transition: opacity ${CUBICS.easyOut} 250ms;
+`;
 
-	&:hover {
-		opacity: 0.8;
-	}
+export const ButtonSvg = styled(Button)`
+	${FlexRowSpaceBetweenCenter}
 
 	div {
 		width: auto;
