@@ -1,7 +1,9 @@
 export const STYLE_DARK_MODE = {
 	backgroundColor: "#0F0F0F",
 	backgroundPopup_5: "rgba(15, 15, 15, .75)",
+	scrollBarColor: "#2F2F2F",
 	backgroundElement: "#1A1A1B",
+	backgroundElement_5: "rgba(15, 15, 15, .75)",
 	borderColor: "#2F2F2F",
 	unactiveColor: "#fafafa",
 	unactiveBackgroundColor: "#1A1A1B",
@@ -30,7 +32,9 @@ export const STYLE_DARK_MODE = {
 export const STYLE_LIGHT_MODE = {
 	backgroundColor: "#fbfbfb",
 	backgroundPopup_5: "rgba(18, 18, 18, .75)",
+	scrollBarColor: "#ececec",
 	backgroundElement: "#ffffff",
+	backgroundElement_5: "rgba(18, 18, 18, .75)",
 	borderColor: "#ececec",
 	unactiveColor: "#477ed1",
 	unactiveBackgroundColor: "#fafafa",
@@ -83,6 +87,7 @@ export const CUBICS = {
 	easyOut: "cubic-bezier(0.25,0.46,0.45,0.94)",
 };
 
+export const MAX_SCREEN_WIDTH = "1920px";
 export const BORDER_RADIUS = "8px";
 export const BORDER_RADIUS_10 = "10px";
 export const FONT_SIZE_BUTTONS = "10px";

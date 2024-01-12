@@ -2,6 +2,8 @@
 
 import { createGlobalStyle } from "styled-components";
 import { devices } from "./breakpoints";
+import { MAX_SCREEN_WIDTH } from "./constants";
+import { ScrollBarColor } from "./mixins.styled";
 
 export const GlobalStyle = createGlobalStyle`
   /* http://meyerweb.com/eric/tools/css/reset/
@@ -40,10 +42,12 @@ export const GlobalStyle = createGlobalStyle`
 
   body {
     width: 100%;
-    height: calc(100vh - 106px);
+    max-width: ${MAX_SCREEN_WIDTH};
+    height: auto;
     padding: 0 10px;
     margin: 90px auto 10px;
     display: block;
+    position: relative;
 
     @media ${devices.md} {
       width: 100%;
@@ -59,6 +63,8 @@ export const GlobalStyle = createGlobalStyle`
     color: ${(props) => props.theme.color};
     line-height: 1;
     overflow-x: hidden;
+
+    ${ScrollBarColor}
   }
 
   a {

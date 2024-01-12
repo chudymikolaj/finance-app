@@ -1,104 +1,121 @@
+import { css } from "styled-components";
 import { devices } from "./breakpoints";
 import { BORDER_RADIUS, SIZES, WEIGHT } from "./constants";
 
-export const FlexRow = `
-  display: flex;
-  flex-direction: row;
+export const FlexRow = css`
+	display: flex;
+	flex-direction: row;
 `;
 
-export const FlexColumn = `
-  display: flex;
-  flex-direction: column;
+export const FlexColumn = css`
+	display: flex;
+	flex-direction: column;
 `;
 
-export const FlexColumnStart = `
-  ${FlexColumn};
-  justify-content: flex-start;
-  align-items: flex-start;
+export const FlexColumnStart = css`
+	${FlexColumn};
+	justify-content: flex-start;
+	align-items: flex-start;
 `;
 
-export const FlexColumnCenter = `
-  ${FlexColumn};
-  justify-content: center;
-  align-items: center;
+export const FlexColumnCenter = css`
+	${FlexColumn};
+	justify-content: center;
+	align-items: center;
 `;
 
-export const FlexRowStart = `
-  ${FlexRow};
-  justify-content: flex-start;
+export const FlexRowStart = css`
+	${FlexRow};
+	justify-content: flex-start;
 `;
 
-export const FlexRowCenter = `
-  ${FlexRow};
-  align-items: center;
+export const FlexRowCenter = css`
+	${FlexRow};
+	align-items: center;
 `;
 
-export const FlexRowSpaceBetween = `
-  ${FlexRow};
-  justify-content: space-between;
+export const FlexRowSpaceBetween = css`
+	${FlexRow};
+	justify-content: space-between;
 `;
 
-export const FlexRowSpaceBetweenCenter = `
-  ${FlexRowSpaceBetween};
-  align-items: center;
+export const FlexRowSpaceBetweenCenter = css`
+	${FlexRowSpaceBetween};
+	align-items: center;
 `;
 
-export const FlexRowSpaceBetweenStretch = `
-  ${FlexRowSpaceBetween};
-  align-items: stretch;
+export const FlexRowSpaceBetweenStretch = css`
+	${FlexRowSpaceBetween};
+	align-items: stretch;
 `;
 
-export const FlexColumnSpaceBetween = `
-  ${FlexColumn};
-  justify-content: space-between;
+export const FlexColumnSpaceBetween = css`
+	${FlexColumn};
+	justify-content: space-between;
 `;
 
-export const FlexColumnSpaceBetweenStretch = `
-  ${FlexColumnSpaceBetween};
-  align-items: stretch;
+export const FlexColumnSpaceBetweenStretch = css`
+	${FlexColumnSpaceBetween};
+	align-items: stretch;
 `;
 
-export const FlexCenter = `
-  ${FlexRow};
-  justify-content: center;
-  align-items: center;
+export const FlexCenter = css`
+	${FlexRow};
+	justify-content: center;
+	align-items: center;
 `;
 
-export const FlexRowAlignCenter = `
-  ${FlexRow};
-  justify-content: center;
-  align-items: center;
+export const FlexRowAlignCenter = css`
+	${FlexRow};
+	justify-content: center;
+	align-items: center;
 `;
 
-export const Button = `
-  width: 100%;
-  height: auto;
-  padding: 10px 16px;
-  border-radius: 5px;
-  font-size: ${SIZES.buttonFontSize};
+export const Button = css`
+	width: 100%;
+	height: auto;
+	padding: 10px 16px;
+	border-radius: 5px;
+	font-size: ${SIZES.buttonFontSize};
 
-  @media ${devices.xl} {
-    padding: 15px 20px;
-  }
+	@media ${devices.xl} {
+		padding: 15px 20px;
+	}
 `;
 
-export const ButtonSubmit = `
-  width: 100%;
-  height: auto;
-  padding: 10px 16px;
-  border-radius: ${BORDER_RADIUS};
-  font-size: ${SIZES.buttonFontSize};
-  font-weight: ${WEIGHT.medium};
+export const ButtonSubmit = css`
+	width: 100%;
+	height: auto;
+	padding: 10px 16px;
+	border-radius: ${BORDER_RADIUS};
+	font-size: ${SIZES.buttonFontSize};
+	font-weight: ${WEIGHT.medium};
 `;
 
-export const ButtonPopUp = `
-  height: auto;
-  padding: 8px 16px;
+export const ButtonPopUp = css`
+	height: auto;
+	padding: 8px 16px;
 
-  @media ${devices.xl} {
-    padding: 8px 20px;
-  }
+	@media ${devices.xl} {
+		padding: 8px 20px;
+	}
 
-  border-radius: 5px;
-  font-size: ${SIZES.buttonFontSize};
+	border-radius: 5px;
+	font-size: ${SIZES.buttonFontSize};
+`;
+
+export const ScrollBarColor = css`
+	&::-webkit-scrollbar {
+		width: 4px;
+	}
+
+	&::-webkit-scrollbar-track {
+		box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background-color: ${(props) => props.theme.scrollBarColor};
+		border-radius: 3px;
+		outline: 1px solid ${(props) => props.theme.scrollBarColor};
+	}
 `;
