@@ -16,6 +16,19 @@ export default function ButtonSVG({
 	svgUrl,
 	...props
 }: ButtonProps) {
+	if (svgUrl === "back.svg" && name) {
+		return (
+			<ButtonSvg
+				className={className}
+				onClick={action}
+				{...props}
+			>
+				<SVGimage src={svgUrl} />
+				<ButtonName>{name}</ButtonName>
+			</ButtonSvg>
+		);
+	}
+
 	if (svgUrl && name) {
 		return (
 			<ButtonSvg
