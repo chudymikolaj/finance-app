@@ -32,7 +32,7 @@ export default function ThemeProviderContext({
 		expenses: app.expenses,
 		revenues: app.revenues,
 		budgetAllocations: app.budgetAllocations,
-		budgetTabLists: app.budgetTabLists,
+		assetTabLists: app.assetTabLists,
 		addExpense(id, name, value, tags, isPaid, date) {
 			dispatch({ type: "ADD_EXPENSE", id, name, value, tags, isPaid, date });
 		},
@@ -60,36 +60,36 @@ export default function ThemeProviderContext({
 		changeBudgetAllocations(data) {
 			dispatch({ type: "CHANGE_BUDGET_ALLOCATIONS", data });
 		},
-		updateBudgetListTabs(budgetTabLists) {
-			dispatch({ type: "UPDATE_BUDGET_TAB_LISTS", budgetTabLists });
+		updateAssetListTabs(assetTabLists) {
+			dispatch({ type: "UPDATE_ASSET_TAB_LISTS", assetTabLists });
 		},
-		addBudgetListTabItem(budgetListTabItemCategoryId, newBudgetListTabItem) {
+		addAssetListTabItem(assetListTabItemCategoryId, newAssetListTabItem) {
 			dispatch({
-				type: "ADD_BUDGET_TAB_ITEM",
-				budgetListTabItemCategoryId,
-				newBudgetListTabItem,
+				type: "ADD_ASSET_TAB_ITEM",
+				assetListTabItemCategoryId,
+				newAssetListTabItem,
 			});
 		},
-		modifyBudgetListTabItem(
-			budgetListTabItemCategoryId,
-			budgetListTabItemId,
-			budgetListTabItemModified
+		modifyAssetListTabItem(
+			assetListTabItemCategoryId,
+			assetListTabItemId,
+			assetListTabItemModified
 		) {
 			dispatch({
-				type: "MODIFY_BUDGET_TAB_ITEM",
-				budgetListTabItemCategoryId,
-				budgetListTabItemId,
-				budgetListTabItemModified,
+				type: "MODIFY_ASSET_TAB_ITEM",
+				assetListTabItemCategoryId,
+				assetListTabItemId,
+				assetListTabItemModified,
 			});
 		},
-		budgetListTabItemRemove(
-			budgetListTabItemCategory,
-			budgetListTabItemCategoryId
+		assetListTabItemRemove(
+			assetListTabItemCategory,
+			assetListTabItemCategoryId
 		) {
 			dispatch({
-				type: "BUDGET_TAB_ITEM_REMOVE",
-				budgetListTabItemCategory,
-				budgetListTabItemCategoryId,
+				type: "ASSET_TAB_ITEM_REMOVE",
+				assetListTabItemCategory,
+				assetListTabItemCategoryId,
 			});
 		},
 		filterCashFlowList(value) {

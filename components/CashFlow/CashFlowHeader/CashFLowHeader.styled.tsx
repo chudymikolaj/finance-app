@@ -70,7 +70,7 @@ export const CashFlowSortByDateLabel = styled.label`
 `;
 
 export const CashFlowSortByDateInput = styled.input`
-	padding: 10px 16px;
+	padding: 12px 16px;
 	background-color: ${(props) => props.theme.formLabelBackground};
 	border: 0;
 	border-radius: ${BORDER_RADIUS};
@@ -86,7 +86,7 @@ export const CashFlowSortByDateInput = styled.input`
 export const CashFlowSortByDataSort = styled(ButtonComponent)`
 	width: 100%;
 	height: auto;
-	padding: 10px 16px;
+	padding: 12px 16px;
 	background-color: ${(props) => props.theme.activeButtonColor};
 	border: unset;
 	border-radius: ${BORDER_RADIUS};

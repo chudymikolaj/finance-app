@@ -2,7 +2,7 @@ import {
 	type TabsOfExpensesAndRevenues,
 	type AppState,
 	type BudgetAllocation,
-	type BudgetTabList,
+	type AssetTabList,
 	type TabListItem,
 } from "./ThemeProviderContext.types";
 
@@ -89,28 +89,28 @@ type ChangeBudgetAllocations = {
 	data: { [key: string]: string };
 };
 
-type UpdateBudgetTabLists = {
-	type: "UPDATE_BUDGET_TAB_LISTS";
-	budgetTabLists: BudgetTabList[];
+type UpdateAssetTabLists = {
+	type: "UPDATE_ASSET_TAB_LISTS";
+	assetTabLists: AssetTabList[];
 };
 
-type AddBudgetTabItem = {
-	type: "ADD_BUDGET_TAB_ITEM";
-	budgetListTabItemCategoryId: string;
-	newBudgetListTabItem: TabListItem;
+type AddAssetTabItem = {
+	type: "ADD_ASSET_TAB_ITEM";
+	assetListTabItemCategoryId: string;
+	newAssetListTabItem: TabListItem;
 };
 
-type AddBudgetTabItemRemove = {
-	type: "BUDGET_TAB_ITEM_REMOVE";
-	budgetListTabItemCategory: string;
-	budgetListTabItemCategoryId: string;
+type AddAssetTabItemRemove = {
+	type: "ASSET_TAB_ITEM_REMOVE";
+	assetListTabItemCategory: string;
+	assetListTabItemCategoryId: string;
 };
 
-type ModifyBudgetTabItem = {
-	type: "MODIFY_BUDGET_TAB_ITEM";
-	budgetListTabItemCategoryId: string;
-	budgetListTabItemId: string;
-	budgetListTabItemModified: TabListItem;
+type ModifyAssetTabItem = {
+	type: "MODIFY_ASSET_TAB_ITEM";
+	assetListTabItemCategoryId: string;
+	assetListTabItemId: string;
+	assetListTabItemModified: TabListItem;
 };
 
 type Action =
@@ -129,10 +129,10 @@ type Action =
 	| FilterCashFlowList
 	| UpdateBudgetAllocations
 	| ChangeBudgetAllocations
-	| UpdateBudgetTabLists
-	| AddBudgetTabItem
-	| ModifyBudgetTabItem
-	| AddBudgetTabItemRemove
+	| UpdateAssetTabLists
+	| AddAssetTabItem
+	| AddAssetTabItemRemove
+	| ModifyAssetTabItem
 	| {
 			type: "string";
 	  };
@@ -299,17 +299,17 @@ export function appReducer(state: AppState, action: Action): AppState {
 		};
 	}
 
-	if (action.type === "UPDATE_BUDGET_TAB_LISTS") {
+	if (action.type === "UPDATE_ASSET_TAB_LISTS") {
 		return {
 			...state,
-			budgetTabLists: [...action.budgetTabLists],
+			assetTabLists: [...action.assetTabLists],
 		};
 	}
 
-	if (action.type === "ADD_BUDGET_TAB_ITEM") {
-		const updatedBudgetTabLists = state.budgetTabLists.map((item) => {
-			if (item.categoryId === action.budgetListTabItemCategoryId) {
-				const updatedLists = [...item.lists, action.newBudgetListTabItem];
+	if (action.type === "ADD_ASSET_TAB_ITEM") {
+		const updatedAssetTabLists = state.assetTabLists.map((item) => {
+			if (item.categoryId === action.assetListTabItemCategoryId) {
+				const updatedLists = [...item.lists, action.newAssetListTabItem];
 				const totalValue = updatedLists.reduce(
 					(total, currentItem) => total + currentItem.value,
 					0
@@ -323,21 +323,21 @@ export function appReducer(state: AppState, action: Action): AppState {
 
 		return {
 			...state,
-			budgetTabLists: updatedBudgetTabLists,
+			assetTabLists: updatedAssetTabLists,
 		};
 	}
 
-	if (action.type === "MODIFY_BUDGET_TAB_ITEM") {
-		const updatedBudgetTabLists = state.budgetTabLists.map((item) => {
-			if (item.categoryId === action.budgetListTabItemCategoryId) {
-				// const updatedLists = [...item.lists, action.newBudgetListTabItem];
+	if (action.type === "MODIFY_ASSET_TAB_ITEM") {
+		const updatedAssetTabLists = state.assetTabLists.map((item) => {
+			if (item.categoryId === action.assetListTabItemCategoryId) {
+				// const updatedLists = [...item.lists, action.newAssetListTabItem];
 
 				const updatedLists = item.lists.map((tabItem) => {
-					if (tabItem.id === action.budgetListTabItemId) {
+					if (tabItem.id === action.assetListTabItemId) {
 						const modyfied = {
 							...tabItem,
-							title: action.budgetListTabItemModified.title,
-							value: action.budgetListTabItemModified.value,
+							title: action.assetListTabItemModified.title,
+							value: action.assetListTabItemModified.value,
 						};
 
 						return modyfied;
@@ -359,15 +359,15 @@ export function appReducer(state: AppState, action: Action): AppState {
 
 		return {
 			...state,
-			budgetTabLists: updatedBudgetTabLists,
+			assetTabLists: updatedAssetTabLists,
 		};
 	}
 
-	if (action.type === "BUDGET_TAB_ITEM_REMOVE") {
-		const updatedBudgetTabLists = state.budgetTabLists.map((item) => {
-			if (item.categoryId === action.budgetListTabItemCategory) {
+	if (action.type === "ASSET_TAB_ITEM_REMOVE") {
+		const updatedAssetTabLists = state.assetTabLists.map((item) => {
+			if (item.categoryId === action.assetListTabItemCategory) {
 				const updatedLists = item.lists.filter(
-					(item) => item.id !== action.budgetListTabItemCategoryId
+					(item) => item.id !== action.assetListTabItemCategoryId
 				);
 
 				const totalValue = updatedLists.reduce(
@@ -383,7 +383,7 @@ export function appReducer(state: AppState, action: Action): AppState {
 
 		return {
 			...state,
-			budgetTabLists: updatedBudgetTabLists,
+			assetTabLists: updatedAssetTabLists,
 		};
 	}
 

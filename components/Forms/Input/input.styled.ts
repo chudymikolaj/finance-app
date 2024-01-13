@@ -1,7 +1,7 @@
 "use client";
 
 import styled from "styled-components";
-import { BORDER_RADIUS } from "@/styles/constants";
+import { BORDER_RADIUS, SIZES } from "@/styles/constants";
 import { FlexCenter } from "@/styles/mixins.styled";
 
 export const InputLabel = styled.label`
@@ -11,16 +11,16 @@ export const InputLabel = styled.label`
 export const InputElement = styled.input`
 	width: 100%;
 	max-width: calc(100%);
-	padding: 10px 16px;
+	padding: 12px 16px;
 	background-color: ${({ theme }) => theme.formLabelBackground};
 	border: unset;
 	border-radius: ${BORDER_RADIUS};
-	font-size: 14px;
+	font-size: ${SIZES.inputFontSize};
 	color: ${({ theme }) => theme.color};
 `;
 
 export const InputElementWithSymbol = styled(InputElement)`
-	padding: 10px 56px 10px 16px;
+	padding: 12px 56px 12px 16px;
 
 	&::-webkit-outer-spin-button,
 	&::-webkit-inner-spin-button {

@@ -80,5 +80,5 @@ export const initialAppState: AppState = {
 			color: "#67aded",
 		},
 	],
-	budgetTabLists: [],
+	assetTabLists: [],
 };

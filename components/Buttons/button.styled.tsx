@@ -39,7 +39,7 @@ export const ButtonSvg = styled(Button)`
 export const ButtonSubmit = styled.button`
 	width: 100%;
 	height: auto;
-	padding: 10px 16px;
+	padding: 12px 16px;
 	background-color: ${(props) => props.theme.activeButtonColor};
 	border: unset;
 	border-radius: ${BORDER_RADIUS};

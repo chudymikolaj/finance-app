@@ -5,7 +5,7 @@ import ButtonSVG from "../Buttons/ButtonSvg";
 import Input from "./Input";
 
 import {
-	type FormEditBudgetListTabItemPropsType,
+	type FormEditAssetListTabItemPropsType,
 	type IFormValues,
 } from "./Form.types";
 
@@ -21,9 +21,9 @@ const FormEditBudgetListTabItem = ({
 	categoryId,
 	data,
 	closePopup,
-}: FormEditBudgetListTabItemPropsType) => {
+}: FormEditAssetListTabItemPropsType) => {
 	const { register, handleSubmit, setValue } = useForm<IFormValues>();
-	const { modifyBudgetListTabItem } = useAppContext();
+	const { modifyAssetListTabItem } = useAppContext();
 	const { id, title, value } = data;
 
 	useEffect(() => {
@@ -38,7 +38,7 @@ const FormEditBudgetListTabItem = ({
 			value: Number(data.value),
 		};
 
-		modifyBudgetListTabItem(categoryId, id, editAsset);
+		modifyAssetListTabItem(categoryId, id, editAsset);
 		closePopup();
 	};
 
@@ -47,7 +47,8 @@ const FormEditBudgetListTabItem = ({
 			<FormElementHeader>
 				<FormElementTitle>Edytujesz - {title}</FormElementTitle>
 				<ButtonSVG
-					svgUrl="remove.svg"
+					name="Cofnij"
+					svgUrl="back.svg"
 					onClick={closePopup}
 				/>
 			</FormElementHeader>
@@ -69,7 +70,7 @@ const FormEditBudgetListTabItem = ({
 					required
 				/>
 
-				<FormElementSubmit type="submit">Dodaj aktywo</FormElementSubmit>
+				<FormElementSubmit type="submit">Zmień wartość</FormElementSubmit>
 			</FormElement>
 		</>
 	);

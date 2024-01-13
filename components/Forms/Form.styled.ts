@@ -1,26 +1,28 @@
 "use client";
 
 import styled from "styled-components";
+
 import ButtonComponent from "@/components/Buttons/Button";
 import { BORDER_RADIUS, CUBICS, SIZES, WEIGHT } from "@/styles/constants";
 import {
 	ButtonSubmit,
 	FlexColumnStart,
-	FlexRowSpaceBetween,
+	FlexRowSpaceBetweenCenter,
 } from "@/styles/mixins.styled";
 
 export const FormElement = styled.form`
 	${FlexColumnStart}
-	gap: 10px;
+	gap: 15px;
 
 	width: 100%;
 `;
 
 export const FormElementHeader = styled.div`
-	${FlexRowSpaceBetween}
+	${FlexRowSpaceBetweenCenter}
 	gap: 10px;
 
 	width: 100%;
+	margin: 0 auto 25px;
 `;
 
 export const FormElementTitle = styled.h3`
@@ -31,6 +33,8 @@ export const FormElementTitle = styled.h3`
 export const FormElementSubmit = styled(ButtonComponent)`
 	${ButtonSubmit}
 
+	margin: 15px auto 0;
+	padding: 12px 16px;
 	background-color: ${({ theme }) => theme.activeButtonColor};
 	border: 0;
 	justify-content: center;

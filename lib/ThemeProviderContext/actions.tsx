@@ -32,5 +32,5 @@ export function useAppContextBudgetTabLists() {
 		);
 	}
 
-	return contextApp.budgetTabLists;
+	return contextApp.assetTabLists;
 }

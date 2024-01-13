@@ -1,19 +1,19 @@
-"use client"
+"use client";
 
 import { type KeyboardEvent, type ReactNode } from "react";
 
-export type FormAddBudgetListTabItemPropsType = {
+export type FormAddAssetListTabItemPropsType = {
 	categoryId: string;
 	closePopup: () => void;
 };
 
-export type FormEditBudgetListTabItemPropsType = {
+export type FormEditAssetListTabItemPropsType = {
 	categoryId: string;
 	data: {
-		id: string,
-		title: string,
-		value: string,
-	}
+		id: string;
+		title: string;
+		value: string;
+	};
 	closePopup: () => void;
 };
 
@@ -22,8 +22,8 @@ export type FormChangeWalletProportionsPropsType = {
 };
 
 export interface IFormValues {
-	 [key: string]: string;
-};
+	[key: string]: string;
+}
 
 export type ReactNodeType = ReactNode;
 

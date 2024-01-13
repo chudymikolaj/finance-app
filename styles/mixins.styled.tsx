@@ -74,21 +74,17 @@ export const FlexRowAlignCenter = css`
 export const Button = css`
 	width: 100%;
 	height: auto;
-	padding: 10px 16px;
-	border-radius: 5px;
-	font-size: ${SIZES.buttonFontSize};
-
-	@media ${devices.xl} {
-		padding: 15px 20px;
-	}
+	padding: 12px 16px;
+	border-radius: ${BORDER_RADIUS};
+	font-size: ${SIZES.submitFontSize};
 `;
 
 export const ButtonSubmit = css`
 	width: 100%;
 	height: auto;
-	padding: 10px 16px;
+	padding: 12px 16px;
 	border-radius: ${BORDER_RADIUS};
-	font-size: ${SIZES.buttonFontSize};
+	font-size: ${SIZES.submitFontSize};
 	font-weight: ${WEIGHT.medium};
 `;
 
@@ -100,7 +96,7 @@ export const ButtonPopUp = css`
 		padding: 8px 20px;
 	}
 
-	border-radius: 5px;
+	border-radius: ${BORDER_RADIUS};
 	font-size: ${SIZES.buttonFontSize};
 `;
 

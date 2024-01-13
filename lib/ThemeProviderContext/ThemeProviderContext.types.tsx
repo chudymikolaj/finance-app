@@ -66,16 +66,17 @@ export type TabListItem = {
 	value: number;
 };
 
-export type BudgetTabList = {
+export type AssetTabList = {
 	categoryId: string;
 	title: string;
 	value: number;
+	goal: number;
 	color: string;
 	lists: TabListItem[];
 };
 
-export type BudgetTabLists = {
-	budgetTabLists: BudgetTabList[];
+export type AssetTabLists = {
+	assetTabLists: AssetTabList[];
 };
 
 export type BudgetAllocation = {
@@ -96,7 +97,7 @@ export type AppState = Mode &
 	Wallet &
 	FilterCashFlowList &
 	ExpensesAndRevenues &
-	BudgetTabLists &
+	AssetTabLists &
 	BudgetAllocations;
 
 export type initialAppState = Mode &
@@ -105,7 +106,7 @@ export type initialAppState = Mode &
 	Wallet &
 	FilterCashFlowList &
 	ExpensesAndRevenues &
-	BudgetTabLists &
+	AssetTabLists &
 	BudgetAllocations;
 
 export type AppStateValue = Mode &
@@ -114,7 +115,7 @@ export type AppStateValue = Mode &
 	Wallet &
 	FilterCashFlowList &
 	ExpensesAndRevenues &
-	BudgetTabLists &
+	AssetTabLists &
 	BudgetAllocations & {
 		addExpense: (
 			id: string,
@@ -138,19 +139,19 @@ export type AppStateValue = Mode &
 		updateRestRevenues: (revenues: number, expenses: number) => void;
 		updateBudgetAllocations: (allocations: BudgetAllocation[]) => void;
 		changeBudgetAllocations: (data: { [key: string]: string }) => void;
-		updateBudgetListTabs: (lists: BudgetTabList[]) => void;
-		addBudgetListTabItem: (
-			budgetListTabItemId: string,
-			newBudgetListTabItem: TabListItem
+		updateAssetListTabs: (lists: AssetTabList[]) => void;
+		addAssetListTabItem: (
+			assetListTabItemId: string,
+			newAssetListTabItem: TabListItem
 		) => void;
-		modifyBudgetListTabItem: (
-			budgetListTabItemCategoryId: string,
-			budgetListTabItemId: string,
-			budgetListTabItemModified: TabListItem
+		modifyAssetListTabItem: (
+			assetListTabItemCategoryId: string,
+			assetListTabItemId: string,
+			assetListTabItemModified: TabListItem
 		) => void;
-		budgetListTabItemRemove: (
-			budgetListTabItemCategory: string,
-			budgetListTabItemId: string
+		assetListTabItemRemove: (
+			assetListTabItemCategory: string,
+			assetListTabItemId: string
 		) => void;
 		checkExpenses: (id: string) => void;
 		removeExpenses: (id: string) => void;

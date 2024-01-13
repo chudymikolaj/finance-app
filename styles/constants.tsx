@@ -69,11 +69,14 @@ export const SIZES = {
 	headerText: "clamp(1rem, 0.7857rem + 1.0714vw, 1.75rem)",
 	tabName: "clamp(1rem, 0.6923rem + 0.4808vw, 1.125rem)",
 	tabSummary: "clamp(0.875rem, 0.5673rem + 0.4808vw, 1rem)",
-	tabAssetsText: "clamp(0.75rem, 0.5115rem + 1.0178vw, 1rem)",
+	tabNameFontSize: "clamp(0.75rem, 0.5115rem + 1.0178vw, 1rem)",
+	tabValueFontSize: "clamp(0.625rem, 0.4464rem + 0.8929vw, 0.875rem)",
 	cashFlowHeader: "clamp(0.75rem, 0.1346rem + 0.9615vw, 1rem)",
 	buttonFontSize: "12px",
 	accordionHeader: "16px",
 	cashFlowItemValue: "14px",
+	inputFontSize: "14px",
+	submitFontSize: "14px",
 };
 export const WEIGHT = {
 	light: "300",

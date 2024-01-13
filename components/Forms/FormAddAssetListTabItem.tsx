@@ -6,7 +6,7 @@ import ButtonSVG from "../Buttons/ButtonSvg";
 import Input from "./Input";
 
 import {
-	type FormAddBudgetListTabItemPropsType,
+	type FormAddAssetListTabItemPropsType,
 	type IFormValues,
 } from "./Form.types";
 
@@ -17,12 +17,12 @@ import {
 	FormElementTitle,
 } from "./Form.styled";
 
-const FormAddBudgetListTabItem = ({
+const FormAddAssetListTabItem = ({
 	categoryId,
 	closePopup,
-}: FormAddBudgetListTabItemPropsType) => {
+}: FormAddAssetListTabItemPropsType) => {
 	const { register, handleSubmit } = useForm<IFormValues>();
-	const { addBudgetListTabItem } = useAppContext();
+	const { addAssetListTabItem } = useAppContext();
 
 	const onSubmit: SubmitHandler<IFormValues> = (data) => {
 		const addAsset: { id: string; title: string; value: number } = {
@@ -31,7 +31,7 @@ const FormAddBudgetListTabItem = ({
 			value: Number(data.value),
 		};
 
-		addBudgetListTabItem(categoryId, addAsset);
+		addAssetListTabItem(categoryId, addAsset);
 		closePopup();
 	};
 
@@ -40,7 +40,8 @@ const FormAddBudgetListTabItem = ({
 			<FormElementHeader>
 				<FormElementTitle>Dodaj nowe aktywo</FormElementTitle>
 				<ButtonSVG
-					svgUrl="remove.svg"
+					name="Cofnij"
+					svgUrl="back.svg"
 					onClick={closePopup}
 				/>
 			</FormElementHeader>
@@ -68,4 +69,4 @@ const FormAddBudgetListTabItem = ({
 	);
 };
 
-export default FormAddBudgetListTabItem;
+export default FormAddAssetListTabItem;

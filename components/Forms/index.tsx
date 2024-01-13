@@ -1,9 +1,9 @@
-import FormAddBudgetListTabItem from "./FormAddBudgetListTabItem";
-import FormEditBudgetListTabItem from "./FormEditBudgetListTabItem";
+import FormAddAssetListTabItem from "./FormAddAssetListTabItem";
+import FormEditAssetListTabItem from "./FormEditAssetListTabItem";
 import FormChangeWalletProportions from "./FormChangeWalletProportions";
 
 export {
-	FormAddBudgetListTabItem,
-	FormEditBudgetListTabItem,
+	FormAddAssetListTabItem,
+	FormEditAssetListTabItem,
 	FormChangeWalletProportions,
 };
