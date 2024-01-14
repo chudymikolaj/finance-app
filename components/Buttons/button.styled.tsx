@@ -43,7 +43,7 @@ export const ButtonSubmit = styled.button`
 	background-color: ${(props) => props.theme.activeButtonColor};
 	border: unset;
 	border-radius: ${BORDER_RADIUS};
-	font-size: ${SIZES.buttonFontSize};
+	font-size: ${SIZES.submitFontSize};
 	font-weight: ${WEIGHT.medium};
 	transition: background-color ${CUBICS.easyOut} 200ms;
 	color: ${({ theme }) => theme.buttonSubmitColorFont};

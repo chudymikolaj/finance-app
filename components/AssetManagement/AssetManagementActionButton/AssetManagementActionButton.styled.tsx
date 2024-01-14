@@ -2,10 +2,7 @@
 
 import styled from "styled-components";
 
-import Button from "@/components/Buttons/Button";
-
-import { CUBICS } from "@/styles/constants";
-import { ButtonSubmit } from "@/styles/mixins.styled";
+import ButtonSubmit from "@/components/Buttons/ButtonSubmit";
 
 export const AssetManagementActionButtonContainer = styled.div`
 	width: 100%;
@@ -14,15 +11,4 @@ export const AssetManagementActionButtonContainer = styled.div`
 	text-align: center;
 `;
 
-export const AssetManagementActionButton = styled(Button)`
-	${ButtonSubmit}
-
-	background-color: ${({ theme }) => theme.activeButtonColor};
-	border: unset;
-	color: ${({ theme }) => theme.buttonColorFont};
-	transition: background-color 250ms ${CUBICS.easyOut};
-
-	&:hover {
-		background-color: ${({ theme }) => theme.backgroundPopup_5};
-	}
-`;
+export const AssetManagementActionButton = styled(ButtonSubmit)``;

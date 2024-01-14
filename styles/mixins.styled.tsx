@@ -79,15 +79,6 @@ export const Button = css`
 	font-size: ${SIZES.submitFontSize};
 `;
 
-export const ButtonSubmit = css`
-	width: 100%;
-	height: auto;
-	padding: 12px 16px;
-	border-radius: ${BORDER_RADIUS};
-	font-size: ${SIZES.submitFontSize};
-	font-weight: ${WEIGHT.medium};
-`;
-
 export const ButtonPopUp = css`
 	height: auto;
 	padding: 8px 16px;

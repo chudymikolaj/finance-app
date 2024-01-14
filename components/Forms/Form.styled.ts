@@ -2,10 +2,9 @@
 
 import styled from "styled-components";
 
-import ButtonComponent from "@/components/Buttons/Button";
+import ButtonSubmit from "@/components/Buttons/ButtonSubmit";
 import { BORDER_RADIUS, CUBICS, SIZES, WEIGHT } from "@/styles/constants";
 import {
-	ButtonSubmit,
 	FlexColumnStart,
 	FlexRowSpaceBetweenCenter,
 } from "@/styles/mixins.styled";
@@ -30,21 +29,9 @@ export const FormElementTitle = styled.h3`
 	font-size: ${SIZES.tabName};
 `;
 
-export const FormElementSubmit = styled(ButtonComponent)`
-	${ButtonSubmit}
-
+export const FormElementSubmit = styled(ButtonSubmit)`
 	margin: 15px auto 0;
 	padding: 12px 16px;
-	background-color: ${({ theme }) => theme.activeButtonColor};
-	border: 0;
-	justify-content: center;
-	color: ${({ theme }) => theme.buttonColorFont};
-	text-align: center;
-	transition: background-color 250ms ${CUBICS.easyOut};
-
-	&:hover {
-		background-color: ${({ theme }) => theme.formLabelBackground};
-	}
 `;
 
 export const ErrorMessage = styled.div`
