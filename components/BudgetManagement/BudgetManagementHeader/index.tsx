@@ -1,28 +1,21 @@
 "use client";
 
-import { useRef, useState } from "react";
-import useOutsideClick from "@/utils/useOutsideClick";
+import { useState } from "react";
+
+import { FormChangeWalletProportions } from "@/components/Forms";
+import PopupComponent from "@/components/Popup";
 
 import {
 	BudgetHeader,
 	BudgetHeaderTitle,
 	BudgetHeaderButton,
 } from "./BudgetManagementHeader.styled";
-import { FormChangeWalletProportions } from "@/components/Forms";
-import Popup from "@/components/Popup";
 
 const BudgetManagementHeader = () => {
 	const [openPopup, setOpenPopup] = useState(false);
-	const BudgetManagementPopupRef = useRef(null);
 
 	const handleOpenPopup = () => setOpenPopup(true);
 	const handleClosePopup = () => setOpenPopup(false);
-
-	useOutsideClick({
-		isVisible: openPopup,
-		setIsVisible: setOpenPopup,
-		refs: [BudgetManagementPopupRef],
-	});
 
 	return (
 		<>
@@ -35,12 +28,12 @@ const BudgetManagementHeader = () => {
 					$big
 				/>
 			</BudgetHeader>
-			<Popup
-				ref={BudgetManagementPopupRef}
-				show={openPopup}
+			<PopupComponent
+				openPopup={openPopup}
+				closePopup={handleClosePopup}
 			>
 				<FormChangeWalletProportions closePopup={handleClosePopup} />
-			</Popup>
+			</PopupComponent>
 		</>
 	);
 };

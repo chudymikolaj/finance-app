@@ -4,6 +4,10 @@ import { useRef, useState, type FormEvent } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 import { useAppContext } from "@/lib/ThemeProviderContext/actions";
+import setMaximumValue from "@/utils/setMaximumValue";
+import EditorWallet from "./EditorWallet";
+import SummaryTransactions from "./SummaryTransactions";
+
 import {
 	type ActionType,
 	type FormActionType,
@@ -11,11 +15,6 @@ import {
 	type ShowWalletEditorType,
 } from "./wallet.types";
 
-import setMaximumValue from "@/utils/setMaximumValue";
-import EditorWallet from "./EditorWallet";
-import SummaryTransactions from "./SummaryTransactions";
-
-import useOutsideClick from "@/utils/useOutsideClick";
 import {
 	WalletContainer,
 	WalletSummary,
@@ -24,16 +23,13 @@ import {
 	WalletSummaryButton,
 } from "./wallet.styled";
 
-export default function Wallet() {
+const WalletComponent = () => {
 	const { constants, wallet, addExpense, addRevenue } = useAppContext();
 
 	const maxValue = constants?.maxValue;
 	const sumRevenues = wallet?.sumRevenues;
 	const sumBills = wallet?.sumBills;
 	const restRevenues = wallet?.restRevenues;
-
-	const showWalletEditorRef = useRef<HTMLDivElement | null>(null);
-	const showWalletButtonEditorRef = useRef<HTMLButtonElement | null>(null);
 
 	const [showWalletEditor, setShowWalletEditor] =
 		useState<ShowWalletEditorType>(false);
@@ -112,14 +108,12 @@ export default function Wallet() {
 	};
 
 	const handleOpenEditor = () => {
-		setShowWalletEditor((prevState) => !prevState);
+		setShowWalletEditor(true);
 	};
 
-	useOutsideClick({
-		isVisible: showWalletEditor,
-		setIsVisible: setShowWalletEditor,
-		refs: [showWalletEditorRef, showWalletButtonEditorRef],
-	});
+	const handleCloseEditor = () => {
+		setShowWalletEditor(false);
+	};
 
 	return (
 		<WalletContainer>
@@ -127,7 +121,6 @@ export default function Wallet() {
 				<WalletSummaryHeader>
 					<WalletSummaryTitle>Miesięczne saldo</WalletSummaryTitle>
 					<WalletSummaryButton
-						ref={showWalletButtonEditorRef}
 						name="Dodaj transakcje"
 						svgUrl="/add.svg"
 						action={handleOpenEditor}
@@ -143,8 +136,8 @@ export default function Wallet() {
 			</WalletSummary>
 
 			<EditorWallet
-				show={showWalletEditor}
-				getRef={showWalletEditorRef}
+				openPopup={showWalletEditor}
+				closePopup={handleCloseEditor}
 				submitForm={(event) => addToListElement(event, maxValue)}
 				maxValue={maxValue}
 				choiceTypes={choiceTypes}
@@ -157,4 +150,6 @@ export default function Wallet() {
 			/>
 		</WalletContainer>
 	);
-}
+};
+
+export default WalletComponent;

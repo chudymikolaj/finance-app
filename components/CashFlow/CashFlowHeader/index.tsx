@@ -1,10 +1,9 @@
-import { useRef, useState, type ChangeEvent, type FormEvent } from "react";
+import { useState, type ChangeEvent, type FormEvent } from "react";
 import moment from "moment";
 
+import PopupComponent from "@/components/Popup";
 import ButtonRefSVG from "@/components/Buttons/ButtonRefSvg";
 import { useAppContext } from "@/lib/ThemeProviderContext/actions";
-import useOutsideClick from "@/utils/useOutsideClick";
-import Popup from "@/components/Popup";
 
 import { CashFlowHeaderPropsType } from "./CashFlowHeader.types";
 
@@ -18,13 +17,10 @@ import {
 	CashFlowSortByDateForm,
 	CashFlowSortByDateInput,
 	CashFlowSortByDateLabel,
-} from "./CashFlowHeader.styled";
+} from "./CashFLowHeader.styled";
 
 const CashFlowHeaderComponent = ({ title }: CashFlowHeaderPropsType) => {
 	const { filterCashFlowList, filterDateCashFlowList } = useAppContext();
-
-	const refHandleDateSorting = useRef<HTMLDivElement | null>(null);
-	const refHandleButtonDateSorting = useRef<HTMLButtonElement | null>(null);
 
 	const [showDateSorting, setShowDateSorting] = useState(false);
 	const [dateFromFilter, setDateFromFilter] = useState(
@@ -64,14 +60,12 @@ const CashFlowHeaderComponent = ({ title }: CashFlowHeaderPropsType) => {
 	};
 
 	const handleOpenSortByDate = () => {
-		setShowDateSorting((prevState) => !prevState);
+		setShowDateSorting(true);
 	};
 
-	useOutsideClick({
-		isVisible: showDateSorting,
-		setIsVisible: setShowDateSorting,
-		refs: [refHandleButtonDateSorting, refHandleDateSorting],
-	});
+	const handleCloseSortByDate = () => {
+		setShowDateSorting(false);
+	};
 
 	return (
 		<CashFlowHeader>
@@ -80,16 +74,15 @@ const CashFlowHeaderComponent = ({ title }: CashFlowHeaderPropsType) => {
 				<CashFlowHeaderMonth>{getCurrentDate}</CashFlowHeaderMonth>
 				<CashFlowHeaderButtons>
 					<ButtonRefSVG
-						ref={refHandleButtonDateSorting}
 						action={handleOpenSortByDate}
 						svgUrl="/more_vert.svg"
 					/>
 				</CashFlowHeaderButtons>
 			</CashFlowHeaderOptions>
 
-			<Popup
-				show={showDateSorting}
-				ref={refHandleDateSorting}
+			<PopupComponent
+				openPopup={showDateSorting}
+				closePopup={handleCloseSortByDate}
 			>
 				<CashFlowSortByDateForm onSubmit={onSubmit}>
 					<CashFlowSortByDateLabel htmlFor="sort-by-date-from">
@@ -115,7 +108,7 @@ const CashFlowHeaderComponent = ({ title }: CashFlowHeaderPropsType) => {
 					/>
 					<CashFlowSortByDataSort>Sortuj</CashFlowSortByDataSort>
 				</CashFlowSortByDateForm>
-			</Popup>
+			</PopupComponent>
 		</CashFlowHeader>
 	);
 };

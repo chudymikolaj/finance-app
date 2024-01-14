@@ -1,4 +1,5 @@
-import Popup from "@/components/Popup";
+import PopupComponent from "@/components/Popup";
+
 import {
 	EditorWalletForm,
 	EditorWalletFormChoice,
@@ -20,25 +21,25 @@ import {
 } from "./EditorWallet.types";
 
 const EditorWalletComponent = ({
-	show,
 	choiceTypes,
-	onChangeType,
-	onChangeValueInput,
-	onChangeTextInput,
-	submitForm,
 	checkedAction,
 	resetValue,
 	resetText,
 	maxValue,
-	getRef,
+	openPopup,
+	closePopup,
+	onChangeType,
+	onChangeValueInput,
+	onChangeTextInput,
+	submitForm,
 }: EditorWalletProps) => {
 	const blockFormKeysInput = (event: BlockFormKeysEvent) =>
 		["e", "E", "+", "-"].includes(event.key) && event.preventDefault();
 
 	return (
-		<Popup
-			show={show}
-			ref={getRef}
+		<PopupComponent
+			openPopup={openPopup}
+			closePopup={closePopup}
 		>
 			<EditorWalletForm onSubmit={submitForm}>
 				<EditorWalletFormChoice>
@@ -90,7 +91,7 @@ const EditorWalletComponent = ({
 				</EditorWalletLabel>
 				<EditorWalletButton>Dodaj do listy</EditorWalletButton>
 			</EditorWalletForm>
-		</Popup>
+		</PopupComponent>
 	);
 };
 

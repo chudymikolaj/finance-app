@@ -7,6 +7,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 import Line from "@/components/Line";
+import PopupComponent from "@/components/Popup";
 import AssetHeader from "./AssetManagementHeader";
 import AssetManagementTabs from "./AssetManagementTabs";
 
@@ -21,7 +22,6 @@ import {
 	AssetCategoriesCategoryCircleColor,
 	AssetCategoriesContainer,
 } from "./AssetManagementAssets.styled";
-import PopupInsideElement from "../PopupInsideComponent";
 
 const assetsTabsList = [
 	{
@@ -98,6 +98,7 @@ const AssetManagementComponent = () => {
 	const calcPercentageOfGoal = (value: number, goal: number) =>
 		(value / goal) * 100 >= 100 ? 100 : (value / goal) * 100;
 
+	const [showPopupAssetManagment, setShowPopupAssetManagment] = useState(false);
 	const [activeCategory, setActiveCategory] = useState("");
 	const [slickSettings, setSlickSettings] = useState({
 		dots: true,
@@ -135,6 +136,9 @@ const AssetManagementComponent = () => {
 		setActiveCategory(assetsTabsList[0]?.categoryId);
 	}, []);
 
+	const handleOpenPopup = () => setShowPopupAssetManagment(true);
+	const handleClosePopup = () => setShowPopupAssetManagment(false);
+
 	return (
 		<AssetCategoriesContainer>
 			<AssetHeader />
@@ -147,14 +151,17 @@ const AssetManagementComponent = () => {
 				)}
 
 				{isAssets && (
-					<Slider {...slickSettings}>
-						{assetTabLists.map(({ categoryId, title, value, goal, color }) => (
-							<div key={categoryId}>
-								<PopupInsideElement
-									onClose={
+					<>
+						<Slider {...slickSettings}>
+							{assetTabLists.map(
+								({ categoryId, title, value, goal, color }) => (
+									<div key={categoryId}>
 										<AssetCategoriesCategory>
 											<AssetCategoriesCategoryButton
-												onClick={() => setActiveCategory(categoryId)}
+												onClick={() => {
+													handleOpenPopup();
+													setActiveCategory(categoryId);
+												}}
 											>
 												<AssetCategoriesCategoryCircleColor
 													$color={color}
@@ -176,16 +183,21 @@ const AssetManagementComponent = () => {
 												</AssetCategoriesCategoryProgress>
 											</AssetCategoriesCategoryButton>
 										</AssetCategoriesCategory>
-									}
-								>
-									<AssetManagementTabs
-										activeTab={activeCategory}
-										assetTabLists={assetTabLists}
-									/>
-								</PopupInsideElement>
-							</div>
-						))}
-					</Slider>
+									</div>
+								)
+							)}
+						</Slider>
+
+						<PopupComponent
+							openPopup={showPopupAssetManagment}
+							closePopup={handleClosePopup}
+						>
+							<AssetManagementTabs
+								activeTab={activeCategory}
+								assetTabLists={assetTabLists}
+							/>
+						</PopupComponent>
+					</>
 				)}
 			</AssetCategoriesCategories>
 		</AssetCategoriesContainer>
