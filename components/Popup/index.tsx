@@ -1,20 +1,19 @@
-import { createPortal } from "react-dom";
-import { forwardRef } from "react";
+import { CustomPopupStyle } from "./Popup.styled";
 
-import { PopupBackdrop, PopupContainer } from "./popup.styled";
+import { PopupTypes } from "./Popup.types";
 
-import { PopupTypes, Ref } from "./popup.types";
-
-const Popup = forwardRef<Ref, PopupTypes>(({ children, show }, ref) => {
+const PopupComponent = ({ children, openPopup, closePopup }: PopupTypes) => {
 	return (
-		show &&
-		createPortal(
-			<PopupBackdrop>
-				<PopupContainer ref={ref}>{children}</PopupContainer>
-			</PopupBackdrop>,
-			document.body
-		)
+		<CustomPopupStyle
+			open={openPopup}
+			onClose={closePopup}
+			modal
+			lockScroll
+			nested
+		>
+			{children}
+		</CustomPopupStyle>
 	);
-});
+};
 
-export default Popup;
+export default PopupComponent;
