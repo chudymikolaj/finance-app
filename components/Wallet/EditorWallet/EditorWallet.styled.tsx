@@ -1,7 +1,7 @@
 import styled from "styled-components";
+import ButtonSubmit from "@/components/Buttons/ButtonSubmit";
 import { SIZES, WEIGHT, CUBICS, BORDER_RADIUS } from "@/styles/constants";
 import { FlexRowSpaceBetweenCenter } from "@/styles/mixins.styled";
-import ButtonSubmit from "@/components/Buttons/ButtonSubmit";
 
 export const EditorWalletForm = styled.form``;
 
