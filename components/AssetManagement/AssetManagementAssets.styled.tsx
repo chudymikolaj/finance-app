@@ -76,7 +76,7 @@ export const AssetCategoriesCategoryButton = styled(ButtonComponent)`
 	height: 100%;
 	padding: 15px;
 	aspect-ratio: 3/2;
-	background-color: ${({ theme }) => theme.backgroundElement_5};
+	background-color: ${({ theme }) => theme.backgroundColor};
 	border-color: ${({ theme }) => theme.borderColor};
 	color: ${({ theme }) => theme.color};
 	transition: opacity 250ms ${CUBICS.easyOut};
@@ -98,7 +98,7 @@ export const AssetCategoriesCategoryValue = styled.div`
 export const AssetCategoriesCategoryProgress = styled.div`
 	width: 50%;
 	height: 4px;
-	background-color: ${({ theme }) => theme.backgroundElement_5};
+	background-color: ${({ theme }) => theme.backdropProgressBar};
 	border-radius: ${BORDER_RADIUS};
 	position: relative;
 	overflow: hidden;

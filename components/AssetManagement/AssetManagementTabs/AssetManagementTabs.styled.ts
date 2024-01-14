@@ -1,6 +1,7 @@
 "use client";
 
 import styled from "styled-components";
+import ButtonSVG from "@/components/Buttons/ButtonSvg";
 
 import { devices } from "@/styles/breakpoints";
 import { BORDER_RADIUS, SIZES, WEIGHT } from "@/styles/constants";
@@ -13,7 +14,6 @@ import {
 	FlexRowSpaceBetweenCenter,
 	ScrollBarColor,
 } from "@/styles/mixins.styled";
-import ButtonSVG from "@/components/Buttons/ButtonSvg";
 
 export const AssetManagementTabsContainer = styled.div`
 	width: 100%;
