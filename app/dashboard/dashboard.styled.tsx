@@ -30,8 +30,10 @@ export const DashboardContainer = styled.div`
 
 export const DashboardLeftColumn = styled.div`
 	${FlexColumnStart};
+	overflow: hidden;
 `;
 
 export const DashboardRightColumn = styled.div`
 	${FlexColumnStart};
+	overflow: hidden;
 `;
