@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { BORDER_RADIUS, SIZES, CUBICS, WEIGHT } from "@/styles/constants";
 import ButtonComponent from "@/components/Buttons/Button";
 
+import { devices } from "@/styles/breakpoints";
+
 import {
 	FlexRow,
 	FlexRowAlignCenter,
@@ -10,45 +12,34 @@ import {
 	FlexRowSpaceBetweenCenter,
 } from "@/styles/mixins.styled";
 
-export const CashFlowContainer = styled.div`
-	margin: auto;
-`;
-
-export const CashFlowHeader = styled.div`
+export const IntroDashboard = styled.div`
 	${FlexRowSpaceBetweenCenter}
 
 	width: 100%;
-	padding: 15px 0;
-	border-top: 1px solid ${({ theme }) => theme.lineColor};
-	border-bottom: 1px solid ${({ theme }) => theme.lineColor};
-	position: relative;
+	padding: 40px 0;
 
-	&:after {
-		content: "";
-		width: 100%;
-		height: 1px;
-		border-bottom: 1px solid ${(props) => props.theme.backgroundElement};
-		position: absolute;
-		bottom: 0;
-		left: 0;
+	@media ${devices.xl} {
+		padding: 80px 0 40px;
 	}
 `;
 
-export const CashFlowHeaderTitle = styled.div`
-	font-size: ${SIZES.cashFlowHeader};
+export const IntroDashboardTitle = styled.div`
+	font-size: ${SIZES.introDashboardHeader};
+	font-weight: ${WEIGHT.bold};
 `;
 
-export const CashFlowHeaderOptions = styled.div`
+export const IntroDashboardMonth = styled.div`
+	padding: 0 0 0 10px;
+	font-size: ${SIZES.introDashboardDate};
+	font-weight: ${WEIGHT.bold};
+`;
+
+export const IntroDashboardOptions = styled.div`
 	${FlexRowAlignCenter}
 	gap: 10px;
 `;
 
-export const CashFlowHeaderMonth = styled.div`
-	padding: 0 0 0 10px;
-	font-size: ${SIZES.cashFlowHeader};
-`;
-
-export const CashFlowHeaderButtons = styled.div`
+export const IntroDashboardButtons = styled.div`
 	${FlexRow}
 
 	gap: 5px;
@@ -59,17 +50,17 @@ export const CashFlowHeaderButtons = styled.div`
 	}
 `;
 
-export const CashFlowSortByDateForm = styled.form`
+export const IntroDashboardSortByDateForm = styled.form`
 	${FlexColumn}
 	gap: 10px;
 `;
 
-export const CashFlowSortByDateLabel = styled.label`
+export const IntroDashboardSortByDateLabel = styled.label`
 	display: block;
 	font-size: ${SIZES.smallText};
 `;
 
-export const CashFlowSortByDateInput = styled.input`
+export const IntroDashboardSortByDateInput = styled.input`
 	padding: 12px 16px;
 	background-color: ${(props) => props.theme.formLabelBackground};
 	border: 0;
@@ -83,7 +74,7 @@ export const CashFlowSortByDateInput = styled.input`
 	}
 `;
 
-export const CashFlowSortByDataSort = styled(ButtonComponent)`
+export const IntroDashboardSortByDataSort = styled(ButtonComponent)`
 	width: 100%;
 	height: auto;
 	padding: 12px 16px;

@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, type ChangeEvent, type FormEvent } from "react";
 import moment from "moment";
 
@@ -5,21 +7,21 @@ import PopupComponent from "@/components/Popup";
 import ButtonRefSVG from "@/components/Buttons/ButtonRefSvg";
 import { useAppContext } from "@/lib/ThemeProviderContext/actions";
 
-import { CashFlowHeaderPropsType } from "./CashFlowHeader.types";
+import { IntroDashboardPropsType } from "./IntroDashboard.types";
 
 import {
-	CashFlowHeader,
-	CashFlowHeaderButtons,
-	CashFlowHeaderMonth,
-	CashFlowHeaderOptions,
-	CashFlowHeaderTitle,
-	CashFlowSortByDataSort,
-	CashFlowSortByDateForm,
-	CashFlowSortByDateInput,
-	CashFlowSortByDateLabel,
-} from "./CashFLowHeader.styled";
+	IntroDashboard,
+	IntroDashboardButtons,
+	IntroDashboardMonth,
+	IntroDashboardOptions,
+	IntroDashboardTitle,
+	IntroDashboardSortByDataSort,
+	IntroDashboardSortByDateForm,
+	IntroDashboardSortByDateInput,
+	IntroDashboardSortByDateLabel,
+} from "./IntroDashboard.styled";
 
-const CashFlowHeaderComponent = ({ title }: CashFlowHeaderPropsType) => {
+const IntroDashboardComponent = ({ title }: IntroDashboardPropsType) => {
 	const { filterCashFlowList, filterDateCashFlowList } = useAppContext();
 
 	const [showDateSorting, setShowDateSorting] = useState(false);
@@ -68,37 +70,39 @@ const CashFlowHeaderComponent = ({ title }: CashFlowHeaderPropsType) => {
 	};
 
 	return (
-		<CashFlowHeader>
-			<CashFlowHeaderTitle>{title}</CashFlowHeaderTitle>
-			<CashFlowHeaderOptions>
-				<CashFlowHeaderMonth>{getCurrentDate}</CashFlowHeaderMonth>
-				<CashFlowHeaderButtons>
-					<ButtonRefSVG
-						action={handleOpenSortByDate}
-						svgUrl="/more_vert.svg"
-					/>
-				</CashFlowHeaderButtons>
-			</CashFlowHeaderOptions>
+		<>
+			<IntroDashboard>
+				<IntroDashboardTitle>{title}</IntroDashboardTitle>
+				<IntroDashboardOptions>
+					<IntroDashboardMonth>{getCurrentDate}</IntroDashboardMonth>
+					<IntroDashboardButtons>
+						<ButtonRefSVG
+							action={handleOpenSortByDate}
+							svgUrl="/more_vert.svg"
+						/>
+					</IntroDashboardButtons>
+				</IntroDashboardOptions>
+			</IntroDashboard>
 
 			<PopupComponent
 				openPopup={showDateSorting}
 				closePopup={handleCloseSortByDate}
 			>
-				<CashFlowSortByDateForm onSubmit={onSubmit}>
-					<CashFlowSortByDateLabel htmlFor="sort-by-date-from">
+				<IntroDashboardSortByDateForm onSubmit={onSubmit}>
+					<IntroDashboardSortByDateLabel htmlFor="sort-by-date-from">
 						Od:
-					</CashFlowSortByDateLabel>
-					<CashFlowSortByDateInput
+					</IntroDashboardSortByDateLabel>
+					<IntroDashboardSortByDateInput
 						id="sort-by-date-from"
 						type="date"
 						value={dateFromFilter}
 						max={dateToFilter}
 						onChange={onChangeDateFrom}
 					/>
-					<CashFlowSortByDateLabel htmlFor="sort-by-date-to">
+					<IntroDashboardSortByDateLabel htmlFor="sort-by-date-to">
 						Do:
-					</CashFlowSortByDateLabel>
-					<CashFlowSortByDateInput
+					</IntroDashboardSortByDateLabel>
+					<IntroDashboardSortByDateInput
 						id="sort-by-date-to"
 						type="date"
 						value={dateToFilter}
@@ -106,11 +110,11 @@ const CashFlowHeaderComponent = ({ title }: CashFlowHeaderPropsType) => {
 						max={GET_TODAY_DATE_FORMAT}
 						onChange={onChangeDateTo}
 					/>
-					<CashFlowSortByDataSort>Sortuj</CashFlowSortByDataSort>
-				</CashFlowSortByDateForm>
+					<IntroDashboardSortByDataSort>Sortuj</IntroDashboardSortByDataSort>
+				</IntroDashboardSortByDateForm>
 			</PopupComponent>
-		</CashFlowHeader>
+		</>
 	);
 };
 
-export default CashFlowHeaderComponent;
+export default IntroDashboardComponent;

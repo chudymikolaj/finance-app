@@ -13,7 +13,6 @@ import { filterDate } from "@/utils/filterDate";
 
 import CashFlowSummary from "./CashFlowSummary";
 import CashFlowList from "./CashFlowList";
-import CashFlowHeader from "./CashFlowHeader";
 
 import { CashFlowContainer, CashFlowWrapper } from "./CashFlow.styled";
 import CashFlowAccordion from "./CashFlowAccordion";
@@ -127,8 +126,6 @@ const CashFlowComponent = () => {
 					title="Przychód"
 					isOpenInitially
 				>
-					<CashFlowHeader title="Sortuj:" />
-
 					<CashFlowSummary
 						sumList={sumRevenuses}
 						countLenght={lenghtRevenuses}
@@ -143,8 +140,6 @@ const CashFlowComponent = () => {
 				</CashFlowAccordion>
 
 				<CashFlowAccordion title="Wydatki">
-					<CashFlowHeader title="Sortuj:" />
-
 					<CashFlowSummary
 						sumList={sumExpenses}
 						paidBoolean={paidExpenses}
