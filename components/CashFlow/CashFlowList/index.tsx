@@ -8,7 +8,7 @@ import {
 import CashFlowItem from "../CashFlowItem";
 import CashFlowOnEmptyComponent from "../CashFlowOnEmpty";
 
-import { ListComponent, List, GoToFullList } from "./CashFlowList.styled";
+import { ListComponent, List } from "./CashFlowList.styled";
 
 const CashFlowList = ({ type, items, href = "/" }: CashFlowListType) => {
 	const listRef = useRef<HTMLUListElement>(null);
@@ -34,7 +34,6 @@ const CashFlowList = ({ type, items, href = "/" }: CashFlowListType) => {
 					/>
 				))}
 			</List>
-			<GoToFullList href={href}>Zobacz wszystkio</GoToFullList>
 		</ListComponent>
 	);
 };

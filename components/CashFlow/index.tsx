@@ -60,50 +60,44 @@ const CashFlowComponent = () => {
 
 	const [paidExpenses, setPaidExpenses] = useState(0);
 
-	const LIMIT_OF_LIST = 10;
-
 	useEffect(() => {
 		updateRevenuesList(revenuesList);
 		updateExpensesList(expensesList);
 	}, []);
 
 	useEffect(() => {
-		const filtredExpenses = expenses
-			.slice(0, LIMIT_OF_LIST)
-			.filter(({ date }) => filterDate(String(date), fromDate, toDate));
+		const filtredExpenses = expenses.filter(({ date }) =>
+			filterDate(String(date), fromDate, toDate)
+		);
 
-		const filtredRevenues = revenues
-			.slice(0, LIMIT_OF_LIST)
-			.filter(({ date }) => filterDate(String(date), fromDate, toDate));
+		const filtredRevenues = revenues.filter(({ date }) =>
+			filterDate(String(date), fromDate, toDate)
+		);
 
 		const countRevenues = revenues
-			.slice(0, LIMIT_OF_LIST)
 			.filter(({ date }) => filterDate(date, fromDate, toDate))
 			.reduce((val, currentValue) => {
 				return val + currentValue.value;
 			}, 0);
 
 		const countExpenses = expenses
-			.slice(0, LIMIT_OF_LIST)
 			.filter(({ date }) => filterDate(date, fromDate, toDate))
 			.reduce((val, currentValue) => {
 				return val + currentValue.value;
 			}, 0);
 
-		const lenghtRevenues = revenues
-			.slice(0, LIMIT_OF_LIST)
-			.filter(({ date }) => filterDate(date, fromDate, toDate)).length;
+		const lenghtRevenues = revenues.filter(({ date }) =>
+			filterDate(date, fromDate, toDate)
+		).length;
 
-		const lenghtExpenses = expenses
-			.slice(0, LIMIT_OF_LIST)
-			.filter(({ date }) => filterDate(date, fromDate, toDate)).length;
+		const lenghtExpenses = expenses.filter(({ date }) =>
+			filterDate(date, fromDate, toDate)
+		).length;
 
-		const countUnPaidExpenses = expenses
-			.slice(0, LIMIT_OF_LIST)
-			.filter(
-				({ date, isPaid }) =>
-					filterDate(date, fromDate, toDate) && isPaid === true
-			).length;
+		const countUnPaidExpenses = expenses.filter(
+			({ date, isPaid }) =>
+				filterDate(date, fromDate, toDate) && isPaid === true
+		).length;
 
 		setFiltredExpenses(filtredExpenses);
 		setSumExpenses(`${String(countExpenses)} PLN`);

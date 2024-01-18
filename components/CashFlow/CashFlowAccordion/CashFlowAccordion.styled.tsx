@@ -1,6 +1,7 @@
 "use client";
 
 import styled from "styled-components";
+
 import { devices } from "@/styles/breakpoints";
 import { BORDER_RADIUS, CUBICS, SIZES, WEIGHT } from "@/styles/constants";
 import { FlexColumn, FlexRow } from "@/styles/mixins.styled";
