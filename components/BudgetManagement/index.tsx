@@ -11,6 +11,7 @@ import {
 	BudgetManagementAssetsWrapper,
 	BudgetManagementAssetsList,
 	BudgetManagementAssetsListItem,
+	BudgetManagementAssetsListItemValue,
 } from "./BudgetManagementComponent.styled";
 import { Line } from "@/components/Line/Line.styles";
 
@@ -49,10 +50,10 @@ const BudgetManagementAssets = () => {
 						calcedBudget.map((asset) => (
 							<BudgetManagementAssetsListItem key={asset.title}>
 								<p>{asset.title}</p>
-								<p>
+								<BudgetManagementAssetsListItemValue $color={asset.color}>
 									<span>{multiplier(asset.share)}% - </span>
 									<span>{asset.value.toFixed(2)} PLN</span>
-								</p>
+								</BudgetManagementAssetsListItemValue>
 							</BudgetManagementAssetsListItem>
 						))
 					) : (

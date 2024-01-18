@@ -1,6 +1,6 @@
 import { devices } from "@/styles/breakpoints";
 import { BORDER_RADIUS, SIZES, WEIGHT } from "@/styles/constants";
-import { FlexColumn, FlexRow } from "@/styles/mixins.styled";
+import { FlexColumn } from "@/styles/mixins.styled";
 import styled from "styled-components";
 
 export const BudgetManagementAssetsContainer = styled.div`
@@ -39,7 +39,7 @@ export const BudgetManagementAssetsList = styled.ul`
 
 	height: 100%;
 	list-style: none;
-	font-size: ${SIZES.tabAssetsText};
+	font-size: ${SIZES.tabNameFontSize};
 	font-weight: ${WEIGHT.medium};
 `;
 
@@ -56,4 +56,17 @@ export const BudgetManagementAssetsListItem = styled.li`
 	background-color: ${({ theme }) => theme.backgroundElement};
 	border: 1px solid ${({ theme }) => theme.borderColor};
 	border-radius: ${BORDER_RADIUS};
+`;
+
+export const BudgetManagementAssetsListItemValue = styled.p<{ $color: string }>`
+	&:before {
+		content: "";
+		width: 10px;
+		height: 10px;
+		margin: 0 10px 0 0;
+		background-color: ${({ $color, theme }) =>
+			$color ? $color : theme.backgroundColor};
+		display: inline-block;
+		border-radius: ${BORDER_RADIUS};
+	}
 `;
