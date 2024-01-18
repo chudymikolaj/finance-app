@@ -56,7 +56,6 @@ export const GlobalStyle = createGlobalStyle`
     @media ${devices.xl} {
       padding: 0 5vh;
       margin: 90px auto 30px;
-      height: calc(100vh - 120px);
     }
 
     background-color: ${(props) => props.theme.backgroundColor};
