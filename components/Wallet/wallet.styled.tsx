@@ -55,7 +55,7 @@ export const WalletSummaryHeader = styled.div`
 export const WalletSummaryTitle = styled.h1`
 	flex: 1;
 	font-size: ${SIZES.headerText};
-	font-weight: ${WEIGHT.medium};
+	font-weight: ${WEIGHT.bold};
 `;
 
 export const WalletSummaryButton = styled(ButtonRefSvg)`
