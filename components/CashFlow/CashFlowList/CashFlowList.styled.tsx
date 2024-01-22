@@ -10,10 +10,9 @@ export const ListComponent = styled.div`
 
 export const List = styled.ul`
 	${FlexColumn}
-	height: 190px;
+	height: 192px;
 	gap: 6px;
-	overflow-y: scroll;
-	padding: 0 10px 0 0;
+	overflow-y: auto;
 
 	${ScrollBarColor}
 `;
