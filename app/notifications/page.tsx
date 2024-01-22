@@ -1,5 +1,7 @@
 export default function Notifications() {
-  return (
-    <h1>Notifications</h1>
-  )
+	return (
+		<main>
+			<h1>Notifications</h1>
+		</main>
+	);
 }
