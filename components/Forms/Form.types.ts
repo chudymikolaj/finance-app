@@ -27,6 +27,6 @@ export interface IFormValues {
 
 export type ReactNodeType = ReactNode;
 
-export type InputTypeValues = "text" | "number";
+export type InputTypeValues = "text" | "number" | "password";
 
 export type BlockFormKeysEvent = KeyboardEvent<HTMLInputElement>;

@@ -1,4 +1,5 @@
 import { type UseFormRegister } from "react-hook-form";
+
 import {
 	type InputTypeValues,
 	type IFormValues,
@@ -24,6 +25,7 @@ type InputProps = {
 	max?: number;
 	step?: number;
 	percentage?: boolean;
+	bgColor?: "light" | "dark";
 };
 
 // The following component is an example of your existing Input Component
@@ -38,6 +40,7 @@ const Input = ({
 	max,
 	step,
 	percentage,
+	bgColor = "dark",
 }: InputProps) => {
 	if (type === "number") {
 		const blockFormKeysInput = (event: BlockFormKeysEvent) =>
@@ -56,6 +59,7 @@ const Input = ({
 							min={min}
 							max={max}
 							step={step}
+							$bgColor={bgColor}
 							{...register(labelRegister, { required })}
 						/>
 						<PercentageSymbol>%</PercentageSymbol>
@@ -69,6 +73,7 @@ const Input = ({
 						min={min}
 						max={max}
 						step={step}
+						$bgColor={bgColor}
 						{...register(labelRegister, { required })}
 					/>
 				)}
@@ -83,6 +88,7 @@ const Input = ({
 				id={labelRegister}
 				placeholder={placeholder}
 				type={type}
+				$bgColor={bgColor}
 				{...register(labelRegister, { required })}
 			/>
 		</>

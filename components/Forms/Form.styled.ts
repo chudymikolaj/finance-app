@@ -3,7 +3,7 @@
 import styled from "styled-components";
 
 import ButtonSubmit from "@/components/Buttons/ButtonSubmit";
-import { BORDER_RADIUS, CUBICS, SIZES, WEIGHT } from "@/styles/constants";
+import { BORDER_RADIUS, SIZES, WEIGHT } from "@/styles/constants";
 import {
 	FlexColumnStart,
 	FlexRowSpaceBetweenCenter,

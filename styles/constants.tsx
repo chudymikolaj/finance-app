@@ -26,6 +26,7 @@ export const STYLE_DARK_MODE = {
 	headlineColor: "#fafafa",
 	subHeadlineColor: "#ABA6A6",
 	formLabelBackground: "rgba(15, 15, 15, .5)",
+	formLabelLightBackground: "#1A1A1B",
 	formLabelInputFontColor: "#fafafa",
 	formOutlineColor: "#1A1A1B",
 };
@@ -58,6 +59,7 @@ export const STYLE_LIGHT_MODE = {
 	headlineColor: "#121212",
 	subHeadlineColor: "#121212",
 	formLabelBackground: "#f5f5f5",
+	formLabelLightBackground: "#ffffff",
 	formLabelInputFontColor: "#f5f5f5",
 	formOutlineColor: "#69707c",
 };
