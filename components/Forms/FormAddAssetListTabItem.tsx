@@ -1,4 +1,6 @@
-import { SubmitHandler, useForm } from "react-hook-form";
+"use client";
+
+import { useForm, SubmitHandler } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 
 import { useAppContext } from "@/lib/ThemeProviderContext/actions";

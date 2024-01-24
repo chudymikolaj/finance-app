@@ -1,4 +1,7 @@
-import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
+"use client";
+
+import { useEffect, useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 import { useAppContext } from "@/lib/ThemeProviderContext/actions";
 import ButtonSVG from "../Buttons/ButtonSvg";
@@ -16,7 +19,6 @@ import {
 	FormElementTitle,
 	ErrorMessage,
 } from "./Form.styled";
-import { useEffect, useState } from "react";
 
 const FormChangeWalletProportions = ({
 	closePopup,

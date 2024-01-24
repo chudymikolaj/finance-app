@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import { useAppContext } from "@/lib/ThemeProviderContext/actions";
@@ -15,7 +18,6 @@ import {
 	FormElementSubmit,
 	FormElementTitle,
 } from "./Form.styled";
-import { useEffect } from "react";
 
 const FormEditBudgetListTabItem = ({
 	categoryId,
