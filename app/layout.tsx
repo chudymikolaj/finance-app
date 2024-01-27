@@ -7,6 +7,7 @@ import Navbar from "@/components/Navbar";
 
 import "@/styles/globals.styled";
 import { GlobalStyle } from "@/styles/globals.styled";
+import { NextAuthProvider } from "@/lib/NextAuthProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,19 +16,21 @@ export const metadata: Metadata = {
 	description: "Made by Chudy Mikołaj",
 };
 
-export default function RootLayout({
-	children,
-}: {
-	children: React.ReactNode;
-}) {
+type Props = {
+	children?: React.ReactNode;
+};
+
+export default function RootLayout({ children }: Props) {
 	return (
 		<html lang="en">
 			<body className={inter.className}>
 				<StyledComponentsRegistry>
 					<ThemeProviderContext>
-						<Navbar />
-						{children}
-						<GlobalStyle />
+						<NextAuthProvider>
+							<Navbar />
+							{children}
+							<GlobalStyle />
+						</NextAuthProvider>
 					</ThemeProviderContext>
 				</StyledComponentsRegistry>
 			</body>
