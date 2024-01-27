@@ -49,7 +49,7 @@ export const ButtonSubmit = styled.button`
 	color: ${({ theme }) => theme.buttonSubmitColorFont};
 
 	&:hover {
-		background-color: ${(props) => props.theme.formLabelBackground};
+		background-color: ${(props) => props.theme.formLabelLightBackground};
 		color: ${({ theme }) => theme.buttonActiveSubmitColorFont};
 	}
 `;
