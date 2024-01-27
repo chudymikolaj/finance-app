@@ -30,3 +30,5 @@ export type ReactNodeType = ReactNode;
 export type InputTypeValues = "text" | "number" | "password";
 
 export type BlockFormKeysEvent = KeyboardEvent<HTMLInputElement>;
+
+export type FormLoginPropsType = { title: string; subTitle: string; data: any };

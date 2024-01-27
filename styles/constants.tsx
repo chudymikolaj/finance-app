@@ -23,6 +23,7 @@ export const STYLE_DARK_MODE = {
 	greenColor: "#5D8C71",
 	iconColor: "#fafafa",
 	linkColor: "#fafafa",
+	linkFormColor: "#ff8906",
 	headlineColor: "#fafafa",
 	subHeadlineColor: "#ABA6A6",
 	formLabelBackground: "rgba(15, 15, 15, .5)",
@@ -56,6 +57,7 @@ export const STYLE_LIGHT_MODE = {
 	greenColor: "#5D8C71",
 	iconColor: "#477ed1",
 	linkColor: "#121212",
+	linkFormColor: "#477ed1",
 	headlineColor: "#121212",
 	subHeadlineColor: "#121212",
 	formLabelBackground: "#f5f5f5",
@@ -82,6 +84,8 @@ export const SIZES = {
 	cashFlowItemValue: "14px",
 	inputFontSize: "14px",
 	submitFontSize: "14px",
+	loginTitle: "clamp(2rem, 0.2222rem + 3.7037vw, 3rem)",
+	loginSubTitle: "16px",
 };
 export const WEIGHT = {
 	light: "300",

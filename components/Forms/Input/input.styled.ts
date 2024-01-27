@@ -13,6 +13,7 @@ export const InputElement = styled.input<{ $bgColor?: "light" | "dark" }>`
 	width: 100%;
 	max-width: calc(100%);
 	padding: 12px 16px;
+	margin: 10px 0 15px;
 	background-color: ${({ $bgColor, theme }) =>
 		$bgColor === "light"
 			? theme.formLabelLightBackground
