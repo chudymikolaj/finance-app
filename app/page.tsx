@@ -1,5 +1,9 @@
+"use client";
+
 export default function Home() {
-  return (
-    <h1>Main Page</h1>
-  )
+	return (
+		<>
+			<h1>Main Page</h1>
+		</>
+	);
 }
