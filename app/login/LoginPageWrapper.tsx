@@ -35,7 +35,8 @@ const LoginPage = ({ data, global }: LoginPagePropsType) => {
 					src={`${API_CMS}${urlLoginPageImage}`}
 					alt="background"
 					fill
-					loading="lazy"
+					sizes="100%"
+					priority={true}
 				/>
 			</LoginPageImage>
 		</>
