@@ -33,7 +33,7 @@ const FormLogin = ({ title, subTitle, data }: FormLoginPropsType) => {
 	const getInputPassword = data && data.passwordInput;
 	const getForgetpasswordLink = data && data.forgetpasswordLink;
 	const getLoginButtonName = data && data.loginButtonName;
-	const getCreateNewAccountLink = data && data.createNewAccountLink;
+	const getCreateNewAccountNameLink = data && data.createNewAccountNameLink;
 	const getCreateNewAccountTextBeforeLink =
 		data && data.createNewAccountTextBeforeLink;
 	const getAddLinkToRegister = data && data.addLinkToRegister;
@@ -102,7 +102,7 @@ const FormLogin = ({ title, subTitle, data }: FormLoginPropsType) => {
 						<span>{getCreateNewAccountTextBeforeLink} </span>
 
 						<FormElementSingInAccountLink href={getAddLinkToRegister}>
-							{getCreateNewAccountLink}
+							{getCreateNewAccountNameLink}
 						</FormElementSingInAccountLink>
 					</p>
 				</FormElementSingInAccount>
