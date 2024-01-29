@@ -6,7 +6,7 @@ import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
-import Input from "./Input";
+import { Input } from "./Input";
 
 import { type FormLoginPropsType, type IFormValues } from "./Form.types";
 

@@ -1,27 +1,54 @@
 "use client";
 
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import { BORDER_RADIUS, SIZES } from "@/styles/constants";
 import { FlexCenter } from "@/styles/mixins.styled";
+import SvgIcon from "@/components/SvgIcon";
+
+export const InputWrapper = styled.div`
+	width: 100%;
+	margin: 0 0 15px;
+	display: block;
+`;
 
 export const InputLabel = styled.label`
 	width: 100%;
 `;
 
-export const InputElement = styled.input<{ $bgColor?: "light" | "dark" }>`
+export const InputPassword = styled.div`
+	margin: 10px auto 0;
+	position: relative;
+`;
+
+const InputStyle = css`
 	width: 100%;
 	max-width: calc(100%);
 	padding: 12px 16px;
-	margin: 10px 0 15px;
-	background-color: ${({ $bgColor, theme }) =>
-		$bgColor === "light"
-			? theme.formLabelLightBackground
-			: theme.formLabelBackground};
 	border: unset;
 	border-radius: ${BORDER_RADIUS};
 	font-size: ${SIZES.inputFontSize};
 	color: ${({ theme }) => theme.color};
+`;
+
+export const InputElement = styled.input<{ $bgColor?: "light" | "dark" }>`
+	${InputStyle}
+	margin: 10px auto 0;
+	background-color: ${({ $bgColor, theme }) =>
+		$bgColor === "light"
+			? theme.formLabelLightBackground
+			: theme.formLabelBackground};
+`;
+
+export const InputPasswordElement = styled.input<{
+	$bgColor?: "light" | "dark";
+}>`
+	${InputStyle}
+	margin: 0;
+	background-color: ${({ $bgColor, theme }) =>
+		$bgColor === "light"
+			? theme.formLabelLightBackground
+			: theme.formLabelBackground};
 `;
 
 export const InputElementWithSymbol = styled(InputElement)`
@@ -41,6 +68,22 @@ export const InputElementWrapper = styled.div`
 	border-radius: ${BORDER_RADIUS};
 	position: relative;
 	overflow: hidden;
+`;
+
+export const IconWrapper = styled.div`
+	position: absolute;
+	top: 50%;
+	right: 16px;
+	transform: translateY(-50%);
+`;
+
+export const IconPassword = styled(SvgIcon)`
+	height: 18px;
+
+	svg,
+	svg path {
+		fill: unset;
+	}
 `;
 
 export const PercentageSymbol = styled.div<{ $bgColor?: boolean }>`

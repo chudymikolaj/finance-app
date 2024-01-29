@@ -56,6 +56,7 @@ export const FormElementSingInAccountLink = styled(Link)`
 export const FormElementSubmit = styled(ButtonSubmit)`
 	margin: 40px auto 0;
 	padding: 12px 16px;
+	user-select: none;
 `;
 
 export const ErrorMessage = styled.div`
@@ -71,6 +72,19 @@ export const ErrorMessage = styled.div`
 	border-radius: ${BORDER_RADIUS};
 	display: block;
 	text-align: center;
+	font-size: ${SIZES.smallText};
+	color: ${({ theme }) => theme.redColor};
+`;
+
+export const ErrorMessageForm = styled.div`
+	width: 100%;
+	padding: 6px 10px;
+
+	@media ${devices.xl} {
+		padding: 8px 16px 0;
+	}
+
+	display: block;
 	font-size: ${SIZES.smallText};
 	color: ${({ theme }) => theme.redColor};
 `;

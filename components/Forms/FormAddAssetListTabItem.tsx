@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import { useAppContext } from "@/lib/ThemeProviderContext/actions";
 import ButtonSVG from "../Buttons/ButtonSvg";
-import Input from "./Input";
+import { Input } from "./Input";
 
 import {
 	type FormAddAssetListTabItemPropsType,

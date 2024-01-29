@@ -5,7 +5,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 
 import { useAppContext } from "@/lib/ThemeProviderContext/actions";
 import ButtonSVG from "../Buttons/ButtonSvg";
-import Input from "./Input";
+import { NumberInput } from "./Input";
 
 import {
 	type FormChangeWalletProportionsPropsType,
@@ -62,7 +62,7 @@ const FormChangeWalletProportions = ({
 			<FormElement onSubmit={handleSubmit(onSubmit)}>
 				{isBudgetAllocations &&
 					budgetAllocations.map(({ id, title }) => (
-						<Input
+						<NumberInput
 							key={id}
 							label={title}
 							labelRegister={id}
@@ -71,7 +71,6 @@ const FormChangeWalletProportions = ({
 							min={0}
 							max={100}
 							register={register}
-							required
 							percentage
 						/>
 					))}

@@ -5,7 +5,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 
 import { useAppContext } from "@/lib/ThemeProviderContext/actions";
 import ButtonSVG from "../Buttons/ButtonSvg";
-import Input from "./Input";
+import { Input } from "./Input";
 
 import {
 	type FormEditAssetListTabItemPropsType,
