@@ -1,10 +1,10 @@
 import axios from "axios";
 
-import LoginPageElements from "./LoginPage";
+import RegisterElement from "./RegisterElement";
 
-import { LoginPageContainer } from "./login.styled";
+import { RegisterPageContainer } from "./register.styled";
 
-interface LoginPageData {
+interface RegisterPageData {
 	attributes: any;
 }
 
@@ -15,24 +15,24 @@ interface GlobalData {
 
 const strapiUrl = process.env.STRAPI_URL;
 
-export const LoginPage = async () => {
-	const responseFormData = await getLoginPageData();
+export const RegisterPage = async () => {
+	const responseFormData = await getRegisterPageData();
 	const responseGlobalData = await getGlobalData();
 
 	return (
-		<LoginPageContainer>
-			<LoginPageElements
+		<RegisterPageContainer>
+			<RegisterElement
 				data={responseFormData}
 				global={responseGlobalData}
 			/>
-		</LoginPageContainer>
+		</RegisterPageContainer>
 	);
 };
 
-export const getLoginPageData = async (): Promise<LoginPageData> => {
+export const getRegisterPageData = async (): Promise<RegisterPageData> => {
 	try {
 		const responseForm = await axios.get(
-			`${strapiUrl}/api/login-page?populate=*`
+			`${strapiUrl}/api/register-page?populate=*`
 		);
 
 		if (responseForm.status !== 200) {
@@ -43,7 +43,7 @@ export const getLoginPageData = async (): Promise<LoginPageData> => {
 
 		return attributes;
 	} catch (error) {
-		console.error("Error in getLoginPageData:", error);
+		console.error("Error in getRegisterPageData:", error);
 		throw error; // Re-throw the error to be caught in the higher level
 	}
 };
@@ -68,4 +68,4 @@ export const getGlobalData = async (): Promise<GlobalData> => {
 	}
 };
 
-export default LoginPage;
+export default RegisterPage;
