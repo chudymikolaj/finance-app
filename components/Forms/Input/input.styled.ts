@@ -82,7 +82,8 @@ export const IconPassword = styled(SvgIcon)`
 
 	svg,
 	svg path {
-		fill: unset;
+		fill: none;
+		color: unset;
 	}
 `;
 
