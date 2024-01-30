@@ -48,6 +48,10 @@ const CashFlowComponent = () => {
 
 	const { fromDate, toDate } = useAppContextDateList();
 
+	const [showAccordion, setShowAccordion] = useState("revenues");
+	const handleShowAccrodion = (index: string) =>
+		setShowAccordion((prevState) => (prevState === index ? "revenues" : index));
+
 	const [filtredExpenses, setFiltredExpenses] = useState<ObjectListType[]>([]);
 	const [sumExpenses, setSumExpenses] = useState("0");
 
@@ -118,7 +122,8 @@ const CashFlowComponent = () => {
 			<CashFlowWrapper>
 				<CashFlowAccordion
 					title="Przychód"
-					isOpenInitially
+					isOpen={showAccordion === "revenues"}
+					handleOpenAccordion={() => handleShowAccrodion("revenues")}
 				>
 					<CashFlowSummary
 						sumList={sumRevenuses}
@@ -133,7 +138,11 @@ const CashFlowComponent = () => {
 					</CashFlowSummary>
 				</CashFlowAccordion>
 
-				<CashFlowAccordion title="Wydatki">
+				<CashFlowAccordion
+					title="Wydatki"
+					isOpen={showAccordion === "expenses"}
+					handleOpenAccordion={() => handleShowAccrodion("expenses")}
+				>
 					<CashFlowSummary
 						sumList={sumExpenses}
 						paidBoolean={paidExpenses}

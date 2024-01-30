@@ -10,13 +10,10 @@ import {
 
 const CashFlowAccordion = ({
 	title,
-	isOpenInitially = false,
+	isOpen,
 	children,
+	handleOpenAccordion,
 }: CashFlowAccordionType) => {
-	const [isOpen, setIsOpen] = useState(isOpenInitially);
-
-	const handleOpenAccordion = () => setIsOpen((prevState) => !prevState);
-
 	return (
 		<CashFlowTabAccordion $isActive={isOpen}>
 			<CashFlowTabAccordionHeader onClick={handleOpenAccordion}>
