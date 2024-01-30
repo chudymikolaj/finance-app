@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 import { FlexColumn, ScrollBarColor } from "@/styles/mixins.styled";
+import { devices } from "@/styles/breakpoints";
 
 export const ListComponent = styled.div`
 	padding: 15px 0;
@@ -10,7 +11,12 @@ export const ListComponent = styled.div`
 
 export const List = styled.ul`
 	${FlexColumn}
-	height: 192px;
+	height: 100px;
+
+	@media ${devices["2xl"]} {
+		height: 204px;
+	}
+
 	gap: 6px;
 	overflow-y: auto;
 

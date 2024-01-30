@@ -10,10 +10,12 @@ export const DashboardContainer = styled.div`
 	height: 100%;
 	display: grid;
 	grid-template-columns: 100%;
+	justify-content: center;
 	gap: 20px;
 
-	@media ${devices.lg} {
-		grid-template-columns: 1fr 1fr;
+	@media ${devices.md} {
+		grid-template-columns: 600px;
+		gap: 30px;
 	}
 
 	@media ${devices.xl} {
@@ -22,7 +24,6 @@ export const DashboardContainer = styled.div`
 
 	@media ${devices["2xl"]} {
 		grid-template-columns: 500px 1fr;
-		gap: 100px;
 	}
 `;
 

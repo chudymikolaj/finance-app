@@ -51,10 +51,10 @@ export const GlobalStyle = createGlobalStyle`
 
     @media ${devices.md} {
       width: 100%;
+      padding: 0 5vh;
     }
 
     @media ${devices.xl} {
-      padding: 0 5vh;
       margin: 90px auto 30px;
     }
 

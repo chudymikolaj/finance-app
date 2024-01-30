@@ -17,8 +17,14 @@ export const IntroDashboard = styled.div`
 
 	width: 100%;
 	padding: 40px 0;
+	margin: auto;
+
+	@media ${devices.md} {
+		width: 600px;
+	}
 
 	@media ${devices.xl} {
+		width: 100%;
 		padding: 80px 0 40px;
 	}
 `;
