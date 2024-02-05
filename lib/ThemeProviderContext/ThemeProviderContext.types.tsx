@@ -10,27 +10,6 @@ export type Constants = {
 	};
 };
 
-export type LinkWithIcon = {
-	id: number;
-	name: string;
-	link: string;
-	icon: string;
-};
-
-export type LinkExternal = {
-	id: number;
-	name: string;
-	active: string;
-	profiles?: LinkWithIcon[];
-	others?: LinkWithIcon[];
-};
-
-export type NavbarLink = LinkWithIcon | LinkExternal;
-
-export type initialNavbar = {
-	navbar: NavbarLink[];
-};
-
 export type Wallet = {
 	wallet: {
 		sumRevenues: number;
@@ -93,7 +72,6 @@ export type BudgetAllocations = {
 
 export type AppState = Mode &
 	Constants &
-	initialNavbar &
 	Wallet &
 	FilterCashFlowList &
 	ExpensesAndRevenues &
@@ -102,7 +80,6 @@ export type AppState = Mode &
 
 export type initialAppState = Mode &
 	Constants &
-	initialNavbar &
 	Wallet &
 	FilterCashFlowList &
 	ExpensesAndRevenues &
@@ -111,7 +88,6 @@ export type initialAppState = Mode &
 
 export type AppStateValue = Mode &
 	Constants &
-	initialNavbar &
 	Wallet &
 	FilterCashFlowList &
 	ExpensesAndRevenues &

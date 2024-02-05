@@ -2,13 +2,14 @@
 
 import { useReducer } from "react";
 
+import { AppContext } from "./context";
+import { initialAppState } from "./state";
+import { appReducer } from "./reducers";
+
 import {
 	type AppStateValue,
 	type ContextProviderProps,
 } from "./ThemeProviderContext.types";
-import { AppContext } from "./context";
-import { initialAppState } from "./state";
-import { appReducer } from "./reducers";
 
 import StyleThemeProvider from "@/styles/StyleThemeProvider";
 
@@ -22,7 +23,6 @@ export default function ThemeProviderContext({
 		constants: {
 			maxValue: app.constants.maxValue,
 		},
-		navbar: app.navbar,
 		wallet: {
 			sumRevenues: app.wallet.sumRevenues,
 			sumBills: app.wallet.sumBills,

@@ -4,10 +4,11 @@ import {
 	FlexCenter,
 	FlexColumnStart,
 	FlexRow,
+	FlexRowAlignCenter,
 	FlexRowSpaceBetweenCenter,
 } from "@/styles/mixins.styled";
 import Link from "next/link";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import ButtonRefSvg from "../Buttons/ButtonRefSvg";
 import ButtonSVG from "../Buttons/ButtonSvg";
 
@@ -35,7 +36,7 @@ export const NavbarLogotype = styled(Link)`
 `;
 
 export const NavbarMenu = styled.div`
-	${FlexRow}
+	${FlexRowAlignCenter}
 	gap: 10px;
 `;
 
@@ -67,10 +68,10 @@ export const NavbarDropdownMenuButton = styled(ButtonRefSvg)`
 export const NavbarMenuDropdown = styled.div<{ $show?: boolean }>`
 	min-width: 200px;
 	width: calc(100vw - 30px);
-	padding: 18px 30px;
+	padding: 16px;
 	background-color: ${(props) => props.theme.backgroundElement};
 	border: 1px solid ${(props) => props.theme.borderColor};
-	border-radius: ${BORDER_RADIUS};
+	border-radius: 18px;
 	display: ${(props) => (props.$show ? "block" : "none")};
 	position: absolute;
 	top: calc(100% + 10px);
@@ -87,7 +88,7 @@ export const NavbarMenuDropdown = styled.div<{ $show?: boolean }>`
 
 const groupOfLinks = `
 	${FlexColumnStart}
-	gap: 10px;
+	gap: 6px;
 
   width: 100%;
   margin: 0;
@@ -98,9 +99,15 @@ export const NavbarMenuList = styled.ul`
 	${groupOfLinks};
 `;
 
-export const NavbarMenuListLink = styled(Link)`
-	${FlexRow}
+const NavbarLinksAndButtons = css`
+	${FlexRowAlignCenter}
 	gap: 10px;
+
+	width: 100%;
+	padding: 10px 16px;
+	background-color: ${({ theme }) => theme.backgroundColor};
+	border-radius: ${BORDER_RADIUS};
+	color: ${(props) => props.theme.linkColor};
 
 	&:hover {
 		opacity: 0.5;
@@ -113,6 +120,18 @@ export const NavbarMenuListLink = styled(Link)`
 	}
 `;
 
+export const NavbarMenuListLink = styled(Link)`
+	${NavbarLinksAndButtons}
+`;
+
+export const NavbarMenuListEmptyLink = styled.button`
+	${NavbarLinksAndButtons}
+`;
+
+export const NavbarMenuListButton = styled.button`
+	${NavbarLinksAndButtons}
+`;
+
 const groupOfLinksBorder = `
   ${groupOfLinks};
   padding: 0 0 10px;
@@ -120,14 +139,19 @@ const groupOfLinksBorder = `
 
 export const NavbarMenuListActiveProfile = styled.span`
 	${groupOfLinksBorder};
-	border-bottom: 1px solid ${(props) => props.theme.linkColor};
+
+	width: 100%;
+	padding: 10px 16px;
+	border-bottom: 1px solid ${(props) => props.theme.backgroundColor};
+	font-size: 12px;
+	text-align: center;
 	color: ${(props) => props.theme.linkColor};
 	cursor: default;
 `;
 
 export const NavbarMenuListProfiles = styled.ul`
 	${groupOfLinksBorder};
-	border-bottom: 1px solid ${(props) => props.theme.linkColor};
+	border-bottom: 1px solid ${(props) => props.theme.line};
 `;
 
 export const NavbarMenuListRest = styled.ul`
@@ -136,11 +160,12 @@ export const NavbarMenuListRest = styled.ul`
 
 export const NavbarMenuThemeToggle = styled(ButtonSVG)`
 	width: 100%;
-	padding: 6px 16px;
+	padding: 10px 16px;
 	height: auto;
-	margin: 10px auto 0;
-	border: 1px solid ${(props) => props.theme.linkColor};
+	background-color: ${({ theme }) => theme.backgroundColor};
+	border: none;
 	border-radius: ${BORDER_RADIUS};
+	justify-content: center;
 
 	div,
 	svg {

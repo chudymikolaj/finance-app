@@ -1,11 +1,20 @@
 "use client";
 
+import { getSession, signOut } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 import SVGimage from "@/components/SvgIcon";
 import { useAppContext } from "@/lib/ThemeProviderContext/actions";
+import fetchPrivateNavbar from "@/utils/fetch/privateNavbarAxios";
 import useOutsideClick from "@/utils/useOutsideClick";
+
+import {
+	type PrivateNavbarLinkProps,
+	type PublicNavbarLinkProps,
+	type PublicNavbarProps,
+} from "./navbar.types";
+
 import {
 	Navbar,
 	NavbarDropdownMenu,
@@ -15,20 +24,26 @@ import {
 	NavbarMenuDropdown,
 	NavbarMenuList,
 	NavbarMenuListActiveProfile,
+	NavbarMenuListButton,
+	NavbarMenuListEmptyLink,
 	NavbarMenuListLink,
-	NavbarMenuListProfiles,
 	NavbarMenuListRest,
 	NavbarMenuNotification,
 	NavbarMenuThemeToggle,
 } from "./navbar.styled";
 
-export default function NavbarComponent() {
-	const { darkMode, navbar, toggleMode } = useAppContext();
+const NavbarComponent = ({ publicNavbar }: PublicNavbarProps) => {
 	const pathname = usePathname();
+	const { darkMode, toggleMode } = useAppContext();
 
 	const [showDropdownMenu, setShowDropdownMenu] = useState<boolean>(false);
+	const [privateNavbar, setPrivateNavbar] = useState<[]>([]);
+	const [getUserEmail, setGetUserEmail] = useState<string>("");
+	const [loading, setLoading] = useState<boolean>(false);
 	const dropdownMenuRef = useRef<HTMLDivElement | null>(null);
 	const toggleButtonRef = useRef<HTMLButtonElement | null>(null);
+
+	const isMode = darkMode ? "/dark_mode.svg" : "/light_mode.svg";
 
 	const toggleDropdown = () => {
 		setShowDropdownMenu((prevState) => !prevState);
@@ -42,7 +57,28 @@ export default function NavbarComponent() {
 		handleRouteChange();
 	}, [pathname]);
 
-	const isMode = darkMode ? "/dark_mode.svg" : "/light_mode.svg";
+	useEffect(() => {
+		const securePage = async () => {
+			const session = await getSession();
+
+			if (session) {
+				fetchPrivateNavbar((session as any)?.jwt)
+					.then((res) => {
+						setPrivateNavbar(res);
+						setLoading(true);
+						setGetUserEmail((session as any)?.user.email);
+					})
+					.catch((err) => {
+						setLoading(false);
+						console.log(err);
+					});
+			} else {
+				setLoading(false);
+			}
+		};
+
+		securePage();
+	}, []);
 
 	useOutsideClick({
 		isVisible: showDropdownMenu,
@@ -50,27 +86,112 @@ export default function NavbarComponent() {
 		refs: [dropdownMenuRef, toggleButtonRef],
 	});
 
-	return (
-		<Navbar>
-			<NavbarLogotype href="/">
-				<span>Planer Finansowy</span>
-			</NavbarLogotype>
-			<NavbarMenu>
-				{navbar &&
-					navbar.map((link) => {
-						if ("link" in link) {
-							if (link.name == "notifications") {
+	if (loading) {
+		return (
+			<Navbar>
+				<NavbarLogotype href="/">
+					<span>Planer Finansowy</span>
+				</NavbarLogotype>
+				<NavbarMenu>
+					{loading &&
+						privateNavbar.map((link: PrivateNavbarLinkProps) => {
+							if (link.link === "/notifications") {
 								return (
 									<NavbarMenuNotification
 										key={link.id}
-										href={{
-											pathname: link.link,
-										}}
+										href={link.link}
 									>
 										<SVGimage src="/notifications.svg" />
 									</NavbarMenuNotification>
 								);
 							}
+
+							if (link.link?.link === "/dropdown") {
+								return (
+									<NavbarDropdownMenu key={link.id}>
+										<NavbarDropdownMenuButton
+											ref={toggleButtonRef}
+											action={toggleDropdown}
+											svgUrl="/more_vert.svg"
+										/>
+
+										<NavbarMenuDropdown
+											ref={dropdownMenuRef}
+											$show={showDropdownMenu}
+										>
+											<NavbarMenuList>
+												<NavbarMenuListActiveProfile>
+													{getUserEmail}
+												</NavbarMenuListActiveProfile>
+
+												<NavbarMenuListRest>
+													{link.dropdown.map(({ id, name, href }) => {
+														if (href === null) {
+															return (
+																<NavbarMenuListEmptyLink key={id}>
+																	<span>{name}</span>
+																</NavbarMenuListEmptyLink>
+															);
+														}
+
+														if (href !== "/logout") {
+															return (
+																<NavbarMenuListLink
+																	key={id}
+																	href={href}
+																>
+																	<span>{name}</span>
+																</NavbarMenuListLink>
+															);
+														}
+
+														if (href === "/logout") {
+															return (
+																<NavbarMenuListButton
+																	key={id}
+																	onClick={() => signOut()}
+																>
+																	<SVGimage src="/logout.svg" />
+																	<span>{name}</span>
+																</NavbarMenuListButton>
+															);
+														}
+													})}
+												</NavbarMenuListRest>
+
+												<NavbarMenuThemeToggle
+													onClick={toggleMode}
+													svgUrl={isMode}
+												/>
+											</NavbarMenuList>
+										</NavbarMenuDropdown>
+									</NavbarDropdownMenu>
+								);
+							}
+						})}
+				</NavbarMenu>
+			</Navbar>
+		);
+	}
+
+	return (
+		<Navbar>
+			<NavbarLogotype href="/">
+				<span>Planer Finansowy</span>
+			</NavbarLogotype>
+
+			<NavbarMenu>
+				{publicNavbar &&
+					publicNavbar.map((link: PublicNavbarLinkProps) => {
+						if (link.link?.link !== "/dropdown") {
+							return (
+								<NavbarMenuNotification
+									key={link.id}
+									href={link.link}
+								>
+									{link.name}
+								</NavbarMenuNotification>
+							);
 						} else {
 							return (
 								<NavbarDropdownMenu key={link.id}>
@@ -79,40 +200,25 @@ export default function NavbarComponent() {
 										action={toggleDropdown}
 										svgUrl="/more_vert.svg"
 									/>
-
 									<NavbarMenuDropdown
 										ref={dropdownMenuRef}
 										$show={showDropdownMenu}
 									>
 										<NavbarMenuList>
-											<NavbarMenuListActiveProfile>
-												{link.active}
-											</NavbarMenuListActiveProfile>
-
-											<NavbarMenuListProfiles>
-												{link.profiles?.map((profile) => (
-													<NavbarMenuListLink
-														key={profile.id}
-														href={profile.link}
-													>
-														<SVGimage src={profile.icon} />
-														<span>{profile.name}</span>
-													</NavbarMenuListLink>
-												))}
-											</NavbarMenuListProfiles>
-
 											<NavbarMenuListRest>
-												{link.others?.map((other) => (
-													<NavbarMenuListLink
-														key={other.id}
-														href={other.link}
-													>
-														<SVGimage src={other.icon} />
-														<span>{other.name}</span>
-													</NavbarMenuListLink>
-												))}
+												{link.dropdown?.map(
+													({ id, href, name }) =>
+														href && (
+															<NavbarMenuListLink
+																key={id}
+																href={href}
+															>
+																{/* <SVGimage src="/logout.svg" /> */}
+																<span>{name}</span>
+															</NavbarMenuListLink>
+														)
+												)}
 											</NavbarMenuListRest>
-
 											<NavbarMenuThemeToggle
 												onClick={toggleMode}
 												svgUrl={isMode}
@@ -126,4 +232,6 @@ export default function NavbarComponent() {
 			</NavbarMenu>
 		</Navbar>
 	);
-}
+};
+
+export default NavbarComponent;
