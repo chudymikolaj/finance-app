@@ -78,7 +78,7 @@ const NavbarComponent = ({ publicNavbar }: PublicNavbarProps) => {
 		};
 
 		securePage();
-	}, []);
+	}, [pathname]);
 
 	useOutsideClick({
 		isVisible: showDropdownMenu,
