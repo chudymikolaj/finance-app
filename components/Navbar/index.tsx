@@ -24,7 +24,7 @@ import {
 	NavbarMenuDropdown,
 	NavbarMenuList,
 	NavbarMenuListActiveProfile,
-	NavbarMenuListButton,
+	NavbarMenuListLogout,
 	NavbarMenuListEmptyLink,
 	NavbarMenuListLink,
 	NavbarMenuListRest,
@@ -55,9 +55,7 @@ const NavbarComponent = ({ publicNavbar }: PublicNavbarProps) => {
 
 	useEffect(() => {
 		handleRouteChange();
-	}, [pathname]);
 
-	useEffect(() => {
 		const securePage = async () => {
 			const session = await getSession();
 
@@ -147,13 +145,13 @@ const NavbarComponent = ({ publicNavbar }: PublicNavbarProps) => {
 
 														if (href === "/logout") {
 															return (
-																<NavbarMenuListButton
+																<NavbarMenuListLogout
 																	key={id}
 																	onClick={() => signOut()}
 																>
 																	<SVGimage src="/logout.svg" />
 																	<span>{name}</span>
-																</NavbarMenuListButton>
+																</NavbarMenuListLogout>
 															);
 														}
 													})}

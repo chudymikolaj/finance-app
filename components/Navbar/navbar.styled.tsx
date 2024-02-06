@@ -1,20 +1,21 @@
-import { devices } from "@/styles/breakpoints";
-import { BORDER_RADIUS, SIZES, WEIGHT } from "@/styles/constants";
-import {
-	FlexCenter,
-	FlexColumnStart,
-	FlexRow,
-	FlexRowAlignCenter,
-	FlexRowSpaceBetweenCenter,
-} from "@/styles/mixins.styled";
 import Link from "next/link";
 import styled, { css } from "styled-components";
 import ButtonRefSvg from "../Buttons/ButtonRefSvg";
 import ButtonSVG from "../Buttons/ButtonSvg";
 
+import { devices } from "@/styles/breakpoints";
+import { BORDER_RADIUS, SIZES, WEIGHT } from "@/styles/constants";
+
+import {
+	FlexCenter,
+	FlexColumnStart,
+	FlexRowAlignCenter,
+	FlexRowSpaceBetweenCenter,
+} from "@/styles/mixins.styled";
+
 export const Navbar = styled.div`
-	width: calc(100% - 30px);
-	margin: 30px 15px;
+	width: calc(100% - 20px);
+	margin: 30px 10px;
 
 	@media ${devices.md} {
 		width: calc(100% - 10vh);
@@ -46,7 +47,10 @@ export const NavbarMenuNotification = styled(Link)`
 
 export const NavbarDropdownMenu = styled.div`
 	${FlexCenter}
-	position: relative;
+
+	@media ${devices.lg} {
+		position: relative;
+	}
 `;
 
 export const NavbarDropdownMenuButton = styled(ButtonRefSvg)`
@@ -67,22 +71,30 @@ export const NavbarDropdownMenuButton = styled(ButtonRefSvg)`
 
 export const NavbarMenuDropdown = styled.div<{ $show?: boolean }>`
 	min-width: 200px;
-	width: calc(100vw - 30px);
+	width: 100%;
 	padding: 16px;
-	background-color: ${(props) => props.theme.backgroundElement};
-	border: 1px solid ${(props) => props.theme.borderColor};
+	margin: auto;
+	background-color: ${({ theme }) => theme.backgroundElement};
+	border: 1px solid ${({ theme }) => theme.borderColor};
 	border-radius: 18px;
 	display: ${(props) => (props.$show ? "block" : "none")};
 	position: absolute;
 	top: calc(100% + 10px);
 	right: 0;
+	left: 0;
 
 	@media ${devices.md} {
 		width: calc(100vw - 10vh);
 	}
 
+	@media ${devices.lg} {
+		width: auto;
+		left: unset;
+	}
+
 	@media ${devices["2xl"]} {
 		width: auto;
+		top: calc(100% + 10px);
 	}
 `;
 
@@ -91,7 +103,8 @@ const groupOfLinks = `
 	gap: 6px;
 
   width: 100%;
-  margin: 0;
+	max-width: 600px;
+  margin: 0 auto;
   padding: 0;
 `;
 
@@ -107,7 +120,7 @@ const NavbarLinksAndButtons = css`
 	padding: 10px 16px;
 	background-color: ${({ theme }) => theme.backgroundColor};
 	border-radius: ${BORDER_RADIUS};
-	color: ${(props) => props.theme.linkColor};
+	color: ${({ theme }) => theme.linkColor};
 
 	&:hover {
 		opacity: 0.5;
@@ -132,6 +145,11 @@ export const NavbarMenuListButton = styled.button`
 	${NavbarLinksAndButtons}
 `;
 
+export const NavbarMenuListLogout = styled.button`
+	${NavbarLinksAndButtons}
+	background-color: ${({ theme }) => theme.activeButtonColor};
+`;
+
 const groupOfLinksBorder = `
   ${groupOfLinks};
   padding: 0 0 10px;
@@ -141,17 +159,17 @@ export const NavbarMenuListActiveProfile = styled.span`
 	${groupOfLinksBorder};
 
 	width: 100%;
-	padding: 10px 16px;
-	border-bottom: 1px solid ${(props) => props.theme.backgroundColor};
+	padding: 16px 0;
+	display: block;
 	font-size: 12px;
 	text-align: center;
-	color: ${(props) => props.theme.linkColor};
+	color: ${({ theme }) => theme.linkColor};
 	cursor: default;
 `;
 
 export const NavbarMenuListProfiles = styled.ul`
 	${groupOfLinksBorder};
-	border-bottom: 1px solid ${(props) => props.theme.line};
+	border-bottom: 1px solid ${({ theme }) => theme.line};
 `;
 
 export const NavbarMenuListRest = styled.ul`
