@@ -1,9 +1,6 @@
 import { useRef } from "react";
 
-import {
-	type CashFlowListType,
-	type CashFlowItemType,
-} from "../CashFlow.types";
+import { type CashFlowListType, type CashFlowItemType } from "../CashFlow.types";
 
 import CashFlowItem from "../CashFlowItem";
 import CashFlowOnEmptyComponent from "../CashFlowOnEmpty";

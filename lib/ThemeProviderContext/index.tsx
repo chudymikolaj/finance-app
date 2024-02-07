@@ -1,22 +1,44 @@
 "use client";
 
-import { useReducer } from "react";
+import { getSession } from "next-auth/react";
+import { useEffect, useReducer } from "react";
 
 import { AppContext } from "./context";
 import { initialAppState } from "./state";
 import { appReducer } from "./reducers";
 
-import {
-	type AppStateValue,
-	type ContextProviderProps,
-} from "./ThemeProviderContext.types";
-
 import StyleThemeProvider from "@/styles/StyleThemeProvider";
+import { getCashFlowListProps } from "@/utils/fetch/getCashFlowListAxios";
+import { type AppStateValue, type ContextProviderProps } from "./ThemeProviderContext.types";
 
-export default function ThemeProviderContext({
-	children,
-}: ContextProviderProps) {
+export default function ThemeProviderContext({ children }: ContextProviderProps) {
 	const [app, dispatch] = useReducer(appReducer, initialAppState);
+
+	useEffect(() => {
+		const securePage = async () => {
+			const session = await getSession();
+
+			if (session) {
+				getCashFlowListProps(session, "monetary_incomes")
+					.then((res) => {
+						dispatch({ type: "UPDATE_REVENUES_LIST", value: res?.monetary_incomes });
+					})
+					.catch((err) => {
+						console.log(err);
+					});
+
+				getCashFlowListProps(session, "monetary_expenses")
+					.then((res) => {
+						dispatch({ type: "UPDATE_EXPENSES_LIST", value: res?.monetary_expenses });
+					})
+					.catch((err) => {
+						console.log(err);
+					});
+			}
+		};
+
+		securePage();
+	}, []);
 
 	const ctx: AppStateValue = {
 		darkMode: app.darkMode,
@@ -70,11 +92,7 @@ export default function ThemeProviderContext({
 				newAssetListTabItem,
 			});
 		},
-		modifyAssetListTabItem(
-			assetListTabItemCategoryId,
-			assetListTabItemId,
-			assetListTabItemModified
-		) {
+		modifyAssetListTabItem(assetListTabItemCategoryId, assetListTabItemId, assetListTabItemModified) {
 			dispatch({
 				type: "MODIFY_ASSET_TAB_ITEM",
 				assetListTabItemCategoryId,
@@ -82,10 +100,7 @@ export default function ThemeProviderContext({
 				assetListTabItemModified,
 			});
 		},
-		assetListTabItemRemove(
-			assetListTabItemCategory,
-			assetListTabItemCategoryId
-		) {
+		assetListTabItemRemove(assetListTabItemCategory, assetListTabItemCategoryId) {
 			dispatch({
 				type: "ASSET_TAB_ITEM_REMOVE",
 				assetListTabItemCategory,
