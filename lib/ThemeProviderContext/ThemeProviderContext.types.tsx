@@ -49,6 +49,13 @@ export type TabsOfExpensesAxios = {
 	monetary_expenses: TabsOfExpenses[];
 };
 
+export interface MonetaryIncomesProps {
+	monetary_incomes: TabsOfExpenses[];
+}
+export interface MonetaryExpensesProps {
+	monetary_expenses: TabsOfExpenses[];
+}
+
 export type ExpensesAndRevenues = {
 	expenses: TabsOfExpenses[];
 	revenues: TabsOfRevenues[];
