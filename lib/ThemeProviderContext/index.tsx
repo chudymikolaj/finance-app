@@ -1,54 +1,17 @@
 "use client";
 
-import { getSession } from "next-auth/react";
-import { useEffect, useReducer } from "react";
+import { useReducer } from "react";
 
 import { AppContext } from "./context";
 import { appReducer } from "./reducers";
 import { initialAppState } from "./state";
 
 import StyleThemeProvider from "@/styles/StyleThemeProvider";
-import { getCashFlowListProps } from "@/utils/fetch/getCashFlowListAxios";
 
-import { usePathname } from "next/navigation";
-import {
-	type AppStateValue,
-	type ContextProviderProps,
-	type MonetaryExpensesProps,
-	type MonetaryIncomesProps,
-} from "./ThemeProviderContext.types";
+import { type AppStateValue, type ContextProviderProps } from "./ThemeProviderContext.types";
 
 export default function ThemeProviderContext({ children }: ContextProviderProps) {
-	const pathname = usePathname();
 	const [app, dispatch] = useReducer(appReducer, initialAppState);
-
-	useEffect(() => {
-		const securePage = async () => {
-			const session = await getSession();
-
-			if (session) {
-				getCashFlowListProps(session, "monetary_incomes")
-					.then((res: unknown) => {
-						const cashFlowListProps = res as MonetaryIncomesProps;
-						dispatch({ type: "UPDATE_REVENUES_LIST", value: cashFlowListProps?.monetary_incomes });
-					})
-					.catch((err) => {
-						console.log(err);
-					});
-
-				getCashFlowListProps(session, "monetary_expenses")
-					.then((res: unknown) => {
-						const monetaryExpensesResult = res as MonetaryExpensesProps;
-						dispatch({ type: "UPDATE_EXPENSES_LIST", value: monetaryExpensesResult?.monetary_expenses });
-					})
-					.catch((err) => {
-						console.log(err);
-					});
-			}
-		};
-
-		securePage();
-	}, [pathname]);
 
 	const ctx: AppStateValue = {
 		darkMode: app.darkMode,
