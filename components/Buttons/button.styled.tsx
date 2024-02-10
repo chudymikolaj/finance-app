@@ -16,6 +16,26 @@ export const Button = styled.button`
 `;
 
 export const ButtonSvg = styled(Button)`
+	${FlexCenter}
+
+	div {
+		width: auto;
+		height: auto;
+	}
+
+	svg {
+		height: 11px;
+		width: 10px;
+		transition: opacity ${CUBICS.easyOut} 250ms, transform ${CUBICS.easyOut} 250ms;
+	}
+
+	&:active svg {
+		transform: scale(0.75);
+		opacity: 0.25;
+	}
+`;
+
+export const ButtonSvgAndName = styled(Button)`
 	${FlexRowSpaceBetweenCenter}
 
 	div {
@@ -24,10 +44,9 @@ export const ButtonSvg = styled(Button)`
 	}
 
 	svg {
-		height: 10px;
+		height: 11px;
 		width: 10px;
-		transition: opacity ${CUBICS.easyOut} 250ms,
-			transform ${CUBICS.easyOut} 250ms;
+		transition: opacity ${CUBICS.easyOut} 250ms, transform ${CUBICS.easyOut} 250ms;
 	}
 
 	&:active svg {
@@ -56,6 +75,6 @@ export const ButtonSubmit = styled.button`
 
 export const ButtonName = styled.span`
 	font-size: ${SIZES.buttonFontSize};
-	font-weight: ${WEIGHT.medium};
+	font-weight: ${WEIGHT.normal};
 	color: ${({ theme }) => theme.buttonColorFont};
 `;

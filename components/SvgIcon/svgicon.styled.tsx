@@ -1,29 +1,12 @@
 "use client";
 
-import { ReactSVG } from "react-svg";
 import styled from "styled-components";
 
-interface SVGProps {
-	$small?: boolean;
-	$medium?: boolean;
-}
-
-const SVG = styled(ReactSVG)<SVGProps>`
-	height: 100%;
-	width: 100%;
-
-	& div,
-	svg {
-		height: 100%;
-		width: 100%;
-	}
-
+const SVG = styled.div`
 	& svg path {
 		color: ${(props) => props.theme.iconColor};
 		fill: ${(props) => props.theme.iconColor};
 	}
-
-	cursor: pointer;
 `;
 
 export default SVG;

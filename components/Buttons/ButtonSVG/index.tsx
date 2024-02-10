@@ -1,50 +1,40 @@
 import SVGimage from "@/components/SvgIcon";
-import { ButtonSvg, ButtonName } from "../button.styled";
+import { ButtonSvg, ButtonSvgAndName, ButtonName } from "../button.styled";
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-	className?: string;
 	name?: string;
 	svgUrl?: string;
 	action?: () => void;
 	$big?: boolean;
 };
 
-export default function ButtonSVG({
-	className,
-	action,
-	name,
-	svgUrl,
-	...props
-}: ButtonProps) {
+export default function ButtonSVG({ className, action, name, svgUrl, ...props }: ButtonProps) {
 	if (svgUrl === "back.svg" && name) {
 		return (
-			<ButtonSvg
-				className={className}
+			<ButtonSvgAndName
 				onClick={action}
 				{...props}
 			>
 				<SVGimage src={svgUrl} />
 				<ButtonName>{name}</ButtonName>
-			</ButtonSvg>
+			</ButtonSvgAndName>
 		);
 	}
 
 	if (svgUrl && name) {
 		return (
-			<ButtonSvg
-				className={className}
+			<ButtonSvgAndName
 				onClick={action}
 				{...props}
 			>
 				<ButtonName>{name}</ButtonName>
 				<SVGimage src={svgUrl} />
-			</ButtonSvg>
+			</ButtonSvgAndName>
 		);
 	}
 
 	return (
 		<ButtonSvg
-			className={className}
 			onClick={action}
 			{...props}
 		>

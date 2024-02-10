@@ -6,12 +6,7 @@ import ButtonSVG from "../Buttons/ButtonSvg";
 import { devices } from "@/styles/breakpoints";
 import { BORDER_RADIUS, SIZES, WEIGHT } from "@/styles/constants";
 
-import {
-	FlexCenter,
-	FlexColumnStart,
-	FlexRowAlignCenter,
-	FlexRowSpaceBetweenCenter,
-} from "@/styles/mixins.styled";
+import { FlexCenter, FlexColumnStart, FlexRowAlignCenter, FlexRowSpaceBetweenCenter } from "@/styles/mixins.styled";
 
 export const Navbar = styled.div`
 	width: calc(100% - 20px);
@@ -59,14 +54,7 @@ export const NavbarDropdownMenuButton = styled(ButtonRefSvg)`
 	width: 30px;
 	height: 30px;
 	padding: 5px;
-	background-color: unset;
-	cursor: pointer;
-
-	div,
-	svg {
-		width: 15px;
-		height: 15px;
-	}
+	background-color: ${({ theme }) => theme.backgroundElement};
 `;
 
 export const NavbarMenuDropdown = styled.div<{ $show?: boolean }>`
@@ -147,7 +135,6 @@ export const NavbarMenuListButton = styled.button`
 
 export const NavbarMenuListLogout = styled.button`
 	${NavbarLinksAndButtons}
-	background-color: ${({ theme }) => theme.activeButtonColor};
 `;
 
 const groupOfLinksBorder = `

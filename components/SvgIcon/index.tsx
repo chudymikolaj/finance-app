@@ -1,9 +1,17 @@
+import React from "react";
 import SVG from "./svgicon.styled";
+import { ReactSVG } from "react-svg";
 
-const SVGimage = ({ src, ...rest }: { src: any | undefined, [x: string]: any; }) => {
-  return (
-    <SVG src={src as any} {...rest} />
-  )
+interface SVGImageProps {
+	src: any;
 }
 
-export default SVGimage;
+const SVGImage: React.FC<SVGImageProps> = ({ src }) => {
+	return (
+		<SVG>
+			<ReactSVG src={src} />
+		</SVG>
+	);
+};
+
+export default SVGImage;
