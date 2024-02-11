@@ -2,17 +2,11 @@ import { type UseFormRegister } from "react-hook-form";
 
 import { type IFormValues } from "../Form.types";
 
-import {
-	InputWrapper,
-	InputPasswordElement,
-	InputLabel,
-	InputPassword,
-	IconPassword,
-	IconWrapper,
-} from "./input.styled";
+import { InputWrapper, InputPasswordElement, InputLabel, InputPassword, IconWrapper } from "./input.styled";
 
 import { ErrorMessageForm } from "../Form.styled";
 import { useState } from "react";
+import SvgIcon from "@/components/SvgIcon";
 
 type InputProps = {
 	label: string;
@@ -64,16 +58,14 @@ const InputPasswordComponent = ({
 				/>
 
 				<IconWrapper>
-					<IconPassword
-						src="/eye.svg"
+					<SvgIcon
 						onClick={handleChange}
+						src="/eye.svg"
 					/>
 				</IconWrapper>
 			</InputPassword>
 
-			{errorType === error && (
-				<ErrorMessageForm>{errorsMessages}</ErrorMessageForm>
-			)}
+			{errorType === error && <ErrorMessageForm>{errorsMessages}</ErrorMessageForm>}
 		</InputWrapper>
 	);
 };

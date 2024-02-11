@@ -4,11 +4,12 @@ import { ReactSVG } from "react-svg";
 
 interface SVGImageProps {
 	src: any;
+	onClick: () => void;
 }
 
-const SVGImage: React.FC<SVGImageProps> = ({ src }) => {
+const SVGImage = ({ src, onClick }: SVGImageProps) => {
 	return (
-		<SVG>
+		<SVG onClick={onClick}>
 			<ReactSVG src={src} />
 		</SVG>
 	);

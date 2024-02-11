@@ -35,9 +35,7 @@ export const InputElement = styled.input<{ $bgColor?: "light" | "dark" }>`
 	${InputStyle}
 	margin: 10px auto 0;
 	background-color: ${({ $bgColor, theme }) =>
-		$bgColor === "light"
-			? theme.formLabelLightBackground
-			: theme.formLabelBackground};
+		$bgColor === "light" ? theme.formLabelLightBackground : theme.formLabelBackground};
 `;
 
 export const InputPasswordElement = styled.input<{
@@ -46,9 +44,7 @@ export const InputPasswordElement = styled.input<{
 	${InputStyle}
 	margin: 0;
 	background-color: ${({ $bgColor, theme }) =>
-		$bgColor === "light"
-			? theme.formLabelLightBackground
-			: theme.formLabelBackground};
+		$bgColor === "light" ? theme.formLabelLightBackground : theme.formLabelBackground};
 `;
 
 export const InputElementWithSymbol = styled(InputElement)`
@@ -75,16 +71,16 @@ export const IconWrapper = styled.div`
 	top: 50%;
 	right: 16px;
 	transform: translateY(-50%);
-`;
-
-export const IconPassword = styled(SvgIcon)`
-	height: 18px;
 
 	svg,
 	svg path {
-		fill: none;
-		color: unset;
+		width: 16px;
+		height: 16px;
+		fill: none !important;
+		color: unset !important;
 	}
+
+	cursor: pointer;
 `;
 
 export const PercentageSymbol = styled.div<{ $bgColor?: boolean }>`
@@ -93,9 +89,7 @@ export const PercentageSymbol = styled.div<{ $bgColor?: boolean }>`
 	width: 40px;
 	height: 100%;
 	background-color: ${({ $bgColor, theme }) =>
-		$bgColor !== false
-			? theme.formLabelLightBackground
-			: theme.formLabelBackground};
+		$bgColor !== false ? theme.formLabelLightBackground : theme.formLabelBackground};
 	border-top-right-radius: ${BORDER_RADIUS};
 	border-bottom-right-radius: ${BORDER_RADIUS};
 	position: absolute;

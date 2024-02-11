@@ -2,11 +2,9 @@
 
 import { SubmitHandler, useForm } from "react-hook-form";
 
-import { useState } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
 
-import { Input } from "./Input";
+import { Input, InputPassword } from "./Input";
 
 import { type FormLoginPropsType, type IFormValues } from "./Form.types";
 
@@ -73,11 +71,11 @@ const FormLogin = ({ title, subTitle, data }: FormLoginPropsType) => {
 					bgColor="light"
 					required
 				/>
-				<Input
+
+				<InputPassword
 					label={getInputPassword}
 					labelRegister="password"
 					placeholder={getInputPassword}
-					type="password"
 					register={register}
 					bgColor="light"
 					required
