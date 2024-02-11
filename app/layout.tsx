@@ -4,7 +4,6 @@ import { Inter } from "next/font/google";
 import { NextAuthProvider } from "@/lib/NextAuthProvider";
 import StyledComponentsRegistry from "@/lib/RegistryStyledComponents";
 import ThemeProviderContext from "@/lib/ThemeProviderContext";
-import fetchPublicNavbar from "@/utils/fetch/publicNavbarAxios";
 
 import Navbar from "@/components/Navbar";
 
@@ -23,15 +22,13 @@ type Props = {
 };
 
 export default async function RootLayout({ children }: Props) {
-	const navbarLinks = await fetchPublicNavbar();
-
 	return (
 		<html lang="en">
 			<body className={inter.className}>
 				<StyledComponentsRegistry>
 					<ThemeProviderContext>
 						<NextAuthProvider>
-							<Navbar publicNavbar={navbarLinks} />
+							<Navbar />
 							{children}
 							<GlobalStyle />
 						</NextAuthProvider>

@@ -21,11 +21,13 @@ import {
 	FormElementSingInAccountLink,
 	ErrorMessage,
 } from "./Form.styled";
+import { useSearchParams } from "next/navigation";
 
 const FormLogin = ({ title, subTitle, data }: FormLoginPropsType) => {
-	const router = useRouter();
-	const [errorLogin, setErrorLogin] = useState(false);
 	const { register, handleSubmit } = useForm<IFormValues>();
+
+	const searchParams = useSearchParams();
+	const getparamsError = searchParams.get("error");
 
 	const getTitleHeader = title && title;
 	const getSubTitle = subTitle && subTitle;
@@ -34,27 +36,21 @@ const FormLogin = ({ title, subTitle, data }: FormLoginPropsType) => {
 	const getForgetpasswordLink = data && data.forgetpasswordLink;
 	const getLoginButtonName = data && data.loginButtonName;
 	const getCreateNewAccountNameLink = data && data.createNewAccountNameLink;
-	const getCreateNewAccountTextBeforeLink =
-		data && data.createNewAccountTextBeforeLink;
+	const getCreateNewAccountTextBeforeLink = data && data.createNewAccountTextBeforeLink;
 	const getAddLinkToRegister = data && data.addLinkToRegister;
 	const addLinkToForgotPassword = data && data.addLinkToForgotPassword;
 	const getErrorMessage = data && data.errorMessage;
 
 	const onSubmit: SubmitHandler<IFormValues> = async (data) => {
-		setErrorLogin(false);
-
-		const res = await signIn("credentials", {
-			redirect: false,
-			email: data.email,
-			password: data.password,
-		});
-
-		if (res!.ok) {
-			router.replace("/dashboard");
-		}
-
-		if (res!.status === 401) {
-			setErrorLogin(true);
+		try {
+			await signIn("credentials", {
+				email: data.email,
+				password: data.password,
+				redirect: true,
+				callbackUrl: "/dashboard",
+			});
+		} catch (error) {
+			console.error(error);
 		}
 	};
 
@@ -65,7 +61,7 @@ const FormLogin = ({ title, subTitle, data }: FormLoginPropsType) => {
 				<FormElementSubTitle>{getSubTitle}</FormElementSubTitle>
 			</FormElementHeader>
 
-			{errorLogin && <ErrorMessage>{getErrorMessage}</ErrorMessage>}
+			{getparamsError && <ErrorMessage>{getErrorMessage}</ErrorMessage>}
 
 			<FormElement onSubmit={handleSubmit(onSubmit)}>
 				<Input
@@ -93,9 +89,7 @@ const FormLogin = ({ title, subTitle, data }: FormLoginPropsType) => {
 					</FormElementSingInAccountLink>
 				</FormElementForgetPassword>
 
-				<FormElementSubmit type="submit">
-					{getLoginButtonName}
-				</FormElementSubmit>
+				<FormElementSubmit type="submit">{getLoginButtonName}</FormElementSubmit>
 
 				<FormElementSingInAccount>
 					<p>
