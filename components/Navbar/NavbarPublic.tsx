@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { useAppContext } from "@/lib/ThemeProviderContext/actions";
 import useOutsideClick from "@/utils/useOutsideClick";
@@ -20,8 +20,10 @@ import {
 	NavbarMenuNotification,
 	NavbarMenuThemeToggle,
 } from "./navbar.styled";
+import { usePathname } from "next/navigation";
 
 const NavbarPublic = ({ publicNavbar }: PublicNavbarProps) => {
+	const pathname = usePathname();
 	const { darkMode, toggleMode } = useAppContext();
 
 	const [showDropdownMenu, setShowDropdownMenu] = useState<boolean>(false);
@@ -33,6 +35,10 @@ const NavbarPublic = ({ publicNavbar }: PublicNavbarProps) => {
 	const toggleDropdown = () => {
 		setShowDropdownMenu((prevState) => !prevState);
 	};
+
+	useEffect(() => {
+		setShowDropdownMenu(false);
+	}, [pathname]);
 
 	useOutsideClick({
 		isVisible: showDropdownMenu,
