@@ -1,5 +1,8 @@
+import createCashFlowItemAxios from "@/utils/fetch/createCashFlowItemAxios";
+
 import {
-	type TabsOfExpensesAndRevenues,
+	type TabsOfExpenses,
+	type TabsOfRevenues,
 	type AppState,
 	type BudgetAllocation,
 	type AssetTabList,
@@ -18,6 +21,8 @@ type AddExpense = {
 	tags?: { type: string; name: string }[];
 	isPaid: boolean;
 	date: string;
+	userID: string;
+	userJWT: string;
 };
 
 type AddRevenue = {
@@ -27,6 +32,8 @@ type AddRevenue = {
 	value: number;
 	tags?: { type: string; name: string }[];
 	date: string;
+	userID: string;
+	userJWT: string;
 };
 
 type CheckExpense = {
@@ -50,12 +57,12 @@ type ChangeSalary = {
 
 type UpdateExpensesList = {
 	type: "UPDATE_EXPENSES_LIST";
-	value: TabsOfExpensesAndRevenues[];
+	value: TabsOfExpenses[];
 };
 
 type UpdateRevenueList = {
 	type: "UPDATE_REVENUES_LIST";
-	value: TabsOfExpensesAndRevenues[];
+	value: TabsOfRevenues[];
 };
 
 type UpdateExpenses = {
@@ -147,32 +154,38 @@ export function appReducer(state: AppState, action: Action): AppState {
 
 	if (action.type === "ADD_EXPENSE") {
 		const newExpense = {
-			id: action.id,
 			name: action.name,
 			value: action.value,
-			tags: action.tags,
 			isPaid: action.isPaid,
 			date: action.date,
+			users_permissions_user: {
+				connect: [action.userID],
+			},
 		};
+
+		createCashFlowItemAxios(newExpense, action.userJWT, "/api/monetary-expenses");
 
 		return {
 			...state,
-			expenses: [...state.expenses, newExpense],
+			expenses: [{ id: action.id, tags: action.tags, ...newExpense }, ...state.expenses],
 		};
 	}
 
 	if (action.type === "ADD_REVENUE") {
 		const newRevenue = {
-			id: action.id,
 			name: action.name,
 			value: action.value,
-			tags: action.tags,
 			date: action.date,
+			users_permissions_user: {
+				connect: [action.userID],
+			},
 		};
+
+		createCashFlowItemAxios(newRevenue, action.userJWT, "/api/monetary-incomes");
 
 		return {
 			...state,
-			revenues: [...state.revenues, newRevenue],
+			revenues: [{ id: action.id, ...newRevenue }, ...state.revenues],
 		};
 	}
 
@@ -180,9 +193,7 @@ export function appReducer(state: AppState, action: Action): AppState {
 		return {
 			...state,
 			expenses: state.expenses.map((item) =>
-				String(item.id) === String(action.id)
-					? { ...item, isPaid: !item.isPaid }
-					: item
+				String(item.id) === String(action.id) ? { ...item, isPaid: !item.isPaid } : item
 			),
 		};
 	}
@@ -190,18 +201,14 @@ export function appReducer(state: AppState, action: Action): AppState {
 	if (action.type === "REMOVE_EXPENSE") {
 		return {
 			...state,
-			expenses: state.expenses.filter(
-				(item) => String(item.id) !== String(action.id)
-			),
+			expenses: state.expenses.filter((item) => String(item.id) !== String(action.id)),
 		};
 	}
 
 	if (action.type === "REMOVE_REVENUE") {
 		return {
 			...state,
-			revenues: state.revenues.filter(
-				(item) => String(item.id) !== String(action.id)
-			),
+			revenues: state.revenues.filter((item) => String(item.id) !== String(action.id)),
 		};
 	}
 
@@ -280,18 +287,16 @@ export function appReducer(state: AppState, action: Action): AppState {
 	if (action.type === "CHANGE_BUDGET_ALLOCATIONS") {
 		const convertObjectToArray = Object.entries(action.data);
 
-		const changeBudgetAllocation = state.budgetAllocations.map(
-			(budgetAllocation, index) => {
-				if (convertObjectToArray[index][0] === budgetAllocation.id) {
-					return {
-						...budgetAllocation,
-						share: Number(convertObjectToArray[index][1]) / 100,
-					};
-				}
-
-				return budgetAllocation;
+		const changeBudgetAllocation = state.budgetAllocations.map((budgetAllocation, index) => {
+			if (convertObjectToArray[index][0] === budgetAllocation.id) {
+				return {
+					...budgetAllocation,
+					share: Number(convertObjectToArray[index][1]) / 100,
+				};
 			}
-		);
+
+			return budgetAllocation;
+		});
 
 		return {
 			...state,
@@ -310,10 +315,7 @@ export function appReducer(state: AppState, action: Action): AppState {
 		const updatedAssetTabLists = state.assetTabLists.map((item) => {
 			if (item.categoryId === action.assetListTabItemCategoryId) {
 				const updatedLists = [...item.lists, action.newAssetListTabItem];
-				const totalValue = updatedLists.reduce(
-					(total, currentItem) => total + currentItem.value,
-					0
-				);
+				const totalValue = updatedLists.reduce((total, currentItem) => total + currentItem.value, 0);
 
 				return { ...item, lists: updatedLists, value: totalValue };
 			}
@@ -346,10 +348,7 @@ export function appReducer(state: AppState, action: Action): AppState {
 					return tabItem;
 				});
 
-				const totalValue = updatedLists.reduce(
-					(total, currentItem) => total + currentItem.value,
-					0
-				);
+				const totalValue = updatedLists.reduce((total, currentItem) => total + currentItem.value, 0);
 
 				return { ...item, lists: updatedLists, value: totalValue };
 			}
@@ -366,14 +365,9 @@ export function appReducer(state: AppState, action: Action): AppState {
 	if (action.type === "ASSET_TAB_ITEM_REMOVE") {
 		const updatedAssetTabLists = state.assetTabLists.map((item) => {
 			if (item.categoryId === action.assetListTabItemCategory) {
-				const updatedLists = item.lists.filter(
-					(item) => item.id !== action.assetListTabItemCategoryId
-				);
+				const updatedLists = item.lists.filter((item) => item.id !== action.assetListTabItemCategoryId);
 
-				const totalValue = updatedLists.reduce(
-					(total, currentItem) => total + currentItem.value,
-					0
-				);
+				const totalValue = updatedLists.reduce((total, currentItem) => total + currentItem.value, 0);
 
 				return { ...item, lists: updatedLists, value: totalValue };
 			}

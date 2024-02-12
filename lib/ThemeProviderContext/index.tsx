@@ -28,11 +28,11 @@ export default function ThemeProviderContext({ children }: ContextProviderProps)
 		revenues: app.revenues,
 		budgetAllocations: app.budgetAllocations,
 		assetTabLists: app.assetTabLists,
-		addExpense(id, name, value, tags, isPaid, date) {
-			dispatch({ type: "ADD_EXPENSE", id, name, value, tags, isPaid, date });
+		addExpense(id, name, value, tags, isPaid, date, userID, userJWT) {
+			dispatch({ type: "ADD_EXPENSE", id, name, value, tags, isPaid, date, userID, userJWT });
 		},
-		addRevenue(id, name, value, tags, date) {
-			dispatch({ type: "ADD_REVENUE", id, name, value, tags, date });
+		addRevenue(id, name, value, tags, date, userID, userJWT) {
+			dispatch({ type: "ADD_REVENUE", id, name, value, tags, date, userID, userJWT });
 		},
 		updateExpensesList(value) {
 			dispatch({ type: "UPDATE_EXPENSES_LIST", value });

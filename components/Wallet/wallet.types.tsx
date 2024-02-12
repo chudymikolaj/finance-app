@@ -5,6 +5,8 @@ export type ActionType = (
 	name: string,
 	value: number,
 	tags: { type: string; name: string }[],
+	userID: string,
+	userJWT: string,
 	isPaid?: boolean
 ) => void;
 

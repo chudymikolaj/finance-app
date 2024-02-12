@@ -121,9 +121,19 @@ export type AppStateValue = Mode &
 			value: number,
 			tags: { type: string; name: string }[],
 			isPaid: boolean,
-			date: string
+			date: string,
+			userID: string,
+			userJWT: string
 		) => void;
-		addRevenue: (id: string, name: string, value: number, tags: { type: string; name: string }[], date: string) => void;
+		addRevenue: (
+			id: string,
+			name: string,
+			value: number,
+			tags: { type: string; name: string }[],
+			date: string,
+			userID: string,
+			userJWT: string
+		) => void;
 		updateExpensesList: (value: TabsOfRevenues[]) => void;
 		updateRevenuesList: (value: TabsOfExpenses[]) => void;
 		updateExpenses: (value: number) => void;

@@ -1,6 +1,7 @@
 "use client";
 
-import { useRef, useState, type FormEvent } from "react";
+import { useSession } from "next-auth/react";
+import { useState, type FormEvent } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 import { useAppContext } from "@/lib/ThemeProviderContext/actions";
@@ -18,12 +19,13 @@ import {
 import {
 	WalletContainer,
 	WalletSummary,
+	WalletSummaryButton,
 	WalletSummaryHeader,
 	WalletSummaryTitle,
-	WalletSummaryButton,
 } from "./wallet.styled";
 
 const WalletComponent = () => {
+	const { data: session }: any = useSession();
 	const { constants, wallet, addExpense, addRevenue } = useAppContext();
 
 	const maxValue = constants?.maxValue;
@@ -31,8 +33,7 @@ const WalletComponent = () => {
 	const sumBills = wallet?.sumBills;
 	const restRevenues = wallet?.restRevenues;
 
-	const [showWalletEditor, setShowWalletEditor] =
-		useState<ShowWalletEditorType>(false);
+	const [showWalletEditor, setShowWalletEditor] = useState<ShowWalletEditorType>(false);
 	const [formAction, setFormAction] = useState<FormActionType>({
 		type: "expense",
 		value: "",
@@ -86,22 +87,21 @@ const WalletComponent = () => {
 		event.preventDefault();
 		const currentDate = new Date().toJSON().slice(0, 10);
 
-		let typeAction: ActionType = (id, name, value, tags) =>
-			addExpense(id, name, value, tags, false, currentDate);
+		let typeAction: ActionType = (id, name, value, tags, userID, userJWT) =>
+			addExpense(id, name, value, tags, false, currentDate, userID, userJWT);
 
 		if (formAction.type === "revenue") {
-			typeAction = (id, name, value, tags) =>
-				addRevenue(id, name, value, tags, currentDate);
+			typeAction = (id, name, value, tags, userID, userJWT) =>
+				addRevenue(id, name, value, tags, currentDate, userID, userJWT);
 		}
 
 		const changedSalary = Number(formAction.value);
 
-		if (
-			formAction.value !== "" &&
-			formAction.text !== "" &&
-			changedSalary <= maxValue
-		) {
-			typeAction(uuidv4(), formAction.text, Number(formAction.value), []);
+		if (formAction.value !== "" && formAction.text !== "" && changedSalary <= maxValue) {
+			const getUserID = session?.id;
+			const getUserJWT = session?.jwt;
+
+			typeAction(uuidv4(), formAction.text, Number(formAction.value), [], getUserID, getUserJWT);
 			resetForm();
 			setShowWalletEditor(false);
 		}
