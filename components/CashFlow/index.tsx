@@ -34,9 +34,16 @@ const CashFlowComponent = () => {
 
 	const [paidExpenses, setPaidExpenses] = useState(0);
 
+	const sortByDate = (objA: TabsOfExpenses, objB: TabsOfExpenses) =>
+		new Date(objB.date).getTime() - new Date(objA.date).getTime();
+
 	useEffect(() => {
-		const filtredExpenses = expenses.filter(({ date }) => filterDate(String(date), fromDate, toDate));
-		const filtredRevenues = revenues.filter(({ date }) => filterDate(String(date), fromDate, toDate));
+		const filtredExpenses = expenses
+			.filter(({ date }) => filterDate(String(date), fromDate, toDate))
+			.sort((objA, objB) => sortByDate(objA, objB));
+		const filtredRevenues = revenues
+			.filter(({ date }) => filterDate(String(date), fromDate, toDate))
+			.sort((objA, objB) => sortByDate(objA, objB));
 
 		const countRevenues = revenues
 			.filter(({ date }) => filterDate(date, fromDate, toDate))
