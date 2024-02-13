@@ -1,3 +1,6 @@
+import { useSession } from "next-auth/react";
+import { forwardRef } from "react";
+
 import { type CashFlowItemType } from "../CashFlow.types";
 
 import { useAppContext } from "@/lib/ThemeProviderContext/actions";
@@ -5,19 +8,21 @@ import CashFlowItemTags from "../CashFlowTags";
 
 import {
 	CashFlowItem,
+	CashFlowItemButton,
 	CashFlowItemChecker,
 	CashFlowItemName,
 	CashFlowItemValue,
 	CashFlowItemWrapper,
 	CashFlowItemWrapperExpenseOptions,
 	CashFlowItemWrapperRevenueOptions,
-	CashFlowItemButton,
 } from "./CashFlowItem.styled";
-import { forwardRef } from "react";
 
 const CashFlowItemComponent = forwardRef<HTMLLIElement, CashFlowItemType>(
 	({ id, name, value, tags, isPaid, type }, ref) => {
 		const { checkExpenses, removeExpenses, removeRevenue } = useAppContext();
+		const { data: sessions } = useSession();
+
+		const GET_JWT = (sessions as any)?.jwt;
 		const isType = type === "expense";
 
 		return (
@@ -25,9 +30,7 @@ const CashFlowItemComponent = forwardRef<HTMLLIElement, CashFlowItemType>(
 				<CashFlowItemWrapper>
 					<CashFlowItemName $type={type}>{name}</CashFlowItemName>
 
-					<CashFlowItemValue $type={type}>
-						{isType ? `-${value} PLN` : `${value} PLN`}
-					</CashFlowItemValue>
+					<CashFlowItemValue $type={type}>{isType ? `-${value} PLN` : `${value} PLN`}</CashFlowItemValue>
 
 					{isType ? (
 						<CashFlowItemWrapperExpenseOptions>
@@ -37,14 +40,14 @@ const CashFlowItemComponent = forwardRef<HTMLLIElement, CashFlowItemType>(
 								action={() => checkExpenses(id)}
 							/>
 							<CashFlowItemButton
-								action={() => removeExpenses(id)}
+								action={() => removeExpenses(id, GET_JWT)}
 								svgUrl="/remove.svg"
 							/>
 						</CashFlowItemWrapperExpenseOptions>
 					) : (
 						<CashFlowItemWrapperRevenueOptions>
 							<CashFlowItemButton
-								action={() => removeRevenue(id)}
+								action={() => removeRevenue(id, GET_JWT)}
 								svgUrl="/remove.svg"
 							/>
 						</CashFlowItemWrapperRevenueOptions>

@@ -8,6 +8,7 @@ import {
 	type AssetTabList,
 	type TabListItem,
 } from "./ThemeProviderContext.types";
+import removeCashFlowItem from "@/utils/fetch/removeCashFlowItemAxios";
 
 type ToggleMode = {
 	type: "TOGGLE_MODE";
@@ -44,10 +45,12 @@ type CheckExpense = {
 type RemoveExpense = {
 	type: "REMOVE_EXPENSE";
 	id: string;
+	userJWT: string;
 };
 type RemoveRevenue = {
 	type: "REMOVE_REVENUE";
 	id: string;
+	userJWT: string;
 };
 
 type ChangeSalary = {
@@ -199,16 +202,28 @@ export function appReducer(state: AppState, action: Action): AppState {
 	}
 
 	if (action.type === "REMOVE_EXPENSE") {
+		const getItemId = action.id;
+		const getUserJWT = action.userJWT;
+
+		removeCashFlowItem(getItemId, getUserJWT, "/api/monetary-expenses");
+
 		return {
 			...state,
-			expenses: state.expenses.filter((item) => String(item.id) !== String(action.id)),
+			expenses: state.expenses.filter((item) => String(item.id) !== String(getItemId)),
 		};
 	}
 
 	if (action.type === "REMOVE_REVENUE") {
+		const getItemId = action.id;
+		const getUserJWT = action.userJWT;
+
+		const findItem = state.revenues.filter((item) => String(item.id) !== String(getItemId));
+
+		removeCashFlowItem(getItemId, getUserJWT, "/api/monetary-incomes");
+
 		return {
 			...state,
-			revenues: state.revenues.filter((item) => String(item.id) !== String(action.id)),
+			revenues: findItem,
 		};
 	}
 

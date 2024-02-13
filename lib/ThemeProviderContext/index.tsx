@@ -86,11 +86,11 @@ export default function ThemeProviderContext({ children }: ContextProviderProps)
 		checkExpenses(id) {
 			dispatch({ type: "CHECK_EXPENSE", id });
 		},
-		removeExpenses(id) {
-			dispatch({ type: "REMOVE_EXPENSE", id });
+		removeExpenses(id, userJWT) {
+			dispatch({ type: "REMOVE_EXPENSE", id, userJWT });
 		},
-		removeRevenue(id) {
-			dispatch({ type: "REMOVE_REVENUE", id });
+		removeRevenue(id, userJWT) {
+			dispatch({ type: "REMOVE_REVENUE", id, userJWT });
 		},
 		changeSalary(value) {
 			dispatch({ type: "CHANGE_SALARY", value });
