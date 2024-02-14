@@ -83,8 +83,8 @@ export default function ThemeProviderContext({ children }: ContextProviderProps)
 		filterCashFlowList(value) {
 			dispatch({ type: "FILTER_CASHFLOW_LIST", value });
 		},
-		checkExpenses(id) {
-			dispatch({ type: "CHECK_EXPENSE", id });
+		checkExpenses(id, userJWT) {
+			dispatch({ type: "CHECK_EXPENSE", id, userJWT });
 		},
 		removeExpenses(id, userJWT) {
 			dispatch({ type: "REMOVE_EXPENSE", id, userJWT });

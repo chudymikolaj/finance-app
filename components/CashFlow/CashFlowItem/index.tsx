@@ -37,7 +37,7 @@ const CashFlowItemComponent = forwardRef<HTMLLIElement, CashFlowItemType>(
 							<CashFlowItemChecker
 								$isPaid={isPaid}
 								status={isPaid}
-								action={() => checkExpenses(id)}
+								action={() => checkExpenses(id, GET_JWT)}
 							/>
 							<CashFlowItemButton
 								action={() => removeExpenses(id, GET_JWT)}

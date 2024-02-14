@@ -9,6 +9,7 @@ import {
 	type TabListItem,
 } from "./ThemeProviderContext.types";
 import removeCashFlowItem from "@/utils/fetch/removeCashFlowItemAxios";
+import updateCashFlowItemAxios from "@/utils/fetch/updateCashFlowItemAxios";
 
 type ToggleMode = {
 	type: "TOGGLE_MODE";
@@ -40,6 +41,7 @@ type AddRevenue = {
 type CheckExpense = {
 	type: "CHECK_EXPENSE";
 	id: string;
+	userJWT: string;
 };
 
 type RemoveExpense = {
@@ -193,10 +195,21 @@ export function appReducer(state: AppState, action: Action): AppState {
 	}
 
 	if (action.type === "CHECK_EXPENSE") {
+		const getItemId = action.id;
+		const getUserJWT = action.userJWT;
+
+		const updateExpense = state.expenses
+			.filter((item) => String(item.id) == String(getItemId))
+			.map((item) => (String(item.id) === String(getItemId) ? { ...item, isPaid: !item.isPaid } : item));
+
+		const getExpense = updateExpense[0];
+
+		updateCashFlowItemAxios(getExpense, getUserJWT, "/api/monetary-expenses");
+
 		return {
 			...state,
 			expenses: state.expenses.map((item) =>
-				String(item.id) === String(action.id) ? { ...item, isPaid: !item.isPaid } : item
+				String(item.id) === String(getItemId) ? { ...item, isPaid: !item.isPaid } : item
 			),
 		};
 	}

@@ -149,7 +149,7 @@ export type AppStateValue = Mode &
 			assetListTabItemModified: TabListItem
 		) => void;
 		assetListTabItemRemove: (assetListTabItemCategory: string, assetListTabItemId: string) => void;
-		checkExpenses: (id: string) => void;
+		checkExpenses: (id: string, userJWT: string) => void;
 		removeExpenses: (id: string, userJWT: string) => void;
 		removeRevenue: (id: string, userJWT: string) => void;
 		filterCashFlowList: (value: { fromDate: string; toDate: string }) => void;
