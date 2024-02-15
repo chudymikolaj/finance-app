@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
 import { useAppContext } from "@/lib/ThemeProviderContext/actions";
-import { getCashFlowListProps } from "@/utils/fetch/getCashFlowListAxios";
+import { getUserDataAxios } from "@/utils/fetch/getUserDataAxios";
 
 import AssetManagement from "@/components/AssetManagement";
 import BudgetManagmentComponent from "@/components/BudgetManagement";
@@ -25,7 +25,7 @@ export default function Dashboard() {
 			const session = await getSession();
 
 			if (session) {
-				getCashFlowListProps(session, "monetary_incomes")
+				await getUserDataAxios(session, "monetary_incomes")
 					.then((res: unknown) => {
 						const cashFlowListProps = res as MonetaryIncomesProps;
 						updateRevenuesList(cashFlowListProps?.monetary_incomes);
@@ -34,7 +34,7 @@ export default function Dashboard() {
 						console.log(err);
 					});
 
-				getCashFlowListProps(session, "monetary_expenses")
+				await getUserDataAxios(session, "monetary_expenses")
 					.then((res: unknown) => {
 						const monetaryExpensesResult = res as MonetaryExpensesProps;
 						updateExpensesList(monetaryExpensesResult?.monetary_expenses);
