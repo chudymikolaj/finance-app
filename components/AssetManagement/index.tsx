@@ -3,100 +3,30 @@
 import { useAppContext } from "@/lib/ThemeProviderContext/actions";
 import { useEffect, useState } from "react";
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
 
 import Line from "@/components/Line";
 import PopupComponent from "@/components/Popup";
 import AssetHeader from "./AssetManagementHeader";
 import AssetManagementTabs from "./AssetManagementTabs";
 
+import { getUserDataAxios } from "@/utils/fetch/getUserDataAxios";
+import { getSession } from "next-auth/react";
 import {
 	AssetCategoriesCategories,
 	AssetCategoriesCategory,
 	AssetCategoriesCategoryButton,
+	AssetCategoriesCategoryCircleColor,
+	AssetCategoriesCategoryName,
 	AssetCategoriesCategoryProgress,
 	AssetCategoriesCategoryProgressBar,
-	AssetCategoriesCategoryName,
 	AssetCategoriesCategoryValue,
-	AssetCategoriesCategoryCircleColor,
 	AssetCategoriesContainer,
 } from "./AssetManagementAssets.styled";
 
-const assetsTabsList = [
-	{
-		categoryId: "zelazna-rezerwa",
-		title: "Żelazna rezerwa",
-		value: 13500,
-		goal: 10000,
-		color: "#5D8C71",
-		lists: [
-			{
-				id: "1",
-				title: "PLN",
-				value: 4500,
-			},
-			{
-				id: "2",
-				title: "PLN",
-				value: 4500,
-			},
-			{
-				id: "3",
-				title: "PLN",
-				value: 4500,
-			},
-		],
-	},
-	{
-		categoryId: "inwestycje",
-		title: "Inwestycje",
-		value: 25000,
-		goal: 10000,
-		color: "#FF6969",
-		lists: [
-			{
-				id: "1",
-				title: "PLN",
-				value: 25000,
-			},
-		],
-	},
-	{
-		categoryId: "oszczednosci",
-		title: "Oszczędności",
-		value: 15000,
-		goal: 10000,
-		color: "#9747FF",
-		lists: [
-			{
-				id: "1",
-				title: "PLN",
-				value: 15000,
-			},
-		],
-	},
-	{
-		categoryId: "reszta",
-		title: "Reszta",
-		value: 5000,
-		goal: 10000,
-		color: "#67aded",
-		lists: [
-			{
-				id: "1",
-				title: "PLN",
-				value: 5000,
-			},
-		],
-	},
-];
-
 const AssetManagementComponent = () => {
-	const { updateAssetListTabs, assetTabLists } = useAppContext();
-	const isAssets = assetTabLists.length > 0;
-	const calcPercentageOfGoal = (value: number, goal: number) =>
-		(value / goal) * 100 >= 100 ? 100 : (value / goal) * 100;
+	const { updateAssetListTabs, assets_tabs } = useAppContext();
 
 	const [showPopupAssetManagment, setShowPopupAssetManagment] = useState(false);
 	const [activeCategory, setActiveCategory] = useState("");
@@ -128,12 +58,28 @@ const AssetManagementComponent = () => {
 		],
 	});
 
-	useEffect(() => {
-		if (!isAssets) {
-			updateAssetListTabs(assetsTabsList);
-		}
+	const calcPercentageOfGoal = (value: number, goal: number) =>
+		(value / goal) * 100 >= 100 ? 100 : (value / goal) * 100;
 
-		setActiveCategory(assetsTabsList[0]?.categoryId);
+	const isAssets = assets_tabs?.length > 0;
+
+	useEffect(() => {
+		const securePage = async () => {
+			const session = await getSession();
+
+			if (session) {
+				const resultAssetsTabs = await getUserDataAxios(session, "?populate[assets_tabs][populate][tab_assets]=*");
+
+				updateAssetListTabs([]);
+
+				if ("assets_tabs" in resultAssetsTabs) {
+					updateAssetListTabs(resultAssetsTabs.assets_tabs);
+				}
+			}
+		};
+
+		securePage();
+		// setActiveCategory(assetsTabsList[0]?.categoryId);
 	}, []);
 
 	const handleOpenPopup = () => setShowPopupAssetManagment(true);
@@ -153,39 +99,33 @@ const AssetManagementComponent = () => {
 				{isAssets && (
 					<>
 						<Slider {...slickSettings}>
-							{assetTabLists.map(
-								({ categoryId, title, value, goal, color }) => (
-									<div key={categoryId}>
-										<AssetCategoriesCategory>
-											<AssetCategoriesCategoryButton
-												onClick={() => {
-													handleOpenPopup();
-													setActiveCategory(categoryId);
-												}}
-											>
-												<AssetCategoriesCategoryCircleColor
+							{assets_tabs.map(({ id_asset, name, value, goal, color }) => (
+								<div key={id_asset}>
+									<AssetCategoriesCategory>
+										<AssetCategoriesCategoryButton
+											onClick={() => {
+												handleOpenPopup();
+												setActiveCategory(id_asset);
+											}}
+										>
+											<AssetCategoriesCategoryCircleColor $color={color}></AssetCategoriesCategoryCircleColor>
+
+											<AssetCategoriesCategoryName>{name}</AssetCategoriesCategoryName>
+
+											<AssetCategoriesCategoryValue>
+												{value}/{goal} PLN
+											</AssetCategoriesCategoryValue>
+
+											<AssetCategoriesCategoryProgress>
+												<AssetCategoriesCategoryProgressBar
+													$progress={calcPercentageOfGoal(value, goal)}
 													$color={color}
-												></AssetCategoriesCategoryCircleColor>
-
-												<AssetCategoriesCategoryName>
-													{title}
-												</AssetCategoriesCategoryName>
-
-												<AssetCategoriesCategoryValue>
-													{value}/{goal} PLN
-												</AssetCategoriesCategoryValue>
-
-												<AssetCategoriesCategoryProgress>
-													<AssetCategoriesCategoryProgressBar
-														$progress={calcPercentageOfGoal(value, goal)}
-														$color={color}
-													/>
-												</AssetCategoriesCategoryProgress>
-											</AssetCategoriesCategoryButton>
-										</AssetCategoriesCategory>
-									</div>
-								)
-							)}
+												/>
+											</AssetCategoriesCategoryProgress>
+										</AssetCategoriesCategoryButton>
+									</AssetCategoriesCategory>
+								</div>
+							))}
 						</Slider>
 
 						<PopupComponent
@@ -194,7 +134,7 @@ const AssetManagementComponent = () => {
 						>
 							<AssetManagementTabs
 								activeTab={activeCategory}
-								assetTabLists={assetTabLists}
+								assets_tabs={assets_tabs}
 							/>
 						</PopupComponent>
 					</>

@@ -27,15 +27,9 @@ import {
 
 import { type TabListItem } from "@/lib/ThemeProviderContext/ThemeProviderContext.types";
 
-import {
-	FormAddAssetListTabItem,
-	FormEditAssetListTabItem,
-} from "@/components/Forms";
+import { FormAddAssetListTabItem, FormEditAssetListTabItem } from "@/components/Forms";
 
-const AssetManagementTabsComponent = ({
-	activeTab,
-	assetTabLists,
-}: AssetManagementTabsType) => {
+const AssetManagementTabsComponent = ({ activeTab, assets_tabs }: AssetManagementTabsType) => {
 	const { assetListTabItemRemove } = useAppContext();
 	const [showPopupAsset, setPopupAsset] = useState(false);
 	const [showPopupIsEdit, setShowPopupIsEdit] = useState(false);
@@ -45,7 +39,7 @@ const AssetManagementTabsComponent = ({
 		value: "",
 	});
 
-	const isAssets = assetTabLists.length > 0;
+	const isAssets = assets_tabs.length > 0;
 
 	const togglePopupAsset = () => {
 		setPopupAsset((prevState) => !prevState);
@@ -75,11 +69,8 @@ const AssetManagementTabsComponent = ({
 		setPopupAsset(false);
 	};
 
-	const handleTabListItemRemove = (
-		categoryId: HandleTabListItemRemoveType,
-		id: HandleTabListItemRemoveType
-	) => {
-		assetListTabItemRemove(categoryId, id);
+	const handleTabListItemRemove = (idAsset: HandleTabListItemRemoveType, idAssetItem: HandleTabListItemRemoveType) => {
+		assetListTabItemRemove(idAsset, idAssetItem);
 	};
 
 	const isListOfAssets = (asset: TabListItem[]) => asset.length > 0;
@@ -89,50 +80,34 @@ const AssetManagementTabsComponent = ({
 		<AssetManagementTabsContainer>
 			<AssetManagementTabsWrapper>
 				{isAssets ? (
-					assetTabLists.map(
-						({ categoryId, title, value, color, lists }) =>
-							categoryId === activeTab && (
-								<AssetManagementTabsTab key={categoryId}>
+					assets_tabs.map(
+						({ id_asset, name, value, color, tab_assets }) =>
+							id_asset === activeTab && (
+								<AssetManagementTabsTab key={id_asset}>
 									{!showPopupAsset && !showPopupIsEdit && (
 										<>
-											<AssetManagementTabsTabName $color={color}>
-												{title}
-											</AssetManagementTabsTabName>
+											<AssetManagementTabsTabName $color={color}>{name}</AssetManagementTabsTabName>
 											<AssetManagementTabsTabList>
-												{isListOfAssets(lists) &&
-													lists.map(({ id, title, value }) => (
+												{isListOfAssets(tab_assets) &&
+													tab_assets.map(({ id, id_asset_item, name, value }) => (
 														<AssetManagementTabsTabListItem key={id}>
-															<AssetManagementTabsTabListItemName>
-																{title}
-															</AssetManagementTabsTabListItemName>
-															<AssetManagementTabsTabListItemValue>
-																{value} PLN
-															</AssetManagementTabsTabListItemValue>
+															<AssetManagementTabsTabListItemName>{name}</AssetManagementTabsTabListItemName>
+															<AssetManagementTabsTabListItemValue>{value} PLN</AssetManagementTabsTabListItemValue>
 															<AssetManagementTabsTabListItemButtons>
 																<AssetManagementTabsTabListItemButton
-																	onClick={() =>
-																		handleTabListItemEdit(
-																			id,
-																			title,
-																			String(value)
-																		)
-																	}
+																	onClick={() => handleTabListItemEdit(id_asset_item, name, String(value))}
 																	svgUrl="./add.svg"
 																></AssetManagementTabsTabListItemButton>
 																<AssetManagementTabsTabListItemButton
-																	onClick={() =>
-																		handleTabListItemRemove(categoryId, id)
-																	}
+																	onClick={() => handleTabListItemRemove(id_asset, id_asset_item)}
 																	svgUrl="./remove.svg"
 																></AssetManagementTabsTabListItemButton>
 															</AssetManagementTabsTabListItemButtons>
 														</AssetManagementTabsTabListItem>
 													))}
 
-												{isEmptyListOfAssets(lists) && (
-													<AssetManagementTabsTabEmptyList>
-														Kategoria jest pusta.
-													</AssetManagementTabsTabEmptyList>
+												{isEmptyListOfAssets(tab_assets) && (
+													<AssetManagementTabsTabEmptyList>Kategoria jest pusta.</AssetManagementTabsTabEmptyList>
 												)}
 											</AssetManagementTabsTabList>
 
@@ -144,14 +119,14 @@ const AssetManagementTabsComponent = ({
 									{showPopupIsEdit && (
 										<FormEditAssetListTabItem
 											data={modifyAsset}
-											categoryId={categoryId}
+											categoryId={id_asset}
 											closePopup={closePopupEdit}
 										/>
 									)}
 
 									{showPopupAsset && (
 										<FormAddAssetListTabItem
-											categoryId={categoryId}
+											categoryId={id_asset}
 											closePopup={closePopupAsset}
 										/>
 									)}

@@ -27,7 +27,7 @@ export default function ThemeProviderContext({ children }: ContextProviderProps)
 		expenses: app.expenses,
 		revenues: app.revenues,
 		budgetAllocations: app.budgetAllocations,
-		assetTabLists: app.assetTabLists,
+		assets_tabs: app.assets_tabs,
 		addExpense(id, name, value, tags, isPaid, date, userID, userJWT) {
 			dispatch({ type: "ADD_EXPENSE", id, name, value, tags, isPaid, date, userID, userJWT });
 		},
@@ -55,8 +55,8 @@ export default function ThemeProviderContext({ children }: ContextProviderProps)
 		changeBudgetAllocations(data) {
 			dispatch({ type: "CHANGE_BUDGET_ALLOCATIONS", data });
 		},
-		updateAssetListTabs(assetTabLists) {
-			dispatch({ type: "UPDATE_ASSET_TAB_LISTS", assetTabLists });
+		updateAssetListTabs(assets_tabs) {
+			dispatch({ type: "UPDATE_ASSET_TAB_LISTS", assets_tabs });
 		},
 		addAssetListTabItem(assetListTabItemCategoryId, newAssetListTabItem) {
 			dispatch({
@@ -73,10 +73,10 @@ export default function ThemeProviderContext({ children }: ContextProviderProps)
 				assetListTabItemModified,
 			});
 		},
-		assetListTabItemRemove(assetListTabItemCategory, assetListTabItemCategoryId) {
+		assetListTabItemRemove(assetListTabCategory, assetListTabItemCategoryId) {
 			dispatch({
 				type: "ASSET_TAB_ITEM_REMOVE",
-				assetListTabItemCategory,
+				assetListTabCategory,
 				assetListTabItemCategoryId,
 			});
 		},

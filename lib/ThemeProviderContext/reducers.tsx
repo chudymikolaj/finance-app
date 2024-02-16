@@ -103,7 +103,7 @@ type ChangeBudgetAllocations = {
 
 type UpdateAssetTabLists = {
 	type: "UPDATE_ASSET_TAB_LISTS";
-	assetTabLists: AssetTabList[];
+	assets_tabs: AssetTabList[];
 };
 
 type AddAssetTabItem = {
@@ -114,7 +114,7 @@ type AddAssetTabItem = {
 
 type AddAssetTabItemRemove = {
 	type: "ASSET_TAB_ITEM_REMOVE";
-	assetListTabItemCategory: string;
+	assetListTabCategory: string;
 	assetListTabItemCategoryId: string;
 };
 
@@ -335,17 +335,17 @@ export function appReducer(state: AppState, action: Action): AppState {
 	if (action.type === "UPDATE_ASSET_TAB_LISTS") {
 		return {
 			...state,
-			assetTabLists: [...action.assetTabLists],
+			assets_tabs: [...action.assets_tabs],
 		};
 	}
 
 	if (action.type === "ADD_ASSET_TAB_ITEM") {
-		const updatedAssetTabLists = state.assetTabLists.map((item) => {
-			if (item.categoryId === action.assetListTabItemCategoryId) {
-				const updatedLists = [...item.lists, action.newAssetListTabItem];
+		const updatedAssetTabLists = state.assets_tabs.map((item) => {
+			if (item.id_asset === action.assetListTabItemCategoryId) {
+				const updatedLists = [...item.tab_assets, action.newAssetListTabItem];
 				const totalValue = updatedLists.reduce((total, currentItem) => total + currentItem.value, 0);
 
-				return { ...item, lists: updatedLists, value: totalValue };
+				return { ...item, tab_assets: updatedLists, value: totalValue };
 			}
 
 			return item;
@@ -353,20 +353,20 @@ export function appReducer(state: AppState, action: Action): AppState {
 
 		return {
 			...state,
-			assetTabLists: updatedAssetTabLists,
+			assets_tabs: updatedAssetTabLists,
 		};
 	}
 
 	if (action.type === "MODIFY_ASSET_TAB_ITEM") {
-		const updatedAssetTabLists = state.assetTabLists.map((item) => {
-			if (item.categoryId === action.assetListTabItemCategoryId) {
+		const updatedAssetTabLists = state.assets_tabs.map((item) => {
+			if (item.id_asset === action.assetListTabItemCategoryId) {
 				// const updatedLists = [...item.lists, action.newAssetListTabItem];
 
-				const updatedLists = item.lists.map((tabItem) => {
-					if (tabItem.id === action.assetListTabItemId) {
+				const updatedLists = item.tab_assets.map((tabItem) => {
+					if (tabItem.id_asset_item === action.assetListTabItemId) {
 						const modyfied = {
 							...tabItem,
-							title: action.assetListTabItemModified.title,
+							name: action.assetListTabItemModified.name,
 							value: action.assetListTabItemModified.value,
 						};
 
@@ -378,26 +378,27 @@ export function appReducer(state: AppState, action: Action): AppState {
 
 				const totalValue = updatedLists.reduce((total, currentItem) => total + currentItem.value, 0);
 
-				return { ...item, lists: updatedLists, value: totalValue };
+				return { ...item, tab_assets: updatedLists, value: totalValue };
 			}
 
 			return item;
 		});
 
+		console.log(action.assetListTabItemCategoryId);
 		return {
 			...state,
-			assetTabLists: updatedAssetTabLists,
+			assets_tabs: updatedAssetTabLists,
 		};
 	}
 
 	if (action.type === "ASSET_TAB_ITEM_REMOVE") {
-		const updatedAssetTabLists = state.assetTabLists.map((item) => {
-			if (item.categoryId === action.assetListTabItemCategory) {
-				const updatedLists = item.lists.filter((item) => item.id !== action.assetListTabItemCategoryId);
+		const updatedAssetTabLists = state.assets_tabs.map((item) => {
+			if (item.id_asset === action.assetListTabCategory) {
+				const updatedLists = item.tab_assets.filter((item) => item.id_asset_item !== action.assetListTabItemCategoryId);
 
 				const totalValue = updatedLists.reduce((total, currentItem) => total + currentItem.value, 0);
 
-				return { ...item, lists: updatedLists, value: totalValue };
+				return { ...item, tab_assets: updatedLists, value: totalValue };
 			}
 
 			return item;
@@ -405,7 +406,7 @@ export function appReducer(state: AppState, action: Action): AppState {
 
 		return {
 			...state,
-			assetTabLists: updatedAssetTabLists,
+			assets_tabs: updatedAssetTabLists,
 		};
 	}
 

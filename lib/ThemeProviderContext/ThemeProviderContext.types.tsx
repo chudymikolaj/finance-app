@@ -63,21 +63,23 @@ export type ExpensesAndRevenues = {
 
 export type TabListItem = {
 	id: string;
-	title: string;
+	id_asset_item: string;
+	name: string;
 	value: number;
 };
 
 export type AssetTabList = {
-	categoryId: string;
-	title: string;
+	id: number;
+	id_asset: string;
+	name: string;
 	value: number;
 	goal: number;
 	color: string;
-	lists: TabListItem[];
+	tab_assets: TabListItem[];
 };
 
 export type AssetTabLists = {
-	assetTabLists: AssetTabList[];
+	assets_tabs: AssetTabList[];
 };
 
 export type BudgetAllocation = {
@@ -141,14 +143,14 @@ export type AppStateValue = Mode &
 		updateRestRevenues: (revenues: number, expenses: number) => void;
 		updateBudgetAllocations: (allocations: BudgetAllocation[]) => void;
 		changeBudgetAllocations: (data: { [key: string]: string }) => void;
-		updateAssetListTabs: (lists: AssetTabList[]) => void;
+		updateAssetListTabs: (assets_tabs: AssetTabList[]) => void;
 		addAssetListTabItem: (assetListTabItemId: string, newAssetListTabItem: TabListItem) => void;
 		modifyAssetListTabItem: (
 			assetListTabItemCategoryId: string,
 			assetListTabItemId: string,
 			assetListTabItemModified: TabListItem
 		) => void;
-		assetListTabItemRemove: (assetListTabItemCategory: string, assetListTabItemId: string) => void;
+		assetListTabItemRemove: (assetListTabCategory: string, assetListTabItemId: string) => void;
 		checkExpenses: (id: string, userJWT: string) => void;
 		removeExpenses: (id: string, userJWT: string) => void;
 		removeRevenue: (id: string, userJWT: string) => void;

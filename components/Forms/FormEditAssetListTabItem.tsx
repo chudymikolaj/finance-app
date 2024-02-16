@@ -7,26 +7,16 @@ import { useAppContext } from "@/lib/ThemeProviderContext/actions";
 import ButtonSVG from "../Buttons/ButtonSvg";
 import { Input } from "./Input";
 
-import {
-	type FormEditAssetListTabItemPropsType,
-	type IFormValues,
-} from "./Form.types";
+import { type FormEditAssetListTabItemPropsType, type IFormValues } from "./Form.types";
 
-import {
-	FormElement,
-	FormElementHeader,
-	FormElementSubmit,
-	FormElementTitle,
-} from "./Form.styled";
+import { FormElement, FormElementHeader, FormElementSubmit, FormElementTitle } from "./Form.styled";
 
-const FormEditBudgetListTabItem = ({
-	categoryId,
-	data,
-	closePopup,
-}: FormEditAssetListTabItemPropsType) => {
+const FormEditBudgetListTabItem = ({ categoryId, data, closePopup }: FormEditAssetListTabItemPropsType) => {
 	const { register, handleSubmit, setValue } = useForm<IFormValues>();
 	const { modifyAssetListTabItem } = useAppContext();
 	const { id, title, value } = data;
+
+	console.log(data);
 
 	useEffect(() => {
 		setValue("name", title);
@@ -34,9 +24,10 @@ const FormEditBudgetListTabItem = ({
 	}, [title, value]);
 
 	const onSubmit: SubmitHandler<IFormValues> = (data) => {
-		const editAsset: { id: string; title: string; value: number } = {
+		const editAsset: { id: string; id_asset_item: string; name: string; value: number } = {
 			id: id,
-			title: data.name,
+			id_asset_item: data.id_asset_item,
+			name: data.name,
 			value: Number(data.value),
 		};
 

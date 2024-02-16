@@ -2,7 +2,7 @@ import { type AssetTabList } from "@/lib/ThemeProviderContext/ThemeProviderConte
 
 export type AssetManagementTabsType = {
 	activeTab: string;
-	assetTabLists: AssetTabList[];
+	assets_tabs: AssetTabList[];
 };
 
 export type ModifyAssetStateType = {

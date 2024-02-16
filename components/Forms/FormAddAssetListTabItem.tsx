@@ -7,29 +7,19 @@ import { useAppContext } from "@/lib/ThemeProviderContext/actions";
 import ButtonSVG from "../Buttons/ButtonSvg";
 import { Input } from "./Input";
 
-import {
-	type FormAddAssetListTabItemPropsType,
-	type IFormValues,
-} from "./Form.types";
+import { type FormAddAssetListTabItemPropsType, type IFormValues } from "./Form.types";
 
-import {
-	FormElement,
-	FormElementHeader,
-	FormElementSubmit,
-	FormElementTitle,
-} from "./Form.styled";
+import { FormElement, FormElementHeader, FormElementSubmit, FormElementTitle } from "./Form.styled";
 
-const FormAddAssetListTabItem = ({
-	categoryId,
-	closePopup,
-}: FormAddAssetListTabItemPropsType) => {
+const FormAddAssetListTabItem = ({ categoryId, closePopup }: FormAddAssetListTabItemPropsType) => {
 	const { register, handleSubmit } = useForm<IFormValues>();
 	const { addAssetListTabItem } = useAppContext();
 
 	const onSubmit: SubmitHandler<IFormValues> = (data) => {
-		const addAsset: { id: string; title: string; value: number } = {
+		const addAsset: { id: string; id_asset_item: string; name: string; value: number } = {
 			id: uuidv4(),
-			title: data.name,
+			id_asset_item: uuidv4(),
+			name: data.name,
 			value: Number(data.value),
 		};
 
