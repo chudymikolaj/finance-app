@@ -25,7 +25,7 @@ export default function Dashboard() {
 			const session = await getSession();
 
 			if (session) {
-				await getUserDataAxios(session, "monetary_incomes")
+				await getUserDataAxios(session, "?populate[monetary_incomes]=*")
 					.then((res: unknown) => {
 						const cashFlowListProps = res as MonetaryIncomesProps;
 						updateRevenuesList(cashFlowListProps?.monetary_incomes);
@@ -34,7 +34,7 @@ export default function Dashboard() {
 						console.log(err);
 					});
 
-				await getUserDataAxios(session, "monetary_expenses")
+				await getUserDataAxios(session, "?populate[monetary_expenses]=*")
 					.then((res: unknown) => {
 						const monetaryExpensesResult = res as MonetaryExpensesProps;
 						updateExpensesList(monetaryExpensesResult?.monetary_expenses);
