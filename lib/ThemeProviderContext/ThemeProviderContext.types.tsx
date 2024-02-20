@@ -144,7 +144,13 @@ export type AppStateValue = Mode &
 		updateBudgetAllocations: (allocations: BudgetAllocation[]) => void;
 		changeBudgetAllocations: (data: { [key: string]: string }) => void;
 		updateAssetListTabs: (assets_tabs: AssetTabList[]) => void;
-		addAssetListTabItem: (assetListTabItemId: string, newAssetListTabItem: TabListItem) => void;
+		addAssetListTabItem: (
+			tabId: number,
+			assetListTabItemId: string,
+			userID: number,
+			userJWT: string,
+			newAssetListTabItem: TabListItem
+		) => void;
 		modifyAssetListTabItem: (
 			assetListTabItemCategoryId: string,
 			assetListTabItemId: string,

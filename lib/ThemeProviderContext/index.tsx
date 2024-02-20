@@ -58,10 +58,13 @@ export default function ThemeProviderContext({ children }: ContextProviderProps)
 		updateAssetListTabs(assets_tabs) {
 			dispatch({ type: "UPDATE_ASSET_TAB_LISTS", assets_tabs });
 		},
-		addAssetListTabItem(assetListTabItemCategoryId, newAssetListTabItem) {
+		addAssetListTabItem(tabId, assetListTabItemCategoryId, userID, userJWT, newAssetListTabItem) {
 			dispatch({
 				type: "ADD_ASSET_TAB_ITEM",
+				tabId,
 				assetListTabItemCategoryId,
+				userID,
+				userJWT,
 				newAssetListTabItem,
 			});
 		},

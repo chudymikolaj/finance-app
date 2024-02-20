@@ -5,6 +5,7 @@ import { type KeyboardEvent, type ReactNode } from "react";
 export type FormAddAssetListTabItemPropsType = {
 	categoryId: string;
 	closePopup: () => void;
+	tabId: number;
 };
 
 export type FormEditAssetListTabItemPropsType = {

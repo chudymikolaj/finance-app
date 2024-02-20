@@ -1,15 +1,16 @@
 import createCashFlowItemAxios from "@/utils/fetch/createCashFlowItemAxios";
-
-import {
-	type TabsOfExpenses,
-	type TabsOfRevenues,
-	type AppState,
-	type BudgetAllocation,
-	type AssetTabList,
-	type TabListItem,
-} from "./ThemeProviderContext.types";
+import createTabAssetItemAxios from "@/utils/fetch/createTabAssetItemAxios";
 import removeCashFlowItem from "@/utils/fetch/removeCashFlowItemAxios";
 import updateCashFlowItemAxios from "@/utils/fetch/updateCashFlowItemAxios";
+
+import {
+	type AppState,
+	type AssetTabList,
+	type BudgetAllocation,
+	type TabListItem,
+	type TabsOfExpenses,
+	type TabsOfRevenues,
+} from "./ThemeProviderContext.types";
 
 type ToggleMode = {
 	type: "TOGGLE_MODE";
@@ -108,7 +109,10 @@ type UpdateAssetTabLists = {
 
 type AddAssetTabItem = {
 	type: "ADD_ASSET_TAB_ITEM";
+	tabId: number;
 	assetListTabItemCategoryId: string;
+	userID: number;
+	userJWT: string;
 	newAssetListTabItem: TabListItem;
 };
 
@@ -350,6 +354,21 @@ export function appReducer(state: AppState, action: Action): AppState {
 
 			return item;
 		});
+
+		console.log(action.newAssetListTabItem);
+		const createAssetItemAxios = {
+			name: action.newAssetListTabItem.name,
+			value: action.newAssetListTabItem.value,
+			id_asset_item: action.newAssetListTabItem.id_asset_item,
+			assets_tab: {
+				connect: [action.tabId],
+			},
+			users_permissions_user: {
+				connect: [action.userID],
+			},
+		};
+
+		createTabAssetItemAxios(createAssetItemAxios, action.userJWT, "/api/tab-assets");
 
 		return {
 			...state,

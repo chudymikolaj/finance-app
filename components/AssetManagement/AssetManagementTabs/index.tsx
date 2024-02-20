@@ -81,7 +81,7 @@ const AssetManagementTabsComponent = ({ activeTab, assets_tabs }: AssetManagemen
 			<AssetManagementTabsWrapper>
 				{isAssets ? (
 					assets_tabs.map(
-						({ id_asset, name, value, color, tab_assets }) =>
+						({ id, id_asset, name, value, color, tab_assets }) =>
 							id_asset === activeTab && (
 								<AssetManagementTabsTab key={id_asset}>
 									{!showPopupAsset && !showPopupIsEdit && (
@@ -127,6 +127,7 @@ const AssetManagementTabsComponent = ({ activeTab, assets_tabs }: AssetManagemen
 									{showPopupAsset && (
 										<FormAddAssetListTabItem
 											categoryId={id_asset}
+											tabId={id}
 											closePopup={closePopupAsset}
 										/>
 									)}

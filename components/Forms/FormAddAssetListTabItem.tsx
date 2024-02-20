@@ -10,20 +10,24 @@ import { Input } from "./Input";
 import { type FormAddAssetListTabItemPropsType, type IFormValues } from "./Form.types";
 
 import { FormElement, FormElementHeader, FormElementSubmit, FormElementTitle } from "./Form.styled";
+import { useSession } from "next-auth/react";
 
-const FormAddAssetListTabItem = ({ categoryId, closePopup }: FormAddAssetListTabItemPropsType) => {
+const FormAddAssetListTabItem = ({ categoryId, tabId, closePopup }: FormAddAssetListTabItemPropsType) => {
+	const { data: session } = useSession();
 	const { register, handleSubmit } = useForm<IFormValues>();
 	const { addAssetListTabItem } = useAppContext();
 
 	const onSubmit: SubmitHandler<IFormValues> = (data) => {
-		const addAsset: { id: string; id_asset_item: string; name: string; value: number } = {
+		const userID = (session as any)?.id;
+		const userJWT = (session as any)?.jwt;
+		const addAssetItem: { id: string; id_asset_item: string; name: string; value: number } = {
 			id: uuidv4(),
 			id_asset_item: uuidv4(),
 			name: data.name,
 			value: Number(data.value),
 		};
 
-		addAssetListTabItem(categoryId, addAsset);
+		addAssetListTabItem(tabId, categoryId, userID, userJWT, addAssetItem);
 		closePopup();
 	};
 
