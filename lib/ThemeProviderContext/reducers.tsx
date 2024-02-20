@@ -360,8 +360,6 @@ export function appReducer(state: AppState, action: Action): AppState {
 	if (action.type === "MODIFY_ASSET_TAB_ITEM") {
 		const updatedAssetTabLists = state.assets_tabs.map((item) => {
 			if (item.id_asset === action.assetListTabItemCategoryId) {
-				// const updatedLists = [...item.lists, action.newAssetListTabItem];
-
 				const updatedLists = item.tab_assets.map((tabItem) => {
 					if (tabItem.id_asset_item === action.assetListTabItemId) {
 						const modyfied = {
@@ -384,7 +382,6 @@ export function appReducer(state: AppState, action: Action): AppState {
 			return item;
 		});
 
-		console.log(action.assetListTabItemCategoryId);
 		return {
 			...state,
 			assets_tabs: updatedAssetTabLists,
