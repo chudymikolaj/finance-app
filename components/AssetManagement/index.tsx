@@ -1,8 +1,10 @@
 "use client";
 
 import { useAppContext } from "@/lib/ThemeProviderContext/actions";
+import { getSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import Slider from "react-slick";
+
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 
@@ -12,7 +14,7 @@ import AssetHeader from "./AssetManagementHeader";
 import AssetManagementTabs from "./AssetManagementTabs";
 
 import { getUserDataAxios } from "@/utils/fetch/getUserDataAxios";
-import { getSession } from "next-auth/react";
+import updateTabValueAxios from "@/utils/fetch/updateTabValueAxios";
 import {
 	AssetCategoriesCategories,
 	AssetCategoriesCategory,
@@ -73,13 +75,24 @@ const AssetManagementComponent = () => {
 				updateAssetListTabs([]);
 
 				if ("assets_tabs" in resultAssetsTabs) {
-					updateAssetListTabs(resultAssetsTabs.assets_tabs);
+					const convertedValueOfTabs = resultAssetsTabs.assets_tabs.map((tab) => {
+						let value = tab.tab_assets.reduce((accumulator, currentValue) => {
+							return accumulator + currentValue.value;
+						}, 0);
+
+						const newValue = { ...tab, value };
+
+						updateTabValueAxios(newValue, session.jwt, "/api/assets-tabs");
+
+						return newValue;
+					});
+
+					updateAssetListTabs(convertedValueOfTabs);
 				}
 			}
 		};
 
 		securePage();
-		// setActiveCategory(assetsTabsList[0]?.categoryId);
 	}, []);
 
 	const handleOpenPopup = () => setShowPopupAssetManagment(true);
