@@ -2,6 +2,7 @@ import createCashFlowItemAxios from "@/utils/fetch/createCashFlowItemAxios";
 import createTabAssetItemAxios from "@/utils/fetch/createTabAssetItemAxios";
 import removeCashFlowItem from "@/utils/fetch/removeCashFlowItemAxios";
 import updateCashFlowItemAxios from "@/utils/fetch/updateCashFlowItemAxios";
+import updateTabAssetItemAxios from "@/utils/fetch/updateTabAssetItemAxios";
 
 import {
 	type AppState,
@@ -124,6 +125,8 @@ type AddAssetTabItemRemove = {
 
 type ModifyAssetTabItem = {
 	type: "MODIFY_ASSET_TAB_ITEM";
+	cmsId: number;
+	userJWT: string;
 	assetListTabItemCategoryId: string;
 	assetListTabItemId: string;
 	assetListTabItemModified: TabListItem;
@@ -355,7 +358,6 @@ export function appReducer(state: AppState, action: Action): AppState {
 			return item;
 		});
 
-		console.log(action.newAssetListTabItem);
 		const createAssetItemAxios = {
 			name: action.newAssetListTabItem.name,
 			value: action.newAssetListTabItem.value,
@@ -387,6 +389,13 @@ export function appReducer(state: AppState, action: Action): AppState {
 							value: action.assetListTabItemModified.value,
 						};
 
+						const dataToUpdate = {
+							id: tabItem.id,
+							name: action.assetListTabItemModified.name,
+							value: action.assetListTabItemModified.value,
+						};
+
+						updateTabAssetItemAxios(dataToUpdate, action.userJWT, "/api/tab-assets");
 						return modyfied;
 					}
 
@@ -419,6 +428,8 @@ export function appReducer(state: AppState, action: Action): AppState {
 
 			return item;
 		});
+
+		console.log(action.assetListTabItemCategoryId);
 
 		return {
 			...state,

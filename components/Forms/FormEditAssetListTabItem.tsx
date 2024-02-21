@@ -10,28 +10,29 @@ import { Input } from "./Input";
 import { type FormEditAssetListTabItemPropsType, type IFormValues } from "./Form.types";
 
 import { FormElement, FormElementHeader, FormElementSubmit, FormElementTitle } from "./Form.styled";
+import { useSession } from "next-auth/react";
 
 const FormEditBudgetListTabItem = ({ categoryId, data, closePopup }: FormEditAssetListTabItemPropsType) => {
+	const { data: sessions } = useSession();
 	const { register, handleSubmit, setValue } = useForm<IFormValues>();
 	const { modifyAssetListTabItem } = useAppContext();
-	const { id, title, value } = data;
-
-	console.log(data);
+	const { id, idAssetItem, title, value } = data;
 
 	useEffect(() => {
 		setValue("name", title);
-		setValue("value", value);
+		setValue("value", String(value));
 	}, [title, value]);
 
 	const onSubmit: SubmitHandler<IFormValues> = (data) => {
-		const editAsset: { id: string; id_asset_item: string; name: string; value: number } = {
+		const getUserJWT = (sessions as any)?.jwt;
+		const editAsset: { id: number; id_asset_item: string; name: string; value: number } = {
 			id: id,
 			id_asset_item: data.id_asset_item,
 			name: data.name,
 			value: Number(data.value),
 		};
 
-		modifyAssetListTabItem(categoryId, id, editAsset);
+		modifyAssetListTabItem(id, getUserJWT, categoryId, idAssetItem, editAsset);
 		closePopup();
 	};
 

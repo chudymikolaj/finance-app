@@ -68,9 +68,11 @@ export default function ThemeProviderContext({ children }: ContextProviderProps)
 				newAssetListTabItem,
 			});
 		},
-		modifyAssetListTabItem(assetListTabItemCategoryId, assetListTabItemId, assetListTabItemModified) {
+		modifyAssetListTabItem(cmsId, userJWT, assetListTabItemCategoryId, assetListTabItemId, assetListTabItemModified) {
 			dispatch({
 				type: "MODIFY_ASSET_TAB_ITEM",
+				cmsId,
+				userJWT,
 				assetListTabItemCategoryId,
 				assetListTabItemId,
 				assetListTabItemModified,

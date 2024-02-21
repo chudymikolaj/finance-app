@@ -11,9 +11,10 @@ export type FormAddAssetListTabItemPropsType = {
 export type FormEditAssetListTabItemPropsType = {
 	categoryId: string;
 	data: {
-		id: string;
+		id: number;
+		idAssetItem: string;
 		title: string;
-		value: string;
+		value: number;
 	};
 	closePopup: () => void;
 };

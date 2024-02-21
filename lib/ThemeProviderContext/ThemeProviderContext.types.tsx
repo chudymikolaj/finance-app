@@ -62,7 +62,7 @@ export type ExpensesAndRevenues = {
 };
 
 export type TabListItem = {
-	id: string;
+	id: number;
 	id_asset_item: string;
 	name: string;
 	value: number;
@@ -152,6 +152,8 @@ export type AppStateValue = Mode &
 			newAssetListTabItem: TabListItem
 		) => void;
 		modifyAssetListTabItem: (
+			cmsId: number,
+			userJWT: string,
 			assetListTabItemCategoryId: string,
 			assetListTabItemId: string,
 			assetListTabItemModified: TabListItem

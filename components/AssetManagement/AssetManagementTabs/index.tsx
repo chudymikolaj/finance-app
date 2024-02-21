@@ -3,41 +3,58 @@ import { useState } from "react";
 
 import AssetManagementActionButton from "../AssetManagementActionButton";
 import AssetManagementSummaryTabsComponent from "../AssetManagementSummaryTabs";
+import AssetTabListComponent from "../AssetManagementTabList";
 
 import {
 	AssetManagementTabsContainer,
 	AssetManagementTabsTab,
-	AssetManagementTabsTabList,
-	AssetManagementTabsTabEmptyList,
-	AssetManagementTabsTabListItem,
-	AssetManagementTabsTabListItemButton,
-	AssetManagementTabsTabListItemButtons,
-	AssetManagementTabsTabListItemName,
-	AssetManagementTabsTabListItemValue,
 	AssetManagementTabsTabName,
 	AssetManagementTabsWrapper,
 } from "./AssetManagementTabs.styled";
 
 import {
+	HandleTabListItemEditIdType,
 	type AssetManagementTabsType,
 	type HandleTabListItemEditType,
+	type HandleTabListItemEditNumberType,
 	type HandleTabListItemRemoveType,
 	type ModifyAssetStateType,
 } from "./AssetManagementTabs.types";
-
-import { type TabListItem } from "@/lib/ThemeProviderContext/ThemeProviderContext.types";
 
 import { FormAddAssetListTabItem, FormEditAssetListTabItem } from "@/components/Forms";
 
 const AssetManagementTabsComponent = ({ activeTab, assets_tabs }: AssetManagementTabsType) => {
 	const { assetListTabItemRemove } = useAppContext();
+	const [modifyAsset, setModifyAsset] = useState<ModifyAssetStateType>({
+		id: 0,
+		idAssetItem: "",
+		title: "",
+		value: 0,
+	});
+
 	const [showPopupAsset, setPopupAsset] = useState(false);
 	const [showPopupIsEdit, setShowPopupIsEdit] = useState(false);
-	const [modifyAsset, setModifyAsset] = useState<ModifyAssetStateType>({
-		id: "",
-		title: "",
-		value: "",
-	});
+
+	const handleTabListItemEdit = (
+		id: HandleTabListItemEditIdType,
+		itemId: HandleTabListItemEditType,
+		title: HandleTabListItemEditType,
+		value: HandleTabListItemEditNumberType
+	) => {
+		setModifyAsset({
+			id: id,
+			idAssetItem: itemId,
+			title: title,
+			value: value,
+		});
+
+		setShowPopupIsEdit(true);
+		setPopupAsset(false);
+	};
+
+	const handleTabListItemRemove = (idAsset: HandleTabListItemRemoveType, idAssetItem: HandleTabListItemRemoveType) => {
+		assetListTabItemRemove(idAsset, idAssetItem);
+	};
 
 	const isAssets = assets_tabs.length > 0;
 
@@ -54,28 +71,6 @@ const AssetManagementTabsComponent = ({ activeTab, assets_tabs }: AssetManagemen
 		setPopupAsset(false);
 	};
 
-	const handleTabListItemEdit = (
-		itemId: HandleTabListItemEditType,
-		title: HandleTabListItemEditType,
-		value: HandleTabListItemEditType
-	) => {
-		setModifyAsset({
-			id: itemId,
-			title: title,
-			value: value,
-		});
-
-		setShowPopupIsEdit(true);
-		setPopupAsset(false);
-	};
-
-	const handleTabListItemRemove = (idAsset: HandleTabListItemRemoveType, idAssetItem: HandleTabListItemRemoveType) => {
-		assetListTabItemRemove(idAsset, idAssetItem);
-	};
-
-	const isListOfAssets = (asset: TabListItem[]) => asset.length > 0;
-	const isEmptyListOfAssets = (asset: TabListItem[]) => asset.length === 0;
-
 	return (
 		<AssetManagementTabsContainer>
 			<AssetManagementTabsWrapper>
@@ -87,30 +82,12 @@ const AssetManagementTabsComponent = ({ activeTab, assets_tabs }: AssetManagemen
 									{!showPopupAsset && !showPopupIsEdit && (
 										<>
 											<AssetManagementTabsTabName $color={color}>{name}</AssetManagementTabsTabName>
-											<AssetManagementTabsTabList>
-												{isListOfAssets(tab_assets) &&
-													tab_assets.map(({ id, id_asset_item, name, value }) => (
-														<AssetManagementTabsTabListItem key={id}>
-															<AssetManagementTabsTabListItemName>{name}</AssetManagementTabsTabListItemName>
-															<AssetManagementTabsTabListItemValue>{value} PLN</AssetManagementTabsTabListItemValue>
-															<AssetManagementTabsTabListItemButtons>
-																<AssetManagementTabsTabListItemButton
-																	onClick={() => handleTabListItemEdit(id_asset_item, name, String(value))}
-																	svgUrl="./add.svg"
-																></AssetManagementTabsTabListItemButton>
-																<AssetManagementTabsTabListItemButton
-																	onClick={() => handleTabListItemRemove(id_asset, id_asset_item)}
-																	svgUrl="./remove.svg"
-																></AssetManagementTabsTabListItemButton>
-															</AssetManagementTabsTabListItemButtons>
-														</AssetManagementTabsTabListItem>
-													))}
-
-												{isEmptyListOfAssets(tab_assets) && (
-													<AssetManagementTabsTabEmptyList>Kategoria jest pusta.</AssetManagementTabsTabEmptyList>
-												)}
-											</AssetManagementTabsTabList>
-
+											<AssetTabListComponent
+												id_asset={id_asset}
+												tab_assets={tab_assets}
+												handleEdit={handleTabListItemEdit}
+												handleRemove={handleTabListItemRemove}
+											/>
 											<AssetManagementActionButton action={togglePopupAsset} />
 											<AssetManagementSummaryTabsComponent value={value} />
 										</>

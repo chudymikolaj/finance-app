@@ -6,11 +6,14 @@ export type AssetManagementTabsType = {
 };
 
 export type ModifyAssetStateType = {
-	id: string;
+	id: number;
+	idAssetItem: string;
 	title: string;
-	value: string;
+	value: number;
 };
 
 export type HandleTabListItemEditType = string;
+export type HandleTabListItemEditIdType = number;
+export type HandleTabListItemEditNumberType = number;
 
 export type HandleTabListItemRemoveType = string;
