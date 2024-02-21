@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export default async function createCashFlowItemAxios(id: string, jwt: string, endpoint: string) {
+export default async function removeItemAxios(id: number, jwt: string, endpoint: string) {
 	try {
 		await axios
 			.delete(`${process.env.NEXT_PUBLIC_STRAPI_URL}${endpoint}/${id}`, {

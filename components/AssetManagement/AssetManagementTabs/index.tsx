@@ -1,4 +1,5 @@
 import { useAppContext } from "@/lib/ThemeProviderContext/actions";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
 
 import AssetManagementActionButton from "../AssetManagementActionButton";
@@ -15,8 +16,9 @@ import {
 import {
 	HandleTabListItemEditIdType,
 	type AssetManagementTabsType,
-	type HandleTabListItemEditType,
 	type HandleTabListItemEditNumberType,
+	type HandleTabListItemEditType,
+	type HandleTabListItemIdType,
 	type HandleTabListItemRemoveType,
 	type ModifyAssetStateType,
 } from "./AssetManagementTabs.types";
@@ -24,6 +26,8 @@ import {
 import { FormAddAssetListTabItem, FormEditAssetListTabItem } from "@/components/Forms";
 
 const AssetManagementTabsComponent = ({ activeTab, assets_tabs }: AssetManagementTabsType) => {
+	const { data: sessions } = useSession();
+
 	const { assetListTabItemRemove } = useAppContext();
 	const [modifyAsset, setModifyAsset] = useState<ModifyAssetStateType>({
 		id: 0,
@@ -52,8 +56,13 @@ const AssetManagementTabsComponent = ({ activeTab, assets_tabs }: AssetManagemen
 		setPopupAsset(false);
 	};
 
-	const handleTabListItemRemove = (idAsset: HandleTabListItemRemoveType, idAssetItem: HandleTabListItemRemoveType) => {
-		assetListTabItemRemove(idAsset, idAssetItem);
+	const handleTabListItemRemove = (
+		cmsID: HandleTabListItemIdType,
+		idAsset: HandleTabListItemRemoveType,
+		idAssetItem: HandleTabListItemRemoveType
+	) => {
+		const getUserJWT = (sessions as any)?.jwt;
+		assetListTabItemRemove(cmsID, getUserJWT, idAsset, idAssetItem);
 	};
 
 	const isAssets = assets_tabs.length > 0;

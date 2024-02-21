@@ -78,9 +78,11 @@ export default function ThemeProviderContext({ children }: ContextProviderProps)
 				assetListTabItemModified,
 			});
 		},
-		assetListTabItemRemove(assetListTabCategory, assetListTabItemCategoryId) {
+		assetListTabItemRemove(cmsID, userJWT, assetListTabCategory, assetListTabItemCategoryId) {
 			dispatch({
 				type: "ASSET_TAB_ITEM_REMOVE",
+				cmsID,
+				userJWT,
 				assetListTabCategory,
 				assetListTabItemCategoryId,
 			});

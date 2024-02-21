@@ -158,10 +158,15 @@ export type AppStateValue = Mode &
 			assetListTabItemId: string,
 			assetListTabItemModified: TabListItem
 		) => void;
-		assetListTabItemRemove: (assetListTabCategory: string, assetListTabItemId: string) => void;
+		assetListTabItemRemove: (
+			cmsID: number,
+			userJWT: string,
+			assetListTabCategory: string,
+			assetListTabItemId: string
+		) => void;
 		checkExpenses: (id: string, userJWT: string) => void;
-		removeExpenses: (id: string, userJWT: string) => void;
-		removeRevenue: (id: string, userJWT: string) => void;
+		removeExpenses: (id: number, userJWT: string) => void;
+		removeRevenue: (id: number, userJWT: string) => void;
 		filterCashFlowList: (value: { fromDate: string; toDate: string }) => void;
 		changeSalary: (salary: number) => void;
 		toggleMode: () => void;

@@ -10,14 +10,14 @@ import {
 
 import { type TabListItem } from "@/lib/ThemeProviderContext/ThemeProviderContext.types";
 
-type test = {
+type AssetTabsTabListPropsType = {
 	id_asset: string;
 	tab_assets: TabListItem[];
 	handleEdit: (id: number, id_asset_item: string, name: string, value: number) => void;
-	handleRemove: (id_asset: string, id_asset_item: string) => void;
+	handleRemove: (id: number, id_asset: string, id_asset_item: string) => void;
 };
 
-const AssetTabListComponent = ({ id_asset, tab_assets, handleEdit, handleRemove }: test) => {
+const AssetTabListComponent = ({ id_asset, tab_assets, handleEdit, handleRemove }: AssetTabsTabListPropsType) => {
 	const isListOfAssets = (asset: TabListItem[]) => asset.length > 0;
 	const isEmptyListOfAssets = (asset: TabListItem[]) => asset.length === 0;
 
@@ -34,7 +34,7 @@ const AssetTabListComponent = ({ id_asset, tab_assets, handleEdit, handleRemove 
 								svgUrl="./add.svg"
 							></AssetManagementTabsTabListItemButton>
 							<AssetManagementTabsTabListItemButton
-								onClick={() => handleRemove(id_asset, id_asset_item)}
+								onClick={() => handleRemove(id, id_asset, id_asset_item)}
 								svgUrl="./remove.svg"
 							></AssetManagementTabsTabListItemButton>
 						</AssetManagementTabsTabListItemButtons>

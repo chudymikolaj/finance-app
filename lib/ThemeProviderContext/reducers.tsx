@@ -1,6 +1,6 @@
 import createCashFlowItemAxios from "@/utils/fetch/createCashFlowItemAxios";
 import createTabAssetItemAxios from "@/utils/fetch/createTabAssetItemAxios";
-import removeCashFlowItem from "@/utils/fetch/removeCashFlowItemAxios";
+import removeItemAxios from "@/utils/fetch/removeItemAxios";
 import updateCashFlowItemAxios from "@/utils/fetch/updateCashFlowItemAxios";
 import updateTabAssetItemAxios from "@/utils/fetch/updateTabAssetItemAxios";
 
@@ -48,12 +48,12 @@ type CheckExpense = {
 
 type RemoveExpense = {
 	type: "REMOVE_EXPENSE";
-	id: string;
+	id: number;
 	userJWT: string;
 };
 type RemoveRevenue = {
 	type: "REMOVE_REVENUE";
-	id: string;
+	id: number;
 	userJWT: string;
 };
 
@@ -119,6 +119,8 @@ type AddAssetTabItem = {
 
 type AddAssetTabItemRemove = {
 	type: "ASSET_TAB_ITEM_REMOVE";
+	cmsID: number;
+	userJWT: string;
 	assetListTabCategory: string;
 	assetListTabItemCategoryId: string;
 };
@@ -225,7 +227,7 @@ export function appReducer(state: AppState, action: Action): AppState {
 		const getItemId = action.id;
 		const getUserJWT = action.userJWT;
 
-		removeCashFlowItem(getItemId, getUserJWT, "/api/monetary-expenses");
+		removeItemAxios(getItemId, getUserJWT, "/api/monetary-expenses");
 
 		return {
 			...state,
@@ -239,7 +241,7 @@ export function appReducer(state: AppState, action: Action): AppState {
 
 		const findItem = state.revenues.filter((item) => String(item.id) !== String(getItemId));
 
-		removeCashFlowItem(getItemId, getUserJWT, "/api/monetary-incomes");
+		removeItemAxios(getItemId, getUserJWT, "/api/monetary-incomes");
 
 		return {
 			...state,
@@ -423,13 +425,14 @@ export function appReducer(state: AppState, action: Action): AppState {
 
 				const totalValue = updatedLists.reduce((total, currentItem) => total + currentItem.value, 0);
 
+				console.log(action.cmsID);
+				removeItemAxios(action.cmsID, action.userJWT, "/api/tab-assets");
+
 				return { ...item, tab_assets: updatedLists, value: totalValue };
 			}
 
 			return item;
 		});
-
-		console.log(action.assetListTabItemCategoryId);
 
 		return {
 			...state,

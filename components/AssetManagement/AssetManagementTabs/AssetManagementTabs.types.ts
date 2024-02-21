@@ -16,4 +16,6 @@ export type HandleTabListItemEditType = string;
 export type HandleTabListItemEditIdType = number;
 export type HandleTabListItemEditNumberType = number;
 
+export type HandleTabListItemIdType = number;
+export type HandleTabListItemJwtType = string;
 export type HandleTabListItemRemoveType = string;
