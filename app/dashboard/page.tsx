@@ -6,6 +6,7 @@ import { useEffect } from "react";
 
 import { useAppContext } from "@/lib/ThemeProviderContext/actions";
 import { getUserDataAxios } from "@/utils/fetch/getUserDataAxios";
+import updateBudgetOptions from "@/utils/fetch/updateDefaultBudgetAllocations";
 
 import AssetManagement from "@/components/AssetManagement";
 import BudgetManagmentComponent from "@/components/BudgetManagement";
@@ -13,35 +14,34 @@ import CashFlow from "@/components/CashFlow";
 import { IntroDashboardComponent } from "@/components/Intro";
 import Wallet from "@/components/Wallet";
 
-import { MonetaryExpensesProps, MonetaryIncomesProps } from "@/lib/ThemeProviderContext/ThemeProviderContext.types";
 import { DashboardContainer, DashboardLeftColumn, DashboardRightColumn } from "./dashboard.styled";
 
 export default function Dashboard() {
 	const pathname = usePathname();
-	const { updateExpensesList, updateRevenuesList } = useAppContext();
+	const { updateExpensesList, updateRevenuesList, updateBudgetAllocations } = useAppContext();
 
 	useEffect(() => {
 		const securePage = async () => {
 			const session = await getSession();
 
 			if (session) {
-				await getUserDataAxios(session, "?populate[monetary_incomes]=*")
-					.then((res: unknown) => {
-						const cashFlowListProps = res as MonetaryIncomesProps;
-						updateRevenuesList(cashFlowListProps?.monetary_incomes);
-					})
-					.catch((err) => {
-						console.log(err);
-					});
+				const getMonetaryIncomes = await getUserDataAxios(session, "?populate[monetary_incomes]=*");
 
-				await getUserDataAxios(session, "?populate[monetary_expenses]=*")
-					.then((res: unknown) => {
-						const monetaryExpensesResult = res as MonetaryExpensesProps;
-						updateExpensesList(monetaryExpensesResult?.monetary_expenses);
-					})
-					.catch((err) => {
-						console.log(err);
-					});
+				if ("monetary_incomes" in getMonetaryIncomes) {
+					updateRevenuesList(getMonetaryIncomes?.monetary_incomes);
+				}
+
+				const getMonetaryExpenses = await getUserDataAxios(session, "?populate[monetary_expenses]=*");
+
+				if ("monetary_expenses" in getMonetaryExpenses) {
+					updateExpensesList(getMonetaryExpenses?.monetary_expenses);
+				}
+
+				const getBudgetOptions = await getUserDataAxios(session, "?populate[budget_options]=*");
+
+				if ("budget_options" in getBudgetOptions) {
+					updateBudgetOptions(getBudgetOptions, updateBudgetAllocations, session);
+				}
 			}
 		};
 
