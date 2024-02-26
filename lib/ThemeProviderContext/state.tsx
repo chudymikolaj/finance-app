@@ -18,35 +18,6 @@ export const initialAppState: AppState = {
 	},
 	expenses: [],
 	revenues: [],
-	budgetAllocations: [
-		{
-			id: "zelazna-rezerwa",
-			title: "Żelazna rezerwa",
-			share: 0.3,
-			value: 0,
-			color: "#5D8C71",
-		},
-		{
-			id: "inwestycje",
-			title: "Inwestycje",
-			share: 0.2,
-			value: 0,
-			color: "#FF6969",
-		},
-		{
-			id: "oszczednosci",
-			title: "Oszczędności",
-			share: 0.1,
-			value: 0,
-			color: "#9747FF",
-		},
-		{
-			id: "reszta",
-			title: "Reszta",
-			share: 0.4,
-			value: 0,
-			color: "#67aded",
-		},
-	],
+	budget_options: [],
 	assets_tabs: [],
 };

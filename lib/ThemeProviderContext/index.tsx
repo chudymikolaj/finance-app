@@ -26,7 +26,7 @@ export default function ThemeProviderContext({ children }: ContextProviderProps)
 		filterDateCashFlowList: app.filterDateCashFlowList,
 		expenses: app.expenses,
 		revenues: app.revenues,
-		budgetAllocations: app.budgetAllocations,
+		budget_options: app.budget_options,
 		assets_tabs: app.assets_tabs,
 		addExpense(id, name, value, tags, isPaid, date, userID, userJWT) {
 			dispatch({ type: "ADD_EXPENSE", id, name, value, tags, isPaid, date, userID, userJWT });
@@ -49,8 +49,8 @@ export default function ThemeProviderContext({ children }: ContextProviderProps)
 		updateRestRevenues(revenues, expenses) {
 			dispatch({ type: "UPDATE_REST_REVENUES", revenues, expenses });
 		},
-		updateBudgetAllocations(budgetAllocations) {
-			dispatch({ type: "UPDATE_BUDGET_ALLOCATIONS", budgetAllocations });
+		updateBudgetAllocations(budget_options) {
+			dispatch({ type: "UPDATE_BUDGET_ALLOCATIONS", budget_options });
 		},
 		changeBudgetAllocations(data) {
 			dispatch({ type: "CHANGE_BUDGET_ALLOCATIONS", data });

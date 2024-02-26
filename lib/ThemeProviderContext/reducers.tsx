@@ -95,7 +95,7 @@ type FilterCashFlowList = {
 
 type UpdateBudgetAllocations = {
 	type: "UPDATE_BUDGET_ALLOCATIONS";
-	budgetAllocations: BudgetAllocation[];
+	budget_options: BudgetAllocation[];
 };
 
 type ChangeBudgetAllocations = {
@@ -317,15 +317,15 @@ export function appReducer(state: AppState, action: Action): AppState {
 	if (action.type === "UPDATE_BUDGET_ALLOCATIONS") {
 		return {
 			...state,
-			budgetAllocations: [...action.budgetAllocations],
+			budget_options: [...action.budget_options],
 		};
 	}
 
 	if (action.type === "CHANGE_BUDGET_ALLOCATIONS") {
 		const convertObjectToArray = Object.entries(action.data);
 
-		const changeBudgetAllocation = state.budgetAllocations.map((budgetAllocation, index) => {
-			if (convertObjectToArray[index][0] === budgetAllocation.id) {
+		const changeBudgetAllocation = state.budget_options.map((budgetAllocation, index) => {
+			if (Number(convertObjectToArray[index][0]) === budgetAllocation.id) {
 				return {
 					...budgetAllocation,
 					share: Number(convertObjectToArray[index][1]) / 100,
@@ -337,7 +337,7 @@ export function appReducer(state: AppState, action: Action): AppState {
 
 		return {
 			...state,
-			budgetAllocations: [...changeBudgetAllocation],
+			budget_options: [...changeBudgetAllocation],
 		};
 	}
 

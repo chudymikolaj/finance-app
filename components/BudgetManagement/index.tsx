@@ -16,7 +16,7 @@ import {
 import { Line } from "@/components/Line/Line.styles";
 
 const BudgetManagementAssets = () => {
-	const { budgetAllocations, wallet } = useAppContext();
+	const { budget_options, wallet } = useAppContext();
 
 	const [calcedBudget, setCalcedBudget] = useState<BudgetAllocation[]>([]);
 	const isBudgetAllocation = calcedBudget.length !== 0;
@@ -36,9 +36,9 @@ const BudgetManagementAssets = () => {
 	};
 
 	useEffect(() => {
-		const calcBudget = mapBudget(budgetAllocations, wallet.restRevenues);
+		const calcBudget = mapBudget(budget_options, wallet.restRevenues);
 		setCalcedBudget(calcBudget);
-	}, [wallet.restRevenues, budgetAllocations]);
+	}, [wallet.restRevenues, budget_options]);
 
 	return (
 		<BudgetManagementAssetsContainer>

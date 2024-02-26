@@ -7,30 +7,19 @@ import { useAppContext } from "@/lib/ThemeProviderContext/actions";
 import ButtonSVG from "../Buttons/ButtonSvg";
 import { NumberInput } from "./Input";
 
-import {
-	type FormChangeWalletProportionsPropsType,
-	type IFormValues,
-} from "./Form.types";
+import { type FormChangeWalletProportionsPropsType, type IFormValues } from "./Form.types";
 
-import {
-	FormElement,
-	FormElementHeader,
-	FormElementSubmit,
-	FormElementTitle,
-	ErrorMessage,
-} from "./Form.styled";
+import { FormElement, FormElementHeader, FormElementSubmit, FormElementTitle, ErrorMessage } from "./Form.styled";
 
-const FormChangeWalletProportions = ({
-	closePopup,
-}: FormChangeWalletProportionsPropsType) => {
+const FormChangeWalletProportions = ({ closePopup }: FormChangeWalletProportionsPropsType) => {
 	const { register, handleSubmit, setValue } = useForm<IFormValues>();
-	const { budgetAllocations, changeBudgetAllocations } = useAppContext();
+	const { budget_options, changeBudgetAllocations } = useAppContext();
 	const [sumOfPercentage, setSumOfPercentage] = useState(false);
-	const isBudgetAllocations = budgetAllocations.length > 0;
+	const isBudgetAllocations = budget_options.length > 0;
 
 	useEffect(() => {
-		budgetAllocations.map(({ id, share }) => setValue(id, String(share * 100)));
-	}, [budgetAllocations]);
+		budget_options.map(({ id, share }) => setValue(String(id), String(share * 100)));
+	}, [budget_options]);
 
 	const onSubmit: SubmitHandler<IFormValues> = (data) => {
 		const ConvertToArrayPercentage = Object.entries(data);
@@ -61,11 +50,11 @@ const FormChangeWalletProportions = ({
 			</FormElementHeader>
 			<FormElement onSubmit={handleSubmit(onSubmit)}>
 				{isBudgetAllocations &&
-					budgetAllocations.map(({ id, title }) => (
+					budget_options.map(({ id, title }) => (
 						<NumberInput
 							key={id}
 							label={title}
-							labelRegister={id}
+							labelRegister={String(id)}
 							placeholder={title}
 							type="number"
 							min={0}
@@ -76,9 +65,7 @@ const FormChangeWalletProportions = ({
 					))}
 
 				<FormElementSubmit type="submit">Zmień proporcje</FormElementSubmit>
-				{sumOfPercentage && (
-					<ErrorMessage>Zmniejsz sumę proporcji poniżej 100%</ErrorMessage>
-				)}
+				{sumOfPercentage && <ErrorMessage>Zmniejsz sumę proporcji poniżej 100%</ErrorMessage>}
 			</FormElement>
 		</>
 	);

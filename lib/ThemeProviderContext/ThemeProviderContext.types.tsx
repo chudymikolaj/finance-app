@@ -83,7 +83,7 @@ export type AssetTabLists = {
 };
 
 export type BudgetAllocation = {
-	id: string;
+	id: number;
 	title: string;
 	share: number;
 	value: number;
@@ -91,7 +91,7 @@ export type BudgetAllocation = {
 };
 
 export type BudgetAllocations = {
-	budgetAllocations: BudgetAllocation[];
+	budget_options: BudgetAllocation[];
 };
 
 export type AppState = Mode &
