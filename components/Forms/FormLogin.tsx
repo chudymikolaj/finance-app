@@ -10,9 +10,9 @@ import { type FormLoginPropsType, type IFormValues } from "./Form.types";
 
 import {
 	FormElement,
-	FormElementHeader,
-	FormElementTitle,
-	FormElementSubTitle,
+	FormElementHeaderAuth,
+	FormElementHeaderAuthTitle,
+	FormElementHeaderAuthSubTitle,
 	FormElementForgetPassword,
 	FormElementSingInAccount,
 	FormElementSubmit,
@@ -54,10 +54,10 @@ const FormLogin = ({ title, subTitle, data }: FormLoginPropsType) => {
 
 	return (
 		<>
-			<FormElementHeader>
-				<FormElementTitle>{getTitleHeader}</FormElementTitle>
-				<FormElementSubTitle>{getSubTitle}</FormElementSubTitle>
-			</FormElementHeader>
+			<FormElementHeaderAuth>
+				<FormElementHeaderAuthTitle>{getTitleHeader}</FormElementHeaderAuthTitle>
+				<FormElementHeaderAuthSubTitle>{getSubTitle}</FormElementHeaderAuthSubTitle>
+			</FormElementHeaderAuth>
 
 			{getparamsError && <ErrorMessage>{getErrorMessage}</ErrorMessage>}
 

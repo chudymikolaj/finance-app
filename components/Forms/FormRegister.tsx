@@ -13,19 +13,18 @@ import { type FormRegisterPropsType, type IFormValues } from "./Form.types";
 import {
 	ErrorMessage,
 	FormElement,
-	FormElementHeader,
+	FormElementHeaderAuth,
 	FormElementSingInAccount,
 	FormElementSingInAccountLink,
-	FormElementSubTitle,
+	FormElementHeaderAuthSubTitle,
 	FormElementSubmit,
-	FormElementTitle,
+	FormElementHeaderAuthTitle,
 } from "./Form.styled";
 
 const FormRegister = ({ title, subTitle, data }: FormRegisterPropsType) => {
 	const router = useRouter();
 	const [errorRegisterEmail, setErrorRegisterEmail] = useState(false);
-	const [errorLoginEmailUsername, setErrorRegisterEmailUsername] =
-		useState(false);
+	const [errorLoginEmailUsername, setErrorRegisterEmailUsername] = useState(false);
 	const [errorMinLengthPassword, setErrorMinLengthPassword] = useState(false);
 
 	const {
@@ -66,40 +65,29 @@ const FormRegister = ({ title, subTitle, data }: FormRegisterPropsType) => {
 			})
 			.catch((error) => {
 				const errorResponseDataUsed = error.response.data.error;
-				const errorResponseDataDetailsEmail =
-					error.response.data.error?.details.errors[0].path[0];
-				const errorResponseDataDetailsPassword =
-					error.response.data.error?.details.errors[0].path[0];
+				const errorResponseDataDetailsEmail = error.response.data.error?.details.errors[0].path[0];
+				const errorResponseDataDetailsPassword = error.response.data.error?.details.errors[0].path[0];
 
-				if (errorResponseDataDetailsEmail === "email")
-					setErrorRegisterEmail(true);
+				if (errorResponseDataDetailsEmail === "email") setErrorRegisterEmail(true);
 
-				if (errorResponseDataDetailsPassword === "password")
-					setErrorMinLengthPassword(true);
+				if (errorResponseDataDetailsPassword === "password") setErrorMinLengthPassword(true);
 
-				if (errorResponseDataUsed.name === "ApplicationError")
-					setErrorRegisterEmailUsername(true);
+				if (errorResponseDataUsed.name === "ApplicationError") setErrorRegisterEmailUsername(true);
 			});
 	};
 
 	return (
 		<>
-			<FormElementHeader>
-				<FormElementTitle>{getTitleHeader}</FormElementTitle>
-				<FormElementSubTitle>{getSubTitle}</FormElementSubTitle>
-			</FormElementHeader>
+			<FormElementHeaderAuth>
+				<FormElementHeaderAuthTitle>{getTitleHeader}</FormElementHeaderAuthTitle>
+				<FormElementHeaderAuthSubTitle>{getSubTitle}</FormElementHeaderAuthSubTitle>
+			</FormElementHeaderAuth>
 
-			{errorLoginEmailUsername && (
-				<ErrorMessage>{getErrorMessage400}</ErrorMessage>
-			)}
+			{errorLoginEmailUsername && <ErrorMessage>{getErrorMessage400}</ErrorMessage>}
 
-			{errorRegisterEmail && (
-				<ErrorMessage>{getErrorMessageEmail}</ErrorMessage>
-			)}
+			{errorRegisterEmail && <ErrorMessage>{getErrorMessageEmail}</ErrorMessage>}
 
-			{errorMinLengthPassword && (
-				<ErrorMessage>{getErrorMessagePassword}</ErrorMessage>
-			)}
+			{errorMinLengthPassword && <ErrorMessage>{getErrorMessagePassword}</ErrorMessage>}
 
 			<FormElement onSubmit={handleSubmit(onSubmit)}>
 				<Input
@@ -139,9 +127,7 @@ const FormRegister = ({ title, subTitle, data }: FormRegisterPropsType) => {
 					required
 				/>
 
-				<FormElementSubmit type="submit">
-					{getregisterButtonName}
-				</FormElementSubmit>
+				<FormElementSubmit type="submit">{getregisterButtonName}</FormElementSubmit>
 
 				<FormElementSingInAccount>
 					<p>

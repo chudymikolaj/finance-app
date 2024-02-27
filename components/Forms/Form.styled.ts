@@ -5,7 +5,7 @@ import Link from "next/link";
 
 import ButtonSubmit from "@/components/Buttons/ButtonSubmit";
 import { BORDER_RADIUS, SIZES, WEIGHT } from "@/styles/constants";
-import { FlexColumnStart } from "@/styles/mixins.styled";
+import { FlexColumnStart, FlexRowSpaceBetweenCenter } from "@/styles/mixins.styled";
 import { devices } from "@/styles/breakpoints";
 
 export const FormElement = styled.form`
@@ -21,18 +21,36 @@ export const FormElementHeader = styled.div`
 	margin: 0 0 30px;
 
 	@media ${devices.xl} {
+		${FlexRowSpaceBetweenCenter}
+		margin: 0 0 40px;
+	}
+`;
+
+export const FormElementHeaderAuth = styled.div`
+	${FlexColumnStart}
+	gap: 15px;
+
+	width: 100%;
+	margin: 0 0 30px;
+
+	@media ${devices.xl} {
 		margin: 0 0 60px;
 	}
 `;
 
 export const FormElementTitle = styled.h1`
-	margin: 0 0 15px;
+	font-weight: ${WEIGHT.bold};
+	font-size: ${SIZES.headerText};
+	line-height: 1.3;
+`;
+
+export const FormElementHeaderAuthTitle = styled.h1`
 	font-weight: ${WEIGHT.bold};
 	font-size: ${SIZES.loginTitle};
 	line-height: 1.3;
 `;
 
-export const FormElementSubTitle = styled.h3`
+export const FormElementHeaderAuthSubTitle = styled.h3`
 	font-size: ${SIZES.loginSubTitle};
 `;
 
