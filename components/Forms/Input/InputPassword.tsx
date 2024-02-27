@@ -39,6 +39,7 @@ const InputPasswordComponent = ({
 	const [showPassword, setShowPassword] = useState(false);
 
 	const handleChange = () => setShowPassword((prevState) => !prevState);
+	const isErrorType = errorType === error && errorType !== undefined;
 
 	return (
 		<InputWrapper>
@@ -65,7 +66,7 @@ const InputPasswordComponent = ({
 				</IconWrapper>
 			</InputPassword>
 
-			{errorType === error && <ErrorMessageForm>{errorsMessages}</ErrorMessageForm>}
+			{isErrorType && <ErrorMessageForm>{errorsMessages}</ErrorMessageForm>}
 		</InputWrapper>
 	);
 };

@@ -36,6 +36,8 @@ const Input = ({
 	errorType,
 	errorsMessages,
 }: InputProps) => {
+	const isErrorType = errorType === error && errorType !== undefined;
+
 	return (
 		<InputWrapper>
 			<InputLabel htmlFor={labelRegister}>{label}</InputLabel>
@@ -50,9 +52,7 @@ const Input = ({
 					pattern,
 				})}
 			/>
-			{errorType === error && (
-				<ErrorMessageForm>{errorsMessages}</ErrorMessageForm>
-			)}
+			{isErrorType && <ErrorMessageForm>{errorsMessages}</ErrorMessageForm>}
 		</InputWrapper>
 	);
 };
