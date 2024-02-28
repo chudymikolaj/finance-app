@@ -8,13 +8,14 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 
+import getUserDataAxios from "@/utils/fetch/getUserDataAxios";
+import updateTabValueAxios from "@/utils/fetch/updateTabValueAxios";
+
 import Line from "@/components/Line";
 import PopupComponent from "@/components/Popup";
 import AssetHeader from "./AssetManagementHeader";
 import AssetManagementTabs from "./AssetManagementTabs";
 
-import { getUserDataAxios } from "@/utils/fetch/getUserDataAxios";
-import updateTabValueAxios from "@/utils/fetch/updateTabValueAxios";
 import {
 	AssetCategoriesCategories,
 	AssetCategoriesCategory,
@@ -31,7 +32,7 @@ const AssetManagementComponent = () => {
 	const { updateAssetListTabs, assets_tabs } = useAppContext();
 
 	const [showPopupAssetManagment, setShowPopupAssetManagment] = useState(false);
-	const [activeCategory, setActiveCategory] = useState("");
+	const [activeCategory, setActiveCategory] = useState(0);
 	const [slickSettings, setSlickSettings] = useState({
 		dots: true,
 		infinite: true,
@@ -66,11 +67,14 @@ const AssetManagementComponent = () => {
 	const isAssets = assets_tabs?.length > 0;
 
 	useEffect(() => {
-		const securePage = async () => {
+		const updateAsset = async () => {
 			const session = await getSession();
 
 			if (session) {
-				const resultAssetsTabs = await getUserDataAxios(session, "?populate[assets_tabs][populate][tab_assets]=*");
+				const resultAssetsTabs = await getUserDataAxios(
+					(session as any)?.jwt,
+					"?populate[assets_tabs][populate][tab_assets]=*"
+				);
 
 				updateAssetListTabs([]);
 
@@ -82,7 +86,7 @@ const AssetManagementComponent = () => {
 
 						const newValue = { ...tab, value };
 
-						updateTabValueAxios(newValue, session.jwt, "/api/assets-tabs");
+						updateTabValueAxios(newValue, (session as any).jwt, "/api/assets-tabs");
 
 						return newValue;
 					});
@@ -92,7 +96,7 @@ const AssetManagementComponent = () => {
 			}
 		};
 
-		securePage();
+		updateAsset();
 	}, []);
 
 	const handleOpenPopup = () => setShowPopupAssetManagment(true);
@@ -112,13 +116,13 @@ const AssetManagementComponent = () => {
 				{isAssets && (
 					<>
 						<Slider {...slickSettings}>
-							{assets_tabs.map(({ id_asset, name, value, goal, color }) => (
-								<div key={id_asset}>
+							{assets_tabs.map(({ id, name, value, goal, color }) => (
+								<div key={id}>
 									<AssetCategoriesCategory>
 										<AssetCategoriesCategoryButton
 											onClick={() => {
 												handleOpenPopup();
-												setActiveCategory(id_asset);
+												setActiveCategory(id);
 											}}
 										>
 											<AssetCategoriesCategoryCircleColor $color={color}></AssetCategoriesCategoryCircleColor>
@@ -146,7 +150,7 @@ const AssetManagementComponent = () => {
 							closePopup={handleClosePopup}
 						>
 							<AssetManagementTabs
-								activeTab={activeCategory}
+								activeTabId={activeCategory}
 								assets_tabs={assets_tabs}
 							/>
 						</PopupComponent>

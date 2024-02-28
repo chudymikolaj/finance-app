@@ -1,13 +1,13 @@
 import { type AssetTabList } from "@/lib/ThemeProviderContext/ThemeProviderContext.types";
 
 export type AssetManagementTabsType = {
-	activeTab: string;
+	activeTabId: number;
 	assets_tabs: AssetTabList[];
 };
 
 export type ModifyAssetStateType = {
 	id: number;
-	idAssetItem: string;
+	categoryTabId: number;
 	title: string;
 	value: number;
 };
@@ -18,4 +18,4 @@ export type HandleTabListItemEditNumberType = number;
 
 export type HandleTabListItemIdType = number;
 export type HandleTabListItemJwtType = string;
-export type HandleTabListItemRemoveType = string;
+export type HandleCategoryTabIdType = number;

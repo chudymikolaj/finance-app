@@ -16,23 +16,22 @@ const FormEditBudgetListTabItem = ({ categoryId, data, closePopup }: FormEditAss
 	const { data: sessions } = useSession();
 	const { register, handleSubmit, setValue } = useForm<IFormValues>();
 	const { modifyAssetListTabItem } = useAppContext();
-	const { id, idAssetItem, title, value } = data;
+	const { id, title, value } = data;
 
 	useEffect(() => {
 		setValue("name", title);
-		setValue("value", String(value));
+		setValue("value", value);
 	}, [title, value]);
 
 	const onSubmit: SubmitHandler<IFormValues> = (data) => {
 		const getUserJWT = (sessions as any)?.jwt;
-		const editAsset: { id: number; id_asset_item: string; name: string; value: number } = {
+		const editAsset: { id: number; name: string; value: number } = {
 			id: id,
-			id_asset_item: data.id_asset_item,
 			name: data.name,
 			value: Number(data.value),
 		};
 
-		modifyAssetListTabItem(id, getUserJWT, categoryId, idAssetItem, editAsset);
+		modifyAssetListTabItem(id, categoryId, getUserJWT, editAsset);
 		closePopup();
 	};
 

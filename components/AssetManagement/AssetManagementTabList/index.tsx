@@ -11,30 +11,30 @@ import {
 import { type TabListItem } from "@/lib/ThemeProviderContext/ThemeProviderContext.types";
 
 type AssetTabsTabListPropsType = {
-	id_asset: string;
+	categoryTabId: number;
 	tab_assets: TabListItem[];
-	handleEdit: (id: number, id_asset_item: string, name: string, value: number) => void;
-	handleRemove: (id: number, id_asset: string, id_asset_item: string) => void;
+	handleEdit: (id: number, categoryTabId: number, name: string, value: number) => void;
+	handleRemove: (id: number, categoryTabId: number) => void;
 };
 
-const AssetTabListComponent = ({ id_asset, tab_assets, handleEdit, handleRemove }: AssetTabsTabListPropsType) => {
+const AssetTabListComponent = ({ categoryTabId, tab_assets, handleEdit, handleRemove }: AssetTabsTabListPropsType) => {
 	const isListOfAssets = (asset: TabListItem[]) => asset.length > 0;
 	const isEmptyListOfAssets = (asset: TabListItem[]) => asset.length === 0;
 
 	return (
 		<AssetManagementTabsTabList>
 			{isListOfAssets(tab_assets) &&
-				tab_assets.map(({ id, id_asset_item, name, value }) => (
+				tab_assets.map(({ id, name, value }) => (
 					<AssetManagementTabsTabListItem key={id}>
 						<AssetManagementTabsTabListItemName>{name}</AssetManagementTabsTabListItemName>
 						<AssetManagementTabsTabListItemValue>{value} PLN</AssetManagementTabsTabListItemValue>
 						<AssetManagementTabsTabListItemButtons>
 							<AssetManagementTabsTabListItemButton
-								onClick={() => handleEdit(id, id_asset_item, name, value)}
+								onClick={() => handleEdit(id, categoryTabId, name, value)}
 								svgUrl="./add.svg"
 							></AssetManagementTabsTabListItemButton>
 							<AssetManagementTabsTabListItemButton
-								onClick={() => handleRemove(id, id_asset, id_asset_item)}
+								onClick={() => handleRemove(id, categoryTabId)}
 								svgUrl="./remove.svg"
 							></AssetManagementTabsTabListItemButton>
 						</AssetManagementTabsTabListItemButtons>

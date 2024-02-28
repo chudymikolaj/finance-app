@@ -3,16 +3,16 @@
 import { type KeyboardEvent, type ReactNode } from "react";
 
 export type FormAddAssetListTabItemPropsType = {
-	categoryId: string;
-	closePopup: () => void;
+	newId: number;
 	tabId: number;
+	categoryId: number;
+	closePopup: () => void;
 };
 
 export type FormEditAssetListTabItemPropsType = {
-	categoryId: string;
+	categoryId: number;
 	data: {
 		id: number;
-		idAssetItem: string;
 		title: string;
 		value: number;
 	};
@@ -24,7 +24,9 @@ export type FormChangeWalletProportionsPropsType = {
 };
 
 export interface IFormValues {
-	[key: string]: string;
+	id: number;
+	name: string;
+	value: number;
 }
 
 export type ReactNodeType = ReactNode;

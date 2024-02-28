@@ -63,7 +63,6 @@ export type ExpensesAndRevenues = {
 
 export type TabListItem = {
 	id: number;
-	id_asset_item: string;
 	name: string;
 	value: number;
 };
@@ -145,25 +144,18 @@ export type AppStateValue = Mode &
 		changeBudgetAllocations: (data: { [key: string]: string }) => void;
 		updateAssetListTabs: (assets_tabs: AssetTabList[]) => void;
 		addAssetListTabItem: (
-			tabId: number,
-			assetListTabItemId: string,
 			userID: number,
 			userJWT: string,
+			categoryTabId: number,
 			newAssetListTabItem: TabListItem
 		) => void;
 		modifyAssetListTabItem: (
 			cmsId: number,
+			categoryTabId: number,
 			userJWT: string,
-			assetListTabItemCategoryId: string,
-			assetListTabItemId: string,
 			assetListTabItemModified: TabListItem
 		) => void;
-		assetListTabItemRemove: (
-			cmsID: number,
-			userJWT: string,
-			assetListTabCategory: string,
-			assetListTabItemId: string
-		) => void;
+		assetListTabItemRemove: (cmsID: number, categoryTabId: number, userJWT: string) => void;
 		checkExpenses: (id: string, userJWT: string) => void;
 		removeExpenses: (id: number, userJWT: string) => void;
 		removeRevenue: (id: number, userJWT: string) => void;

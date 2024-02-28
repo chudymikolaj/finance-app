@@ -1,7 +1,6 @@
 "use client";
 
 import { useForm, SubmitHandler } from "react-hook-form";
-import { v4 as uuidv4 } from "uuid";
 
 import { useAppContext } from "@/lib/ThemeProviderContext/actions";
 import ButtonSVG from "../Buttons/ButtonSvg";
@@ -12,7 +11,7 @@ import { type FormAddAssetListTabItemPropsType, type IFormValues } from "./Form.
 import { FormElement, FormElementHeader, FormElementSubmit, FormElementTitle } from "./Form.styled";
 import { useSession } from "next-auth/react";
 
-const FormAddAssetListTabItem = ({ categoryId, tabId, closePopup }: FormAddAssetListTabItemPropsType) => {
+const FormAddAssetListTabItem = ({ newId, categoryId, closePopup }: FormAddAssetListTabItemPropsType) => {
 	const { data: session } = useSession();
 	const { register, handleSubmit } = useForm<IFormValues>();
 	const { addAssetListTabItem } = useAppContext();
@@ -20,14 +19,13 @@ const FormAddAssetListTabItem = ({ categoryId, tabId, closePopup }: FormAddAsset
 	const onSubmit: SubmitHandler<IFormValues> = (data) => {
 		const userID = (session as any)?.id;
 		const userJWT = (session as any)?.jwt;
-		const addAssetItem: { id: string; id_asset_item: string; name: string; value: number } = {
-			id: uuidv4(),
-			id_asset_item: uuidv4(),
+		const addAssetItem: { id: number; name: string; value: number } = {
+			id: newId,
 			name: data.name,
 			value: Number(data.value),
 		};
 
-		addAssetListTabItem(tabId, categoryId, userID, userJWT, addAssetItem);
+		addAssetListTabItem(userID, userJWT, categoryId, addAssetItem);
 		closePopup();
 	};
 

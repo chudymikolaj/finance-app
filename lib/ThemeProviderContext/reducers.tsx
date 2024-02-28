@@ -110,27 +110,24 @@ type UpdateAssetTabLists = {
 
 type AddAssetTabItem = {
 	type: "ADD_ASSET_TAB_ITEM";
-	tabId: number;
-	assetListTabItemCategoryId: string;
 	userID: number;
 	userJWT: string;
+	categoryTabId: number;
 	newAssetListTabItem: TabListItem;
 };
 
 type AddAssetTabItemRemove = {
 	type: "ASSET_TAB_ITEM_REMOVE";
 	cmsID: number;
+	categoryTabId: number;
 	userJWT: string;
-	assetListTabCategory: string;
-	assetListTabItemCategoryId: string;
 };
 
 type ModifyAssetTabItem = {
 	type: "MODIFY_ASSET_TAB_ITEM";
 	cmsId: number;
+	categoryTabId: number;
 	userJWT: string;
-	assetListTabItemCategoryId: string;
-	assetListTabItemId: string;
 	assetListTabItemModified: TabListItem;
 };
 
@@ -349,8 +346,21 @@ export function appReducer(state: AppState, action: Action): AppState {
 	}
 
 	if (action.type === "ADD_ASSET_TAB_ITEM") {
+		const createAssetItemAxios = {
+			name: action.newAssetListTabItem.name,
+			value: action.newAssetListTabItem.value,
+			assets_tab: {
+				connect: [Number(action.categoryTabId)],
+			},
+			users_permissions_user: {
+				connect: [action.userID],
+			},
+		};
+
+		createTabAssetItemAxios(createAssetItemAxios, action.userJWT, "/api/tab-assets");
+
 		const updatedAssetTabLists = state.assets_tabs.map((item) => {
-			if (item.id_asset === action.assetListTabItemCategoryId) {
+			if (item.id === action.categoryTabId) {
 				const updatedLists = [...item.tab_assets, action.newAssetListTabItem];
 				const totalValue = updatedLists.reduce((total, currentItem) => total + currentItem.value, 0);
 
@@ -360,20 +370,6 @@ export function appReducer(state: AppState, action: Action): AppState {
 			return item;
 		});
 
-		const createAssetItemAxios = {
-			name: action.newAssetListTabItem.name,
-			value: action.newAssetListTabItem.value,
-			id_asset_item: action.newAssetListTabItem.id_asset_item,
-			assets_tab: {
-				connect: [action.tabId],
-			},
-			users_permissions_user: {
-				connect: [action.userID],
-			},
-		};
-
-		createTabAssetItemAxios(createAssetItemAxios, action.userJWT, "/api/tab-assets");
-
 		return {
 			...state,
 			assets_tabs: updatedAssetTabLists,
@@ -382,9 +378,9 @@ export function appReducer(state: AppState, action: Action): AppState {
 
 	if (action.type === "MODIFY_ASSET_TAB_ITEM") {
 		const updatedAssetTabLists = state.assets_tabs.map((item) => {
-			if (item.id_asset === action.assetListTabItemCategoryId) {
+			if (item.id === action.categoryTabId) {
 				const updatedLists = item.tab_assets.map((tabItem) => {
-					if (tabItem.id_asset_item === action.assetListTabItemId) {
+					if (tabItem.id === action.cmsId) {
 						const modyfied = {
 							...tabItem,
 							name: action.assetListTabItemModified.name,
@@ -420,19 +416,18 @@ export function appReducer(state: AppState, action: Action): AppState {
 
 	if (action.type === "ASSET_TAB_ITEM_REMOVE") {
 		const updatedAssetTabLists = state.assets_tabs.map((item) => {
-			if (item.id_asset === action.assetListTabCategory) {
-				const updatedLists = item.tab_assets.filter((item) => item.id_asset_item !== action.assetListTabItemCategoryId);
+			if (item.id === action.categoryTabId) {
+				const updatedLists = item.tab_assets.filter((item) => item.id !== action.cmsID);
 
 				const totalValue = updatedLists.reduce((total, currentItem) => total + currentItem.value, 0);
-
-				console.log(action.cmsID);
-				removeItemAxios(action.cmsID, action.userJWT, "/api/tab-assets");
 
 				return { ...item, tab_assets: updatedLists, value: totalValue };
 			}
 
 			return item;
 		});
+
+		removeItemAxios(action.cmsID, action.userJWT, "/api/tab-assets");
 
 		return {
 			...state,

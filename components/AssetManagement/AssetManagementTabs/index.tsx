@@ -19,19 +19,19 @@ import {
 	type HandleTabListItemEditNumberType,
 	type HandleTabListItemEditType,
 	type HandleTabListItemIdType,
-	type HandleTabListItemRemoveType,
+	type HandleCategoryTabIdType,
 	type ModifyAssetStateType,
 } from "./AssetManagementTabs.types";
 
 import { FormAddAssetListTabItem, FormEditAssetListTabItem } from "@/components/Forms";
 
-const AssetManagementTabsComponent = ({ activeTab, assets_tabs }: AssetManagementTabsType) => {
+const AssetManagementTabsComponent = ({ activeTabId, assets_tabs }: AssetManagementTabsType) => {
 	const { data: sessions } = useSession();
 
 	const { assetListTabItemRemove } = useAppContext();
 	const [modifyAsset, setModifyAsset] = useState<ModifyAssetStateType>({
 		id: 0,
-		idAssetItem: "",
+		categoryTabId: 0,
 		title: "",
 		value: 0,
 	});
@@ -41,13 +41,13 @@ const AssetManagementTabsComponent = ({ activeTab, assets_tabs }: AssetManagemen
 
 	const handleTabListItemEdit = (
 		id: HandleTabListItemEditIdType,
-		itemId: HandleTabListItemEditType,
+		categoryTabId: HandleCategoryTabIdType,
 		title: HandleTabListItemEditType,
 		value: HandleTabListItemEditNumberType
 	) => {
 		setModifyAsset({
 			id: id,
-			idAssetItem: itemId,
+			categoryTabId: categoryTabId,
 			title: title,
 			value: value,
 		});
@@ -56,13 +56,9 @@ const AssetManagementTabsComponent = ({ activeTab, assets_tabs }: AssetManagemen
 		setPopupAsset(false);
 	};
 
-	const handleTabListItemRemove = (
-		cmsID: HandleTabListItemIdType,
-		idAsset: HandleTabListItemRemoveType,
-		idAssetItem: HandleTabListItemRemoveType
-	) => {
+	const handleTabListItemRemove = (cmsID: HandleTabListItemIdType, categoryTabId: HandleCategoryTabIdType) => {
 		const getUserJWT = (sessions as any)?.jwt;
-		assetListTabItemRemove(cmsID, getUserJWT, idAsset, idAssetItem);
+		assetListTabItemRemove(cmsID, categoryTabId, getUserJWT);
 	};
 
 	const isAssets = assets_tabs.length > 0;
@@ -85,14 +81,14 @@ const AssetManagementTabsComponent = ({ activeTab, assets_tabs }: AssetManagemen
 			<AssetManagementTabsWrapper>
 				{isAssets ? (
 					assets_tabs.map(
-						({ id, id_asset, name, value, color, tab_assets }) =>
-							id_asset === activeTab && (
-								<AssetManagementTabsTab key={id_asset}>
+						({ id, name, value, color, tab_assets }) =>
+							id === activeTabId && (
+								<AssetManagementTabsTab key={id}>
 									{!showPopupAsset && !showPopupIsEdit && (
 										<>
 											<AssetManagementTabsTabName $color={color}>{name}</AssetManagementTabsTabName>
 											<AssetTabListComponent
-												id_asset={id_asset}
+												categoryTabId={id}
 												tab_assets={tab_assets}
 												handleEdit={handleTabListItemEdit}
 												handleRemove={handleTabListItemRemove}
@@ -105,14 +101,15 @@ const AssetManagementTabsComponent = ({ activeTab, assets_tabs }: AssetManagemen
 									{showPopupIsEdit && (
 										<FormEditAssetListTabItem
 											data={modifyAsset}
-											categoryId={id_asset}
+											categoryId={id}
 											closePopup={closePopupEdit}
 										/>
 									)}
 
 									{showPopupAsset && (
 										<FormAddAssetListTabItem
-											categoryId={id_asset}
+											newId={tab_assets.length + 1}
+											categoryId={id}
 											tabId={id}
 											closePopup={closePopupAsset}
 										/>

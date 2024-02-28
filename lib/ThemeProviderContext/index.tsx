@@ -58,33 +58,30 @@ export default function ThemeProviderContext({ children }: ContextProviderProps)
 		updateAssetListTabs(assets_tabs) {
 			dispatch({ type: "UPDATE_ASSET_TAB_LISTS", assets_tabs });
 		},
-		addAssetListTabItem(tabId, assetListTabItemCategoryId, userID, userJWT, newAssetListTabItem) {
+		addAssetListTabItem(userID, userJWT, categoryTabId, newAssetListTabItem) {
 			dispatch({
 				type: "ADD_ASSET_TAB_ITEM",
-				tabId,
-				assetListTabItemCategoryId,
 				userID,
 				userJWT,
+				categoryTabId,
 				newAssetListTabItem,
 			});
 		},
-		modifyAssetListTabItem(cmsId, userJWT, assetListTabItemCategoryId, assetListTabItemId, assetListTabItemModified) {
+		modifyAssetListTabItem(cmsId, categoryTabId, userJWT, assetListTabItemModified) {
 			dispatch({
 				type: "MODIFY_ASSET_TAB_ITEM",
 				cmsId,
+				categoryTabId,
 				userJWT,
-				assetListTabItemCategoryId,
-				assetListTabItemId,
 				assetListTabItemModified,
 			});
 		},
-		assetListTabItemRemove(cmsID, userJWT, assetListTabCategory, assetListTabItemCategoryId) {
+		assetListTabItemRemove(cmsID, categoryTabId, userJWT) {
 			dispatch({
 				type: "ASSET_TAB_ITEM_REMOVE",
 				cmsID,
+				categoryTabId,
 				userJWT,
-				assetListTabCategory,
-				assetListTabItemCategoryId,
 			});
 		},
 		filterCashFlowList(value) {
