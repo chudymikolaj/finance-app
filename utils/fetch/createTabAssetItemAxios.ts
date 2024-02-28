@@ -3,7 +3,6 @@ import axios from "axios";
 type ItemType = {
 	name: string;
 	value: number;
-	id_asset_item: string;
 	assets_tab: {
 		connect: number[];
 	};
