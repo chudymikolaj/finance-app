@@ -6,7 +6,7 @@ import {
 } from "@/lib/ThemeProviderContext/ThemeProviderContext.types";
 import axios from "axios";
 
-export async function getUserDataAxios(
+async function getUserDataAxios(
 	sessions: {} | null,
 	typeList: string
 ): Promise<MonetaryIncomesProps | MonetaryExpensesProps | AssetTabLists | BudgetAllocations | []> {
@@ -15,7 +15,7 @@ export async function getUserDataAxios(
 	try {
 		const { data } = await axios.get(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/users/me${typeList}`, {
 			headers: {
-				Authorization: "Bearer " + (sessions as { jwt: string })?.jwt,
+				Authorization: "Bearer " + sessions,
 			},
 		});
 
@@ -25,3 +25,4 @@ export async function getUserDataAxios(
 		return [];
 	}
 }
+export default getUserDataAxios;

@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
 import { useAppContext } from "@/lib/ThemeProviderContext/actions";
-import { getUserDataAxios } from "@/utils/fetch/getUserDataAxios";
+import getUserDataAxios from "@/utils/fetch/getUserDataAxios";
 import updateBudgetOptions from "@/utils/fetch/updateDefaultBudgetAllocations";
 
 import AssetManagement from "@/components/AssetManagement";
@@ -25,19 +25,19 @@ export default function Dashboard() {
 			const session = await getSession();
 
 			if (session) {
-				const getMonetaryIncomes = await getUserDataAxios(session, "?populate[monetary_incomes]=*");
+				const getMonetaryIncomes = await getUserDataAxios((session as any)?.jwt, "?populate[monetary_incomes]=*");
 
 				if ("monetary_incomes" in getMonetaryIncomes) {
 					updateRevenuesList(getMonetaryIncomes?.monetary_incomes);
 				}
 
-				const getMonetaryExpenses = await getUserDataAxios(session, "?populate[monetary_expenses]=*");
+				const getMonetaryExpenses = await getUserDataAxios((session as any)?.jwt, "?populate[monetary_expenses]=*");
 
 				if ("monetary_expenses" in getMonetaryExpenses) {
 					updateExpensesList(getMonetaryExpenses?.monetary_expenses);
 				}
 
-				const getBudgetOptions = await getUserDataAxios(session, "?populate[budget_options]=*");
+				const getBudgetOptions = await getUserDataAxios((session as any)?.jwt, "?populate[budget_options]=*");
 
 				if ("budget_options" in getBudgetOptions) {
 					updateBudgetOptions(getBudgetOptions, updateBudgetAllocations, session);
