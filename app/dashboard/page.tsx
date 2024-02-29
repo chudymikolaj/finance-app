@@ -15,27 +15,20 @@ import { IntroDashboardComponent } from "@/components/Intro";
 import Wallet from "@/components/Wallet";
 
 import { DashboardContainer, DashboardLeftColumn, DashboardRightColumn } from "./dashboard.styled";
+import refreshMonetaryIncomesAxios from "@/utils/fetch/refreshMonetaryIncomesAxios";
+import refreshMonetaryExpensesAxios from "@/utils/fetch/refreshMonetaryExpensesAxios";
 
 export default function Dashboard() {
 	const pathname = usePathname();
-	const { updateExpensesList, updateRevenuesList, updateBudgetAllocations } = useAppContext();
+	const { updateExpensesList, updateIncomesList, updateBudgetAllocations } = useAppContext();
 
 	useEffect(() => {
 		const securePage = async () => {
 			const session = await getSession();
 
 			if (session) {
-				const getMonetaryIncomes = await getUserDataAxios((session as any)?.jwt, "?populate[monetary_incomes]=*");
-
-				if ("monetary_incomes" in getMonetaryIncomes) {
-					updateRevenuesList(getMonetaryIncomes?.monetary_incomes);
-				}
-
-				const getMonetaryExpenses = await getUserDataAxios((session as any)?.jwt, "?populate[monetary_expenses]=*");
-
-				if ("monetary_expenses" in getMonetaryExpenses) {
-					updateExpensesList(getMonetaryExpenses?.monetary_expenses);
-				}
+				refreshMonetaryIncomesAxios(session, updateIncomesList);
+				refreshMonetaryExpensesAxios(session, updateExpensesList);
 
 				const getBudgetOptions = await getUserDataAxios((session as any)?.jwt, "?populate[budget_options]=*");
 
