@@ -9,7 +9,7 @@ import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 
 import getUserDataAxios from "@/utils/fetch/getUserDataAxios";
-import updateTabValueAxios from "@/utils/fetch/updateTabValueAxios";
+import changeTabValueAxios from "@/utils/fetch/changeTabValueAxios";
 import Line from "@/components/Line";
 import PopupComponent from "@/components/Popup";
 import AssetHeader from "./AssetManagementHeader";
@@ -85,7 +85,7 @@ const AssetManagementComponent = () => {
 
 						const newValue = { ...tab, value };
 
-						updateTabValueAxios(newValue, (session as any).jwt, "/api/assets-tabs");
+						changeTabValueAxios(newValue, (session as any).jwt, "/api/assets-tabs");
 
 						return newValue;
 					});

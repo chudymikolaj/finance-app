@@ -1,12 +1,16 @@
 import axios from "axios";
 
-type ItemType = {
+type changeTabAssetItemAxiosType = {
 	id: number;
 	name: string;
 	value: number;
 };
 
-export default async function updateTabAssetItemAxios(modyfied: ItemType, jwt: string, endpoint: string) {
+export default async function changeTabAssetItemAxios(
+	modyfied: changeTabAssetItemAxiosType,
+	jwt: string,
+	endpoint: string
+) {
 	try {
 		const data = {
 			data: {

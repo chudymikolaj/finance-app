@@ -1,5 +1,5 @@
 import { BudgetAllocation, BudgetAllocations } from "@/lib/ThemeProviderContext/ThemeProviderContext.types";
-import updateBudgetOptionsAxios from "@/utils/fetch/updateBudgetOptionsAxios";
+import createBudgetOptionsAxios from "@/utils/fetch/createBudgetOptionsAxios";
 
 const updateBudgetOptions = (
 	budgetArray: BudgetAllocations,
@@ -66,7 +66,7 @@ const updateBudgetOptions = (
 		];
 
 		defaultBudgetOptionsPost.forEach((data) => {
-			updateBudgetOptionsAxios(data, session?.jwt);
+			createBudgetOptionsAxios(data, session?.jwt);
 		});
 
 		updateBudgetAllocations(defaultBudgetOptions);

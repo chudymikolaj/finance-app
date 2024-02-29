@@ -1,12 +1,12 @@
 import axios from "axios";
 
-type updateBudgetOptionsProps = {
+type createBudgetOptionsPropsType = {
 	title: string;
 	share: number;
 	color: string;
 };
 
-export default async function updateBudgetOptionsAxios(itemProps: updateBudgetOptionsProps, jwt: string) {
+export default async function createBudgetOptionsAxios(itemProps: createBudgetOptionsPropsType, jwt: string) {
 	try {
 		const data = {
 			data: itemProps,

@@ -1,15 +1,18 @@
 import axios from "axios";
 
-type ItemType = {
-	id: number;
+interface changeeDataItem {
+	id: string;
+	name: string;
 	value: number;
-};
+	date: string;
+	isPaid?: boolean;
+}
 
-export default async function updateTabValueAxios(itemProps: ItemType, jwt: string, endpoint: string) {
+export default async function changeeCashFlowItemAxios(itemProps: changeeDataItem, jwt: string, endpoint: string) {
 	try {
 		const data = {
 			data: {
-				value: itemProps.value,
+				isPaid: itemProps.isPaid,
 			},
 		};
 
