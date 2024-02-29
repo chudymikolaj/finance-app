@@ -1,7 +1,6 @@
 import { type ChangeEvent } from "react";
 
 export type ActionType = (
-	id: string,
 	name: string,
 	value: number,
 	tags: { type: string; name: string }[],

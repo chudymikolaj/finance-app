@@ -14,16 +14,27 @@ import {
 	CashFlowItemValue,
 	CashFlowItemWrapper,
 	CashFlowItemWrapperExpenseOptions,
-	CashFlowItemWrapperRevenueOptions,
+	CashFlowItemWrapperIncomesOptions,
 } from "./CashFlowItem.styled";
+import removeItemAxios from "@/utils/fetch/removeItemAxios";
 
 const CashFlowItemComponent = forwardRef<HTMLLIElement, CashFlowItemType>(
 	({ id, name, value, tags, isPaid, type }, ref) => {
-		const { checkExpenses, removeExpenses, removeRevenue } = useAppContext();
+		const { checkExpenses, removeExpenses, removeIncome } = useAppContext();
 		const { data: sessions } = useSession();
 
 		const GET_JWT = (sessions as any)?.jwt;
 		const isType = type === "expense";
+
+		const handleRemoveExpense = (id: number, jwt: string) => {
+			removeExpenses(id, jwt);
+			removeItemAxios(id, jwt, "/api/monetary-expenses");
+		};
+
+		const handleRemoveIncomes = (id: number, jwt: string) => {
+			removeIncome(id, jwt);
+			removeItemAxios(id, jwt, "/api/monetary-incomes");
+		};
 
 		return (
 			<CashFlowItem ref={ref}>
@@ -40,17 +51,17 @@ const CashFlowItemComponent = forwardRef<HTMLLIElement, CashFlowItemType>(
 								action={() => checkExpenses(id, GET_JWT)}
 							/>
 							<CashFlowItemButton
-								action={() => removeExpenses(id, GET_JWT)}
+								action={() => handleRemoveExpense(id, GET_JWT)}
 								svgUrl="/remove.svg"
 							/>
 						</CashFlowItemWrapperExpenseOptions>
 					) : (
-						<CashFlowItemWrapperRevenueOptions>
+						<CashFlowItemWrapperIncomesOptions>
 							<CashFlowItemButton
-								action={() => removeRevenue(id, GET_JWT)}
+								action={() => handleRemoveIncomes(id, GET_JWT)}
 								svgUrl="/remove.svg"
 							/>
-						</CashFlowItemWrapperRevenueOptions>
+						</CashFlowItemWrapperIncomesOptions>
 					)}
 				</CashFlowItemWrapper>
 

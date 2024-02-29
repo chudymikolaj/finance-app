@@ -4,7 +4,7 @@ import {
 	CashFlowSummaryWrapperStyled,
 	CashFlowSummaryNameStyled,
 	CashFlowSummaryValueExpensiveStyled,
-	CashFlowSummaryValueRevenueStyled,
+	CashFlowSummaryValueIncomeStyled,
 	CashFlowSummaryStatsStyled,
 } from "./CashFlowSummary.styled";
 
@@ -25,12 +25,8 @@ const CashFlowSummaryComponent = ({
 				{isTab ? (
 					<>
 						<CashFlowSummaryWrapperStyled>
-							<CashFlowSummaryNameStyled>
-								Suma wydatków:
-							</CashFlowSummaryNameStyled>
-							<CashFlowSummaryValueExpensiveStyled>
-								-{sumList}
-							</CashFlowSummaryValueExpensiveStyled>
+							<CashFlowSummaryNameStyled>Suma wydatków:</CashFlowSummaryNameStyled>
+							<CashFlowSummaryValueExpensiveStyled>-{sumList}</CashFlowSummaryValueExpensiveStyled>
 						</CashFlowSummaryWrapperStyled>
 						<CashFlowSummaryWrapperStyled>
 							<CashFlowSummaryNameStyled>Zapłacone:</CashFlowSummaryNameStyled>
@@ -42,18 +38,12 @@ const CashFlowSummaryComponent = ({
 				) : (
 					<>
 						<CashFlowSummaryWrapperStyled>
-							<CashFlowSummaryNameStyled>
-								Suma przychodu:
-							</CashFlowSummaryNameStyled>
-							<CashFlowSummaryValueRevenueStyled>
-								{sumList}
-							</CashFlowSummaryValueRevenueStyled>
+							<CashFlowSummaryNameStyled>Suma przychodu:</CashFlowSummaryNameStyled>
+							<CashFlowSummaryValueIncomeStyled>{sumList}</CashFlowSummaryValueIncomeStyled>
 						</CashFlowSummaryWrapperStyled>
 						<CashFlowSummaryWrapperStyled>
 							<CashFlowSummaryNameStyled>Ilość:</CashFlowSummaryNameStyled>
-							<CashFlowSummaryStatsStyled>
-								{countLenght}
-							</CashFlowSummaryStatsStyled>
+							<CashFlowSummaryStatsStyled>{countLenght}</CashFlowSummaryStatsStyled>
 						</CashFlowSummaryWrapperStyled>
 					</>
 				)}

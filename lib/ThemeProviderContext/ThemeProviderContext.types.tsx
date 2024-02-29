@@ -12,9 +12,9 @@ export type Constants = {
 
 export type Wallet = {
 	wallet: {
-		sumRevenues: number;
+		sumIncomes: number;
 		sumBills: number;
-		restRevenues: number;
+		restIncomes: number;
 	};
 };
 
@@ -25,19 +25,19 @@ export type FilterCashFlowList = {
 	};
 };
 
-export type TabsOfRevenues = {
-	id: string;
+export type TabsOfIncome = {
+	id: number;
 	name: string;
 	value: number;
 	date: string;
 };
 
-export type TabsOfRevenuesAxios = {
-	monetary_incomes: TabsOfRevenues[];
+export type TabsOfIncomesAxios = {
+	monetary_incomes: TabsOfIncome[];
 };
 
 export type TabsOfExpenses = {
-	id: string;
+	id: number;
 	name: string;
 	value: number;
 	tags?: { type: string; name: string }[];
@@ -50,15 +50,15 @@ export type TabsOfExpensesAxios = {
 };
 
 export interface MonetaryIncomesProps {
-	monetary_incomes: TabsOfExpenses[];
+	monetary_incomes: TabsOfIncome[];
 }
 export interface MonetaryExpensesProps {
 	monetary_expenses: TabsOfExpenses[];
 }
 
-export type ExpensesAndRevenues = {
+export type ExpensesAndIncomes = {
 	expenses: TabsOfExpenses[];
-	revenues: TabsOfRevenues[];
+	incomes: TabsOfIncome[];
 };
 
 export type TabListItem = {
@@ -97,7 +97,7 @@ export type AppState = Mode &
 	Constants &
 	Wallet &
 	FilterCashFlowList &
-	ExpensesAndRevenues &
+	ExpensesAndIncomes &
 	AssetTabLists &
 	BudgetAllocations;
 
@@ -105,7 +105,7 @@ export type initialAppState = Mode &
 	Constants &
 	Wallet &
 	FilterCashFlowList &
-	ExpensesAndRevenues &
+	ExpensesAndIncomes &
 	AssetTabLists &
 	BudgetAllocations;
 
@@ -113,33 +113,14 @@ export type AppStateValue = Mode &
 	Constants &
 	Wallet &
 	FilterCashFlowList &
-	ExpensesAndRevenues &
+	ExpensesAndIncomes &
 	AssetTabLists &
 	BudgetAllocations & {
-		addExpense: (
-			id: string,
-			name: string,
-			value: number,
-			tags: { type: string; name: string }[],
-			isPaid: boolean,
-			date: string,
-			userID: string,
-			userJWT: string
-		) => void;
-		addRevenue: (
-			id: string,
-			name: string,
-			value: number,
-			tags: { type: string; name: string }[],
-			date: string,
-			userID: string,
-			userJWT: string
-		) => void;
-		updateExpensesList: (value: TabsOfRevenues[]) => void;
-		updateRevenuesList: (value: TabsOfExpenses[]) => void;
+		updateExpensesList: (value: TabsOfExpenses[]) => void;
+		updateIncomesList: (value: TabsOfIncome[]) => void;
 		updateExpenses: (value: number) => void;
-		updateRevenues: (value: number) => void;
-		updateRestRevenues: (revenues: number, expenses: number) => void;
+		updateIncomes: (value: number) => void;
+		updateRestIncomes: (Incomes: number, expenses: number) => void;
 		updateBudgetAllocations: (allocations: BudgetAllocation[]) => void;
 		changeBudgetAllocations: (data: { [key: string]: string }) => void;
 		updateAssetListTabs: (assets_tabs: AssetTabList[]) => void;
@@ -156,9 +137,9 @@ export type AppStateValue = Mode &
 			assetListTabItemModified: TabListItem
 		) => void;
 		assetListTabItemRemove: (cmsID: number, categoryTabId: number, userJWT: string) => void;
-		checkExpenses: (id: string, userJWT: string) => void;
+		checkExpenses: (id: number, userJWT: string) => void;
 		removeExpenses: (id: number, userJWT: string) => void;
-		removeRevenue: (id: number, userJWT: string) => void;
+		removeIncome: (id: number, userJWT: string) => void;
 		filterCashFlowList: (value: { fromDate: string; toDate: string }) => void;
 		changeSalary: (salary: number) => void;
 		toggleMode: () => void;

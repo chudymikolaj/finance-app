@@ -8,16 +8,16 @@ export const initialAppState: AppState = {
 		maxValue: 1000000,
 	},
 	wallet: {
-		sumRevenues: 0,
+		sumIncomes: 0,
 		sumBills: 0,
-		restRevenues: 0,
+		restIncomes: 0,
 	},
 	filterDateCashFlowList: {
 		fromDate: moment().startOf("month").format("YYYY-MM-DD"),
 		toDate: moment().endOf("month").format("YYYY-MM-DD"),
 	},
 	expenses: [],
-	revenues: [],
+	incomes: [],
 	budget_options: [],
 	assets_tabs: [],
 };

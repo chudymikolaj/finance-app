@@ -1,10 +1,6 @@
 import styled from "styled-components";
 import { WEIGHT } from "@/styles/constants";
-import {
-	FlexCenter,
-	FlexColumnStart,
-	FlexRowSpaceBetweenCenter,
-} from "@/styles/mixins.styled";
+import { FlexCenter, FlexColumnStart, FlexRowSpaceBetweenCenter } from "@/styles/mixins.styled";
 import { devices } from "@/styles/breakpoints";
 
 const FontWeightBold = WEIGHT.bold;
@@ -45,7 +41,7 @@ export const CashFlowSummaryValueExpensiveStyled = styled.span`
 	color: ${(props) => props.theme.redColor};
 `;
 
-export const CashFlowSummaryValueRevenueStyled = styled.span`
+export const CashFlowSummaryValueIncomeStyled = styled.span`
 	font-weight: ${FontWeightBold};
 	color: ${(props) => props.theme.greenColor};
 `;

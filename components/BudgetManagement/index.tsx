@@ -36,9 +36,9 @@ const BudgetManagementAssets = () => {
 	};
 
 	useEffect(() => {
-		const calcBudget = mapBudget(budget_options, wallet.restRevenues);
+		const calcBudget = mapBudget(budget_options, wallet.restIncomes);
 		setCalcedBudget(calcBudget);
-	}, [wallet.restRevenues, budget_options]);
+	}, [wallet.restIncomes, budget_options]);
 
 	return (
 		<BudgetManagementAssetsContainer>

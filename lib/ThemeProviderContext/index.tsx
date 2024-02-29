@@ -19,35 +19,29 @@ export default function ThemeProviderContext({ children }: ContextProviderProps)
 			maxValue: app.constants.maxValue,
 		},
 		wallet: {
-			sumRevenues: app.wallet.sumRevenues,
+			sumIncomes: app.wallet.sumIncomes,
 			sumBills: app.wallet.sumBills,
-			restRevenues: app.wallet.restRevenues,
+			restIncomes: app.wallet.restIncomes,
 		},
 		filterDateCashFlowList: app.filterDateCashFlowList,
 		expenses: app.expenses,
-		revenues: app.revenues,
+		incomes: app.incomes,
 		budget_options: app.budget_options,
 		assets_tabs: app.assets_tabs,
-		addExpense(id, name, value, tags, isPaid, date, userID, userJWT) {
-			dispatch({ type: "ADD_EXPENSE", id, name, value, tags, isPaid, date, userID, userJWT });
-		},
-		addRevenue(id, name, value, tags, date, userID, userJWT) {
-			dispatch({ type: "ADD_REVENUE", id, name, value, tags, date, userID, userJWT });
-		},
 		updateExpensesList(value) {
 			dispatch({ type: "UPDATE_EXPENSES_LIST", value });
 		},
-		updateRevenuesList(value) {
-			dispatch({ type: "UPDATE_REVENUES_LIST", value });
+		updateIncomesList(income) {
+			dispatch({ type: "UPDATE_INCOMES_LIST", income });
 		},
 		updateExpenses(value) {
 			dispatch({ type: "UPDATE_EXPENSES", value });
 		},
-		updateRevenues(value) {
-			dispatch({ type: "UPDATE_REVENUES", value });
+		updateIncomes(value) {
+			dispatch({ type: "UPDATE_INCOME", value });
 		},
-		updateRestRevenues(revenues, expenses) {
-			dispatch({ type: "UPDATE_REST_REVENUES", revenues, expenses });
+		updateRestIncomes(incomes, expenses) {
+			dispatch({ type: "UPDATE_REST_INCOMES", incomes, expenses });
 		},
 		updateBudgetAllocations(budget_options) {
 			dispatch({ type: "UPDATE_BUDGET_ALLOCATIONS", budget_options });
@@ -93,8 +87,8 @@ export default function ThemeProviderContext({ children }: ContextProviderProps)
 		removeExpenses(id, userJWT) {
 			dispatch({ type: "REMOVE_EXPENSE", id, userJWT });
 		},
-		removeRevenue(id, userJWT) {
-			dispatch({ type: "REMOVE_REVENUE", id, userJWT });
+		removeIncome(id, userJWT) {
+			dispatch({ type: "REMOVE_INCOME", id, userJWT });
 		},
 		changeSalary(value) {
 			dispatch({ type: "CHANGE_SALARY", value });

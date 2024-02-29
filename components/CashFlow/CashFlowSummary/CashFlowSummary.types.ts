@@ -5,5 +5,5 @@ export type CashFlowSummaryComponentType = {
 	sumList: string;
 	paidBoolean?: number;
 	countLenght: number;
-	tabActive: "expenses" | "revenues";
+	tabActive: "expenses" | "incomes";
 };

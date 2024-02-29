@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-import { type TabsOfRevenues, type TabsOfExpenses } from "@/lib/ThemeProviderContext/ThemeProviderContext.types";
+import { type TabsOfIncome, type TabsOfExpenses } from "@/lib/ThemeProviderContext/ThemeProviderContext.types";
 
 import { useAppContext, useAppContextDateList } from "@/lib/ThemeProviderContext/actions";
 
@@ -15,22 +15,22 @@ import { CashFlowContainer, CashFlowWrapper } from "./CashFlow.styled";
 import CashFlowAccordion from "./CashFlowAccordion";
 
 const CashFlowComponent = () => {
-	const { expenses, revenues, filterDateCashFlowList, updateExpenses, updateRevenues, updateRestRevenues } =
+	const { expenses, incomes, filterDateCashFlowList, updateExpenses, updateIncomes, updateRestIncomes } =
 		useAppContext();
 
 	const { fromDate, toDate } = useAppContextDateList();
 
-	const [showAccordion, setShowAccordion] = useState("revenues");
+	const [showAccordion, setShowAccordion] = useState("incomes");
 	const handleShowAccrodion = (index: string) =>
-		setShowAccordion((prevState) => (prevState === index ? "revenues" : index));
+		setShowAccordion((prevState) => (prevState === index ? "incomes" : index));
 
 	const [filtredExpenses, setFiltredExpenses] = useState<TabsOfExpenses[]>([]);
 	const [sumExpenses, setSumExpenses] = useState("0");
 
 	const [lenghtExpenses, setLenghtExpenses] = useState(0);
-	const [filtredRevenuses, setFiltredRevenuses] = useState<TabsOfRevenues[]>([]);
-	const [sumRevenuses, setSumRevenuses] = useState("0");
-	const [lenghtRevenuses, setLenghtRevenuses] = useState(0);
+	const [filtredIncomes, setFiltredIncomes] = useState<TabsOfIncome[]>([]);
+	const [sumIncomes, setSumIncomes] = useState("0");
+	const [lenghtIncomes, setLenghtIncomes] = useState(0);
 
 	const [paidExpenses, setPaidExpenses] = useState(0);
 
@@ -41,11 +41,11 @@ const CashFlowComponent = () => {
 		const filtredExpenses = expenses
 			.filter(({ date }) => filterDate(String(date), fromDate, toDate))
 			.sort((objA, objB) => sortByDate(objA, objB));
-		const filtredRevenues = revenues
+		const filtredIncomes = incomes
 			.filter(({ date }) => filterDate(String(date), fromDate, toDate))
 			.sort((objA, objB) => sortByDate(objA, objB));
 
-		const countRevenues = revenues
+		const countIncomes = incomes
 			.filter(({ date }) => filterDate(date, fromDate, toDate))
 			.reduce((val, currentValue) => {
 				return val + currentValue.value;
@@ -57,7 +57,7 @@ const CashFlowComponent = () => {
 				return val + currentValue.value;
 			}, 0);
 
-		const lenghtRevenues = revenues.filter(({ date }) => filterDate(date, fromDate, toDate)).length;
+		const lenghtIncomes = incomes.filter(({ date }) => filterDate(date, fromDate, toDate)).length;
 		const lenghtExpenses = expenses.filter(({ date }) => filterDate(date, fromDate, toDate)).length;
 
 		const countUnPaidExpenses = expenses.filter(
@@ -69,31 +69,31 @@ const CashFlowComponent = () => {
 		setPaidExpenses(countUnPaidExpenses);
 		setLenghtExpenses(lenghtExpenses);
 
-		setFiltredRevenuses(filtredRevenues);
-		setSumRevenuses(`${String(countRevenues)} PLN`);
-		setLenghtRevenuses(lenghtRevenues);
+		setFiltredIncomes(filtredIncomes);
+		setSumIncomes(`${String(countIncomes)} PLN`);
+		setLenghtIncomes(lenghtIncomes);
 
 		updateExpenses(countExpenses);
-		updateRevenues(countRevenues);
-		updateRestRevenues(countRevenues, countExpenses);
-	}, [revenues, expenses, filterDateCashFlowList]);
+		updateIncomes(countIncomes);
+		updateRestIncomes(countIncomes, countExpenses);
+	}, [incomes, expenses, filterDateCashFlowList]);
 
 	return (
 		<CashFlowContainer>
 			<CashFlowWrapper>
 				<CashFlowAccordion
 					title="Przychód"
-					isOpen={showAccordion === "revenues"}
-					handleOpenAccordion={() => handleShowAccrodion("revenues")}
+					isOpen={showAccordion === "incomes"}
+					handleOpenAccordion={() => handleShowAccrodion("incomes")}
 				>
 					<CashFlowSummary
-						sumList={sumRevenuses}
-						countLenght={lenghtRevenuses}
-						tabActive="revenues"
+						sumList={sumIncomes}
+						countLenght={lenghtIncomes}
+						tabActive="incomes"
 					>
 						<CashFlowList
-							type="revenues"
-							items={filtredRevenuses}
+							type="incomes"
+							items={filtredIncomes}
 							href="/historia-przychodow"
 						/>
 					</CashFlowSummary>

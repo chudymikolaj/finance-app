@@ -1,12 +1,9 @@
-import {
-	CashFlowStyledEmpty,
-	CashFlowStyledEmptyText,
-} from "./CashFlowOnEmpty.styles";
+import { CashFlowStyledEmpty, CashFlowStyledEmptyText } from "./CashFlowOnEmpty.styles";
 
 const CashFlowOnEmptyComponent = ({ text }: { text: string }) => {
 	let textOfElement = "Pusta lista wydatków";
 
-	if (text === "revenues") {
+	if (text === "incomes") {
 		textOfElement = "Pusta lista przychodów";
 	}
 

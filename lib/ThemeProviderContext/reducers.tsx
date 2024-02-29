@@ -1,8 +1,6 @@
-import createCashFlowItemAxios from "@/utils/fetch/createCashFlowItemAxios";
-import createTabAssetItemAxios from "@/utils/fetch/createTabAssetItemAxios";
 import removeItemAxios from "@/utils/fetch/removeItemAxios";
-import updateCashFlowItemAxios from "@/utils/fetch/updateCashFlowItemAxios";
-import updateTabAssetItemAxios from "@/utils/fetch/updateTabAssetItemAxios";
+import changeCashFlowItemAxios from "@/utils/fetch/changeCashFlowItemAxios";
+import changeTabAssetItemAxios from "@/utils/fetch/changeTabAssetItemAxios";
 
 import {
 	type AppState,
@@ -10,39 +8,16 @@ import {
 	type BudgetAllocation,
 	type TabListItem,
 	type TabsOfExpenses,
-	type TabsOfRevenues,
+	type TabsOfIncome,
 } from "./ThemeProviderContext.types";
 
 type ToggleMode = {
 	type: "TOGGLE_MODE";
 };
 
-type AddExpense = {
-	type: "ADD_EXPENSE";
-	id: string;
-	name: string;
-	value: number;
-	tags?: { type: string; name: string }[];
-	isPaid: boolean;
-	date: string;
-	userID: string;
-	userJWT: string;
-};
-
-type AddRevenue = {
-	type: "ADD_REVENUE";
-	id: string;
-	name: string;
-	value: number;
-	tags?: { type: string; name: string }[];
-	date: string;
-	userID: string;
-	userJWT: string;
-};
-
 type CheckExpense = {
 	type: "CHECK_EXPENSE";
-	id: string;
+	id: number;
 	userJWT: string;
 };
 
@@ -51,8 +26,8 @@ type RemoveExpense = {
 	id: number;
 	userJWT: string;
 };
-type RemoveRevenue = {
-	type: "REMOVE_REVENUE";
+type RemoveIncome = {
+	type: "REMOVE_INCOME";
 	id: number;
 	userJWT: string;
 };
@@ -67,9 +42,9 @@ type UpdateExpensesList = {
 	value: TabsOfExpenses[];
 };
 
-type UpdateRevenueList = {
-	type: "UPDATE_REVENUES_LIST";
-	value: TabsOfRevenues[];
+type UpdateIncomeList = {
+	type: "UPDATE_INCOMES_LIST";
+	income: TabsOfIncome[];
 };
 
 type UpdateExpenses = {
@@ -77,15 +52,15 @@ type UpdateExpenses = {
 	value: number;
 };
 
-type UpdateRevenue = {
-	type: "UPDATE_REVENUES";
+type UpdateIncome = {
+	type: "UPDATE_INCOME";
 	value: number;
 };
 
-type UpdateRestRevenues = {
-	type: "UPDATE_REST_REVENUES";
+type UpdateRestIncomes = {
+	type: "UPDATE_REST_INCOMES";
 	expenses: number;
-	revenues: number;
+	incomes: number;
 };
 
 type FilterCashFlowList = {
@@ -133,17 +108,15 @@ type ModifyAssetTabItem = {
 
 type Action =
 	| ToggleMode
-	| AddExpense
-	| AddRevenue
 	| CheckExpense
 	| RemoveExpense
-	| RemoveRevenue
+	| RemoveIncome
 	| ChangeSalary
 	| UpdateExpensesList
-	| UpdateRevenueList
+	| UpdateIncomeList
 	| UpdateExpenses
-	| UpdateRevenue
-	| UpdateRestRevenues
+	| UpdateIncome
+	| UpdateRestIncomes
 	| FilterCashFlowList
 	| UpdateBudgetAllocations
 	| ChangeBudgetAllocations
@@ -163,86 +136,42 @@ export function appReducer(state: AppState, action: Action): AppState {
 		};
 	}
 
-	if (action.type === "ADD_EXPENSE") {
-		const newExpense = {
-			name: action.name,
-			value: action.value,
-			isPaid: action.isPaid,
-			date: action.date,
-			users_permissions_user: {
-				connect: [action.userID],
-			},
-		};
-
-		createCashFlowItemAxios(newExpense, action.userJWT, "/api/monetary-expenses");
-
-		return {
-			...state,
-			expenses: [{ id: action.id, tags: action.tags, ...newExpense }, ...state.expenses],
-		};
-	}
-
-	if (action.type === "ADD_REVENUE") {
-		const newRevenue = {
-			name: action.name,
-			value: action.value,
-			date: action.date,
-			users_permissions_user: {
-				connect: [action.userID],
-			},
-		};
-
-		createCashFlowItemAxios(newRevenue, action.userJWT, "/api/monetary-incomes");
-
-		return {
-			...state,
-			revenues: [{ id: action.id, ...newRevenue }, ...state.revenues],
-		};
-	}
-
 	if (action.type === "CHECK_EXPENSE") {
 		const getItemId = action.id;
 		const getUserJWT = action.userJWT;
 
 		const updateExpense = state.expenses
-			.filter((item) => String(item.id) == String(getItemId))
-			.map((item) => (String(item.id) === String(getItemId) ? { ...item, isPaid: !item.isPaid } : item));
-
+			.filter((item) => item.id === getItemId)
+			.map((item) => (item.id === getItemId ? { ...item, isPaid: !item.isPaid } : item));
 		const getExpense = updateExpense[0];
 
-		updateCashFlowItemAxios(getExpense, getUserJWT, "/api/monetary-expenses");
+		changeCashFlowItemAxios(getExpense, getUserJWT, "/api/monetary-expenses");
 
 		return {
 			...state,
-			expenses: state.expenses.map((item) =>
-				String(item.id) === String(getItemId) ? { ...item, isPaid: !item.isPaid } : item
-			),
+			expenses: state.expenses.map((item) => (item.id === getItemId ? { ...item, isPaid: !item.isPaid } : item)),
+		};
+	}
+
+	if (action.type === "REMOVE_INCOME") {
+		const getItemId = action.id;
+
+		const findItem = state.incomes.filter((item) => String(item.id) !== String(getItemId));
+
+		return {
+			...state,
+			incomes: findItem,
 		};
 	}
 
 	if (action.type === "REMOVE_EXPENSE") {
 		const getItemId = action.id;
-		const getUserJWT = action.userJWT;
 
-		removeItemAxios(getItemId, getUserJWT, "/api/monetary-expenses");
-
-		return {
-			...state,
-			expenses: state.expenses.filter((item) => String(item.id) !== String(getItemId)),
-		};
-	}
-
-	if (action.type === "REMOVE_REVENUE") {
-		const getItemId = action.id;
-		const getUserJWT = action.userJWT;
-
-		const findItem = state.revenues.filter((item) => String(item.id) !== String(getItemId));
-
-		removeItemAxios(getItemId, getUserJWT, "/api/monetary-incomes");
+		const findItem = state.expenses.filter((item) => String(item.id) !== String(getItemId));
 
 		return {
 			...state,
-			revenues: findItem,
+			expenses: findItem,
 		};
 	}
 
@@ -253,10 +182,10 @@ export function appReducer(state: AppState, action: Action): AppState {
 		};
 	}
 
-	if (action.type === "UPDATE_REVENUES_LIST") {
+	if (action.type === "UPDATE_INCOMES_LIST") {
 		return {
 			...state,
-			revenues: [...action.value],
+			incomes: [...action.income],
 		};
 	}
 
@@ -270,22 +199,22 @@ export function appReducer(state: AppState, action: Action): AppState {
 		};
 	}
 
-	if (action.type === "UPDATE_REVENUES") {
+	if (action.type === "UPDATE_INCOME") {
 		return {
 			...state,
 			wallet: {
 				...state.wallet,
-				sumRevenues: action.value,
+				sumIncomes: action.value,
 			},
 		};
 	}
 
-	if (action.type === "UPDATE_REST_REVENUES") {
+	if (action.type === "UPDATE_REST_INCOMES") {
 		return {
 			...state,
 			wallet: {
 				...state.wallet,
-				restRevenues: action.revenues - action.expenses,
+				restIncomes: action.incomes - action.expenses,
 			},
 		};
 	}
@@ -305,8 +234,8 @@ export function appReducer(state: AppState, action: Action): AppState {
 			...state,
 			wallet: {
 				...state.wallet,
-				sumRevenues: action.value,
-				restRevenues: action.value - state.wallet.sumBills,
+				sumIncomes: action.value,
+				restIncomes: action.value - state.wallet.sumBills,
 			},
 		};
 	}
@@ -380,7 +309,7 @@ export function appReducer(state: AppState, action: Action): AppState {
 							value: action.assetListTabItemModified.value,
 						};
 
-						updateTabAssetItemAxios(dataToUpdate, action.userJWT, "/api/tab-assets");
+						changeTabAssetItemAxios(dataToUpdate, action.userJWT, "/api/tab-assets");
 						return modyfied;
 					}
 

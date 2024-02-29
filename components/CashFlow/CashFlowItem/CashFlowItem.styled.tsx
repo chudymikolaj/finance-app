@@ -3,18 +3,12 @@ import styled from "styled-components";
 import CheckExpenseButton from "@/components/Buttons/CheckExpenseButton";
 import ButtonSVG from "@/components/Buttons/ButtonSvg";
 
-import {
-	BORDER_RADIUS,
-	CUBICS,
-	FONT_SIZE_BUTTONS,
-	SIZES,
-} from "@/styles/constants";
+import { BORDER_RADIUS, CUBICS, FONT_SIZE_BUTTONS, SIZES } from "@/styles/constants";
 import { FlexColumn, FlexRowSpaceBetweenCenter } from "@/styles/mixins.styled";
 import { devices } from "@/styles/breakpoints";
 
 // @ts-ignore
-const BUTTON_CASHFLOW_ITEM_UNACTIVE = ({ theme }) =>
-	theme.unactiveBackgroundColor;
+const BUTTON_CASHFLOW_ITEM_UNACTIVE = ({ theme }) => theme.unactiveBackgroundColor;
 // @ts-ignore
 const BUTTON_CASHFLOW_ITEM_ACTIVE = ({ theme }) => theme.activeBackgroundColor;
 // @ts-ignore
@@ -61,10 +55,7 @@ export const CashFlowItemValue = styled.span<{
 	max-width: 100px;
 	line-height: 15px;
 	font-size: ${SIZES.cashFlowItemValue};
-	color: ${({ $type }) =>
-		$type === "expense"
-			? COLOR_EXPENSE_VALUE_CASHFLOW_ITEM
-			: COLOR_INCOME_VALUE_CASHFLOW_ITEM};
+	color: ${({ $type }) => ($type === "expense" ? COLOR_EXPENSE_VALUE_CASHFLOW_ITEM : COLOR_INCOME_VALUE_CASHFLOW_ITEM)};
 `;
 
 export const CashFlowItemWrapperExpenseOptions = styled.div`
@@ -73,7 +64,7 @@ export const CashFlowItemWrapperExpenseOptions = styled.div`
 	gap: 10px;
 `;
 
-export const CashFlowItemWrapperRevenueOptions = styled.div`
+export const CashFlowItemWrapperIncomesOptions = styled.div`
 	${FlexRowSpaceBetweenCenter}
 	flex: 0 0 auto;
 	gap: 10px;
@@ -84,15 +75,11 @@ export const CashFlowItemChecker = styled(CheckExpenseButton)<{
 }>`
 	width: 80px;
 	padding: 4px;
-	background-color: ${({ $isPaid }) =>
-		$isPaid ? BUTTON_CASHFLOW_ITEM_UNACTIVE : BUTTON_CASHFLOW_ITEM_ACTIVE};
+	background-color: ${({ $isPaid }) => ($isPaid ? BUTTON_CASHFLOW_ITEM_UNACTIVE : BUTTON_CASHFLOW_ITEM_ACTIVE)};
 	border-radius: ${BORDER_RADIUS};
 	font-size: ${FONT_SIZE_BUTTONS};
 	opacity: ${({ $isPaid }) => ($isPaid ? 0.85 : 1)};
-	color: ${({ $isPaid }) =>
-		$isPaid
-			? COLOR_BUTTON_CASHFLOW_ITEM_UNACTIVE
-			: COLOR_BUTTON_CASHFLOW_ITEM_ACTIVE};
+	color: ${({ $isPaid }) => ($isPaid ? COLOR_BUTTON_CASHFLOW_ITEM_UNACTIVE : COLOR_BUTTON_CASHFLOW_ITEM_ACTIVE)};
 
 	transition: opacity ${CUBICS.easyOut} 250ms;
 

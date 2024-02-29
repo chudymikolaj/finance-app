@@ -3,7 +3,7 @@ export type CashFlowItemTagsType = {
 };
 
 export type CashFlowItemType = {
-	id: string;
+	id: number;
 	name: string;
 	value: number;
 	type?: string;

@@ -2,19 +2,17 @@
 
 import { useSession } from "next-auth/react";
 import { useState, type FormEvent } from "react";
-import { v4 as uuidv4 } from "uuid";
 
+import refreshMonetaryIncomesAxios from "@/utils/fetch/refreshMonetaryIncomesAxios";
+import refreshMonetaryExpensesAxios from "@/utils/fetch/refreshMonetaryExpensesAxios";
+import createCashFlowItemAxios from "@/utils/fetch/createCashFlowItemAxios";
 import { useAppContext } from "@/lib/ThemeProviderContext/actions";
 import setMaximumValue from "@/utils/setMaximumValue";
+
 import EditorWallet from "./EditorWallet";
 import SummaryTransactions from "./SummaryTransactions";
 
-import {
-	type ActionType,
-	type FormActionType,
-	type InputCashFlowType,
-	type ShowWalletEditorType,
-} from "./wallet.types";
+import { type FormActionType, type InputCashFlowType, type ShowWalletEditorType } from "./wallet.types";
 
 import {
 	WalletContainer,
@@ -26,12 +24,12 @@ import {
 
 const WalletComponent = () => {
 	const { data: session }: any = useSession();
-	const { constants, wallet, addExpense, addRevenue } = useAppContext();
+	const { constants, wallet, updateIncomesList, updateExpensesList } = useAppContext();
 
 	const maxValue = constants?.maxValue;
-	const sumRevenues = wallet?.sumRevenues;
+	const sumIncomes = wallet?.sumIncomes;
 	const sumBills = wallet?.sumBills;
-	const restRevenues = wallet?.restRevenues;
+	const restIncomes = wallet?.restIncomes;
 
 	const [showWalletEditor, setShowWalletEditor] = useState<ShowWalletEditorType>(false);
 	const [formAction, setFormAction] = useState<FormActionType>({
@@ -47,7 +45,7 @@ const WalletComponent = () => {
 		},
 		{
 			name: "Przychody",
-			slug: "revenue",
+			slug: "income",
 		},
 	];
 
@@ -86,22 +84,31 @@ const WalletComponent = () => {
 	const addToListElement = (event: FormEvent, maxValue: number) => {
 		event.preventDefault();
 		const currentDate = new Date().toJSON().slice(0, 10);
-
-		let typeAction: ActionType = (id, name, value, tags, userID, userJWT) =>
-			addExpense(id, name, value, tags, false, currentDate, userID, userJWT);
-
-		if (formAction.type === "revenue") {
-			typeAction = (id, name, value, tags, userID, userJWT) =>
-				addRevenue(id, name, value, tags, currentDate, userID, userJWT);
-		}
-
 		const changedSalary = Number(formAction.value);
 
 		if (formAction.value !== "" && formAction.text !== "" && changedSalary <= maxValue) {
 			const getUserID = session?.id;
 			const getUserJWT = session?.jwt;
 
-			typeAction(uuidv4(), formAction.text, Number(formAction.value), [], getUserID, getUserJWT);
+			const newCashFlowItem = {
+				name: formAction.text,
+				value: Number(formAction.value),
+				date: currentDate,
+				users_permissions_user: {
+					connect: [getUserID],
+				},
+			};
+
+			if (formAction.type === "income") {
+				createCashFlowItemAxios(newCashFlowItem, getUserJWT, "/api/monetary-incomes");
+				refreshMonetaryIncomesAxios(session, updateIncomesList);
+			}
+
+			if (formAction.type === "expense") {
+				createCashFlowItemAxios(newCashFlowItem, getUserJWT, "/api/monetary-expenses");
+				refreshMonetaryExpensesAxios(session, updateExpensesList);
+			}
+
 			resetForm();
 			setShowWalletEditor(false);
 		}
@@ -129,9 +136,9 @@ const WalletComponent = () => {
 				</WalletSummaryHeader>
 
 				<SummaryTransactions
-					valueOfTranactions={setMaximumValue(sumRevenues, maxValue)}
+					valueOfTranactions={setMaximumValue(sumIncomes, maxValue)}
 					valueOfBills={setMaximumValue(sumBills, maxValue)}
-					valueOfRest={setMaximumValue(restRevenues, maxValue)}
+					valueOfRest={setMaximumValue(restIncomes, maxValue)}
 				/>
 			</WalletSummary>
 

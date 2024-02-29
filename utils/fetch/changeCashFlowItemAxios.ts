@@ -1,14 +1,11 @@
 import axios from "axios";
 
-interface changeeDataItem {
-	id: string;
-	name: string;
-	value: number;
-	date: string;
+interface changeDataItem {
+	id: number;
 	isPaid?: boolean;
 }
 
-export default async function changeeCashFlowItemAxios(itemProps: changeeDataItem, jwt: string, endpoint: string) {
+export default async function changeCashFlowItemAxios(itemProps: changeDataItem, jwt: string, endpoint: string) {
 	try {
 		const data = {
 			data: {
