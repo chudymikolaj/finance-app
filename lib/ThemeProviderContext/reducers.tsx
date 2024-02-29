@@ -346,19 +346,6 @@ export function appReducer(state: AppState, action: Action): AppState {
 	}
 
 	if (action.type === "ADD_ASSET_TAB_ITEM") {
-		const createAssetItemAxios = {
-			name: action.newAssetListTabItem.name,
-			value: action.newAssetListTabItem.value,
-			assets_tab: {
-				connect: [Number(action.categoryTabId)],
-			},
-			users_permissions_user: {
-				connect: [action.userID],
-			},
-		};
-
-		createTabAssetItemAxios(createAssetItemAxios, action.userJWT, "/api/tab-assets");
-
 		const updatedAssetTabLists = state.assets_tabs.map((item) => {
 			if (item.id === action.categoryTabId) {
 				const updatedLists = [...item.tab_assets, action.newAssetListTabItem];

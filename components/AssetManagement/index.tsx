@@ -10,7 +10,6 @@ import "slick-carousel/slick/slick.css";
 
 import getUserDataAxios from "@/utils/fetch/getUserDataAxios";
 import updateTabValueAxios from "@/utils/fetch/updateTabValueAxios";
-
 import Line from "@/components/Line";
 import PopupComponent from "@/components/Popup";
 import AssetHeader from "./AssetManagementHeader";

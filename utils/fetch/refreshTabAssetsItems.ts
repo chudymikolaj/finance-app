@@ -3,7 +3,7 @@ import updateTabValueAxios from "./updateTabValueAxios";
 
 import { type AssetTabList } from "@/lib/ThemeProviderContext/ThemeProviderContext.types";
 
-const updateAssetListTabsItem = async (session: any, updateAssetListTabs: (assets_tabs: AssetTabList[]) => void) => {
+const refreshTabAssetsItems = async (session: any, updateAssetListTabs: (assets_tabs: AssetTabList[]) => void) => {
 	const resultAssetsTabs = await getUserDataAxios(
 		(session as any)?.jwt,
 		"?populate[assets_tabs][populate][tab_assets]=*"
@@ -28,4 +28,4 @@ const updateAssetListTabsItem = async (session: any, updateAssetListTabs: (asset
 	}
 };
 
-export default updateAssetListTabsItem;
+export default refreshTabAssetsItems;

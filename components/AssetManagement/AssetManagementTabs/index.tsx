@@ -108,7 +108,6 @@ const AssetManagementTabsComponent = ({ activeTabId, assets_tabs }: AssetManagem
 
 									{showPopupAsset && (
 										<FormAddAssetListTabItem
-											newId={tab_assets.length + 1}
 											categoryId={id}
 											tabId={id}
 											closePopup={closePopupAsset}

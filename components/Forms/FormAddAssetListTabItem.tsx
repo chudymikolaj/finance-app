@@ -1,31 +1,46 @@
 "use client";
 
-import { useForm, SubmitHandler } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 import { useAppContext } from "@/lib/ThemeProviderContext/actions";
-import ButtonSVG from "../Buttons/ButtonSvg";
-import { Input } from "./Input";
+import createTabAssetItemAxios from "@/utils/fetch/createTabAssetItemAxios";
+import refreshTabAssetsItems from "@/utils/fetch/refreshTabAssetsItems";
 
 import { type FormAddAssetListTabItemPropsType, type IFormValues } from "./Form.types";
 
-import { FormElement, FormElementHeader, FormElementSubmit, FormElementTitle } from "./Form.styled";
 import { useSession } from "next-auth/react";
+import ButtonSVG from "../Buttons/ButtonSvg";
+import { FormElement, FormElementHeader, FormElementSubmit, FormElementTitle } from "./Form.styled";
+import { Input } from "./Input";
 
-const FormAddAssetListTabItem = ({ newId, categoryId, closePopup }: FormAddAssetListTabItemPropsType) => {
+const FormAddAssetListTabItem = ({ categoryId, closePopup }: FormAddAssetListTabItemPropsType) => {
 	const { data: session } = useSession();
+	const { updateAssetListTabs } = useAppContext();
 	const { register, handleSubmit } = useForm<IFormValues>();
-	const { addAssetListTabItem } = useAppContext();
 
 	const onSubmit: SubmitHandler<IFormValues> = (data) => {
 		const userID = (session as any)?.id;
 		const userJWT = (session as any)?.jwt;
-		const addAssetItem: { id: number; name: string; value: number } = {
-			id: newId,
+
+		const addAssetItem: {
+			name: string;
+			value: number;
+			assets_tab: { connect: number[] };
+			users_permissions_user: { connect: number[] };
+		} = {
 			name: data.name,
 			value: Number(data.value),
+			assets_tab: {
+				connect: [categoryId],
+			},
+			users_permissions_user: {
+				connect: [userID],
+			},
 		};
 
-		addAssetListTabItem(userID, userJWT, categoryId, addAssetItem);
+		createTabAssetItemAxios(addAssetItem, userJWT, "/api/tab-assets");
+		refreshTabAssetsItems(session, updateAssetListTabs);
+
 		closePopup();
 	};
 
