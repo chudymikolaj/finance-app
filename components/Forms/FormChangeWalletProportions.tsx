@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import { useAppContext } from "@/lib/ThemeProviderContext/actions";
+import changeOptionShareAxios from "@/utils/fetch/changeOptionShareAxios";
 import ButtonSVG from "../Buttons/ButtonSvg";
 import { NumberInput } from "./Input";
 
@@ -11,7 +12,7 @@ import { type FormChangeWalletProportionsPropsType, type IFormValues } from "./F
 
 import { FormElement, FormElementHeader, FormElementSubmit, FormElementTitle, ErrorMessage } from "./Form.styled";
 
-const FormChangeWalletProportions = ({ closePopup }: FormChangeWalletProportionsPropsType) => {
+const FormChangeWalletProportions = ({ session, closePopup }: FormChangeWalletProportionsPropsType) => {
 	const { register, handleSubmit, setValue } = useForm<IFormValues>();
 	const { budget_options, changeBudgetAllocations } = useAppContext();
 	const [sumOfPercentage, setSumOfPercentage] = useState(false);
@@ -25,8 +26,6 @@ const FormChangeWalletProportions = ({ closePopup }: FormChangeWalletProportions
 		const ConvertToArrayPercentage = Object.entries(data);
 		let sum = 0;
 
-		console.log(data);
-
 		// calculate sum using forEach() method
 		ConvertToArrayPercentage.forEach((num) => {
 			sum += Number(num[1]);
@@ -35,6 +34,16 @@ const FormChangeWalletProportions = ({ closePopup }: FormChangeWalletProportions
 		if (sum <= 100) {
 			setSumOfPercentage(false);
 			changeBudgetAllocations(data);
+
+			Object.entries(data).forEach(([id, value]) => {
+				const option = {
+					id: Number(id),
+					share: Number(value) / 100,
+				};
+
+				changeOptionShareAxios(option, session?.jwt, "/api/budget-options");
+			});
+
 			closePopup();
 		} else {
 			setSumOfPercentage(true);
@@ -50,6 +59,7 @@ const FormChangeWalletProportions = ({ closePopup }: FormChangeWalletProportions
 					onClick={closePopup}
 				/>
 			</FormElementHeader>
+			{sumOfPercentage && <ErrorMessage>Zmniejsz sumę proporcji poniżej 100%</ErrorMessage>}
 			<FormElement onSubmit={handleSubmit(onSubmit)}>
 				{isBudgetAllocations &&
 					budget_options.map(({ id, title }) => (
@@ -67,7 +77,6 @@ const FormChangeWalletProportions = ({ closePopup }: FormChangeWalletProportions
 					))}
 
 				<FormElementSubmit type="submit">Zmień proporcje</FormElementSubmit>
-				{sumOfPercentage && <ErrorMessage>Zmniejsz sumę proporcji poniżej 100%</ErrorMessage>}
 			</FormElement>
 		</>
 	);

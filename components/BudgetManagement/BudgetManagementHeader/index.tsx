@@ -1,17 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import { useSession } from "next-auth/react";
 
 import { FormChangeWalletProportions } from "@/components/Forms";
 import PopupComponent from "@/components/Popup";
 
-import {
-	BudgetHeader,
-	BudgetHeaderTitle,
-	BudgetHeaderButton,
-} from "./BudgetManagementHeader.styled";
+import { BudgetHeader, BudgetHeaderTitle, BudgetHeaderButton } from "./BudgetManagementHeader.styled";
 
 const BudgetManagementHeader = () => {
+	const { data: session } = useSession();
 	const [openPopup, setOpenPopup] = useState(false);
 
 	const handleOpenPopup = () => setOpenPopup(true);
@@ -32,7 +30,10 @@ const BudgetManagementHeader = () => {
 				openPopup={openPopup}
 				closePopup={handleClosePopup}
 			>
-				<FormChangeWalletProportions closePopup={handleClosePopup} />
+				<FormChangeWalletProportions
+					session={session}
+					closePopup={handleClosePopup}
+				/>
 			</PopupComponent>
 		</>
 	);

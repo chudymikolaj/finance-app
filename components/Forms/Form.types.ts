@@ -19,6 +19,7 @@ export type FormEditAssetListTabItemPropsType = {
 };
 
 export type FormChangeWalletProportionsPropsType = {
+	session: any;
 	closePopup: () => void;
 };
 
