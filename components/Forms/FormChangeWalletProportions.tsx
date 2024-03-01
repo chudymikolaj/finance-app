@@ -25,6 +25,8 @@ const FormChangeWalletProportions = ({ closePopup }: FormChangeWalletProportions
 		const ConvertToArrayPercentage = Object.entries(data);
 		let sum = 0;
 
+		console.log(data);
+
 		// calculate sum using forEach() method
 		ConvertToArrayPercentage.forEach((num) => {
 			sum += Number(num[1]);

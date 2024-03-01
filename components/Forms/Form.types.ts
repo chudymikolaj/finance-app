@@ -23,9 +23,7 @@ export type FormChangeWalletProportionsPropsType = {
 };
 
 export interface IFormValues {
-	id: number;
-	name: string;
-	value: number;
+	[key: string]: string;
 }
 
 export type ReactNodeType = ReactNode;
