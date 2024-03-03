@@ -4,7 +4,7 @@ import { ReactSVG } from "react-svg";
 
 interface SVGImageProps {
 	src: any;
-	onClick: () => void;
+	onClick?: () => void;
 }
 
 const SVGImage = ({ src, onClick }: SVGImageProps) => {
