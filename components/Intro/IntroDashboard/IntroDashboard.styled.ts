@@ -5,12 +5,7 @@ import ButtonComponent from "@/components/Buttons/Button";
 
 import { devices } from "@/styles/breakpoints";
 
-import {
-	FlexRow,
-	FlexRowAlignCenter,
-	FlexColumn,
-	FlexRowSpaceBetweenCenter,
-} from "@/styles/mixins.styled";
+import { FlexRow, FlexRowAlignCenter, FlexColumn, FlexRowSpaceBetweenCenter } from "@/styles/mixins.styled";
 
 export const IntroDashboard = styled.div`
 	${FlexRowSpaceBetweenCenter}
@@ -19,12 +14,12 @@ export const IntroDashboard = styled.div`
 	padding: 40px 0;
 	margin: auto;
 
-	@media ${devices.md} {
-		width: 600px;
+	@media ${devices.lg} {
+		max-width: 768px;
 	}
 
 	@media ${devices.xl} {
-		width: 100%;
+		max-width: 100%;
 		padding: 80px 0 40px;
 	}
 `;
