@@ -87,7 +87,6 @@ const NavbarPublic = ({ publicNavbar }: PublicNavbarProps) => {
 																	key={id}
 																	href={href}
 																>
-																	{/* <SVGimage src="/logout.svg" /> */}
 																	<span>{name}</span>
 																</NavbarMenuListLink>
 															)

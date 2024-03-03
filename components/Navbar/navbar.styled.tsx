@@ -4,7 +4,7 @@ import ButtonRefSvg from "../Buttons/ButtonRefSvg";
 import ButtonSVG from "../Buttons/ButtonSvg";
 
 import { devices } from "@/styles/breakpoints";
-import { BORDER_RADIUS, SIZES, WEIGHT } from "@/styles/constants";
+import { BORDER_RADIUS, BORDER_RADIUS_10, SIZES, WEIGHT } from "@/styles/constants";
 
 import { FlexCenter, FlexColumnStart, FlexRowAlignCenter, FlexRowSpaceBetweenCenter } from "@/styles/mixins.styled";
 
@@ -49,8 +49,20 @@ export const NavbarMenu = styled.div`
 	gap: 10px;
 `;
 
-export const NavbarMenuNotification = styled(Link)`
+export const NavbarMenuNotification = styled.a`
+	width: 30px;
+	height: 30px;
 	padding: 5px;
+	border: 1px solid ${({ theme }) => theme.borderColor};
+	border-radius: ${BORDER_RADIUS_10};
+	tabindex: -1;
+	cursor: not-allowed;
+
+	svg,
+	div {
+		width: 16px;
+		margin: auto;
+	}
 `;
 
 export const NavbarDropdownMenu = styled.div`

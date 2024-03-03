@@ -95,7 +95,7 @@ const NavbarPrivate = () => {
 								return (
 									<NavbarMenuNotification
 										key={link.id}
-										href={link.link}
+										aria-disabled={true}
 									>
 										<SVGimage src="/notifications.svg" />
 									</NavbarMenuNotification>
