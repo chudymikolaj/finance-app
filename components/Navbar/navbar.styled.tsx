@@ -17,13 +17,26 @@ export const Navbar = styled.div`
 		margin: 30px 5vh;
 	}
 
-	${FlexRowSpaceBetweenCenter}
-
 	position: fixed;
 	top: 0;
 	left: 0;
 	right: 0;
 	z-index: 1000;
+`;
+
+export const NavbarWrapper = styled.div`
+	${FlexRowSpaceBetweenCenter}
+
+	width: 100%;
+	margin: auto;
+
+	@media ${devices.md} {
+		max-width: 768px;
+	}
+
+	@media ${devices.xl} {
+		max-width: 100%;
+	}
 `;
 
 export const NavbarLogotype = styled(Link)`

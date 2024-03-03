@@ -13,6 +13,7 @@ import { type PrivateNavbarLinkProps } from "./navbar.types";
 
 import {
 	Navbar,
+	NavbarWrapper,
 	NavbarDropdownMenu,
 	NavbarDropdownMenuButton,
 	NavbarLogotype,
@@ -82,86 +83,88 @@ const NavbarPrivate = () => {
 
 	return (
 		<Navbar>
-			<NavbarLogotype href="/">
-				<span>Planer Finansowy</span>
-			</NavbarLogotype>
+			<NavbarWrapper>
+				<NavbarLogotype href="/">
+					<span>Planer Finansowy</span>
+				</NavbarLogotype>
 
-			<NavbarMenu>
-				{loading &&
-					privateNavbar.map((link: PrivateNavbarLinkProps) => {
-						if (link.link === "/notifications") {
-							return (
-								<NavbarMenuNotification
-									key={link.id}
-									href={link.link}
-								>
-									<SVGimage src="/notifications.svg" />
-								</NavbarMenuNotification>
-							);
-						}
-
-						if (link.link?.link === "/dropdown") {
-							return (
-								<NavbarDropdownMenu key={link.id}>
-									<NavbarDropdownMenuButton
-										ref={toggleButtonRef}
-										action={toggleDropdown}
-										svgUrl="/more_vert.svg"
-									/>
-
-									<NavbarMenuDropdown
-										ref={dropdownMenuRef}
-										$show={showDropdownMenu}
+				<NavbarMenu>
+					{loading &&
+						privateNavbar.map((link: PrivateNavbarLinkProps) => {
+							if (link.link === "/notifications") {
+								return (
+									<NavbarMenuNotification
+										key={link.id}
+										href={link.link}
 									>
-										<NavbarMenuList>
-											<NavbarMenuListActiveProfile>{getUserEmail}</NavbarMenuListActiveProfile>
+										<SVGimage src="/notifications.svg" />
+									</NavbarMenuNotification>
+								);
+							}
 
-											<NavbarMenuListRest>
-												{link.dropdown.map(({ id, name, href }) => {
-													if (href === null) {
-														return (
-															<NavbarMenuListEmptyLink key={id}>
-																<span>{name}</span>
-															</NavbarMenuListEmptyLink>
-														);
-													}
+							if (link.link?.link === "/dropdown") {
+								return (
+									<NavbarDropdownMenu key={link.id}>
+										<NavbarDropdownMenuButton
+											ref={toggleButtonRef}
+											action={toggleDropdown}
+											svgUrl="/more_vert.svg"
+										/>
 
-													if (href !== "/logout") {
-														return (
-															<NavbarMenuListLink
-																key={id}
-																href={href}
-															>
-																<span>{name}</span>
-															</NavbarMenuListLink>
-														);
-													}
+										<NavbarMenuDropdown
+											ref={dropdownMenuRef}
+											$show={showDropdownMenu}
+										>
+											<NavbarMenuList>
+												<NavbarMenuListActiveProfile>{getUserEmail}</NavbarMenuListActiveProfile>
 
-													if (href === "/logout") {
-														return (
-															<NavbarMenuListLogout
-																key={id}
-																onClick={() => signOut()}
-															>
-																<SVGimage src="/logout.svg" />
-																<span>{name}</span>
-															</NavbarMenuListLogout>
-														);
-													}
-												})}
-											</NavbarMenuListRest>
+												<NavbarMenuListRest>
+													{link.dropdown.map(({ id, name, href }) => {
+														if (href === null) {
+															return (
+																<NavbarMenuListEmptyLink key={id}>
+																	<span>{name}</span>
+																</NavbarMenuListEmptyLink>
+															);
+														}
 
-											<NavbarMenuThemeToggle
-												onClick={toggleMode}
-												svgUrl={isMode}
-											/>
-										</NavbarMenuList>
-									</NavbarMenuDropdown>
-								</NavbarDropdownMenu>
-							);
-						}
-					})}
-			</NavbarMenu>
+														if (href !== "/logout") {
+															return (
+																<NavbarMenuListLink
+																	key={id}
+																	href={href}
+																>
+																	<span>{name}</span>
+																</NavbarMenuListLink>
+															);
+														}
+
+														if (href === "/logout") {
+															return (
+																<NavbarMenuListLogout
+																	key={id}
+																	onClick={() => signOut()}
+																>
+																	<SVGimage src="/logout.svg" />
+																	<span>{name}</span>
+																</NavbarMenuListLogout>
+															);
+														}
+													})}
+												</NavbarMenuListRest>
+
+												<NavbarMenuThemeToggle
+													onClick={toggleMode}
+													svgUrl={isMode}
+												/>
+											</NavbarMenuList>
+										</NavbarMenuDropdown>
+									</NavbarDropdownMenu>
+								);
+							}
+						})}
+				</NavbarMenu>
+			</NavbarWrapper>
 		</Navbar>
 	);
 };

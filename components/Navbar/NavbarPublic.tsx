@@ -9,6 +9,7 @@ import { type PublicNavbarLinkProps, type PublicNavbarProps } from "./navbar.typ
 
 import {
 	Navbar,
+	NavbarWrapper,
 	NavbarDropdownMenu,
 	NavbarDropdownMenuButton,
 	NavbarLogotype,
@@ -48,60 +49,62 @@ const NavbarPublic = ({ publicNavbar }: PublicNavbarProps) => {
 
 	return (
 		<Navbar>
-			<NavbarLogotype href="/">
-				<span>Planer Finansowy</span>
-			</NavbarLogotype>
+			<NavbarWrapper>
+				<NavbarLogotype href="/">
+					<span>Planer Finansowy</span>
+				</NavbarLogotype>
 
-			<NavbarMenu>
-				{publicNavbar &&
-					publicNavbar.map((link: PublicNavbarLinkProps) => {
-						if (link.link?.link !== "/dropdown") {
-							return (
-								<NavbarMenuNotification
-									key={link.id}
-									href={link.link}
-								>
-									{link.name}
-								</NavbarMenuNotification>
-							);
-						} else {
-							return (
-								<NavbarDropdownMenu key={link.id}>
-									<NavbarDropdownMenuButton
-										ref={toggleButtonRef}
-										action={toggleDropdown}
-										svgUrl="/more_vert.svg"
-									/>
-									<NavbarMenuDropdown
-										ref={dropdownMenuRef}
-										$show={showDropdownMenu}
+				<NavbarMenu>
+					{publicNavbar &&
+						publicNavbar.map((link: PublicNavbarLinkProps) => {
+							if (link.link?.link !== "/dropdown") {
+								return (
+									<NavbarMenuNotification
+										key={link.id}
+										href={link.link}
 									>
-										<NavbarMenuList>
-											<NavbarMenuListRest>
-												{link.dropdown?.map(
-													({ id, href, name }) =>
-														href && (
-															<NavbarMenuListLink
-																key={id}
-																href={href}
-															>
-																{/* <SVGimage src="/logout.svg" /> */}
-																<span>{name}</span>
-															</NavbarMenuListLink>
-														)
-												)}
-											</NavbarMenuListRest>
-											<NavbarMenuThemeToggle
-												onClick={toggleMode}
-												svgUrl={isMode}
-											/>
-										</NavbarMenuList>
-									</NavbarMenuDropdown>
-								</NavbarDropdownMenu>
-							);
-						}
-					})}
-			</NavbarMenu>
+										{link.name}
+									</NavbarMenuNotification>
+								);
+							} else {
+								return (
+									<NavbarDropdownMenu key={link.id}>
+										<NavbarDropdownMenuButton
+											ref={toggleButtonRef}
+											action={toggleDropdown}
+											svgUrl="/more_vert.svg"
+										/>
+										<NavbarMenuDropdown
+											ref={dropdownMenuRef}
+											$show={showDropdownMenu}
+										>
+											<NavbarMenuList>
+												<NavbarMenuListRest>
+													{link.dropdown?.map(
+														({ id, href, name }) =>
+															href && (
+																<NavbarMenuListLink
+																	key={id}
+																	href={href}
+																>
+																	{/* <SVGimage src="/logout.svg" /> */}
+																	<span>{name}</span>
+																</NavbarMenuListLink>
+															)
+													)}
+												</NavbarMenuListRest>
+												<NavbarMenuThemeToggle
+													onClick={toggleMode}
+													svgUrl={isMode}
+												/>
+											</NavbarMenuList>
+										</NavbarMenuDropdown>
+									</NavbarDropdownMenu>
+								);
+							}
+						})}
+				</NavbarMenu>
+			</NavbarWrapper>
 		</Navbar>
 	);
 };
