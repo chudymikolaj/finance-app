@@ -13,16 +13,12 @@ export const DashboardContainer = styled.div`
 	justify-content: center;
 	gap: 20px;
 
-	@media ${devices.md} {
-		grid-template-columns: 600px;
+	@media ${devices.lg} {
+		grid-template-columns: 768px;
 		gap: 30px;
 	}
 
 	@media ${devices.xl} {
-		grid-template-columns: 500px 1fr;
-	}
-
-	@media ${devices["2xl"]} {
 		grid-template-columns: 500px 1fr;
 	}
 `;
