@@ -39,6 +39,7 @@ export const CashFlowItemName = styled.span<{
 	gap: 10px;
 	flex: 1 0 100%;
 	display: inline;
+	line-height: normal;
 	white-space: nowrap; /* ensure no wrapping */
 	overflow: hidden;
 	text-overflow: ellipsis;
