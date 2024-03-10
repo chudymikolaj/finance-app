@@ -8,7 +8,7 @@ export const Button = styled.button`
 	${FlexCenter}
 	gap: 10px;
 
-	padding: 6px 10px;
+	padding: 6px;
 	background-color: ${({ theme }) => theme.buttonColor};
 	border: 1px solid ${({ theme }) => theme.buttonColorBorder};
 	border-radius: ${BORDER_RADIUS};
@@ -17,6 +17,7 @@ export const Button = styled.button`
 
 export const ButtonSvg = styled(Button)`
 	${FlexCenter}
+	height: 100%;
 
 	div {
 		width: auto;
@@ -24,8 +25,9 @@ export const ButtonSvg = styled(Button)`
 	}
 
 	svg {
-		height: 11px;
+		height: 10px;
 		width: 10px;
+		display: block;
 		transition: opacity ${CUBICS.easyOut} 250ms, transform ${CUBICS.easyOut} 250ms;
 	}
 
@@ -37,6 +39,7 @@ export const ButtonSvg = styled(Button)`
 
 export const ButtonSvgAndName = styled(Button)`
 	${FlexRowSpaceBetweenCenter}
+	height: 100%;
 
 	div {
 		width: auto;
@@ -44,7 +47,7 @@ export const ButtonSvgAndName = styled(Button)`
 	}
 
 	svg {
-		height: 11px;
+		height: 10px;
 		width: 10px;
 		transition: opacity ${CUBICS.easyOut} 250ms, transform ${CUBICS.easyOut} 250ms;
 	}
