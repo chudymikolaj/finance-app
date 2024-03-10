@@ -59,7 +59,7 @@ export const AssetManagementTabsTabListItemValue = styled.div`
 
 export const AssetManagementTabsTabListItemButtons = styled.div`
 	${FlexRow}
-	gap: 10px;
+	gap: 5px;
 `;
 
 export const AssetManagementTabsTabListItemButton = styled(ButtonSVG)`
