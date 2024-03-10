@@ -106,13 +106,7 @@ const AssetManagementComponent = () => {
 			<AssetHeader />
 			<Line />
 			<AssetCategoriesCategories>
-				{!isAssets && (
-					<AssetCategoriesCategory>
-						<span>Wczytywanie kategorii</span>
-					</AssetCategoriesCategory>
-				)}
-
-				{isAssets && (
+				{isAssets ? (
 					<>
 						<Slider {...slickSettings}>
 							{assets_tabs.map(({ id, name, value, goal, color }) => (
@@ -154,6 +148,10 @@ const AssetManagementComponent = () => {
 							/>
 						</PopupComponent>
 					</>
+				) : (
+					<AssetCategoriesCategory>
+						<span>Wczytywanie kategorii</span>
+					</AssetCategoriesCategory>
 				)}
 			</AssetCategoriesCategories>
 		</AssetCategoriesContainer>
